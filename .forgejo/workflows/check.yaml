@@ -6,16 +6,17 @@ jobs:
   check:
     container:
       image: git.zarantonello.dev/infra/ci:v3.0.4@sha256:2b74d31e6187f85a371817f8e32db14ee9105bdfd398cd2788734cb0883be9d6
+      volumes:
+        - forgejo-runner-cache-pnpm:/cache
     name: Checks
     runs-on: srv-generic
     steps:
       - name: Clone the repository
-        uses: https://data.forgejo.org/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        run: |
+          git clone --filter=blob:none --no-checkout https://${{ forge.token }}@git.zarantonello.dev/${{ forge.repository }} ${{ forge.workspace }};
+          git checkout --quiet ${{ forge.sha }};
       - name: Restore the pnpm cache
-        uses: https://data.forgejo.org/actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        with:
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ forge.workspace }}/.pnpm-store
+        run: if [ -d /cache/.pnpm-store ] ; then cp -r /cache/.pnpm-store/ . ; fi
       - name: Install dependencies with pnpm
         run: pnpm install
       - name: Run formatter
@@ -28,6 +29,11 @@ jobs:
         run: pnpm run build
       - name: Check for latex rendering errors
         run: sh -c '! grep cc0000 dist/ -rl'
+      - if: always()
+        name: Save the pnpm cache
+        run: |
+          rm -rf /cache/.pnpm-store/
+          cp -r .pnpm-store/ /cache/
 
 name: check.yaml
 

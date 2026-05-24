@@ -5,16 +5,26 @@ concurrency:
 jobs:
   build:
     container:
-      image: git.zarantonello.dev/infra/ci:v3.0.4@sha256:2b74d31e6187f85a371817f8e32db14ee9105bdfd398cd2788734cb0883be9d6
+      image: quay.io/podman/stable:v5.8.2@sha256:ae62f4e3e76fc8e5abe835ed9112ec58b7390e70415baca670500f872e77b025
+    env:
+      IMAGE: git.zarantonello.dev/${{ forge.repository }}:${{ forge.ref }}
     name: Build the container
-    runs-on: srv-generic
+    runs-on: srv-0-thi-home
     steps:
       - name: Clone the repository
-        uses: https://data.forgejo.org/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        run: |
+          git clone --filter=blob:none --no-checkout https://${{ forge.token }}@git.zarantonello.dev/${{ forge.repository }} ${{ forge.workspace }};
+          git checkout --quiet ${{ forge.sha }};
+      - name: Disable fuse-overlayfs
+        run: |
+          sed -i 's|mountopt = "nodev,fsync=0"||' /etc/containers/storage.conf;
+          sed -i 's|mount_program = "/usr/bin/fuse-overlayfs"||' /etc/containers/storage.conf;
       - name: Login to the container registry
-        run: docker login git.zarantonello.dev -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
+        run: podman login git.zarantonello.dev -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build the container image
-        run: docker build --push --tag git.zarantonello.dev/${{ forge.repository }}:${{ forge.ref_name }} .
+        run: podman build --tag ${{ env.IMAGE }} .
+      - name: Push the container image
+        run: podman push ${{ env.IMAGE }}
 
 name: build.yaml
 
