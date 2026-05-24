@@ -7,7 +7,7 @@ jobs:
     container:
       image: quay.io/podman/stable:v5.8.2@sha256:ae62f4e3e76fc8e5abe835ed9112ec58b7390e70415baca670500f872e77b025
     env:
-      IMAGE: git.zarantonello.dev/${{ forge.repository }}:${{ forge.ref }}
+      IMAGE: git.zarantonello.dev/${{ forge.repository }}:${{ forge.ref_name }}
     name: Build the container
     runs-on: srv-0-thi-home
     steps:
