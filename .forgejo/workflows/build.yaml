@@ -5,7 +5,7 @@ concurrency:
 jobs:
   build:
     container:
-      image: quay.io/podman/stable:v5.8.2@sha256:09c1f1e5d293516bfadd705de94f58b09d7d013f772cea755792b408f9d10ce0
+      image: quay.io/podman/stable:v5.8.2@sha256:2ddfe7fd1d596db0e3814259a2561f1a266c0bbfa5cf7001f227ef22023b217d
     env:
       IMAGE: git.zarantonello.dev/${{ forge.repository }}:${{ forge.ref_name }}
     name: Build the container
