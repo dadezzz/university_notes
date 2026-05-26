@@ -3,7 +3,7 @@ services:
     entrypoint:
       - sleep
       - infinity
-    image: git.zarantonello.dev/infra/ci:v3.0.5@sha256:ea0077cc3664164512d602576db0ef6cc45ef13ada812eab897cc31c0211e7ad
+    image: git.zarantonello.dev/infra/ci:v3.1.1@sha256:bed84d93be3c16150c71aab07849ac5bdc9626885b36ed612cd4b746c2965aab
     ports:
       - 4321:4321
     volumes:
