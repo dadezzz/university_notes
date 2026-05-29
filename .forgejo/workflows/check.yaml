@@ -7,16 +7,16 @@ jobs:
     container:
       image: git.zarantonello.dev/infra/ci:v3.1.2@sha256:911d72581b04fafb1a8d1c9236c4e882f7b9087e47bf6b3467128f138535d01a
       volumes:
-        - forgejo-runner-cache-pnpm:/cache
+        - forgejo-runner-cache-pnpm:/cache/pnpm
     name: Checks
-    runs-on: srv-generic
+    runs-on: srv-0-thi-home
     steps:
       - name: Clone the repository
         run: |
           git clone --filter=blob:none --no-checkout https://${{ forge.token }}@git.zarantonello.dev/${{ forge.repository }} ${{ forge.workspace }};
           git checkout --quiet ${{ forge.sha }};
       - name: Restore the pnpm cache
-        run: if [ -d /cache/.pnpm-store ] ; then cp -r /cache/.pnpm-store/ . ; fi
+        run: if [ -d /cache/pnpm/.pnpm-store ] ; then cp -r /cache/pnpm/.pnpm-store/ . ; fi
       - name: Install dependencies with pnpm
         run: pnpm install
       - name: Run formatter
@@ -32,8 +32,8 @@ jobs:
       - if: always()
         name: Save the pnpm cache
         run: |
-          rm -rf /cache/.pnpm-store/
-          cp -r .pnpm-store/ /cache/
+          rm -rf /cache/pnpm/.pnpm-store/
+          cp -r .pnpm-store/ /cache/pnpm/
 
 name: check.yaml
 

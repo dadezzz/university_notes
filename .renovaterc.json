@@ -6,12 +6,13 @@
     {
       "automerge": true,
       "matchFileNames": [".devcontainer/**", ".forgejo/**"],
-      "matchUpdateTypes": ["digest", "minor", "patch", "pin"]
+      "matchUpdateTypes": ["!major"],
+      "semanticCommitType": "ci"
     },
     {
       "automerge": true,
       "matchFileNames": ["Dockerfile"],
-      "matchUpdateTypes": ["digest", "minor", "patch", "pin"],
+      "matchUpdateTypes": ["!major"],
       "semanticCommitType": "fix"
     },
     {
@@ -21,17 +22,13 @@
     },
     {
       "automerge": true,
-      "matchPackageNames": ["@astro/check", "@biomejs/biome", "prettier*", "pnpm"],
-      "matchUpdateTypes": ["digest", "minor", "patch", "pin"]
+      "matchPackageNames": ["@astro/check", "@biomejs/biome", "prettier*", "pnpm", "typescript"],
+      "matchUpdateTypes": ["!major"],
+      "semanticCommitType": "chore"
     },
     {
       "automerge": true,
       "matchPackageNames": ["git.zarantonello.dev/university/notes"]
-    },
-    {
-      "automerge": true,
-      "matchPackageNames": ["typescript", "git.zarantonello.dev/infra/ci"],
-      "semanticCommitType": "chore"
     }
   ],
   "prHourlyLimit": 4
