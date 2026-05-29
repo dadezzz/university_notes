@@ -1,0 +1,28 @@
+concurrency:
+  cancel-in-progress: true
+  group: ${{ forge.ref }}-${{ forge.workflow }}
+
+jobs:
+  check:
+    container:
+      image: git.zarantonello.dev/university/notes:ci@sha256:b5c9c278674310f28001259708ab654fea05df2b0b7b98f1acf8cb9f19f2568d
+      volumes:
+        - forgejo-runner-cache-pnpm:/usr/local/pnpm/store
+    name: Checks with formatters
+    runs-on: srv-0-thi-home
+    steps:
+      - name: Clone the repository
+        run: |
+          git clone --filter=blob:none --no-checkout https://${{ forge.token }}@git.zarantonello.dev/${{ forge.repository }} ${{ forge.workspace }};
+          git checkout --quiet ${{ forge.sha }};
+      - name: Install dependencies with pnpm
+        run: pnpm install
+      - name: Run formatter
+        run: pnpm run format:check
+
+name: check-formatter.yaml
+
+"on":
+  pull_request:
+    branches:
+      - main

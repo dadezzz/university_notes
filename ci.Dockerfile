@@ -6,3 +6,8 @@ RUN apk add --no-cache git
 ENV PNPM_VERSION="11.3.0"
 
 RUN --mount=type=cache,sharing=locked,target=/root/.npm npm install -g "pnpm@$PNPM_VERSION"
+
+ENV PNPM_HOME="/usr/local/pnpm"
+ENV PATH="/usr/local/pnpm/bin:$PATH"
+
+RUN pnpm config set store-dir /usr/local/pnpm/store
