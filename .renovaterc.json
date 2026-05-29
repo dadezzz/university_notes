@@ -28,6 +28,12 @@
     },
     {
       "automerge": true,
+      "matchPackageNames": ["git.zarantonello.dev/university/notes"],
+      "matchCurrentVersion": "ci",
+      "semanticCommitType": "chore"
+    },
+    {
+      "automerge": true,
       "matchPackageNames": ["git.zarantonello.dev/university/notes"]
     }
   ],
