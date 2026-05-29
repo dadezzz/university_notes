@@ -22,7 +22,7 @@ jobs:
       - name: Login to the container registry
         run: podman login git.zarantonello.dev -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build the container image
-        run: podman build --tag ${{ env.IMAGE }} .
+        run: podman build --tag ${{ env.IMAGE }} . --file ci.Dockerfile
       - name: Push the container image
         run: podman push ${{ env.IMAGE }}
 
