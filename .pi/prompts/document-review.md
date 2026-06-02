@@ -37,7 +37,7 @@ correcting documents containing markdown with math blocks.
 ### Symbol Consistency
 
 - Use standard notation for common symbols (e.g., `\times`, `\cdot` for
-  multiplication, `\frac` for fractions)
+  multiplication, `\frac` for fractions) (rendered by Katex)
 - Ensure consistent use of notation throughout the document
 - Verify that Greek letters, operators, and special functions are properly
   formatted
