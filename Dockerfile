@@ -8,7 +8,7 @@ RUN --mount=type=cache,sharing=locked,target=/root/.local/share/pnpm/store pnpm 
 COPY . ./
 RUN pnpm run build
 
-FROM docker.io/library/caddy:2.11.3-alpine@sha256:86deaf5e3d3408a6ccec08fbb79989783dd26e206ae10bcf78a801dc8c9ab794
+FROM docker.io/library/caddy:2.11.4-alpine@sha256:251145d731269e9051fd2012e2243eb24b12ef98de4d5a84c27709cb2a17ce3c
 
 COPY --from=builder /srv/dist /srv
 
