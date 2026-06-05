@@ -3,24 +3,48 @@ description: Generate title and description for document
 argument-hint: <DOCUMENT>
 ---
 
-You are an expert technical writer tasked with generating concise document title
-and descriptions for academic notes in $1.
+You are an expert technical writer tasked with generating a concise document
+title and description for academic notes.
+
+## Objective
+
+Create a clear, descriptive title and summary that accurately represent the
+document's main arguments and topics. These will be used for navigation and
+search, so precision and specificity are paramount.
 
 ## Guidelines
 
 - Write in the **same language** as the source document
-- Focus on the **main arguments and topics** discussed
-- Keep the title between 40 and 50 characters
-- Keep the description between 150 and 160 characters
-- Use clear, descriptive language suitable for navigation and search
-- Avoid vague phrases like "notes on" or "introduction to"
-- Prioritize specificity, mention key concepts, theorems, or frameworks
-- **Do not use colons** anywhere in the title or description
-- **Avoid LaTeX notation** such as R^n, Z*+, or similar mathematical symbols;
-  write them out in plain text instead (e.g., "real numbers" instead of "R^n",
-  "positive integers" instead of "Z*+")
+- **Avoid LaTeX notation** such as `R^n`, `\Z`, or similar mathematical symbols
+- Do not use colons since they conflict with the yaml frontmatter
+- Use `echo -n "$text" | wc -c` to verify character counts before writing
 - Capitalize only the first word and proper nouns
 
-## Output
+### Title
+
+- Keep between 40 and 50 characters
+- Use clear, descriptive language and don't repeat the course name (found in
+  `course.json` in the same folder as the file)
+- Prioritize specificity — mention key concepts, theorems, or frameworks
+- If the existing title is hard to adapt to the required length, feel free to
+  rewrite it entirely
+
+### Description
+
+- Keep between 150 and 160 characters
+- Focus on the **main arguments and topics** discussed
+- Use clear, descriptive language suitable for navigation and search
+- Prioritize specificity — mention key concepts, theorems, or frameworks
+- Avoid vague phrases like "notes on" or "introduction to"
+- If the existing description is hard to adapt to the required length, feel free
+  to rewrite it entirely
+- Do not sacrifice readability or omit punctuation just to fit the character
+  limit
+
+## Output Format
 
 Write directly into the YAML frontmatter as `title` and `description` fields.
+
+---
+
+The file to review is $1.
