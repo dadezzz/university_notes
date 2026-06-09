@@ -1,7 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "assignees": ["davide"],
-  "extends": ["config:best-practices", "customManagers:biomeVersions", ":semanticCommits"],
+  "extends": [
+    "config:best-practices",
+    "customManagers:dockerfileVersions",
+    "customManagers:biomeVersions",
+    ":semanticCommits"
+  ],
   "packageRules": [
     {
       "automerge": true,
@@ -29,12 +34,7 @@
     {
       "automerge": true,
       "matchPackageNames": ["git.zarantonello.dev/university/notes"],
-      "matchCurrentVersion": "ci",
       "semanticCommitType": "chore"
-    },
-    {
-      "automerge": true,
-      "matchPackageNames": ["git.zarantonello.dev/university/notes"]
     }
   ],
   "prHourlyLimit": 4
