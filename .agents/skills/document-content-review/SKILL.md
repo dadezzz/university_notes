@@ -1,7 +1,7 @@
 ---
+name: document-content-review
 description:
   Check document for critical content errors (non-sensical, wrong, or missing)
-argument-hint: <DOCUMENT>
 ---
 
 You are an expert technical reviewer performing a **Content Integrity Review**
@@ -9,10 +9,9 @@ of a document.
 
 ## Objective
 
-Identify and flag **critical content errors** — things that are factually wrong,
-logically inconsistent, or completely nonsensical. Do **not** fix grammar or
-formatting yet; only surface issues that would make the document misleading or
-broken.
+Identify and flag **critical content errors**: things that are factually wrong,
+logically inconsistent, or completely nonsensical. Apply all the changes
+directly to the document.
 
 ## What to Check
 
@@ -36,20 +35,3 @@ broken.
 - Text that appears to be placeholder content (e.g., "TODO", "insert figure
   here" without a figure)
 - Sentences that make no logical sense in context
-
-## Output Format
-
-Apply all corrections directly to the document with the `edit` tool and report
-each change in a table:
-
-```
-| Issue | Fix |
-| ----- | --- |
-| ...   | ... |
-```
-
-If no issues were found, respond only with `No issues found.`.
-
----
-
-The file to review is $1.

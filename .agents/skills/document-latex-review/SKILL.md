@@ -1,6 +1,8 @@
 ---
-description: Check and fix LaTeX formatting, spacing, and notation conventions
-argument-hint: <DOCUMENT>
+name: document-latex-review
+description:
+  Check and fix LaTeX formatting, spacing, and notation conventions in
+  KaTeX-rendered documents
 ---
 
 You are an expert typesetter performing a **LaTeX Formatting & Spacing Review**
@@ -10,7 +12,7 @@ of a document.
 
 Fix all LaTeX formatting issues and enforce conventional, standard spacing
 throughout the document. The goal is a polished, professionally-typeset
-appearance.
+appearance. Apply all the changes directly to the document.
 
 ## Rendering Engine
 
@@ -32,8 +34,6 @@ Apply these spacing rules throughout the document:
 - Add space around binary operators when they appear between terms: `$a + b$`
   not `$a+b$`
 - Use `\;` or `\,` for intentional small gaps in complex expressions
-- Do **not** add extra spaces inside math mode — TeX handles spacing
-  automatically
 
 ### Display Math Spacing
 
@@ -42,12 +42,6 @@ Apply these spacing rules throughout the document:
 - Use `align*` or `gather*` environments for multi-line equations, not manual
   line breaks
 - Align on relation symbols (`=`) using `&` before the operator: `&= ...`
-
-### Text-Mode in Math
-
-- Use `\mathrm{}` for units and function names: `$\mathrm{d}x$`, `\sin`, `\cos`
-- Do **not** use italic for multi-character identifiers: `$x_{\mathrm{max}}$`,
-  `$\lambda_{\mathrm{max}}$`, `$\Delta H$`
 
 ### Operators & Symbols
 
@@ -62,7 +56,6 @@ Apply these spacing rules throughout the document:
 
 - Ensure all Greek letters use the correct command: `$\alpha$`, `$\beta$`,
   `$\theta$`, etc.
-- Use `\mathrm{}` for function names
 - Use `\mathbb{}` for number sets: `\mathbb{R}`, `\mathbb{C}`, `\mathbb{N}`,
   `\mathbb{Z}`
 - Use `\mathcal{}` for calligraphic letters: `\mathcal{L}`, `\mathcal{H}`
@@ -80,20 +73,3 @@ them with standard LaTeX equivalents during the review.
 Only fix LaTeX formatting, spacing, and notation issues. Do **not** modify
 grammar, phrasing, or content — those are handled by the Grammar & Style Review
 and Content Integrity Review respectively.
-
-## Output Format
-
-Apply all corrections directly to the document with the `edit` tool and report
-each change in a table:
-
-```
-| Issue | Fix |
-| ----- | --- |
-| ...   | ... |
-```
-
-If no issues were found, respond only with `No issues found.`.
-
----
-
-The file to review is $1.

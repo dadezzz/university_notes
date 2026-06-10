@@ -106,13 +106,13 @@ Alternatively, follow the manual installation steps below.
 
 ## AI
 
-Content is human-written and AI-reviewed. You can find some useful prompt
-templates in the `.pi/prompts/` directory.
+Content is human-written and AI-reviewed. Review skills are located in
+`.agents/skills/`:
 
-- `.pi/prompts/document-review.md`: Review grammar and latex in the given
-  document.
-- `.pi/prompts/document-description.md`: Generate title and description metadata
-  for the given document.
+- `document-content-review` – factual/logical errors
+- `document-grammar-review` – grammar, spelling, style
+- `document-latex-review` – KaTeX formatting, spacing, notation
+- `document-description` – frontmatter title/description generation
 
 ## License
 
