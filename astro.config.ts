@@ -49,7 +49,7 @@ const sidebar = [
           {
             label: "Elaborazione dei segnali",
             collapsed: true,
-            items: [{ autogenerate: { directory: "1/2/146128-2" } }],
+            items: [{ autogenerate: { directory: "2/1/146128-2" } }],
           },
           {
             label: "Fisica 2",
