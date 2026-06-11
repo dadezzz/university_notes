@@ -10,6 +10,8 @@
   "packageRules": [
     {
       "automerge": true,
+      "groupName": "CI dependencies",
+      "groupSlug": "ci",
       "matchFileNames": [".devcontainer/**", ".forgejo/**", "ci.Dockerfile"],
       "matchUpdateTypes": ["!major"],
       "semanticCommitType": "ci"
