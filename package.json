@@ -12,7 +12,7 @@
   "devDependencies": {
     "@astrojs/check": "0.9.9",
     "@biomejs/biome": "2.4.16",
-    "prettier": "3.8.3",
+    "prettier": "3.8.4",
     "prettier-plugin-astro": "0.14.1"
   },
   "packageManager": "pnpm@11.5.2",
