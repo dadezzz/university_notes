@@ -39,5 +39,5 @@
       "semanticCommitType": "chore"
     }
   ],
-  "prHourlyLimit": 4
+  "prHourlyLimit": 6
 }
