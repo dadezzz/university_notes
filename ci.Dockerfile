@@ -3,7 +3,7 @@ FROM docker.io/library/node:26.3.0-alpine@sha256:3ad34ca6292aec4a91d8ddeb9229e29
 RUN apk add --no-cache git
 
 # renovate: datasource=npm depName=pnpm versioning=npm
-ENV PNPM_VERSION="11.5.3"
+ENV PNPM_VERSION="11.6.0"
 
 RUN --mount=type=cache,sharing=locked,target=/root/.npm npm install -g "pnpm@$PNPM_VERSION"
 
