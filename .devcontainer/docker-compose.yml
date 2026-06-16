@@ -1,7 +1,7 @@
 services:
   workspace:
     entrypoint: sleep infinity
-    image: git.zarantonello.dev/university/notes:ci@sha256:4c26c65d4d5e59709e11abdbd924e89ec3b3b964f3471ea65e75cd211ddea038
+    image: git.zarantonello.dev/university/notes:ci@sha256:72c674d2a824431c837967dbddcde6f4aa6834832bd1ad3b570423422658cc1e
     ports:
       - 4321:4321
     volumes:
