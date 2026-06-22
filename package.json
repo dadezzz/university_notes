@@ -15,7 +15,7 @@
     "prettier": "3.8.4",
     "prettier-plugin-astro": "0.14.1"
   },
-  "packageManager": "pnpm@11.7.0",
+  "packageManager": "pnpm@11.8.0",
   "scripts": {
     "build": "astro build",
     "check": "astro check",
