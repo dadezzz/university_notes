@@ -6,7 +6,7 @@
     "katex": "0.17.0",
     "rehype-katex": "7.0.1",
     "remark-math": "6.0.0",
-    "sharp": "0.35.1",
+    "sharp": "0.35.2",
     "typescript": "6.0.3"
   },
   "devDependencies": {
