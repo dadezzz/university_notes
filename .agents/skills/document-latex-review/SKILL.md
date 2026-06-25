@@ -12,7 +12,7 @@ of a document.
 
 Fix all LaTeX formatting issues and enforce conventional, standard spacing
 throughout the document. The goal is a polished, professionally-typeset
-appearance. Apply all the changes directly to the document.
+appearance. At the end, apply all the changes to the document.
 
 ## Rendering Engine
 

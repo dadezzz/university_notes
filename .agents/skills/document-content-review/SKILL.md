@@ -10,8 +10,8 @@ of a document.
 ## Objective
 
 Identify and flag **critical content errors**: things that are factually wrong,
-logically inconsistent, or completely nonsensical. Apply all the changes
-directly to the document.
+logically inconsistent, or completely nonsensical. At the end, apply all the
+changes to the document.
 
 ## What to Check
 
