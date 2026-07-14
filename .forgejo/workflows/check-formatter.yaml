@@ -5,7 +5,7 @@ concurrency:
 jobs:
   check:
     container:
-      image: git.zarantonello.dev/university/notes:ci@sha256:710653d61ab473f9bd77162eb34e23eb17376933db6dd883cfd2f9a0e40383cb
+      image: git.zarantonello.dev/university/notes:ci@sha256:f50a97525c08297d9b94c16faf61b27a6324f8b3d58a934eb6e0f5508c55cbc7
       volumes:
         - forgejo-runner-cache-pnpm:/usr/local/pnpm/store
     name: Checks with formatters
