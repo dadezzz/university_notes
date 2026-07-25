@@ -9,7 +9,7 @@ jobs:
     env:
       IMAGE: git.zarantonello.dev/${{ forge.repository }}:${{ forge.ref_name }}
     name: Build the container
-    runs-on: srv-0-thi-home
+    runs-on: srv-home
     steps:
       - name: Clone the repository
         run: |
