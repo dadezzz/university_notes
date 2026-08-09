@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: university-notes
+resources:
+  - deployments/notes.yaml
+  - git-repositories/university-notes.yaml
+  - http-routes/default.yaml
+  - kustomization.flux.yaml
+  - namespace.yaml
+  - service-accounts/default.yaml
+  - services/notes.yaml
