@@ -7,6 +7,9 @@
     "customManagers:biomeVersions",
     ":semanticCommits"
   ],
+  "kubernetes": {
+    "managerFilePatterns": ["kubernetes/.+\\.yaml$/"]
+  },
   "packageRules": [
     {
       "automerge": true,

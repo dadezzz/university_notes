@@ -32,67 +32,75 @@ courses.sort((a, b) => a.id.localeCompare(b.id));
 
   <p>
     If you find any errors or have suggestions for improvements, please contribute! Submit corrections via
-    <a href="https://git.zarantonello.dev/university/notes">Git</a>. To get access, send me an email to request an
-    account.
+    <a style="margin-left: 0.25rem;" href="https://git.zarantonello.dev/university/notes">Git</a>. To get access, send
+    me an email to request an account.
   </p>
 
   <h2>Courses</h2>
 
   <ul>
-    <li>First year, first semester:</li>
+    <li>
+      <span>First year, first semester:</span>
 
-    <ul>
-      {
-        courses
-          .filter((c) => c.id.startsWith("1/1"))
-          .map((c) => (
-            <li>
-              <CoursePageLink course={c} />
-            </li>
-          ))
-      }
-    </ul>
+      <ul>
+        {
+          courses
+            .filter((c) => c.id.startsWith("1/1"))
+            .map((c) => (
+              <li>
+                <CoursePageLink course={c} />
+              </li>
+            ))
+        }
+      </ul>
+    </li>
 
-    <li>First year, second semester:</li>
+    <li>
+      <span>First year, second semester:</span>
 
-    <ul>
-      {
-        courses
-          .filter((c) => c.id.startsWith("1/2"))
-          .map((c) => (
-            <li>
-              <CoursePageLink course={c} />
-            </li>
-          ))
-      }
-    </ul>
+      <ul>
+        {
+          courses
+            .filter((c) => c.id.startsWith("1/2"))
+            .map((c) => (
+              <li>
+                <CoursePageLink course={c} />
+              </li>
+            ))
+        }
+      </ul>
+    </li>
 
-    <li>Second year, first semester:</li>
+    <li>
+      <span>Second year, first semester:</span>
 
-    <ul>
-      {
-        courses
-          .filter((c) => c.id.startsWith("2/1"))
-          .map((c) => (
-            <li>
-              <CoursePageLink course={c} />
-            </li>
-          ))
-      }
-    </ul>
+      <ul>
+        {
+          courses
+            .filter((c) => c.id.startsWith("2/1"))
+            .map((c) => (
+              <li>
+                <CoursePageLink course={c} />
+              </li>
+            ))
+        }
+      </ul>
+    </li>
 
-    <li>Second year, second semester:</li>
+    <li>
+      <span>Second year, second semester:</span>
 
-    <ul>
-      {
-        courses
-          .filter((c) => c.id.startsWith("2/2"))
-          .map((c) => (
-            <li>
-              <CoursePageLink course={c} />
-            </li>
-          ))
-      }
-    </ul>
+      <ul>
+        {
+          courses
+            .filter((c) => c.id.startsWith("2/2"))
+            .map((c) => (
+              <li>
+                <CoursePageLink course={c} />
+              </li>
+            ))
+        }
+      </ul>
+    </li>
   </ul>
 </StarlightPage>

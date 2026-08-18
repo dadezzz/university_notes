@@ -10,3 +10,9 @@ const { course } = Astro.props;
 
 <a href={`/${course.id.substring(0, course.id.lastIndexOf("/"))}`}>{course.data.name}</a>
 <span>[{course.data.code}]</span>
+
+<style>
+  span {
+    margin-left: 0.5rem;
+  }
+</style>
