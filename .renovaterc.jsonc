@@ -1,0 +1,59 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "assignees": ["davide"],
+  "extends": [
+    "config:best-practices",
+    "customManagers:dockerfileVersions",
+    "customManagers:biomeVersions",
+    ":semanticCommits"
+  ],
+  "kubernetes": {
+    "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"]
+  },
+  "packageRules": [
+    // Automerge and group devcontainer, actions and ci deps.
+    {
+      "automerge": true,
+      "groupName": "CI dependencies",
+      "groupSlug": "ci",
+      "matchFileNames": [".devcontainer/**", ".forgejo/**", "ci.Dockerfile"],
+      "matchUpdateTypes": ["!major"],
+      "semanticCommitType": "ci"
+    },
+    // Automerge the ci image and don't trigger a release even in Dockerfile.
+    // Also the pnpm in the packageManager in package.json.
+    {
+      "automerge": true,
+      "groupName": "CI dependencies",
+      "groupSlug": "ci",
+      "matchPackageNames": ["git.zarantonello.dev/university/notes-ci", "pnpm"],
+      "semanticCommitType": "ci"
+    },
+    // Rebuild the container if something like caddy is updated in the Dockerfile.
+    {
+      "automerge": true,
+      "matchFileNames": ["Dockerfile"],
+      "matchUpdateTypes": ["!major"],
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchFileNames": ["Dockerfile"],
+      "matchUpdateTypes": ["major"],
+      "semanticCommitType": "feat"
+    },
+    // Automerge linters and formatters.
+    {
+      "automerge": true,
+      "matchPackageNames": ["@astro/check", "@biomejs/biome", "prettier*", "pnpm", "typescript"],
+      "matchUpdateTypes": ["!major"],
+      "semanticCommitType": "chore"
+    },
+    // Automerge the container image in the kubernetes deployment.
+    {
+      "automerge": true,
+      "matchPackageNames": ["git.zarantonello.dev/university/notes"],
+      "semanticCommitType": "chore"
+    }
+  ],
+  "prHourlyLimit": 6
+}
