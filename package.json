@@ -1,4 +1,15 @@
 {
+  "type": "module",
+  "scripts": {
+    "build": "astro build",
+    "check": "astro check",
+    "clean": "rm -rf .pnpm-store .astro/ dist/ node_modules/",
+    "dev": "astro dev --host",
+    "format:check": "biome format && prettier --check .",
+    "format:fix": "biome format --fix && prettier --write .",
+    "lint:check": "biome lint",
+    "lint:fix": "biome lint --fix"
+  },
   "dependencies": {
     "@astrojs/markdown-remark": "7.2.4",
     "@astrojs/starlight": "0.41.9",
@@ -15,16 +26,5 @@
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1"
   },
-  "packageManager": "pnpm@11.24.0",
-  "scripts": {
-    "build": "astro build",
-    "check": "astro check",
-    "clean": "rm -rf .pnpm-store .astro/ dist/ node_modules/",
-    "dev": "astro dev --host",
-    "format:check": "biome format && prettier --check .",
-    "format:fix": "biome format --fix && prettier --write .",
-    "lint:check": "biome lint",
-    "lint:fix": "biome lint --fix"
-  },
-  "type": "module"
+  "packageManager": "pnpm@11.24.0"
 }
