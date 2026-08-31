@@ -77,11 +77,6 @@ const sidebar = [
         label: "Second Semester",
         items: [
           {
-            label: "Calcolatori",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/2/146309-2" } }],
-          },
-          {
             label: "Circuiti elettronici digitali",
             collapsed: true,
             items: [{ autogenerate: { directory: "2/2/146129-2" } }],

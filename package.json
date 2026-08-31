@@ -4,7 +4,7 @@
     "build": "astro build",
     "check": "astro check",
     "clean": "rm -rf .pnpm-store .astro/ dist/ node_modules/",
-    "dev": "astro dev --host",
+    "dev": "astro dev",
     "format:check": "biome format && prettier --check .",
     "format:fix": "biome format --fix && prettier --write .",
     "lint:check": "biome lint",
