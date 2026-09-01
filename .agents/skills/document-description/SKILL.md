@@ -18,7 +18,7 @@ to the document yaml frontmatter as `title` and `description` fields.
 - Write in the **same language** as the source document
 - **Avoid LaTeX notation** such as `R^n`, `\Z`, or similar mathematical symbols
 - **Do not use colons** (`:`) since they conflict with the yaml frontmatter
-- Always use `echo "$text" | wc -c` to verify character counts
+- Always use `echo "$text" | wc -m` to verify character counts
 - Capitalize only the first word and proper nouns
 
 ### Title

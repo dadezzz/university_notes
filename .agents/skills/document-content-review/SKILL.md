@@ -11,7 +11,7 @@ of a document.
 
 Identify and flag **critical content errors**: things that are factually wrong,
 logically inconsistent, or completely nonsensical. At the end, apply all the
-changes to the document.
+changes to the document, but you don't need to leave the files formatted.
 
 ## What to Check
 
@@ -28,6 +28,9 @@ changes to the document.
 - Sections that are empty, truncated, or obviously incomplete
 - Headings with no content beneath them
 - Abrupt endings or cut-off paragraphs
+
+You don't need to check for the existence of images since that is already caught
+automatically.
 
 ### Coherence
 

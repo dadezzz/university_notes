@@ -10,7 +10,7 @@ document.
 
 Correct all grammar, spelling, phrasing, and style issues. Ensure the document
 reads clearly and professionally. At the end apply all the changes to the
-document.
+document, but you don't need to leave the files formatted or line-wrapped.
 
 ## What to Check
 
@@ -32,7 +32,6 @@ document.
   apostrophes
 - Ensure proper use of quotation marks, parentheses, and dashes
 - Fix spacing around punctuation
-- All points in a list should terminate either with a semicolon or a period
 
 ### Phrasing & Readability
 

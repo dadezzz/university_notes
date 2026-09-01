@@ -12,7 +12,8 @@ of a document.
 
 Fix all LaTeX formatting issues and enforce conventional, standard spacing
 throughout the document. The goal is a polished, professionally-typeset
-appearance. At the end, apply all the changes to the document.
+appearance. At the end, apply all the changes to the document, but you don't
+need to leave the files formatted.
 
 ## Rendering Engine
 
@@ -29,11 +30,11 @@ Apply these spacing rules throughout the document:
 
 ### Inline Math Spacing
 
-- Place a thin space (or `\,`) between a number and a unit: `$5\,\mathrm{kg}$`
+- Place a thin space (or `\ `) between a number and a unit: `$5\,\mathrm{kg}$`
   not `$5kg$`
 - Add space around binary operators when they appear between terms: `$a + b$`
   not `$a+b$`
-- Use `\;` or `\,` for intentional small gaps in complex expressions
+- Use `\ ` for intentional small gaps in complex expressions
 
 ### Display Math Spacing
 
