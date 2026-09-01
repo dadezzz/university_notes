@@ -1,4 +1,4 @@
-FROM git.zarantonello.dev/infra/ci-pnpm:v1.0.0@sha256:d6119c2fbece2b90644fed77bae5065281ca460ac12d52b5e5909e0ac4519bf7 AS builder
+FROM git.zarantonello.dev/university/notes-ci:v2026.09.01.1@sha256:fa2ed8da92de7f468a998441e50aea7409414756ec8a2d2aa3eba9e7f6cffa5d AS builder
 
 WORKDIR /srv
 

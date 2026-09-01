@@ -28,7 +28,7 @@
       "automerge": true,
       "groupName": "CI dependencies",
       "groupSlug": "ci",
-      "matchFileNames": [".devcontainer/**", ".forgejo/**"],
+      "matchFileNames": [".devcontainer/**", ".forgejo/**", "ci.Dockerfile"],
       "matchUpdateTypes": ["!major"],
       "semanticCommitType": "ci"
     },
@@ -38,7 +38,7 @@
       "automerge": true,
       "groupName": "CI dependencies",
       "groupSlug": "ci",
-      "matchPackageNames": ["git.zarantonello.dev/infra/ci-pnpm", "pnpm"],
+      "matchPackageNames": ["git.zarantonello.dev/university/notes-ci", "pnpm"],
       "semanticCommitType": "ci"
     },
     // Automerge less important packages.
