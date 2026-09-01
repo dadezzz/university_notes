@@ -41,10 +41,10 @@
       "matchPackageNames": ["git.zarantonello.dev/infra/ci-pnpm", "pnpm"],
       "semanticCommitType": "ci"
     },
-    // Automerge linters and formatters.
+    // Automerge less important packages.
     {
       "automerge": true,
-      "matchPackageNames": ["@astro/check", "@biomejs/biome", "prettier*", "pnpm", "typescript"],
+      "matchPackageNames": ["@astro/check", "@biomejs/biome", "prettier*", "typescript", "@types/*"],
       "matchUpdateTypes": ["!major"],
       "semanticCommitType": "chore"
     },
