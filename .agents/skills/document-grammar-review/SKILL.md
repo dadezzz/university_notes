@@ -40,6 +40,8 @@ document, but you don't need to leave the files formatted or line-wrapped.
 - Remove redundant words or filler phrases
 - Break up overly long or complex sentences
 - Ensure active voice is used where appropriate
+- Remove the usage of first person singular, change it with first person plural
+  or impersonal
 
 ### Capitalization
 

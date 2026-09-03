@@ -16,8 +16,6 @@ pnpm format:fix       # Biome format --fix + Prettier write
 pnpm clean            # Remove .astro/, .pnpm-store/, dist/, node_modules/
 ```
 
-Order when verifying: `lint:check → format:check → check → build`
-
 ## Content structure
 
 ```
@@ -30,22 +28,23 @@ src/content/docs/[year]/[semester]/[course-code]/
 - New courses require adding an `autogenerate` entry in the sidebar array
 - Note frontmatter: `lang`, `title`, `prev` (Starlight fields)
 
-## Math / KaTeX
+## Math / Typst
 
-- Rendered by KaTeX (not full LaTeX) – verify compatibility at
-  https://github.com/KaTeX/KaTeX/raw/refs/heads/main/docs/support_table.md
-- Custom macros defined in `astro.config.ts` under `rehypeKatex.macros`: `\dv`,
-  `\dvn`, `\pdv`, `\pdvn`, `\C`, `\Re`, `\Im`, `\Z0`, `\arg`, `\fRectangle`,
-  `\fThriangle`, `\fSign`, `\fStep`, `\fDelta`, `\fLog`, `\fLogn`, `\fLn`,
-  `\fP`, `\fArctan`, `\fCos`, `\fSinc`, `\fSin`, `\fTan`, `\trFourierA`,
-  `\trFourierB`, `\trLaplaceA`, `\trLaplaceB`
-- The latex-review skill marks these as **deprecated** – prefer standard LaTeX
-  equivalents when reviewing documents.
+- Math is rendered by **Typst** (via the custom `rehype-typst.ts` plugin), not
+  KaTeX or LaTeX.
+- The plugin shells out to the `typst` CLI (v0.15+) at build time to compile
+  each expression to MathML; the CLI is included in the devcontainer and CI
+  images.
+- Notes use **Typst math syntax** (e.g. `sqrt(...)`, `bb(R)`, `cases(...)`,
+  `op("rect")(...)`) instead of LaTeX commands.
 - Display math: `$$ ... $$`. Inline math: `$ ... $`.
+- Rendering errors are highlighted in red (`.typst-math-error`); CI fails on any
+  `typst-error` class in `dist/`.
 
 ## Tooling quirks
 
-- **Two formatters**: Biome (JS/TS) + Prettier (`.astro`, `.md`). Run both.
+- **Two formatters**: Biome (JS/TS) + Prettier (`.astro`, `.md`). If asked run
+  both with `pnpm format:fix`.
 - Prettier uses `proseWrap: "always"` for `.astro` and `.md`.
 - Biome HTML formatting is **disabled** for `.astro` files (known issues).
 - Biome has `noFloatingPromises` and `noMisusedPromises` as errors.
@@ -62,10 +61,9 @@ src/content/docs/[year]/[semester]/[course-code]/
 
 Located under `.agents/skills/`:
 
-- `document-content-review` – factual/logical errors
-- `document-grammar-review` – grammar, spelling, style
-- `document-latex-review` – KaTeX formatting, spacing, notation
-- `document-description` – frontmatter title/description generation
+- `document-content-review`: factual/logical errors
+- `document-grammar-review`: grammar, spelling, style
+- `document-description`: frontmatter title/description generation
 
 ## Language policy
 

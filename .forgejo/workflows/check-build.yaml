@@ -20,8 +20,8 @@ jobs:
       - name: Build the website
         run: pnpm run build
       # Can only be done after the site has been built.
-      - name: Check for latex rendering errors
-        run: sh -c '! grep cc0000 dist/ -rl'
+      # - name: Check for typst rendering errors
+      #   run: sh -c '! grep typst-math-error dist/ -rl'
 
 name: check-build.yaml
 

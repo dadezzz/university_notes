@@ -1,5 +1,36 @@
-/* Makes long math expressions scrollable horizontally. */
-.katex-display > .katex {
-  overflow-x: auto;
+@font-face {
+  font-family: "STIXTWOMath";
+  src: url("../fonts/STIXTwoMath-Regular.woff2") format("woff2");
+}
+
+.typst-math {
+  font-family: "STIXTwoMath", serif;
+  /* Make font as large as normal text. */
+  font-size: 125%;
+}
+
+/* Make block expressions horizontally scrollable. */
+.typst-math:has(> math[display="block"]) {
+  max-width: 100%;
+  /* Hide vertical scrollbars that are sometimes added by browsers. */
   overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+/* Disable wrapping block expressions, to give priority to scrolling. */
+.typst-math > math[display="block"] {
+  white-space: nowrap;
+}
+
+/* Highlight errors. */
+.typst-math-error {
+  color: red;
+}
+
+/* Make equations align, works only for 2 columns where alignment is r|l */
+.typst-math mtable.aligned mtr mtd:first-child {
+  text-align: right;
+}
+.typst-math mtable.aligned mtr mtd:last-child {
+  text-align: left;
 }

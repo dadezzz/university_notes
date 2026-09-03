@@ -60,6 +60,8 @@ Alternatively, follow the manual installation steps below.
 
 - [Node.js](https://nodejs.org/)
 - [pnpm](https://pnpm.io/)
+- [Typst](https://typst.app/) (v0.15+, required to render math; already included
+  in the devcontainer)
 
 #### Installation
 
@@ -109,10 +111,9 @@ Alternatively, follow the manual installation steps below.
 Content is human-written and AI-reviewed. Review skills are located in
 `.agents/skills/`:
 
-- `document-content-review` – factual/logical errors
-- `document-grammar-review` – grammar, spelling, style
-- `document-latex-review` – KaTeX formatting, spacing, notation
-- `document-description` – frontmatter title/description generation
+- `document-content-review`: factual/logical errors
+- `document-grammar-review`: grammar, spelling, style
+- `document-description`: frontmatter title/description generation
 
 ## License
 

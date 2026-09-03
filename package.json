@@ -14,15 +14,16 @@
     "@astrojs/markdown-remark": "7.2.4",
     "@astrojs/starlight": "0.41.10",
     "astro": "7.2.9",
-    "katex": "0.18.4",
-    "rehype-katex": "7.0.1",
     "remark-math": "6.0.0",
     "sharp": "0.35.4",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "unist-util-visit": "5.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@biomejs/biome": "2.5.11",
+    "@types/hast": "3.0.5",
+    "@types/node": "26.4.0",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1"
   },
