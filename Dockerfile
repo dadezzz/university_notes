@@ -3,7 +3,7 @@ FROM git.zarantonello.dev/university/notes-ci:v2026.09.08.1@sha256:da45f6dff090c
 WORKDIR /srv
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN --mount=type=cache,sharing=locked,target=/root/.local/share/pnpm/store pnpm install -p
+RUN --mount=type=cache,sharing=locked,target=/root/.local/share/pnpm/store pnpm install -P
 
 COPY . ./
 RUN pnpm run build
