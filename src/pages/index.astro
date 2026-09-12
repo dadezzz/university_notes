@@ -32,8 +32,8 @@ courses.sort((a, b) => a.id.localeCompare(b.id));
 
   <p>
     If you find any errors or have suggestions for improvements, please contribute! Submit corrections via
-    <a style="margin-left: 0.25rem;" href="https://git.zarantonello.dev/university/notes">Git</a>. To get access, send
-    me an email to request an account.
+    <a style="margin-left: 0.25rem;" href="https://git.zarantonello.dev/university/notes"> Git </a>
+    . To get access, send me an email to request an account.
   </p>
 
   <h2>Courses</h2>
@@ -43,15 +43,13 @@ courses.sort((a, b) => a.id.localeCompare(b.id));
       <span>First year, first semester:</span>
 
       <ul>
-        {
-          courses
-            .filter((c) => c.id.startsWith("1/1"))
-            .map((c) => (
-              <li>
-                <CoursePageLink course={c} />
-              </li>
-            ))
-        }
+        {courses
+          .filter((c) => c.id.startsWith("1/1"))
+          .map((c) => (
+            <li>
+              <CoursePageLink course={c} />
+            </li>
+          ))}
       </ul>
     </li>
 
@@ -59,15 +57,13 @@ courses.sort((a, b) => a.id.localeCompare(b.id));
       <span>First year, second semester:</span>
 
       <ul>
-        {
-          courses
-            .filter((c) => c.id.startsWith("1/2"))
-            .map((c) => (
-              <li>
-                <CoursePageLink course={c} />
-              </li>
-            ))
-        }
+        {courses
+          .filter((c) => c.id.startsWith("1/2"))
+          .map((c) => (
+            <li>
+              <CoursePageLink course={c} />
+            </li>
+          ))}
       </ul>
     </li>
 
@@ -75,15 +71,13 @@ courses.sort((a, b) => a.id.localeCompare(b.id));
       <span>Second year, first semester:</span>
 
       <ul>
-        {
-          courses
-            .filter((c) => c.id.startsWith("2/1"))
-            .map((c) => (
-              <li>
-                <CoursePageLink course={c} />
-              </li>
-            ))
-        }
+        {courses
+          .filter((c) => c.id.startsWith("2/1"))
+          .map((c) => (
+            <li>
+              <CoursePageLink course={c} />
+            </li>
+          ))}
       </ul>
     </li>
 
@@ -91,15 +85,13 @@ courses.sort((a, b) => a.id.localeCompare(b.id));
       <span>Second year, second semester:</span>
 
       <ul>
-        {
-          courses
-            .filter((c) => c.id.startsWith("2/2"))
-            .map((c) => (
-              <li>
-                <CoursePageLink course={c} />
-              </li>
-            ))
-        }
+        {courses
+          .filter((c) => c.id.startsWith("2/2"))
+          .map((c) => (
+            <li>
+              <CoursePageLink course={c} />
+            </li>
+          ))}
       </ul>
     </li>
   </ul>

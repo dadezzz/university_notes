@@ -18,8 +18,7 @@
   "html": {
     "experimentalFullSupportEnabled": true,
     "formatter": {
-      // There are still some problems with the astro files.
-      "enabled": false,
+      "enabled": true,
       "indentScriptAndStyle": true,
       "selfCloseVoidElements": "always"
     }
@@ -37,19 +36,6 @@
       }
     }
   },
-
-  "overrides": [
-    {
-      "includes": ["**/*.astro"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUnusedImports": "off"
-          }
-        }
-      }
-    }
-  ],
 
   // We need to set every ignored file in the root .gititgnore or extend this
   // configuration with a biome.jsonc file inside every package.

@@ -23,20 +23,20 @@ if (!course) throw new Error(`course '${id}' not found`);
   <h2>Professors</h2>
 
   <ul>
-    {course.data.professors.map((p) => <li>{p}</li>)}
+    {course.data.professors.map((p) => (
+      <li>{p}</li>
+    ))}
   </ul>
 
   <h2>Lessons</h2>
 
   <ul>
-    {
-      lessons
-        .filter((l) => l.id.startsWith(`${year}/${semester}/${code}`))
-        .map((l) => (
-          <li>
-            <a href={`/${l.id}`}>{l.data.title}</a>
-          </li>
-        ))
-    }
+    {lessons
+      .filter((l) => l.id.startsWith(`${year}/${semester}/${code}`))
+      .map((l) => (
+        <li>
+          <a href={`/${l.id}`}>{l.data.title}</a>
+        </li>
+      ))}
   </ul>
 </StarlightPage>
