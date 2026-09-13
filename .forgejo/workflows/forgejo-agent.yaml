@@ -1,7 +1,7 @@
 jobs:
   respond:
     container:
-      image: git.zarantonello.dev/university/notes-ci:v2026.09.10.1@sha256:e4d396673f38ac1523c877cdae14629bb8d2739e797ae2d1a121f1082256f786
+      image: git.zarantonello.dev/university/notes-ci:v2026.09.12.1@sha256:fdbaf1fdbee015520200d93a22db8252b4e452e7519dfba67dea5a251b49c1fa
       # The composite action in action.yaml can save the binary to speed up
       # subsequent runs.
       volumes:
@@ -15,7 +15,7 @@ jobs:
           mkdir -p $HOME/.pi/agent/
           echo '{"providers":{"llama-server":{"baseUrl":"http://llama.zarantonello.dev/v1","api":"openai-completions","apiKey":"llama","models":[{"id":"Qwen3.6-35B-A3B","contextWindow":65536}]}}}' > $HOME/.pi/agent/models.json
       - name: Generate response
-        uses: https://git.zarantonello.dev/projects/forgejo-agent@e81e52b69d212a80b5451d23f7b488538c0b3bb2 # v1.10.1
+        uses: https://git.zarantonello.dev/projects/forgejo-agent@efa234877145d8d6a51f2a5d58f1945b3e2be687 # v1.11.0
         with:
           auth-token: ${{ secrets.CI_BOT_TOKEN }}
           auth-username: ci-bot
