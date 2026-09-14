@@ -27,5 +27,5 @@
     "prettier": "3.9.6",
     "prettier-plugin-astro": "1.0.0"
   },
-  "packageManager": "pnpm@12.4.0"
+  "packageManager": "pnpm@12.4.1"
 }
