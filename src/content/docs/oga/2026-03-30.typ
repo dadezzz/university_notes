@@ -1,0 +1,70 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Definizione della segmentazione di mercato, criteri di validità dei segmenti, tecniche di segmentazione e strategie di marketing da implementare.",
+  lang: "it",
+  title: "Segmentazione di mercato e strategie di marketing",
+))
+
+= Segmentazione di mercato
+
+La segmentazione di mercato è la divisione del mercato in gruppi di acquirenti
+ben distinti, con bisogni, caratteristiche e comportamenti differenti, che
+richiedono prodotti e strategie di marketing personalizzate.
+
+Con la segmentazione, i vari sottogruppi sono caratterizzati da:
+
+- omogeneità all'interno del segmento;
+- eterogeneità all'esterno del segmento;
+
+La segmentazione è un trade-off tra la produzione di massa (un prodotto standard
+per tutti) e le produzioni su misura. Gli svantaggi rispetto alla produzione di
+massa sono i maggiori costi di sviluppo di diversi prodotti e le minori economie
+di scala.
+
+Ogni segmento ha le seguenti caratteristiche:
+
+- *Misurabilità*: la dimensione del segmento e il suo potere d'acquisto devono
+  essere misurabili.
+- *Accessibilità*: devono esistere costi e strategie per raggiungere e servire
+  il segmento.
+- *Omogeneità interna ed eterogeneità esterna*: i membri dello stesso segmento
+  devono essere simili tra loro, ma diversi rispetto ad altri segmenti.
+- *Redditività*: il segmento deve avere un potenziale di profitto sufficiente a
+  giustificare azioni di marketing dedicate.
+- *Durata*: il segmento deve essere sostenibile nel tempo.
+
+== Tecniche di segmentazione
+
++ Si raccolgono informazioni relative ai clienti, utilizzabili per
+  l'identificazione dei segmenti. Alcuni esempi sono:
+  - caratteristiche del cliente (socio-demografiche, geografiche,
+    psicografiche);
+  - comportamento del cliente (abitudini d'acquisto, utilizzo del prodotto);
+  - bisogni del cliente;
++ Si utilizzano metodi matematici (algoritmi) o euristici (esperienze e
+  conoscenze) per definire i segmenti.
+
+=== Metodo delle eliminazioni successive
+
+Il metodo delle eliminazioni successive è un approccio euristico basato sulla
+selezione delle basi di segmentazione senza un ordine prestabilito. Essendo un
+metodo qualitativo e iterativo, richiede conoscenza del mercato e intuizione.
+
+Si basa sull'utilizzo delle basi di segmentazione per la creazione di matrici di
+mercati-prodotti. Analizzando i quadranti, si eliminano quelli meno
+significativi e meno promettenti.
+
+== Segmentazione e strategia di marketing
+
+La segmentazione del mercato permette di applicare diverse strategie di
+marketing, collegate alla strategia aziendale:
+
+- marketing indifferenziato (leadership di costo): un piano di marketing per
+  tutto il mercato;
+- marketing differenziato (differenziazione): un piano di marketing per ogni
+  segmento;
+- marketing concentrato (focalizzazione): un piano di marketing per un singolo
+  segmento.

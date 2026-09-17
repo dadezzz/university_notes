@@ -11,7 +11,7 @@ of a document.
 
 Identify and flag **critical content errors**: things that are factually wrong,
 logically inconsistent, or completely nonsensical. At the end, apply all the
-changes to the document, but you don't need to leave the files formatted.
+changes to the document.
 
 ## What to Check
 

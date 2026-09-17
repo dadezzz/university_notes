@@ -1,0 +1,69 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Il buyer gestisce la supply chain e valuta i fornitori con vendor grid, total cost of ownership, curva ABC e politiche make or buy per ottimizzare gli acquisti.",
+  lang: "it",
+  title: "Strumenti di valutazione fornitori e curva ABC",
+))
+
+= Ruolo del buyer
+
+Oggi, un buyer deve possedere le seguenti caratteristiche:
+
+- competenze digitali per analizzare e trasformare i dati;
+- un approccio agli acquisti sostenibile e riproducibile nel lungo termine;
+- capacità di interagire e negoziare con i fornitori;
+
+La supply chain rappresenta una delle leve fondamentali dell'azienda. Il buyer
+deve essere in grado di gestire eventi esterni capaci di influenzare il mercato
+(pandemie, conflitti, cambiamenti climatici, ecc.).
+
+= Strumenti per la valutazione dei fornitori
+
+I fornitori si classificano in:
+
+- *fornitori potenziali*: presenti sul mercato ma non ancora selezionati;
+- *fornitori approvati/qualificati*: inseriti nella _vendor list_;
+- *fornitori preferenziali*: con cui sono state maturate collaborazioni positive
+  in passato;
+
+#starlight.note(title: "Vendor list", [
+  Elenco dei fornitori presi in considerazione, ai quali si invia la richiesta
+  di preventivo.
+])
+
+Sulla base delle offerte ricevute, si valutano i singoli fornitori. Gli
+strumenti adottati sono:
+
+- *Vendor grid*: utilizzata per valutare i fornitori assegnando un punteggio
+  complessivo (media ponderata di punteggi su diversi criteri).
+- *Total cost of ownership*: confronta i fornitori analizzando tutti i costi
+  associati all'acquisto e all'utilizzo del bene (costi finanziari, logistici,
+  di smaltimento, ecc.).
+- *Politiche di _make or buy_ e di localizzazione dei fornitori*.
+
+== Curva ABC
+
+La classificazione ABC dei fornitori serve ad individuare quali fornitori
+richiedono un maggiore monitoraggio da parte del responsabile degli acquisti. Di
+solito il 20% dei fornitori rappresenta l'80% del valore degli acquisti.
+
+In genere:
+
++ si ordinano i fornitori in base al valore annuo degli acquisti, in ordine
+  decrescente;
++ si calcola la quota percentuale di acquisti di ciascun fornitore sul totale;
++ si calcola la percentuale cumulata sul totale degli acquisti annuali;
++ si identificano le classi A, B e C;
+
+Le applicazioni possono essere:
+
+- *Priorità di gestione*: i fornitori di classe A richiedono attenzione
+  prioritaria.
+- *Logistica di magazzino*: il 20% dei prodotti movimentati spesso rappresenta
+  l'80% del volume. Posizionare i prodotti più frequenti vicino all'ingresso per
+  ottimizzare il layout.
+- *Effetto leva degli acquisti*: relazioni collaborative con fornitori ad alto
+  volume possono generare impatti finanziari significativi.

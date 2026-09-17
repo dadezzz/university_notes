@@ -1,0 +1,71 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Classificazione delle strategie di sourcing, analisi della dipendenza cliente-fornitore e matrice di Kraljic per la valutazione del portafoglio acquisti.",
+  lang: "it",
+  title: "Strategie di sourcing e matrice di Kraljic",
+))
+
+= Gestione strategica dei fornitori
+
+In base al numero di fornitori coinvolti, si distinguono diverse strategie di
+sourcing (modello di Fujimoto):
+
+- *Single sourcing*: il cliente fa riferimento a un unico fornitore per un dato
+  prodotto, ma sul mercato sono presenti altri fornitori che potrebbero
+  subentrare.
+- *Sole sourcing*: il cliente è vincolato a un unico fornitore, che si trova in
+  una posizione di monopolio in quel mercato.
+- *Dual/parallel sourcing*: il cliente acquista da due fornitori per ottenere un
+  maggiore controllo e stimolare la competizione tra essi.
+- *Multi sourcing*: il cliente si affida a più fornitori per lo stesso prodotto.
+
+Sono possibili quattro diverse posizioni (matrice di dipendenza):
+
+- *Buyer dominance*: il cliente ha una forte incidenza sul fatturato del
+  fornitore e una bassa dipendenza da esso.
+- *Supplier dominance*: il cliente dipende dal fornitore e ha scarsa incidenza
+  sul suo fatturato.
+- *Interdipendenza*: cliente e fornitore hanno entrambi un impatto rilevante
+  sugli affari l'uno dell'altro.
+- *Indipendenza*: cliente e fornitore non dipendono l'uno dall'altro.
+
+La riduzione del numero di fornitori è promossa da modelli come il TQM (la
+qualità degli acquisti influenza quella del prodotto) e il JIT (produzione
+istantanea, senza magazzino), al fine di sviluppare relazioni più strette e una
+migliore cooperazione.
+
+Tuttavia, la pandemia e le tensioni geopolitiche hanno dimostrato i rischi di
+una supply chain troppo snella e concentrata su pochi fornitori selezionati
+esclusivamente in base al costo.
+
+== Matrice di Kraljic
+
+La matrice di Kraljic è un modello consolidato per la valutazione di un
+portafoglio di acquisti.
+
+La matrice di Olsen & Ellram si fonda su quella di Kraljic, approfondendo
+ulteriormente la relazione tra cliente e fornitore e fornendo strategie
+specifiche per ciascuna categoria.
+
+Gli acquisti sono classificati in base a due dimensioni:
+
+- *importanza strategica* dell'acquisto;
+- *difficoltà di gestione* del processo di acquisto;
+
+Ci sono quattro categorie di acquisto:
+
+- *Acquisto leva*: bassa difficoltà e alta importanza. È fondamentale ottenere
+  bassi costi di acquisto; il cliente dispone di diversi fornitori e detiene il
+  potere contrattuale maggiore.
+- *Acquisto non critico*: bassa difficoltà e bassa importanza. L'impresa deve
+  ridurre il numero di fornitori e standardizzare i prodotti acquistati, al fine
+  di minimizzare i costi amministrativi e logistici.
+- *Acquisto strategico*: alta difficoltà e alta importanza. È necessario
+  instaurare un rapporto diretto con il fornitore e coinvolgerlo nello sviluppo
+  dei prodotti.
+- *Acquisto a collo di bottiglia*: alta difficoltà e bassa importanza. L'azienda
+  deve ridurre o standardizzare gli acquisti oppure ricercare soluzioni
+  alternative, come la produzione interna.

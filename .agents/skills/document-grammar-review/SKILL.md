@@ -10,7 +10,7 @@ document.
 
 Correct all grammar, spelling, phrasing, and style issues. Ensure the document
 reads clearly and professionally. At the end apply all the changes to the
-document, but you don't need to leave the files formatted or line-wrapped.
+document.
 
 ## What to Check
 

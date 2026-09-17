@@ -10,14 +10,18 @@ title and description for academic notes.
 
 Create a clear, descriptive title and summary that accurately represent the
 document's main arguments and topics. These will be used for navigation and
-search, so precision and specificity are paramount. All changes must be written
-to the document yaml frontmatter as `title` and `description` fields.
+search, so precision and specificity are paramount. These documents are
+**Typst** files: metadata lives in the `#metadata((...))` block near the top of
+the file, and all changes must be written there as the `title` and `description`
+string fields.
 
 ## Guidelines
 
 - Write in the **same language** as the source document
-- **Avoid LaTeX notation** such as `R^n`, `\Z`, or similar mathematical symbols
-- **Do not use colons** (`:`) since they conflict with the yaml frontmatter
+- **Avoid LaTeX notation** such as `R^n`, `\Z`, or similar mathematical symbols,
+  and do not write Typst math either
+- Write plain prose in the quoted string values, and escape any embedded double
+  quotes as `\"`
 - Always use `echo "$text" | wc -m` to verify character counts
 - Capitalize only the first word and proper nouns
 

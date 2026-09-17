@@ -1,0 +1,174 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Ruolo degli acquisti, costi nascosti, effetto leva sugli indicatori finanziari, processo B2B con le 6 fasi e modello Buygrid per la selezione fornitori.",
+  lang: "it",
+  title: "Acquisti aziendali, effetto leva e modello Buygrid",
+))
+
+= Ruolo degli acquisti
+
+Il mercato è composto da fornitori, concorrenti, intermediari e consumatori.
+
+I fornitori sono importanti perché permettono di abbassare i costi base e hanno
+inoltre un grande impatto sulla qualità del prodotto finale.
+
+Il ruolo degli acquisti presso i fornitori varia a seconda del settore, ma
+generalmente comprende:
+
+- materie prime;
+- capex: investimenti su immobili (acquisto di strutture (capannoni) o
+  macchinari);
+- articoli commerciali: utilizzati per mansioni secondarie;
+- servizi;
+- amministrazione;
+- ricambi;
+
+= Costi nascosti del processo d'acquisto
+
++ *ricerca e selezione fornitori*: tempo, risorse, accesso a dati a pagamento;
++ *negoziazione e stipula contratti*: costi amministrativi per ordine;
++ *trasporto e logistica*;
++ *monitoraggio e sviluppo fornitori*: investimenti per fornitori strategici
+  (es. microchip per elettronica), per garantire fornitura stabile, quantitativi
+  minimi e co-creazione;
+
+= Effetto leva degli acquisti
+
+Dal bilancio di un'azienda si ottengono i seguenti indicatori:
+
+- *ROS* (margine operativo (utile generato dalla gestione, ricavi - costi
+  operativi) / fatturato): Indica quanta redditività l'azienda genera per ogni
+  vendita.
+- *indice di rotazione* (fatturato / attività totali): Indica quanto velocemente
+  il capitale investito si trasforma in vendite.
+- *ROA* (ROS x indice di rotazione): Redditività complessiva del capitale
+  investito, ovvero quanto rendono le attività dell'impresa.
+
+Il reciproco del ROS indica quanta riduzione di costi di acquisto serve per
+ottenere lo stesso effetto di un aumento di fatturato:
+
+#quote(block: true)[
+  1 / ROS = fattore di leva. Un ROS del 10,7% → reciproco ≈ 9. Significa che
+  ridurre di *1 €* i costi di acquisto genera lo stesso effetto di aumentare di
+  *9 €* il fatturato.
+]
+
+I fornitori influiscono su diversi fattori:
+
+- prezzo finale;
+- qualità del prodotto;
+- livello di servizio offerto ai clienti (affidabilità, tempistiche);
+- abilità nello sviluppare certi prodotti;
+
+#starlight.note[
+  Nel modello Porter il processo d'acquisto è considerato un'attività di
+  supporto.
+]
+
+= Processo d'acquisto
+
+Ci sono 2 tipologie di acquisto:
+
+- *B2B*: la transazione avviene tra organizzazioni.
+- *B2C*: l'acquirente è il consumatore finale.
+
+Il processo d'acquisto B2B presenta una maggiore complessità di quello B2C, con
+maggiore formalità e tempi più lunghi. Altre caratteristiche sono:
+
+- domanda non elastica: il prezzo è meno elastico nel breve termine;
+- grossi ordinativi, con ingenti somme di denaro;
+- conoscenza elevata del prodotto: si assume che l'acquirente conosca bene cosa
+  vuole acquistare;
+- clienti limitati e concentrati geograficamente: creazione di distretti
+  industriali;
+- numero di intermediari inferiore;
+- commercio elettronico: acquisti tramite software gestionale;
+- varietà di forme contrattuali;
+- forme di finanziamento complesse;
+
+Il mercato è inteso come una rete di relazioni tra organizzazioni, dove diventa
+cruciale gestire i rapporti a lungo termine.
+
+== Fasi del processo d'acquisto
+
++ *Definizione delle specifiche del prodotto da acquistare*:
+
+  Vengono determinate le caratteristiche di ciascun prodotto, in particolare per
+  quelli personalizzati rispetto a quelli standard.
+
+  Bisogna stimare i fabbisogni di medio-lungo termine.
+
++ *Identificazione dei fornitori potenziali*:
+
+  Si predispone una lista di fornitori preselezionati in base a:
+
+  - informazioni interne (acquisti passati, contatto con l'azienda);
+  - informazioni esterne (ricerche su internet, fiere);
+
+  Si effettuano poi visite presso i fornitori (audit) o indagini attraverso
+  questionari.
+
++ *Selezione dei fornitori e negoziazione*:
+
+  Richiesta dei preventivi in base alle specifiche. Sulla base delle offerte
+  ricevute, si valuta la soluzione migliore.
+
+  In questo contesto vengono formalizzati i dettagli relativi ai vari aspetti
+  dell'acquisto:
+
+  - costo;
+  - tempi di consegna;
+  - penali;
+
++ *Emissione degli ordini ai fornitori*:
+
+  I fornitori decidono se accettare gli ordini; in tal caso, il cliente riceve
+  le informazioni sulla data di consegna ed eventuali modifiche di tempistiche o
+  quantità.
+
++ *Monitoraggio e controllo degli ordini di acquisto*:
+
+  - expediting: monitoraggio dell'avanzamento dell'ordine ed eventuale
+    sollecito;
+  - ispezione: visite periodiche per monitorare lo stato di avanzamento
+    dell'ordine;
+  - order tracking: invio da parte del fornitore di informazioni
+    sull'avanzamento;
+
++ *Post-acquisto e valutazione dei fornitori*:
+
+  Gestione di reclami ai fornitori, richieste di assistenza, aggiornamento degli
+  archivi delle informazioni sul fornitore.
+
+La qualità dell'output di ogni step influenza la qualità del successivo. Le
+prime 3 fasi sono considerate strategiche, le ultime 3 operative.
+
+= Buygrid Model
+
+Non sempre è necessario svolgere tutte e 6 le fasi quando si fa un acquisto. Ci
+sono 3 tipologie di acquisti (in ordine di incertezza crescente):
+
+#table(
+  columns: 4,
+  [*Tipo*], [*Novità*], [*Incertezza*], [*Descrizione*],
+  [*Riacquisto diretto*],
+  [Bassa],
+  [Bassa],
+  [Ordine ripetitivo dallo stesso fornitore (es. consumabili)],
+
+  [*Riacquisto modificato*],
+  [Media],
+  [Media],
+  [Cambio fornitore e/o modifica del prodotto (es. qualità, tempi)],
+
+  [*Nuovo acquisto*],
+  [Alta],
+  [Alta],
+  [Partenza da zero: nuovo prodotto, nuovo fornitore, nessun precedente],
+)
+
+I nuovi acquisti coinvolgono tutte le fasi, mentre quelli ripetitivi possono
+essere facilmente automatizzati.

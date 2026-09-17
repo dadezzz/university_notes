@@ -1,0 +1,118 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi SWOT, PESTLE e matrice GE-McKinsey per il targeting. Mappe delle percezioni, matrice importance-performance e SERVQUAL per il posizionamento strategico.",
+  lang: "it",
+  title: "Targeting, analisi di mercato e positioning",
+))
+
+= Targeting
+
+Il targeting è il processo di valutazione dell'attrattività di ciascun segmento
+di mercato e di selezione dei segmenti a cui rivolgere i propri prodotti.
+
+L'analisi SWOT (Strengths, Weaknesses, Opportunities, Threats) serve a valutare
+su quali mercati è utile concentrarsi. Essa fonde due prospettive:
+
+- contesto interno: punti di forza e debolezza dell'azienda (catena del valore);
+- contesto esterno: opportunità e minacce del mercato (5 forze di Porter,
+  analisi della domanda, analisi PESTLE);
+
+== Analisi della domanda
+
+L'analisi della domanda è lo studio delle quantità acquistate da un dato gruppo
+di clienti in un determinato segmento in un periodo specifico.
+
+#image("images/analisi-domanda.png", alt: "Tipologie di domanda")
+
+== Analisi PESTLE
+
+L'analisi PESTLE analizza diversi fattori del macroambiente esterno all'azienda:
+
+- Politici: regime fiscale, commercio con l'estero, leggi sui monopoli;
+- Economici: inflazione, tassi di interesse, tassi di cambio;
+- Sociali: livello di educazione, diritti, demografia;
+- Tecnologici: spesa pubblica per la ricerca, protezione della proprietà
+  intellettuale, livello di innovazione e digitalizzazione;
+- Legali: leggi sull'occupazione e sul lavoro, tutela e sicurezza dei
+  consumatori;
+- Ecologici: fattori legati al clima, luogo geografico e limiti ambientali;
+
+== Matrice GE-McKinsey
+
+La matrice GE-McKinsey, insieme alla matrice BCG, viene usata per stabilire la
+strategia che l'azienda deve adottare per ogni settore del mercato.
+
+Nella matrice, attrattività e competitività del settore sono due assi. Ci sono
+nove caselle, dove a ciascuna è assegnato un comportamento strategico ottimale.
+
+#image("images/matrice-ge-mckinsey.png", alt: "Matrice GE-McKinsey")
+
+= Positioning
+
+Il positioning consiste nelle attività che permetteranno al prodotto di occupare
+una posizione chiara, distintiva e desiderabile nella mente dei consumatori
+rispetto ai concorrenti.
+
+== Mappa delle percezioni
+
+La mappa delle percezioni permette di individuare graficamente il posizionamento
+del prodotto agli occhi del cliente in base a coppie di attributi rilevanti
+(qualità, prezzo, usabilità, ecc.) ai fini della decisione di acquisto.
+
+È importante rilevare attributi significativi in relazione al prodotto offerto e
+a quelli della concorrenza.
+
+== Matrice Importance-Performance
+
+La matrice Importance-Performance utilizza due variabili:
+
+- posizionamento rispetto ai concorrenti in termini di performance;
+- importanza oggettiva della prestazione nel segmento di mercato;
+
+Con questo strumento è possibile identificare quali fattori di un prodotto o
+servizio risultano sottodimensionati o sovrastimati rispetto all'importanza
+percepita. Ciò consente di definire le priorità di intervento nelle aree da
+migliorare.
+
+#image(
+  "images/importance-performance-matrix.png",
+  alt: "Importance performance matrix",
+)
+
+== Analisi degli scostamenti nelle percezioni (Gap)
+
+Si utilizzano strumenti formali (come il SERVQUAL) per analizzare gli
+scostamenti delle percezioni dei clienti tra i livelli desiderati di performance
+e la performance offerta.
+
+L'obiettivo è quello di ridurre la distorsione delle percezioni all'interno
+della filiera ed evitare bias o tunneling mentali del management.
+
+#table(
+  columns: 2,
+  [*Gap*], [*Soluzione*],
+  [Aspettativa del cliente vs. percezione del management],
+  [Ricerche di mercato, raccolta feedback],
+
+  [Percezione del management vs. specifiche del prodotto],
+  [Miglior processo di requirement gathering],
+
+  [Specifiche vs. prodotto effettivamente realizzato],
+  [Controllo qualità, gestione budget],
+
+  [Prodotto realizzato vs. comunicazione commerciale],
+  [Allineamento tra marketing e produzione],
+
+  [Aspettativa del cliente vs. qualità percepita],
+  [Allineare aspettative e offerta effettiva],
+)
+
+=== SERVQUAL
+
+SERVQUAL è uno strumento progettato per catturare le aspettative dei consumatori
+e le percezioni di un servizio lungo cinque dimensioni.
+
+#image("images/servqual.png", alt: "SERVQUAL")

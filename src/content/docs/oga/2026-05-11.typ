@@ -1,0 +1,176 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi del bilancio con riclassificazione finanziaria ed economica, calcolo di margini e indici per valutare la solidità e la capacità operativa aziendale.",
+  lang: "it",
+  title: "Analisi di bilancio, riclassificazione e indici",
+))
+
+= Conto economico
+
+Il conto economico rappresenta il flusso di valore generato dall'azienda
+nell'arco dell'esercizio.
+
+Il valore della produzione rappresenta la capacità dell'azienda di generare
+valore:
+
+- *ricavi dalla vendita di prodotti e servizi*: al netto di resi, sconti e
+  abbuoni;
+- *variazioni delle rimanenze* di prodotti in lavorazione, semilavorati e finiti
+  (non le materie prime, la cui variazione è inclusa altrove);
+- *altri ricavi e proventi*: affitti attivi, plusvalenze, contributi ecc.;
+
+I costi rappresentano gli oneri sostenuti per produrre beni e servizi:
+
+- *costi per materie prime* e materiali di consumo;
+- *costi per servizi*: consulenze, manutenzioni, servizi cloud in abbonamento;
+- *oneri per lavoro di terzi*: lavorazioni esterne e subappalti;
+- *costi per godimento di beni di terzi*: affitti passivi e leasing;
+- *costi per il personale*: stipendi, contributi INPS/casse previdenziali, TFR;
+- *ammortamenti e svalutazioni*: quota di costo di un'immobilizzazione
+  distribuita nel tempo;
+- *variazioni delle rimanenze* di materie prime;
+- *accantonamenti per rischi e spese*;
+
+Il conto economico include anche:
+
+- *proventi finanziari*: interessi maturati su depositi;
+- *oneri finanziari*: interessi passivi su prestiti bancari, commissioni
+  bancarie, spese di finanziamento;
+- *rettifiche di valore delle attività finanziarie*: svalutazioni o
+  rivalutazioni di titoli in base all'andamento del mercato;
+
+= Nota integrativa
+
+La nota integrativa ha lo scopo di fornire una rappresentazione il più accurata
+e completa possibile della situazione aziendale, integrando informazioni non
+visibili nello stato patrimoniale e nel conto economico.
+
+Contenuti tipici sono:
+
+- criteri contabili usati per la valutazione delle voci;
+- motivazioni relative a scelte di classificazione incerte;
+- informazioni su eventi significativi verificatisi dopo la chiusura;
+- ripartizione degli ammortamenti e altre scelte contabili significative;
+- impatto sulla fiscalità (crediti e debiti d'imposta, gestione della
+  tassazione);
+
+= Analisi del bilancio
+
+L'analisi del bilancio permette di estrarre informazioni rilevanti dai dati di
+bilancio per supportare decisioni aziendali.
+
++ Acquisizione dei dati: raccolta dei bilanci dell'azienda target;
++ Verifica dell'affidabilità: controllo che i dati siano supportati da
+  documentazione;
++ Riclassificazione: riorganizzazione delle voci secondo modelli specifici
+  (finanziario per stato patrimoniale, economico per il conto economico);
++ Calcolo di margini e indici: elaborazione di indicatori quantitativi a partire
+  dai dati;
++ Valutazione: interpretazione degli indicatori alla luce degli obiettivi;
+
+== Riclassificazione dello stato patrimoniale
+
+Il criterio finanziario distingue tra _fonti_ (Passività + Patrimonio Netto) e
+_impieghi_ (Attivo), classificandoli in base alla liquidità/definitività:
+
+Impieghi:
+
+- attività correnti: liquidità immediata (attivo circolante meno rimanenze) e
+  liquidità differite (esigibili entro 12 mesi);
+- attività immobilizzate: immobilizzazioni materiali, immateriali e finanziarie
+  (esigibili oltre 12 mesi);
+
+Fonti:
+
+- patrimonio netto: capitale sociale, riserve, utili/perdite;
+- passività correnti: debiti esigibili entro 12 mesi;
+- passività immobilizzate: debiti esigibili oltre 12 mesi;
+
+Le rimanenze vengono separate dall'attivo circolante perché la loro conversione
+in liquidità è incerta e la vendita potrebbe compromettere l'operatività
+aziendale.
+
+== Riclassificazione del conto economico
+
+Dalla base del valore della produzione si deducono progressivamente i costi per
+ottenere i principali aggregati:
+
+- *Valore aggiunto*: valore della produzione - costi esterni;
+- *Margine operativo lordo* (MOL/EBITDA): valore aggiunto - costi del personale;
+- *Reddito operativo* (EBIT): MOL - ammortamenti e svalutazioni;
+- *Risultato prima delle imposte* (EBT): EBIT + proventi finanziari - oneri
+  finanziari;
+- *Utile/perdita netta*: EBT - imposte;
+
+== Margini e indici di analisi
+
+Indici di liquidità e capitale circolante:
+
+- *Margine di tesoreria*:
+
+  $ "liquidità immediata" + "liquidità differite" - "passività correnti" $
+
+  Misura la capacità di far fronte ai debiti a breve con la liquidità
+  disponibile. Valore maggiore o uguale a 0 è auspicabile.
+
+- *Capitale circolante netto* (CCN):
+
+  $ "attività correnti" + "rimanenze" - "passività correnti" $
+
+  Un CCN negativo prolungato indica difficoltà di sostenibilità.
+
+- *Indice di liquidità*:
+
+  $ "attività correnti" / "passività correnti" $
+  - minore di 0.5: situazione critica (non si copre nemmeno metà dei debiti);
+  - da 0.5 a 1: da monitorare;
+  - maggiore 1: l'azienda è in grado di coprire tutti i debiti a breve;
+
+Indici di struttura e solidità:
+
+- *Indice di struttura primaria* (autocopertura delle immobilizzazioni):
+
+  $ "patrimonio netto" / "attività immobilizzate" $
+  - minore di 0.5: le immobilizzazioni sono finanziate prevalentemente con
+    debiti;
+  - da 0.5 a 0.7: da controllare;
+  - maggiore di 0.7: l'azienda può coprire le immobilizzazioni con mezzi propri;
+
+- *Indice di solidità* (grado di indebitamento):
+
+  $ ("passività correnti" + "passività immobilizzate") / "patrimonio netto" $
+  - minore di 1: il patrimonio netto supera i debiti;
+  - da 1 a 2: accettabile;
+  - maggiore di 2: i debiti sono doppi il patrimonio netto;
+
+Indici di redditività:
+
+- *ROI (Return on Investment)*:
+
+  $
+    "reddito operativo" / "capitale investito (patrimonio netto + debiti finanziari)"
+  $
+
+  Misura il rendimento degli investimenti rispetto al costo del capitale.
+
+- *ROS (Return on Sales)*:
+
+  $ "reddito operativo" / "ricavi di vendita" $
+
+  Misura il profitto generato per ogni euro di vendite; indica l'efficienza nel
+  controllo dei costi.
+
+- *ROA (Return on Assets)*:
+
+  $ "reddito operativo" / "totale attività" $
+
+  Misura quanto bene l'azienda utilizza le proprie risorse per generare valore.
+
+- *ROD (Return on Debt)*:
+
+  $ "oneri finanziari" / "debiti finanziari" $
+
+  Più è basso, minore è il carico degli interessi sui debiti.
