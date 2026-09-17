@@ -12,10 +12,6 @@ const DOCS_ABS_PATH = path.resolve(DOCS_PATH);
 
 const COMMON_TYPST_ARGS = ["--root", SRC_PATH, "--features", "html"];
 
-// Captured HTML can get large because Typst inlines images as data URIs, so the
-// default 1 MiB buffer of `execFile` is not enough.
-const EXEC_OPTIONS = { maxBuffer: 64 * 1024 * 1024 };
-
 const execFile = promisify(child_process.execFile);
 
 function idFromAbsolutePath(absPath: string): string {
@@ -36,11 +32,14 @@ function isTypstFile(absPath: string): boolean {
 async function compileTypst(context: LoaderContext, filePath: string): Promise<string> {
   const { logger } = context;
 
-  const { stderr, stdout } = await execFile(
-    "typst",
-    ["compile", ...COMMON_TYPST_ARGS, "--format", "html", filePath, "-"],
-    EXEC_OPTIONS,
-  );
+  const { stderr, stdout } = await execFile("typst", [
+    "compile",
+    ...COMMON_TYPST_ARGS,
+    "--format",
+    "html",
+    filePath,
+    "-",
+  ]);
 
   if (stderr) {
     logger.warn(stderr);
@@ -58,11 +57,13 @@ async function compileTypst(context: LoaderContext, filePath: string): Promise<s
 async function getMetadata(context: LoaderContext, filePath: string): Promise<Record<string, unknown>> {
   const { logger } = context;
 
-  const { stderr, stdout } = await execFile(
-    "typst",
-    ["eval", ...COMMON_TYPST_ARGS, "--in", filePath, "query(metadata).map(it => it.value)"],
-    EXEC_OPTIONS,
-  );
+  const { stderr, stdout } = await execFile("typst", [
+    "eval",
+    ...COMMON_TYPST_ARGS,
+    "--in",
+    filePath,
+    "query(metadata).map(it => it.value)",
+  ]);
 
   if (stderr) {
     logger.warn(stderr);
@@ -80,11 +81,13 @@ async function getMetadata(context: LoaderContext, filePath: string): Promise<Re
 async function getImagePaths(context: LoaderContext, filePath: string): Promise<string[]> {
   const { logger } = context;
 
-  const { stderr, stdout } = await execFile(
-    "typst",
-    ["eval", ...COMMON_TYPST_ARGS, "--in", filePath, "query(image).map(i => i.source)"],
-    EXEC_OPTIONS,
-  );
+  const { stderr, stdout } = await execFile("typst", [
+    "eval",
+    ...COMMON_TYPST_ARGS,
+    "--in",
+    filePath,
+    "query(image).map(i => i.source)",
+  ]);
 
   if (stderr) {
     logger.warn(stderr);
