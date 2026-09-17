@@ -1,0 +1,106 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Confronto tra segnali analogici e digitali, tecnologie di implementazione dei circuiti digitali e introduzione alle funzioni booleane e agli operatori logici.",
+  lang: "it",
+  prev: false,
+  title: "Segnali, tecnologie di implementazione e booleani",
+))
+
+= Analogico vs digitale
+
+== Segnale analogico
+
+*Vantaggi*:
+
+- segnale *proporzionale* alla grandezza che si vuole rappresentare;
+- semplice e intuitivo;
+- un segnale porta tutte le informazioni;
+
+*Svantaggi*:
+
+- il rumore si somma al segnale e ne altera la rappresentazione;
+- il segnale va mantenuto entro certi limiti;
+
+== Segnale digitale
+
+*Vantaggi*:
+
+- si può modificare la soglia in modo da ridurre l'influenza del rumore;
+
+*Svantaggi*:
+
+- può assumere solo 2 livelli (viene definita una soglia a metà tra i due
+  valori: se il segnale è sotto la soglia vale 0, se è sopra vale 1);
+- precisione limitata.
+- per rappresentare una grandezza con più precisione si usano più segnali, in
+  generale dati $n$ segnali, si avranno $2^n$ livelli.
+
+Il numero di segnali necessari cresce logaritmicamente (in base 2), quindi tutto
+sommato il loro numero non aumenta così rapidamente.
+
+#starlight.tip(title: "Strategie per ricordare potenze di 2", [
+  - $2^10$: circa $1000$
+  - $2^20$: circa $1000000$
+  - $2^30$: circa $1000000000$
+])
+
+Nei circuiti digitali si preferisce sempre il minor numero di segnali che
+garantisca la precisione desiderata, per realizzare circuiti più piccoli,
+efficienti ed economici.
+
+= Tecnologie di implementazione di circuiti digitali
+
+- *full custom*: si usano direttamente i transistori per implementare il
+  circuito.
+  - si ha il massimo controllo e quindi offre le massime prestazioni;
+  - alti costi;
+- *standard cell / ASIC*: si usano celle da una decina di transistori che hanno
+  funzioni logiche di base già predefinite.
+  - alte prestazioni;
+  - alti costi (5-10 milioni € per $"mm"^2$ per le tecnologie più moderne);
+- *programmable logic / FPGA*: circuiti digitali programmabili. I diversi
+  componenti possono essere connessi tra loro in modo arbitrario.
+  - prestazioni medio/alte;
+  - costi medi;
+- *embedded software*: si implementa la logica come software e la si fa eseguire
+  da un processore generico.
+  - prestazioni basse;
+  - costi bassi;
+
+= Circuiti combinatori
+
+== Funzioni booleane
+
+- Dominio: contiene solo 2 elementi: $B = {0, 1}$
+- $f(x_1, ..., x_n): B^n -> B$: funzione scalare di $n$ variabili booleane.
+- $f(x_1, ..., x_n): B^n -> B^m$: $m$ funzioni indipendenti di $n$ variabili
+  ciascuna.
+
+#starlight.note([
+  Con $B^n$ si intende il prodotto cartesiano $B times B times B times ...$
+  ripetuto $n$ volte.
+])
+
+== Operatori logici fondamentali
+
+- $op("AND")(x, y): B^2 -> B$
+  - Indicato come $x dot y$ oppure $x y$.
+  - Il risultato vale 1 se e solo se entrambe le variabili hanno valore 1.
+- $op("OR")(x, y): B^2 -> B$
+  - Indicato come $x + y$.
+  - Il risultato vale 1 se e solo se almeno una delle 2 variabili vale 1.
+- $op("NOT")(x): B -> B$
+  - Indicato come $overline(x)$, $x'$ oppure $~x$.
+  - Il risultato vale 1 se $x$ vale 0, altrimenti 0.
+
+Altri operatori:
+
+- Confronto $f(x, y): B^2 -> B$: vale 1 se $x = y$;
+- Confronto multiplo $f(x, y, z): B^3 -> B$: vale 1 se $x = y != z$;
+- $op("NAND")(x, y) = (x y)'$;
+- $op("NOR")(x, y) = (x + y)'$;
+- $op("EXOR")(x, y) = x y' + x' y$;
+- $op("EXNOR")(x, y) = x' y' + x y$;

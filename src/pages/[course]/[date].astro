@@ -1,0 +1,143 @@
+---
+// This page renders the lesson like Starlight would, but it sets the correct
+// lang for each one on the wrapper element, as specified in the frontmatter.
+
+import { VFile } from "vfile";
+import { getCollection, getEntry } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import type { StarlightPageProps } from "@astrojs/starlight/props";
+import type { Root, Element } from "hast";
+import { visit } from "unist-util-visit";
+import { experimental_AstroContainer } from "astro/container";
+import AnchorHeading from "@astrojs/starlight/components/AnchorHeading.astro";
+import { toHtml } from "hast-util-to-html";
+import { fromHtml } from "hast-util-from-html";
+import { unified } from "unified";
+import { rehypeHeadingIds, rehypeShiki } from "@astrojs/markdown-remark";
+import { Aside } from "@astrojs/starlight/components";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const lessons = await getCollection("docs");
+  return lessons.flatMap((l) => {
+    // Lessons live at `[course]/[date]`. Ignore anything with a different shape
+    // so a stray nested file cannot generate a malformed route.
+    const parts = l.id.split("/");
+    const [course, date] = parts;
+    if (parts.length !== 2 || !course || !date) {
+      return [];
+    }
+    return [{ params: { course, date } }];
+  });
+};
+
+const { course, date } = Astro.params;
+const id = `${course}/${date}`;
+const lesson = await getEntry("docs", id);
+if (!lesson) {
+  throw new Error(`lesson '${id}' not found`);
+}
+
+function rehypeNormalizeCodeLang() {
+  return (tree: Root) => {
+    visit(tree, "element", (node) => {
+      if (node.tagName === "code" && node.properties?.dataLang) {
+        const lang = node.properties.dataLang as string;
+        node.properties.className = [...((node.properties.className as string[]) ?? []), `language-${lang}`];
+      }
+    });
+  };
+}
+
+function renderStarlightHeadings() {
+  return async (tree: Root) => {
+    const container = await experimental_AstroContainer.create();
+    const matches: { node: Element; index?: number; parent?: Element | Root }[] = [];
+
+    visit(tree, "element", (node, index, parent) => {
+      if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(node.tagName)) {
+        matches.push({ node, index, parent });
+      }
+    });
+
+    await Promise.all(
+      matches.map(async ({ node, index, parent }) => {
+        const newNodeHtml = await container.renderToString(AnchorHeading, {
+          locals: Astro.locals,
+          props: {
+            id: node.properties.id,
+            level: Number(node.tagName[1]),
+          },
+          slots: { default: toHtml(node.children) },
+        });
+
+        const parsedRoot = fromHtml(newNodeHtml, { fragment: true });
+
+        // Find the top-level HTML element inside the parsed fragment
+        const newElement = parsedRoot.children.find((child): child is Element => child.type === "element");
+
+        if (newElement && parent && typeof index === "number") {
+          parent.children[index] = newElement;
+        }
+      }),
+    );
+  };
+}
+
+function renderStarlightAsides() {
+  return async (tree: Root) => {
+    const container = await experimental_AstroContainer.create();
+    const matches: { node: Element; index?: number; parent?: Element | Root }[] = [];
+
+    visit(tree, "element", (node, index, parent) => {
+      if (node.properties.dataStarlightAside) {
+        matches.push({ node, index, parent });
+      }
+    });
+
+    await Promise.all(
+      matches.map(async ({ node, index, parent }) => {
+        const newNodeHtml = await container.renderToString(Aside, {
+          locals: Astro.locals,
+          props: {
+            type: node.properties.dataStarlightAside,
+            title: node.properties.dataStarlightAsideTitle,
+          },
+          slots: { default: toHtml(node.children) },
+        });
+
+        const parsedRoot = fromHtml(newNodeHtml, { fragment: true });
+
+        // Find the top-level HTML element inside the parsed fragment
+        const newElement = parsedRoot.children.find((child): child is Element => child.type === "element");
+
+        if (newElement && parent && typeof index === "number") {
+          parent.children[index] = newElement;
+        }
+      }),
+    );
+  };
+}
+
+const processor = unified()
+  .use(rehypeNormalizeCodeLang)
+  .use(rehypeShiki, { theme: "one-dark-pro" })
+  .use(rehypeHeadingIds)
+  .use(renderStarlightHeadings)
+  .use(renderStarlightAsides);
+
+// `fragment: true` is required because the loader stores only the inner
+// content of the compiled `<body>`; without it the parser would wrap everything
+// in an extra `<html><head><body>` document.
+const typstTree = fromHtml(lesson.rendered?.html ?? "", { fragment: true });
+const file = new VFile();
+const processedTree = await processor.run(typstTree, file);
+const headings = file.data.astro?.headings ?? [];
+---
+
+<StarlightPage
+  frontmatter={lesson.data as StarlightPageProps['frontmatter']}
+  headings={headings}
+  lang={lesson.data.lang}
+  set:html={toHtml(processedTree)}
+> </StarlightPage>

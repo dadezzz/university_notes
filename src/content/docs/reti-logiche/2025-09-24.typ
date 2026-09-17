@@ -1,0 +1,63 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Indifferenze e don't cares nelle mappe di Karnaugh, espansione di Shannon per 5 variabili e analisi delle prestazioni del circuito con diagrammi temporali.",
+  lang: "it",
+  title: "Indifferenze, mappe a 5 variabili e prestazioni",
+))
+
+= Indifferenze e don't cares
+
+In alcune occasioni, il valore dell'uscita in corrispondenza di determinate
+combinazioni di ingressi non è rilevante.
+
+Le combinazioni di ingresso per cui non si indica un valore preciso dell'uscita
+sono dette *indifferenze* o *don't cares*.
+
+La mappa di Karnaugh deve comunque assegnare un valore alla cella, quindi si
+sceglie il valore che permette di ottenere l'espressione più semplice. Bisogna
+però ricordarsi di non considerare essenziali gli implicanti che coprono gli 1
+di un'indifferenza.
+
+== Mappe a 5 variabili
+
+Anche usando il codice Gray, è impossibile mantenere le vicinanze geometriche
+sul piano.
+
+Si possono usare due tabelle a 4 variabili, dove in una si considerano le uscite
+con la quinta variabile a 0 e nell'altra con la variabile a 1 (espansione di
+Shannon).
+
+Sovrapponendo le 2 tabelle, si considerano vicine anche le celle che sono una
+sopra l'altra.
+
+== Prestazioni del circuito
+
+Come già detto in precedenza, una porta logica richiede tempo prima che la sua
+uscita sia stabile.
+
+A noi interessa rappresentare il comportamento del circuito durante la fase
+transitoria.
+
+=== Diagramma temporale
+
+È un grafico con un asse orizzontale del tempo, su cui si riportano gli ingressi
+e le uscite. Rappresenta i valori di ogni nodo della rete nel tempo. Non ci
+interessano i dettagli sulla transizione di valore, quindi useremo solo valori 0
+e 1.
+
+- esempio invertitore senza ritardi:
+
+  #image(
+    "images/diagramma-temporale-inverter-senza-ritardi.png",
+    alt: "Diagramma temporale invertitore senza ritardi",
+  )
+
+- esempio con ritardi:
+
+  #image(
+    "images/diagramma-temporale-inverter-con-ritardi.png",
+    alt: "Diagramma temporale invertitore con ritardi",
+  )

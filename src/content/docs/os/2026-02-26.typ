@@ -1,0 +1,97 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Explores monolithic, microkernel, and modular operating system designs, the firmware-to-kernel boot sequence, and process memory layout including text, data, stack, and heap.",
+  lang: "en",
+  title: "Operating system architecture and process memory",
+))
+
+= Operating system structure
+
+For a simple example, let's examine the architecture of MS-DOS.
+
+#image("images/os-arch-msdos.png", alt: "MS-DOS architecture")
+
+The OS was single-task oriented. After boot, a shell was loaded, and running a
+program was a very simple process. It lacked processes in the modern sense;
+programs were loaded directly into memory, overwriting everything except the
+kernel.
+
+== Monolithic
+
+The original UNIX employed a monolithic kernel structure. This structure
+integrated system programs with the kernel, which provided services such as file
+system (FS), scheduling, and memory management.
+
+#image("images/os-arch-unix.png", alt: "UNIX architecture")
+
+A monolithic kernel offered the advantage of being fast and energy efficient,
+but its lack of modularity necessitated a complete recompile every time an
+update was available.
+
+More recent versions of Linux manage to split the kernel into subsystems,
+separating them by function and by proximity to the hardware.
+
+#image("images/os-arch-linux.png", alt: "Linux architecture")
+
+== Microkernel
+
+The microkernel aims to minimize the code running in the kernel space by
+implementing as much functionality as possible in userspace.
+
+#image("images/os-arch-microkernel.png", alt: "Microkernel architecture")
+
+Its advantages include easier extensibility, simpler portability to new
+architectures, and enhanced security due to the reduced amount of code running
+in privileged mode. The primary drawback, however, is the performance overhead
+associated with increased communication between the kernel and userspace.
+
+== Modular OS
+
+Modern OSs implement *loadable kernel modules (LKMs)*. This is analogous to a
+microkernel where the core kernel handles only basic message passing and process
+management, but modules run in kernel mode rather than userspace, mitigating the
+performance disadvantage.
+
+With LKMs, the kernel's behavior can be modified even while the system is
+running.
+
+= OS booting
+
+When power is applied to the system, the CPU begins execution at a fixed memory
+address, which typically points to a small piece of code stored in ROM.
+
+This initial code, the BIOS on legacy systems or UEFI on modern ones, can read
+disks and load another piece of software known as the *bootloader*.
+
+The bootloader then locates the kernel image on the disk, usually by referencing
+a configuration file, and loads it into memory.
+
+= Processes
+
+An OS executes a variety of programs. Batch systems execute jobs sequentially as
+quickly as possible, while time-shared systems execute interactive user programs
+or tasks.
+
+A program is a passive entity stored on the disk (the executable file); a
+process is the active instance of that program. A program's execution can be
+initiated either by the user or automatically by the system.
+
+A single program instance can spawn multiple processes (e.g., multiple windows
+open or multiple users running it concurrently).
+
+The memory utilized by a process is subdivided into specific regions:
+
+- *Text Section*: Contains the program code. It is loaded at process start,
+  though dynamic libraries may be loaded later.
+- *Data Section*: Stores global variables and data initialized at compile time.
+  These values can be pre-initialized in the executable file or initialized
+  immediately after startup (BSS segment).
+- *Stack*: Holds temporary data, such as local variables and function
+  parameters, and is dynamically allocated as memory demands change.
+- *Heap*: Holds data that is explicitly requested in RAM using functions like
+  `malloc`, which is dynamically allocated.
+
+#image("images/process-memory-layout.png", alt: "Memory layout of a process")

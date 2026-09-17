@@ -1,0 +1,230 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Diagrammi ASM, registri paralleli e a scorrimento, contatori sincroni e pattern sequenziali come busy waiting e fire and check nelle macchine a stati.",
+  lang: "it",
+  title: "Macchine ASM e circuiti sequenziali di base",
+))
+
+= Algorithmic State Machines (ASM)
+
+Il diagramma ASM è simile ai diagrammi di flusso usati in programmazione.
+
+Componenti:
+
+- I rettangoli rappresentano gli stati e sono etichettati con:
+  - un nome;
+  - l'eventuale codifica;
+  - i valori delle uscite (per le macchine di Moore, dato che non dipendono
+    dagli ingressi);
+
+- I rombi rappresentano una condizione sugli ingressi e generano 2 rami, in base
+  al risultato.
+
+- Le transizioni sono rappresentate da frecce che vanno da uno stato ad un
+  altro, eventualmente passando per delle condizioni.
+
+Ad ogni ciclo di clock, è necessario uscire da un rettangolo ed eseguire una
+transizione (che può tornare anche al punto di partenza).
+
+Riprendendo l'esempio della caldaia:
+
+#image("images/diagramma-asm-caldaia.png", alt: "Esempio di diagramma ASM")
+
+== Uscite condizionate
+
+Per rappresentare macchine di Mealy, è necessario aggiungere delle uscite
+condizionate dagli ingressi: un rettangolo ad angoli arrotondati specifica il
+valore delle uscite durante le transizioni di stato.
+
+L'uscita assume il valore corrispondente mentre il circuito è nello *stato di
+partenza* della transizione.
+
+#image(
+  "images/diagramma-asm-mealy.png",
+  alt: "Esempio di diagramma ASM con uscite dipendenti dagli ingressi",
+)
+
+== Regole generali
+
+Non si deve mai assegnare un valore agli ingressi. Per definizione non si può
+decidere il valore di un ingresso.
+
+#image("images/asm-regola-1.png", alt: "Esempio di circuito non corretto")
+
+Non si deve mai usare un'uscita in una condizione di transizione.
+
+#image("images/asm-regola-2.png", alt: "Esempio di circuito non corretto")
+
+È possibile mettere 2 condizioni in sequenza sulla stessa transizione. È
+importante però che la transizione finisca sempre su uno stato e non si crei un
+ciclo composto solamente da condizioni.
+
+Ogni stato definisce il valore dell'uscita. Per convenzione, se non si specifica
+un valore, si assume sempre che essa ritorni a 0.
+
+= Circuiti sequenziali di base
+
+== Registro parallelo
+
+L'unità di memoria di base (che contiene un solo bit) è il flip-flop che abbiamo
+già visto. Un gruppo di flip-flop correlati è detto *registro*.
+
+#image("images/simbolo-registro.png", alt: "Simbolo circuitale del registro")
+
+L'ingresso clear pone immediatamente il valore dell'uscita a 0 (è asincrono); il
+valore rimane a 0 fino al primo fronte attivo del clock successivo al ritiro del
+segnale.
+
+=== Load-enable
+
+Talvolta si vuole controllare in quali cicli di clock caricare un nuovo valore.
+Per fare ciò si deve mascherare il segnale del clock, facendolo restare costante
+fintanto che si vuole mantenere fissato il valore dell'uscita.
+
+*Problema*: Tutti i registri devono commutare nello stesso istante per evitare
+comportamenti errati. Quindi generalmente si dovrebbero usare alberi di
+distribuzione del segnale per bilanciare la distanza da ogni flip-flop.
+
+Quindi è meglio non toccare il segnale di clock, se non per estreme
+ottimizzazioni del circuito.
+
+*Soluzione*: Invece di modificare il segnale del clock, è meglio usare un
+multiplexer prima del flip-flop. In questo modo, se il segnale di load è attivo,
+viene restituito il valore già memorizzato, altrimenti si riprende il normale
+funzionamento.
+
+#image(
+  "images/circuito-registro-load-enable-con-multiplexer.png",
+  alt: "Circuito del registro con multiplexer per load-enable",
+)
+
+== Registro a scorrimento (shift register)
+
+In questo tipo di registro, i flip-flop sono collegati in serie e il caricamento
+dei dati avviene un bit alla volta (per ciclo di clock).
+
+I registri a scorrimento sono utilizzati spesso per la comunicazione seriale tra
+periferiche (ad esempio protocolli SPI e I2C).
+
+#image(
+  "images/circuito-registro-scorrimento.png",
+  alt: "Circuito del registro a scorrimento",
+)
+
+#image(
+  "images/simbolo-registro-scorrimento.png",
+  alt: "Simbolo del registro a scorrimento",
+)
+
+=== Load-enable
+
+Anche qui è pericoloso mascherare il clock, perché il cavo tra clock e flip-flop
+è generalmente più lungo di quello tra un flip-flop e l'altro.
+
+Quindi si può di nuovo aggiungere un multiplexer all'entrata di ogni cella di
+memoria.
+
+#image(
+  "images/circuito-registro-scorrimento-load-enable.png",
+  alt: "Circuito del registro a scorrimento con load-enable",
+)
+
+=== Uscita parallela
+
+Si può facilmente estrarre il dato memorizzato in parallelo prelevando un'uscita
+da ogni flip-flop, invece che solamente da quello finale.
+
+=== Ingresso parallelo
+
+Per eseguire il caricamento in parallelo basta aggiungere un altro ingresso al
+multiplexer del load-enable.
+
+Il multiplexer sarà ora controllato da 2 bit: uno per load-enable e l'altro per
+scegliere tra ingresso seriale e parallelo.
+
+=== SHR bidirezionale
+
+Ogni multiplexer del flip-flop $n$ seleziona tra l'uscita del flip-flop $n - 1$
+(scorrimento avanti), l'uscita del flip-flop $n + 1$ (scorrimento indietro), il
+valore corrente (nessun cambiamento) e i dati paralleli (caricamento).
+
+La tabella della verità del multiplexer (dove $s_0$ e $s_1$ sono gli ingressi di
+controllo) diventa:
+
+#table(
+  columns: 3,
+  [$s_0$], [$s_1$], [*modalità*],
+  [0], [0], [nessun cambiamento (load-enable disabilitato)],
+  [0], [1], [scorrimento all'indietro],
+  [1], [0], [caricamento parallelo],
+  [1], [1], [scorrimento in avanti],
+)
+
+#image(
+  "images/circuito-shr-bidirezionale.png",
+  alt: "Circuito shr bidirezionale",
+)
+
+#image("images/simbolo-shr-bidirezionale.png", alt: "Simbolo shr bidirezionale")
+
+== Contatore
+
+Il contatore è un registro che attraversa una sequenza di stati ad ogni impulso
+del clock.
+
+Se la sequenza di stati è quella dei numeri binari, allora si parla di contatore
+binario.
+
+=== Contatore sincrono a modulo 16
+
+È un circuito a 4 uscite che conta in binario da 0 a 15, incrementando di 1 ad
+ogni ciclo del clock. Quando arriva a 15, l'uscita ritorna a 0 al ciclo
+successivo.
+
+Questo circuito non ha ingressi (ad eccezione del clock). Un circuito
+sequenziale può evolvere anche in mancanza di essi, a differenza di uno
+combinatorio.
+
+L'implementazione può essere quella di un registro parallelo affiancato ad un
+sommatore tra il valore del registro e 1.
+
+#image("images/circuito-contatore.png", alt: "Circuito del contatore")
+
+Si può eventualmente aggiungere un segnale di count-enable per fermare
+l'avanzamento della sequenza.
+
+= Pattern sequenziali
+
+Situazioni che si verificano spesso nelle macchine a stati.
+
+== Busy waiting
+
+Si aspetta che un certo segnale S cambi valore, ad esempio da 0 a 1.
+
+#image(
+  "images/diagramma-asm-busy-waiting.png",
+  alt: "Diagramma ASM del busy waiting",
+)
+
+La condizione appare soddisfatta solamente al ciclo di clock successivo al
+cambiamento. Per avere un feedback istantaneo, si può aggiungere un'uscita
+condizionata collegata al valore dell'ingresso.
+
+== Fire and check
+
+Si fa partire un'operazione e si aspetta che essa termini.
+
+Si fa partire un contatore e si aspetta che raggiunga la condizione di termine
+conteggio (TC). Non ci interessa il suo valore, ma solamente la condizione di
+TC.
+
+#image(
+  "images/diagramma-asm-fire-and-check.png",
+  alt: "Diagramma ASM del fire and check",
+)
+
+Si può usare per operazioni aritmetiche con virgola mobile che spesso richiedono
+più cicli di clock per raggiungere il risultato.

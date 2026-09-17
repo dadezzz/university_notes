@@ -1,0 +1,56 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Examines liveness properties, deadlock conditions with wait signal examples, and priority inheritance protocol for resolving priority inversion issues.",
+  lang: "en",
+  title: "Liveness deadlock and priority inheritance",
+))
+
+= Liveness
+
+Processes may have to wait indefinitely while trying to acquire a shared
+resource.
+
+Liveness refers to a set of properties that the system must satisfy to ensure
+processes make progress.
+
+= Deadlock
+
+A deadlock occurs when two or more processes are indefinitely waiting for an
+event that can only be caused by one of the other waiting processes.
+
+Let P0 be:
+
+```text
+wait(S)
+wait(Q)
+signal(S)
+signal(Q)
+```
+
+and P1:
+
+```text
+wait(Q)
+wait(S)
+signal(Q)
+signal(S)
+```
+
+If P0 executes `wait(S)` and P1 executes `wait(Q)`, the signal calls are never
+reached because the processes are mutually waiting for a resource held by the
+other.
+
+= Priority inheritance
+
+This is a scheduling problem that arises when a resource is shared between low
+and high-priority processes.
+
+If a low-priority process locks the resource but is then not run,
+higher-priority processes get stuck waiting for that low-priority process to
+complete.
+
+In this case, processes with high priority are restricted to inherit the
+priority of the process holding the resource.

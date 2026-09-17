@@ -1,0 +1,47 @@
+---
+// This page shows informations about the course that are contained in
+// course.json. It also shows a list of all lessons to improve internal linkage.
+
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import type { GetStaticPaths } from "astro";
+import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const courses = await getCollection("courses");
+  return courses.map((c) => {
+    // Course entry ids are `[course]/course`, but the route param is just the
+    // directory name (courses are stored in a flat layout).
+    const course = c.id.replace(/\/course$/, "");
+    return { params: { course } };
+  });
+};
+
+const { course: id } = Astro.params;
+const lessons = await getCollection("docs");
+const course = await getEntry("courses", `${id}/course`);
+if (!course) throw new Error(`course '${id}' not found`);
+---
+
+<StarlightPage frontmatter={{ tableOfContents: false, title: course.data.name, lang: course.data.lang }}>
+  <h2>Professors</h2>
+
+  <ul>
+    {course.data.professors.map((p) => (
+      <li>{p}</li>
+    ))}
+  </ul>
+
+  <h2>Lessons</h2>
+
+  <ul>
+    {lessons
+      // The trailing slash avoids matching a sibling like `course-extra`.
+      .filter((l) => l.id.startsWith(`${id}/`))
+      .map((l) => (
+        <li>
+          <a href={`/${l.id}`}>{l.data.title}</a>
+        </li>
+      ))}
+  </ul>
+</StarlightPage>

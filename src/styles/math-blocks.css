@@ -3,14 +3,18 @@
   src: url("../fonts/STIXTwoMath-Regular.woff2") format("woff2");
 }
 
-.typst-math {
+math {
   font-family: "STIXTwoMath", serif;
   /* Make font as large as normal text. */
   font-size: 125%;
 }
 
-/* Make block expressions horizontally scrollable. */
-.typst-math:has(> math[display="block"]) {
+/* Make block expressions horizontally scrollable. Typst wraps every equation in
+   a `<span class="not-content">` (see `_templates/starlight.typ`), so that span
+   is the scroll container. It needs `display: block` because `overflow` has no
+   effect on an inline element. */
+span:has(> math[display="block"]) {
+  display: block;
   max-width: 100%;
   /* Hide vertical scrollbars that are sometimes added by browsers. */
   overflow-y: hidden;
@@ -18,19 +22,14 @@
 }
 
 /* Disable wrapping block expressions, to give priority to scrolling. */
-.typst-math > math[display="block"] {
+math[display="block"] {
   white-space: nowrap;
 }
 
-/* Highlight errors. */
-.typst-math-error {
-  color: red;
-}
-
 /* Make equations align, works only for 2 columns where alignment is r|l */
-.typst-math mtable.aligned mtr mtd:first-child {
+math mtable.aligned mtr mtd:first-child {
   text-align: right;
 }
-.typst-math mtable.aligned mtr mtd:last-child {
+math mtable.aligned mtr mtd:last-child {
   text-align: left;
 }

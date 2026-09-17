@@ -1,0 +1,154 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Covers the CIA triad, malware types, attack vectors, cryptography, authentication methods, and defense in depth strategies for protecting operating systems.",
+  lang: "en",
+  title: "Operating system security threats and defenses",
+))
+
+= Security
+
+A system is considered secure if resources are used as intended under all
+circumstances.
+
+The CIA triad is often used to categorize security flaws:
+
+- *Confidentiality*: unauthorized access to data;
+- *Integrity*: unauthorized modification/destruction of data;
+- *Availability*: the system is made unusable for other users;
+
+== Security violation methods
+
+- masquerading: pretending to be another user to escalate privileges;
+- replay attack: transmitting valid data again to trick a system into performing
+  an unauthorized action;
+- man-in-the-middle attack: intruder sits in the data flow, masquerading as the
+  sender to the receiver and vice versa;
+- session hijacking: intercepting an already established session to bypass
+  authentication;
+- privilege escalation: obtaining access beyond what a user or resource is
+  supposed to have;
+- phishing and social-engineering: stealing credentials from humans;
+
+= Program threats
+
+Programs can deliver security threats and cause breaches, thus it is fundamental
+to run them according to the *principle of least privilege*.
+
+Malware can be classified in the following categories:
+
+- *Trojan horse*: software that disguises itself as legitimate to trick users
+  into installing it. Once inside the machine it can create backdoors for remote
+  control, download other pieces of malicious software, steal sensitive data,
+  etc.
+
+- *Trap door*: the developer leaves hidden access in the software that only they
+  are able to use. Specific logic conditions must be met to activate it, making
+  it difficult to detect.
+
+  Trap doors can also be cleverly hidden in the compiler:
+  #link(
+    "https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf",
+    [paper by Ken Thompson],
+  )
+
+- *Worm*: software that self-replicates across networks, consuming bandwidth,
+  corrupting files and installing other malware.
+
+- *Rootkit*: software that gains privileged access to a system and hides its
+  presence from detection. Usually attacks the kernel and low level hardware,
+  making it stealthy from the perspective of user applications.
+
+- *Ransomware*: software that encrypts the system or important data, then it
+  demands a payment (ransom) to restore the access. Eventually it can threaten
+  to delete the data if the payment is not made quickly.
+
+- *Spyware*: software that covertly collects information about the user or
+  system, without their knowledge. Can include keystrokes, browser history,
+  screenshots and sensitive data.
+
+- *Adware*: software that aggressively display unwanted advertisements.
+  Sometimes it redirects browser traffic or collects user data for advertising
+  purposes.
+
+- *Botnet*: software that turns an infected computer into a slave, controlled
+  remotely by an attacker. Can be used to create networks of machines to use in
+  large scale attacks like DDoS, spam campaigns or crypto mining.
+
+- *Cryptojackers*: software that secretly uses the victim's resources (CPU/GPU)
+  to mine cryptocurrency for the attacker. Usually it's also a botnet.
+
+Some strategies of attack are:
+
+- *Reverse shell*: if the attacker is able to send commands to a remote shell,
+  they could open a connection and transfer data from the compromised host to
+  their nodes. If applicable, it's particularly effective since very few
+  organizations block outbound network connections.
+- *Port scanning*: it's an automated attempt to connect to a range of ports on
+  one or more IP addresses. It's used to infer OS and services (fingerprinting)
+  running on the system to potentially exploit any vulnerabilities present.
+- *Denial-of-service*: the attacker overloads the target computer, preventing it
+  from doing any useful work. Distributed Denial-of-Service uses multiple nodes
+  to attack the same host.
+
+= Security mechanisms
+
+== Cryptography
+
+Cryptography is the science of securing information by transforming it into
+unreadable formats for unauthorized users.
+
+- *encryption*: converts plaintext into ciphertext using an algorithm and key;
+- *decryption*: converts ciphertext into plaintext with the right key;
+- *symmetric cryptography*: the same key is used for encryption and decryption;
+- *asymmetric cryptography*: public/private key pairs are used for encryption
+  and digital signatures;
+- *hash functions*: they generate fixed size output (hash) from input data;
+
+In OS security it is used to protect sensitive data in storage and transmission.
+It ensures confidentiality, integrity and sometimes also authentication.
+
+== Authentication
+
+Authentication is the process of verifying the identity of a user, device or
+system.
+
+Authentication can be performed with something you know (password, PIN),
+something you have (smart card, security key), something you are (biometrics).
+multi-factor authentication combines two or more of these methods to increase
+security.
+
+Passwords are stored as salted hashes (one way, not encrypted), and kept secret
+anyway for extra security. The salt is used to avoid having the same password
+being hashed with the same value.
+
+In OS security it is used to control access to system resources and to prevent
+unauthorized users from gaining access.
+
+== Defense in depth
+
+Defense in depth requires that multiple layers of security are applied to the
+system. This way, even if one is breached, the attacker can do limited damage.
+
+- *vulnerability assessment*: compares the real state of the system to the
+  defined security policy;
+- *intrusion detection*: detects attempted or successful intrusions by spotting
+  known bad patterns or differences from normal behavior;
+- *virus protection*: consists of searching all programs for known virus
+  patterns;
+- *auditing, accounting and logging*: of all or specific system or network
+  activities;
+
+== Firewalls
+
+A firewall is a filter placed between trusted and untrusted hosts. It can be put
+between various layers:
+
+- *Network level*: placed between trusted and untrusted hosts to prevent
+  unauthorized protocols and connections. Can be spoofed by tunneling an
+  unauthorized protocol inside an authorized one.
+- *Application proxy*: similar to the network firewall, but understands the
+  application protocol (SMTP, HTTP, etc.) and can control it.
+- *System call filter*: monitors all system calls and applies rules to them.

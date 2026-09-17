@@ -16,16 +16,47 @@ These notes serve multiple purposes:
 ```
 src/
 ├── content/
-│   └── docs/        # Course notes organized by year/semester
-│       └── [year]/[semester]/[course]/
-│           ├── course.json  # Course metadata
-│           └── *.md         # Note content
+│   └── docs/
+│       ├── _templates/         # Shared Typst helpers (never rendered as notes)
+│       │   └── starlight.typ
+│       └── [course]/           # One folder per course
+│           ├── course.json     # Course metadata
+│           ├── images/         # Images used by the notes
+│           └── YYYY-MM-DD.typ  # Note content
 ├── pages/
-│   └── index.astro  # Homepage with course listings
-├── components/      # Reusable UI components
-├── styles/          # Global styles
-└── images/          # Images used inside notes, divided by course
+│   ├── index.astro             # Homepage with course listings
+│   └── [course]/
+│       ├── index.astro         # Course page with the list of lessons
+│       └── [date].astro        # Rendered lesson
+├── components/                 # Reusable UI components
+├── styles/                     # Global styles
+└── fonts/                      # Fonts used by the rendered math
 ```
+
+### Notes format
+
+Notes are written in [Typst](https://typst.app/) (`.typ`), not Markdown. A
+shared `_templates/starlight.typ` module provides the `setup` show rule (math
+polyfills and Starlight overrides) plus the `note`/`tip`/`caution`/`danger`
+helpers. Each note starts with an import and a metadata block, for example:
+
+```typst
+#import("../_templates/starlight.typ") as starlight
+
+#show: starlight.setup
+
+#metadata((
+  lang: "it",
+  title: "Segnali, tecnologie di implementazione e booleani",
+  description: "...",
+  prev: false,
+))
+```
+
+The custom `typst` content loader in `src/content.config.ts` compiles every
+`.typ` file to HTML with the `typst` CLI at build time (and on file changes in
+dev mode). Math follows Typst syntax: inline math is `$x$`, display math is
+`$ x $` (spaces around the expression).
 
 ## Contributing
 
@@ -60,8 +91,8 @@ Alternatively, follow the manual installation steps below.
 
 - [Node.js](https://nodejs.org/)
 - [pnpm](https://pnpm.io/)
-- [Typst](https://typst.app/) (v0.15+, required to render math; already included
-  in the devcontainer)
+- [Typst](https://typst.app/) (v0.15+, required to compile the notes; already
+  included in the devcontainer and CI images)
 
 #### Installation
 

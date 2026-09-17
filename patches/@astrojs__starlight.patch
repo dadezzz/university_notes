@@ -1,0 +1,13 @@
+diff --git a/dist/components-internals/TableOfContents/TableOfContentsList.astro b/dist/components-internals/TableOfContents/TableOfContentsList.astro
+index 8cac910ce1b99361093a443acb0a1da90782d256..a92e49443da258d69ff4fe0a986884eaa02446f6 100644
+--- a/dist/components-internals/TableOfContents/TableOfContentsList.astro
++++ b/dist/components-internals/TableOfContents/TableOfContentsList.astro
+@@ -15,7 +15,7 @@ const { toc, isMobile = false, depth = 0 } = Astro.props;
+ 		toc.map((heading) => (
+ 			<li>
+ 				<a href={'#' + heading.slug}>
+-					<span>{heading.text}</span>
++					<span set:html={heading.text}></span>
+ 				</a>
+ 				{heading.children.length > 0 && (
+ 					<Astro.self toc={heading.children} depth={depth + 1} isMobile={isMobile} />

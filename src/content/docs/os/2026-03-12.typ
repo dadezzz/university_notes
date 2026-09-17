@@ -1,0 +1,86 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Explores multilevel queues, feedback queues, multiprocessor scheduling, rate monotonic, earliest deadline first, and proportional share scheduling algorithms.",
+  lang: "en",
+  title: "Multilevel queue scheduling and realtime systems",
+))
+
+= Multilevel Queue
+
+The ready queue is partitioned into multiple queues based on priority. This
+allows avoidance of an $O(n)$ search when finding the highest priority process.
+
+The parameters that can vary are:
+
+- the number of queues;
+- the scheduling algorithm for each queue;
+- the method used to determine which queue a process will enter;
+- scheduling among the queues;
+
+Prioritization based on the queue structure may lead to starvation for processes
+in lower-priority queues.
+
+== Multilevel Feedback Queue (MFQ)
+
+In an MFQ, processes can move between various queues, enabling the
+implementation of aging.
+
+An example could be a system with:
+
+- Q0: RR with time quantum 8ms;
+- Q1: RR with time quantum 16ms;
+- Q2: FSCS;
+
+= Scheduling in multiprocessor systems
+
+On SMP systems, scheduling decisions are made locally on each core. The same
+policy is used on all cores, but each one invokes it locally.
+
+Threads may be stored:
+
+- in a common ready queue;
+- on a per core queue;
+
+= Hardware threads
+
+Modern CPUs implement threads at the hardware level. For example, two threads
+can share the same core, where one runs while the other fetches memory.
+
+= Real time scheduling
+
+- Soft real-time systems: Critical tasks have higher priority but no guarantee
+  regarding their scheduling time;
+- Hard real-time systems: These systems guarantee that critical tasks are
+  scheduled before a specified deadline;
+
+For real-time scheduling, the scheduler must support preemptive, priority-based
+scheduling and must be capable of meeting all deadlines.
+
+Periodic processes require the CPU at constant intervals.
+
+== Rate monotonic scheduling
+
+With rate monotonic scheduling, priority is assigned based on the inverse of the
+period. Consequently, shorter periods receive higher priority, and longer
+periods receive lower priority.
+
+The CPU should be able to run all the necessary periodic jobs and still have
+some time to spare.
+
+== Earliest deadline first scheduling
+
+Priorities are assigned according to deadlines. The earlier the deadline, the
+higher the priority.
+
+When a process becomes ready, it announces its deadline requirements, which the
+scheduler uses to update its decision.
+
+== Proportional share scheduling
+
+A proportional share scheduler allocates $T$ shares among all applications. Each
+application will receive $N / T$ shares of processor time.
+
+This guarantees a portion of processor time for each process.

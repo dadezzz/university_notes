@@ -1,0 +1,127 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Funzioni booleane, tabelle della verità, espressioni algebriche, proprietà di manipolazione, teorema di espansione di Shannon e forme canoniche SOP e POS.",
+  lang: "it",
+  title: "Tabelle della verità ed espansione di Shannon",
+))
+
+= Tabelle della verità
+
+I valori delle funzioni booleane possono essere rappresentati usando le tabelle
+della verità.
+
+Ad ogni combinazione dei valori delle variabili corrisponde una riga della
+tabella.
+
+#image(
+  "images/tabella-verita-and.png",
+  alt: "Tabella della verità dell'operatore AND",
+)
+
+Con $n$ variabili, sono possibili $2^n$ diverse combinazioni di input. Funzioni
+di decine di variabili sono comuni, quindi occorre trovare una rappresentazione
+più compatta.
+
+= Espressioni
+
+Una funzione può essere rappresentata come un'espressione facente uso degli
+operatori già definiti (esempio: $f(a, b, c) = a b + b' c$).
+
+Convenzionalmente si dà precedenza all'operazione AND rispetto alla OR (come la
+moltiplicazione ha precedenza sull'addizione).
+
+Un'espressione può essere realizzata fisicamente collegando i circuiti delle
+porte logiche di base.
+
+Diverse espressioni possono rappresentare la stessa funzione. Per esempio
+$a b + b' c = a' b' c + a b' c + a b c' + a b c$. Ovviamente si usa sempre la
+più corta, dato che ogni porta logica impiega un breve periodo di tempo per
+eseguire la propria operazione.
+
+== Manipolazioni algebriche
+
+Due espressioni sono equivalenti se rappresentano la stessa funzione. Usiamo
+alcune proprietà per derivare una nuova espressione equivalente a quella data.
+
+- *identità*:
+  - $x + 0 = x$
+  - $x dot 1 = x$
+
+- *proprietà commutativa*:
+  - $x + y = y + x$
+  - $x y = y x$
+
+- *proprietà distributiva*:
+  - $x (y + z) = (x y) + (x z)$
+  - $x + (y z) = (x + y) (x + z)$
+
+- *complementazione*:
+  - $x + x' = 1$
+  - $x x' = 0$
+
+- *proprietà associativa*:
+  - $x + (y + z) = (x + y) + z$
+  - $x (y z) = (x y) z$
+
+  Permette di definire in modo univoco le operazioni AND ed OR con più di 2
+  variabili.
+
+- *legge dell'elemento nullo*:
+  - $x + 1 = 1$
+  - $x dot 0 = 0$
+- *involuzione*: $(x')' = x$
+
+- *idempotenza*:
+  - $x + x = x$
+  - $x x = x$
+- *assorbimento*:
+  - $x + x y = x$
+  - $x (x + y) = x$
+- *semplificazione*:
+  - $x + x' y = x + y$
+  - $x (x' + y) = x y$
+- *adiacenza*:
+  - $x y + x y' = x$
+  - $(x + y) (x + y') = x$
+- *legge di De Morgan*:
+  - $(x + y)' = x' y'$
+  - $(x y)' = x' + y'$
+  - $(x' + y')' = x y$
+  - $(x' y')' = x + y$
+
+= Teorema di espansione di Shannon
+
+Data una funzione booleana $f$ di $n$ variabili, l'espansione di Shannon è
+l'identità:
+
+$
+  f = x_1 f_x_1 + x_1' f_x_1'
+$
+
+dove $x_1$ è una delle variabili che viene fissata a $1$ e $f_x_1$ e $f_x_1'$
+sono restrizioni di $f$ di $n - 1$ variabili, dove $x_1$ diventa costante.
+
+Possiamo continuare l'espansione per le 'sottofunzioni' ottenute. Una volta
+completato questo processo ricorsivo otterremo un'espressione che viene detta
+*forma canonica*.
+
+L'espansione completa di una funzione è un'espressione univoca, quindi per
+verificare che due funzioni rappresentino la stessa logica si può controllare
+l'uguaglianza della forma canonica.
+
+*Corollario*: qualunque funzione booleana può essere espressa mediante gli
+operatori logici di base AND e OR.
+
+== Forma canonica di un'espressione booleana
+
+I due tipi di forme canoniche che si possono ottenere dall'espansione hanno una
+nomenclatura specifica:
+
+- *Sum of products* (SOP): somma in cui ogni termine è il prodotto di variabili
+  affermate se valgono 1 o negate se valgono 0.
+- *Product of sums* (POS): prodotto in cui ogni termine è una somma di variabili
+  affermate se valgono 0 o negate se valgono 1; si ottiene modificando
+  leggermente il teorema di Shannon.

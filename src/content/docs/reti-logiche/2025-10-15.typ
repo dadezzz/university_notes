@@ -1,0 +1,243 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Funzionamento dei circuiti sequenziali, latch D, flip-flop edge triggered e macchine a stati finiti con separazione tra rete combinatoria e memoria di stato.",
+  lang: "it",
+  title: "Circuiti sequenziali, latch D e flip-flop",
+))
+
+= Circuiti sequenziali
+
+Finora abbiamo visto funzioni booleane, per cui ad ogni combinazione degli
+ingressi è associato un valore d'uscita. Data la stessa combinazione di
+ingressi, si ottiene sempre la stessa uscita.
+
+Nei circuiti sequenziali, invece, il comportamento può essere influenzato anche
+dal *risultato delle esecuzioni precedenti*.
+
+== Circuito della caldaia
+
+Vogliamo creare un circuito che accende e spegne una caldaia a seconda del
+valore della temperatura $T$.
+
+Definiamo 2 ingressi:
+
+- $H$ sarà $1$ quando $T > T_"max"$
+- $L$ sarà $1$ quando $T < T_"min"$
+
+Si può creare la tabella della verità:
+
+#table(
+  columns: 3,
+  [*H*], [*L*], [*C*],
+  [0], [0], [?],
+  [0], [1], [1],
+  [1], [0], [0],
+  [1], [1], [-],
+)
+
+Non si può mai verificare il caso in cui $H = L = 1$. Inoltre, bisogna stabilire
+cosa mettere per $H = L = 0$:
+
+- Se la tengo spenta:
+
+  #image("images/caldaia-hl-spenta.png", alt: "Temperatura a caldaia spenta")
+
+- Se la tengo accesa:
+
+  #image("images/caldaia-hl-accesa.png", alt: "Temperatura a caldaia accesa")
+
+In questo caso servono 2 valori diversi: 1 se si stava già scaldando e 0 se non
+si stava scaldando. Quindi occorre guardare il valore di output precedente:
+
+#image(
+  "images/caldaia-lh-ritorno-valore-output.png",
+  alt: "Circuito caldaia con ritorno dell'output",
+)
+
+---
+
+I circuiti il cui output varia a seconda della storia dei valori d'uscita
+precedenti sono detti circuiti sequenziali.
+
+Per realizzarli è necessario creare una memoria, che si realizza riportando
+l'uscita o un nodo interno all'ingresso. Il valore memorizzato nella memoria
+viene detto *stato* del circuito.
+
+Lo *stato futuro* è il valore uscente dal circuito, che verrà memorizzato per il
+prossimo calcolo.
+
+È conveniente separare la parte di memoria del circuito in un componente
+distinto e ben definito.
+
+#image(
+  "images/separazione-combinatorio-memoria.png",
+  alt: "Separazione tra parte combinatoria e memoria",
+)
+
+== Circuiti sequenziali sincroni e asincroni
+
+- Nei *circuiti asincroni* lo stato può cambiare ad ogni istante, a causa di un
+  cambiamento dello stato futuro. Ciò può portare a variazioni sugli ingressi o
+  sullo stato presente.
+
+- Nei *circuiti sincroni* lo stato viene aggiornato solo in corrispondenza di un
+  certo segnale di sincronizzazione detto *clock*.
+
+  I circuiti sincroni sono più semplici perché non c'è più una dipendenza tra il
+  valore di stato presente e quello futuro. Ciò consente di disaccoppiare la
+  lettura dal calcolo dello stato.
+
+= Latch D
+
+Il latch D è un componente che si comporta come una porta:
+
+- Quando $C = 1$, la porta è aperta e l'uscita segue le variazioni dell'ingresso
+  $D$.
+- Quando $C = 0$, la porta è chiusa e l'uscita diventa l'ultimo valore su $D$
+  prima che $C$ sia passato a $0$.
+
+#image("images/simbolo-latch-d.png", alt: "Simbolo di latch D")
+
+Esiste anche un'altra variante, detta a clock attivo basso, con l'ingresso C
+negato, che quindi lascia passare il valore in ingresso se $C = 0$.
+
+== Come usare il latch per memoria
+
+Il latch D può essere usato come cella di memoria per un circuito sequenziale.
+Si collegano i pin $D$ e $Q$ alla rete combinatoria e il pin $C$ a un clock che
+scandirà il ritmo del circuito.
+
+Il circuito passa attraverso 2 fasi:
+
+- clock basso: la rete calcola le nuove uscite e il nuovo stato futuro;
+- clock alto: lo stato futuro diventa stato presente e il calcolo ricomincia;
+
+== Problemi del latch D
+
+Il principale problema del latch D è la sua instabilità durante la fase di clock
+alto. Se la rete combinatoria è molto veloce, lo stato futuro potrebbe mutare di
+nuovo finché il clock è attivo, lasciando un valore inaspettato in memoria.
+
+#starlight.caution([
+  Il circuito può cambiare stato più volte durante una fase attiva del clock.
+])
+
+=== Soluzione
+
+La soluzione più semplice sarebbe utilizzare un clock con una fase attiva (duty
+cycle) molto corta: in questo modo la rete combinatoria non sarà in grado di
+calcolare un nuovo valore in tempo.
+
+#image(
+  "images/clock-fase-attiva-simmetrica-vs-accorciata.png",
+  alt: "Clock con fase attiva simmetrica e accorciata",
+)
+
+*Problema*: per accorciare la lunghezza del duty cycle occorre un segnale con
+banda maggiore, e quindi una maggiore potenza. Questo fa alzare i costi.
+
+= Flip-flop edge triggered
+
+Il valore di questo tipo di flip-flop cambia solo in corrispondenza delle
+transizioni del clock, eliminando i problemi legati al lungo periodo in cui il
+clock rimane attivo.
+
+Per realizzarlo si collegano 2 latch D in cascata, il primo detto *master* e il
+secondo detto *slave*. Non c'è mai un collegamento diretto tra l'ingresso e
+l'uscita.
+
+#image("images/circuito-flip-flop.png", alt: "Circuito del flip-flop")
+
++ Quando $C = 1$ il master si apre ed è trasparente, quindi segue il valore in
+  ingresso. Il valore in uscita non cambia perché lo slave è chiuso.
++ Quando $C = 0$ il master si chiude e lo slave diventa trasparente. Non ci sono
+  variazioni in uscita perché lo slave ritorna semplicemente il valore
+  memorizzato nel master.
+
+#starlight.note([
+  Il simbolo usato per rappresentare il flip-flop è uguale a quello del latch D,
+  solo con un triangolo sulla porta $C$.
+])
+
+Ci sono 2 varianti del flip-flop:
+
+- negative edge triggered: il valore su $D$ viene memorizzato quando il clock
+  scende a $0$;
+- positive edge triggered: il valore su $D$ viene memorizzato quando il clock
+  sale a $1$;
+
+#starlight.note([
+  Le memorie SDRAM (Synchronous Dynamic RAM) utilizzano flip-flop nella logica
+  di controllo. Quelle DDR (Double Data Rate) usano entrambi i fronti del clock.
+])
+
+== Preset e clear
+
+#image(
+  "images/simbolo-flip-flop.png",
+  alt: "Simbolo circuitale del flip-flop con preset e clear",
+)
+
+È importante inizializzare i circuiti con memoria con un valore noto. Lo si può
+fare al primo fronte attivo del clock oppure usando segnali asincroni (che hanno
+effetto immediatamente).
+
+Gli ingressi preset e clear servono a questo. Di solito si attivano portando il
+valore sull'ingresso corrispettivo a $0$.
+
+- Se $S = 0$, $Q$ va a $1$;
+- Se $R = 0$, $Q$ va a $0$;
+
+= Macchine a stati finiti
+
+Lo stato è l'insieme dei valori contenuti nella memoria del circuito, quindi in
+generale è un vettore di variabili booleane (ciascuna memorizzata tramite un
+flip-flop). Ogni variabile dello stato presente ha una corrispondente variabile
+nello stato futuro.
+
+Durante ogni ciclo del clock lo stato presente non cambia, mentre lo stato
+futuro viene calcolato dalla rete combinatoria. Il passaggio da uno stato
+all'altro del circuito si chiama *transazione*.
+
+== Equazioni di stato
+
+Lo stato corrispondente al ciclo $n$-esimo del clock viene indicato con $X(n)$.
+Quello futuro $Y(n) = X(n + 1)$ dipende sia dal valore degli ingressi
+($op("IN")(n)$), sia dal valore corrente dello stato:
+
+$
+  Y(n) = Delta(op("IN")(n), X(n))
+$
+
+Le uscite del circuito $op("OUT")(n)$ dipendono dagli ingressi e dallo stato
+secondo una funzione combinatoria ($Lambda$)
+
+$
+  op("OUT")(n) = Lambda(op("IN")(n), X(n))
+$
+
+#starlight.note([
+  Ovviamente lo stato presente non dipende dallo stato futuro!
+])
+
+== Tabella degli stati
+
+Ritornando all'esempio della caldaia visto in precedenza, possiamo scrivere
+tutti gli stati che il circuito può assumere in una tabella simile alla tabella
+della verità:
+
+#image(
+  "images/tabella-stati-caldaia.png",
+  alt: "Tabella degli stati della caldaia",
+)
+
+La tabella si può semplificare: se due righe hanno lo stesso stato presente,
+stato futuro e uscita, rappresentano la stessa transazione:
+
+#image(
+  "images/tabella-stati-caldaia-semplificata.png",
+  alt: "Tabella degli stati semplificata",
+)

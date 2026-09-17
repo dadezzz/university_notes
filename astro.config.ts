@@ -1,101 +1,5 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
-import { unified } from "@astrojs/markdown-remark";
-import remarkMath from "remark-math";
-import { rehypeTypst } from "./rehype-typst";
-
-const sidebar = [
-  {
-    label: "First year",
-    items: [
-      {
-        label: "First semester",
-        items: [
-          {
-            label: "Analisi 1",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "1/1/145403" } }],
-          },
-          {
-            label: "Geometria e algebra lineare",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "1/1/145405" } }],
-          },
-        ],
-      },
-      {
-        label: "Second Semester",
-        items: [
-          {
-            label: "Analisi 2",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "1/2/140017" } }],
-          },
-          {
-            label: "Calcolo delle probabilità e statistica",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "1/2/145805" } }],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Second year",
-    items: [
-      {
-        label: "First semester",
-        items: [
-          {
-            label: "Elaborazione dei segnali",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/1/146128-2" } }],
-          },
-          {
-            label: "Fisica 2",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/1/145821" } }],
-          },
-          {
-            label: "Introduzione al machine learning",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/1/146309-1" } }],
-          },
-          {
-            label: "Reti",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/1/146128-1" } }],
-          },
-          {
-            label: "Reti Logiche",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/1/146129-1" } }],
-          },
-        ],
-      },
-      {
-        label: "Second Semester",
-        items: [
-          {
-            label: "Circuiti elettronici digitali",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/2/146129-2" } }],
-          },
-          {
-            label: "Operating systems",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/2/146147" } }],
-          },
-          {
-            label: "Organizzazione e gestione aziendale",
-            collapsed: true,
-            items: [{ autogenerate: { directory: "2/2/145822" } }],
-          },
-        ],
-      },
-    ],
-  },
-];
 
 export default defineConfig({
   integrations: [
@@ -106,7 +10,6 @@ export default defineConfig({
       editLink: {
         baseUrl: "https://git.zarantonello.dev/university/notes/_edit/main",
       },
-      sidebar,
       head: [
         { tag: "link", attrs: { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" } },
         { tag: "link", attrs: { rel: "icon", type: "image/png", sizes: "96x96", href: "/favicon-96x96.png" } },
@@ -138,11 +41,5 @@ export default defineConfig({
       title: "ICE notes",
     }),
   ],
-  markdown: {
-    processor: unified({
-      rehypePlugins: [rehypeTypst],
-      remarkPlugins: [remarkMath],
-    }),
-  },
   site: "https://ice-notes.zarantonello.dev",
 });

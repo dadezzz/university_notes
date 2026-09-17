@@ -44,7 +44,7 @@
     // Automerge less important packages.
     {
       "automerge": true,
-      "matchPackageNames": ["@astro/check", "@biomejs/biome", "prettier*", "typescript", "@types/*"],
+      "matchPackageNames": ["@astro/check", "@biomejs/biome", "prettier", "typescript", "@types/*"],
       "matchUpdateTypes": ["!major"],
       "semanticCommitType": "chore"
     },

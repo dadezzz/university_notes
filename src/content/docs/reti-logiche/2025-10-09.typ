@@ -1,0 +1,152 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "VHDL comportamentale con processi, sensitivity list, variabili locali, testbench, conversioni e operatori aritmetici su signed/unsigned di numeric_std",
+  lang: "it",
+  title: "Architettura comportamentale e operatori arit.",
+))
+
+= Architettura comportamentale
+
+Nell'architettura comportamentale, il codice viene eseguito in sequenza invece
+che in concorrenza. Per descrivere il comportamento si usano i processi.
+
+```vhdl
+architecture comportamentale of example is
+begin
+    -- label: process (sensitivity-list) is
+    -- begin
+    --     ...statement sequenziale
+    -- end;
+end;
+```
+
+La sensitivity list è una lista di segnali che definiscono le condizioni di
+attivazione del processo. Esso viene eseguito ogni volta che uno di questi
+segnali cambia di valore.
+
+```vhdl
+architecture sequenziale of example is
+begin
+    process (a) is
+    begin
+        valid <= '1';
+        if a(3) = '1' then
+            y <= "11";
+        elsif a(2) = '1' then
+            y <= "10";
+        elsif a(1) = '1' then
+            y <= "01";
+        elsif a(0) = '1' then
+            y <= "00";
+        else
+            y <= "00";
+            valid <= '0';
+        end if;
+    end;
+end;
+```
+
+Il valore viene assegnato alle variabili solo *alla fine* del processo. Quindi
+ci sono ancora delle limitazioni su ciò che è possibile fare in sequenza.
+
+In caso di più assegnazioni, l'ultima è quella che prevale, quindi è possibile
+assegnare dei valori di default ai segnali.
+
+== Variabili
+
+Nei processi è possibile definire anche delle variabili. Esse prendono il nuovo
+valore immediatamente quando viene assegnato. Inoltre esse mantengono il proprio
+valore tra un'attivazione e quella successiva del processo.
+
+L'operatore di assegnazione per le variabili è `:=`.
+
+*Esempio*: controllo di parità di bit:
+
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity parity is
+    port (
+        a : in std_logic_vector(7 downto 0);
+        y : out std_logic;
+    );
+end;
+
+architecture iterative of parity is
+begin
+    process (a) is
+        variable even : std_logic;
+    begin
+        even := '0';
+        for i in a'range loop
+            if a(i) = '1' then
+                even := not even;
+            end if;
+        end loop;
+        y <= even;
+    end;
+end;
+```
+
+== Testbench con processo
+
+Riprendiamo l'esempio visto precedentemente con l'`And2`:
+
+```vhdl
+architecture simple of TestAnd2 is
+    signal a, b, c : bit;
+begin
+    g1: And2 port map (x => a, y => b, z => c);
+
+    process is
+    begin
+        a <= '0';
+        b <= '0';
+        wait for 100ns;
+        a <= '1';
+        wait for 50ns;
+        b <= '1';
+        wait for 50ns;
+        a <= '0';
+        b <= '0';
+        wait;
+    end;
+end;
+```
+
+Il processo non ha una sensitivity list, quindi l'esecuzione parte appena si
+avvia la simulazione. Per fermare il loop si usa il `wait` alla fine.
+
+Le istruzioni `wait` intermedie permettono di specificare una quantità di tempo
+relativa, a differenza di `after` che ne richiede una assoluta.
+
+= Operatori aritmetici
+
+Gli operatori aritmetici sono disponibili nativamente solo per i tipi `integer`,
+che però non sono facilmente sintetizzabili.
+
+La libreria `numeric_std` fornisce i tipi `signed` e `unsigned`, basati su
+vettori tipo `std_logic_vector`, interpretati come numeri.
+
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity cp is
+    port (
+        s : in std_logic_vector(7 downto 0);
+        s_big, s_neg : out std_logic;
+    );
+end;
+
+architecture ex of cp is
+begin
+    s_big <= '1' when unsigned(s) > 200 else '0';
+    s_neg <= '1' when signed(s) < 0 else '0';
+end;
+```

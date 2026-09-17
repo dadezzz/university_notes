@@ -1,10 +1,13 @@
 ---
+// Home page of the website.
+
 import { getCollection } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import CoursePageLink from "../components/CoursePageLink.astro";
 
-const courses = await getCollection("courses");
-courses.sort((a, b) => a.id.localeCompare(b.id));
+// The content collection order is not guaranteed to be stable, so sort by
+// course name to keep the listing deterministic.
+const courses = (await getCollection("courses")).sort((a, b) => a.data.name.localeCompare(b.data.name));
 ---
 
 <StarlightPage
@@ -14,6 +17,7 @@ courses.sort((a, b) => a.id.localeCompare(b.id));
     prev: false,
     tableOfContents: false,
     title: "Home",
+    lang: "en"
   }}
 >
   <p>Welcome to my collection of course notes!</p>
@@ -32,67 +36,19 @@ courses.sort((a, b) => a.id.localeCompare(b.id));
 
   <p>
     If you find any errors or have suggestions for improvements, please contribute! Submit corrections via
-    <a style="margin-left: 0.25rem;" href="https://git.zarantonello.dev/university/notes"> Git </a>
+    <a style="margin-left: 0.25rem;" href="https://git.zarantonello.dev/university/notes">Git</a>
     . To get access, send me an email to request an account.
   </p>
 
   <h2>Courses</h2>
 
-  <ul>
-    <li>
-      <span>First year, first semester:</span>
-
-      <ul>
-        {courses
-          .filter((c) => c.id.startsWith("1/1"))
-          .map((c) => (
-            <li>
-              <CoursePageLink course={c} />
-            </li>
-          ))}
-      </ul>
-    </li>
-
-    <li>
-      <span>First year, second semester:</span>
-
-      <ul>
-        {courses
-          .filter((c) => c.id.startsWith("1/2"))
-          .map((c) => (
-            <li>
-              <CoursePageLink course={c} />
-            </li>
-          ))}
-      </ul>
-    </li>
-
-    <li>
-      <span>Second year, first semester:</span>
-
-      <ul>
-        {courses
-          .filter((c) => c.id.startsWith("2/1"))
-          .map((c) => (
-            <li>
-              <CoursePageLink course={c} />
-            </li>
-          ))}
-      </ul>
-    </li>
-
-    <li>
-      <span>Second year, second semester:</span>
-
-      <ul>
-        {courses
-          .filter((c) => c.id.startsWith("2/2"))
-          .map((c) => (
-            <li>
-              <CoursePageLink course={c} />
-            </li>
-          ))}
-      </ul>
-    </li>
-  </ul>
+  <nav>
+    <ul>
+      {courses.map((c) => (
+        <li>
+          <CoursePageLink course={c} />
+        </li>
+      ))}
+    </ul>
+  </nav>
 </StarlightPage>
