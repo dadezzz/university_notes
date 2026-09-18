@@ -1,19 +1,20 @@
----
-description:
-  Il teorema di Thévenin per la semplificazione dei circuiti, la retta di carico
-  per componenti non lineari e l'energia nei condensatori con risposta al
-  gradino.
-lang: it
-title: Teorema di Thévenin e transitori dei condensatori
----
+#import "../_templates/starlight.typ" as starlight
 
-## Teorema di Thévenin
+#show: starlight.setup
+
+#metadata((
+  description: "Il teorema di Thévenin per la semplificazione dei circuiti, la retta di carico per componenti non lineari e l'energia nei condensatori con risposta al gradino.",
+  lang: "it",
+  title: "Teorema di Thévenin e transitori dei condensatori",
+))
+
+= Teorema di Thévenin
 
 Il teorema di Thévenin stabilisce che qualsiasi circuito composto da resistenze
 e generatori di tensione e di corrente può essere sostituito da un generatore di
 tensione seguito da un resistore equivalente.
 
-![Thévenin](../../../../../images/circuiti-elettronici-digitali/thevenin.png)
+#image("images/thevenin.png", alt: "Thévenin")
 
 - $V_T$ sarà la tensione a circuito aperto tra i due terminali $a$ e $b$ della
   rete di partenza.
@@ -23,7 +24,7 @@ tensione seguito da un resistore equivalente.
 Il teorema di Norton è il duale del teorema di Thévenin. Alla fine si ottiene un
 generatore di corrente in parallelo a un resistore.
 
-### Retta di carico
+== Retta di carico
 
 La retta di carico di un circuito è descritta dall'equazione:
 $i(v) = - v / R_T + V_T / R_T$. Questa retta è fondamentale per l'analisi di
@@ -33,9 +34,12 @@ a circuiti lineari.
 Per fissare due punti per tracciare la retta, si può considerare il caso $v = 0$
 dove $i = V_T / R_T$ e il caso $i = 0$ dove $v = V_T$.
 
-![Retta di carico al variare dei parametri](../../../../../images/circuiti-elettronici-digitali/retta-di-carico.png)
+#image(
+  "images/retta-di-carico.png",
+  alt: "Retta di carico al variare dei parametri",
+)
 
-## Condensatore
+= Condensatore
 
 Il condensatore è un elemento del circuito che immagazzina carica. Le sue
 caratteristiche sono:
@@ -51,23 +55,23 @@ a regime (tensione e corrente costante), esso diventa un circuito aperto.
 - condensatori in serie: $C_"eq" = 1 / (sum_i 1 / C_i)$
 - condensatori in parallelo: $C_"eq" = sum_i C_i$
 
-### Energia immagazzinata
+== Energia immagazzinata
 
 L'energia immagazzinata si ottiene calcolando l'integrale della potenza
 assorbita:
 
-$$
-w_C(t) &= integral p(t) dif t \
-       &= integral v_(C)(t) thin i(t) dif t \
-       &= integral C v_C dif v_C \
-       &= 1 / 2 C thin v_C^2(t)
-$$
+$
+  w_C(t) & = integral p(t) dif t \
+         & = integral v_(C)(t) thin i(t) dif t \
+         & = integral C v_C dif v_C \
+         & = 1 / 2 C thin v_C^2(t)
+$
 
 L'energia immagazzinata non può cambiare istantaneamente (altrimenti la potenza
 diventerebbe infinita in quell'istante). Ciò implica che anche la tensione deve
 variare gradualmente nel tempo.
 
-### Risposta al gradino
+== Risposta al gradino
 
 Quando si applica una variazione di tensione a un circuito contenente un
 condensatore, la risposta immediata non è quella finale.
@@ -76,9 +80,7 @@ Il processo inizia da una condizione di regime, passa attraverso una fase
 transitoria (durante la quale il condensatore si carica o scarica) e infine
 raggiunge un nuovo stato di regime.
 
-:::note
-
-Per "regime" si intende una condizione in cui la tensione rimane costante, non
-un regime sinusoidale come trattato in [Fisica 2](/2/1/145821).
-
-:::
+#starlight.note([
+  Per "regime" si intende una condizione in cui la tensione rimane costante, non
+  un regime sinusoidale come trattato in #link("/fisica-2", [Fisica 2]).
+])

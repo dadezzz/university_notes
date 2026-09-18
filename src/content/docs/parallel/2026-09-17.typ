@@ -3,9 +3,10 @@
 #show: starlight.setup
 
 #metadata((
+  description: "Contrasts serial and parallel architectures and algorithms, covering task and data parallelism, scalability, decomposition strategies, and Amdahl's law.",
   lang: "en",
   prev: false,
-  title: "Lezione (2026-09-17)",
+  title: "Sequential vs parallel computing and Amdahl's law",
 ))
 
 = Sequential vs parallel architectures

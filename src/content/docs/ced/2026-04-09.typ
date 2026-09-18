@@ -1,14 +1,19 @@
----
-description:
-  Caratteristica statica dell'invertitore CMOS, tensione di soglia, consumo
-  dinamico, porte logiche complesse e dimensionamento dei transistori.
-lang: it
-title: Funzionamento e consumo dinamico dell'invertitore CMOS
----
+#import "../_templates/starlight.typ" as starlight
 
-## Caratteristica statica dell'invertitore CMOS
+#show: starlight.setup
 
-![Caratteristica invertitore CMOS](../../../../../images/circuiti-elettronici-digitali/caratteristica-invertitore-cmos.png)
+#metadata((
+  description: "Caratteristica statica dell'invertitore CMOS, tensione di soglia, consumo dinamico, porte logiche complesse e dimensionamento dei transistori.",
+  lang: "it",
+  title: "Funzionamento e consumo dinamico dell'invertitore CMOS",
+))
+
+= Caratteristica statica dell'invertitore CMOS
+
+#image(
+  "images/caratteristica-invertitore-cmos.png",
+  alt: "Caratteristica invertitore CMOS",
+)
 
 L'invertitore CMOS può essere suddiviso in 5 zone di funzionamento in base alla
 tensione di ingresso:
@@ -19,26 +24,26 @@ tensione di ingresso:
 4. Il pMOS va in zona di saturazione e l'nMOS in zona triodo.
 5. Il pMOS si spegne e l'nMOS è acceso.
 
-## Tensione di soglia
+= Tensione di soglia
 
 La tensione di soglia di una porta è il punto in cui la tensione di ingresso è
 uguale a quella di uscita:
 
-$$
-V_"Th" => V_O = V_I
-$$
+$
+  V_"Th" => V_O = V_I
+$
 
 Per trovarla si usa la seguente formula ottenuta dall'uguaglianza delle correnti
 dei transistori in regione di saturazione:
 
-$$
-V_"Th" = (V_"DD" - abs(V_"Tp") + sqrt(k_n / k_p) V_"Tn") / (1 + sqrt(k_n / k_p))
-$$
+$
+  V_"Th" = (V_"DD" - abs(V_"Tp") + sqrt(k_n / k_p) V_"Tn") / (1 + sqrt(k_n / k_p))
+$
 
 Agendo sui parametri $k_n$ e $k_p$, la tensione di soglia cambia, ampliando i
 margini di rumore alto o basso.
 
-## Consumo di potenza dinamico
+= Consumo di potenza dinamico
 
 Nella logica CMOS non c'è un consumo di potenza statico considerabile, dato che
 a regime non c'è mai un cammino diretto tra alimentazione e massa.
@@ -65,7 +70,7 @@ effetto Joule.
 Se la porta commuta ad una frequenza $f$ (tipicamente quella di un clock),
 allora la potenza totale richiesta è $P_D = C V_"DD"^2 f$.
 
-## Porte logiche complesse
+= Porte logiche complesse
 
 Ogni variabile che appare nella formula logica dà luogo a 2 transistori. Bisogna
 creare 2 circuiti con condizioni duali, uno che attiva l'nMOS e l'altro che
@@ -73,13 +78,13 @@ disattiva il pMOS e viceversa.
 
 Ad esempio per una NAND:
 
-![Porta NAND CMOS](../../../../../images/circuiti-elettronici-digitali/porta-nand-cmos.png)
+#image("images/porta-nand-cmos.png", alt: "Porta NAND CMOS")
 
 La logica CMOS richiede un utilizzo di $2n$ transistori rispetto al numero di
 porte logiche. Quindi per realizzare circuiti grandi viene richiesta una grande
 superficie.
 
-## Dimensionamento dei transistori
+= Dimensionamento dei transistori
 
 Il dimensionamento non è necessario per i livelli di uscita, dato che il range
 di output è sempre tra $0$ e $V_"DD"$.
@@ -87,6 +92,6 @@ di output è sempre tra $0$ e $V_"DD"$.
 Quello che cambia è il tempo di propagazione. Il ritardo è inversamente
 proporzionale a $W / L$:
 
-$$
-R_"on" = 1 / (K'_n W / L (V_"GS" - V_"TN"))
-$$
+$
+  R_"on" = 1 / (K'_n W / L (V_"GS" - V_"TN"))
+$

@@ -1,13 +1,14 @@
----
-description:
-  Analisi della caratteristica di trasferimento, margini di rumore e
-  implementazioni con MOS resistivo, a carico saturo e depletion mode.
-  Specifiche di progetto.
-lang: it
-title: Invertitori logici, caratteristiche e margini di rumore
----
+#import "../_templates/starlight.typ" as starlight
 
-## Invertitore logico
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi della caratteristica di trasferimento, margini di rumore e implementazioni con MOS resistivo, a carico saturo e depletion mode. Specifiche di progetto.",
+  lang: "it",
+  title: "Invertitori logici, caratteristiche e margini di rumore",
+))
+
+= Invertitore logico
 
 Nell'invertitore chiameremo $V_+$ (o $V_"DD"$) e $V_-$ le tensioni di
 alimentazione e $V_"H"$ e $V_"L"$ i livelli alti e bassi della tensione di
@@ -17,13 +18,13 @@ Quando l'ingresso è a $V_+$, l'uscita va a $V_"L"$. Viceversa, quando l'ingress
 è a $V_-$, l'uscita va a $V_"H"$.
 
 A livello base, usiamo 2 circuiti per pilotare l'uscita verso il valore alto o
-basso. Il **pull down** porta l'uscita a $V_"L"$ e il **pull up** la porta a
+basso. Il *pull down* porta l'uscita a $V_"L"$ e il *pull up* la porta a
 $V_"H"$. Idealmente, i 2 circuiti dovrebbero attivarsi in maniera mutualmente
 esclusiva.
 
-![Circuito di base dell'invertitore](../../../../../images/circuiti-elettronici-digitali/invertitore-base.png)
+#image("images/invertitore-base.png", alt: "Circuito di base dell'invertitore")
 
-### Funzione caratteristica reale
+== Funzione caratteristica reale
 
 Per gli invertitori reali, la caratteristica ingresso-uscita non è una funzione
 gradino. Bisogna definire dei range di valori per i quali la tensione di
@@ -41,9 +42,12 @@ viene amplificata e invertita in uscita.
 I valori in cui vengono definiti $V_"IL"$ e $V_"IH"$ sono quelli in cui la
 tangente della funzione di trasferimento è uguale a $-1$.
 
-![Caratteristica di un invertitore reale](../../../../../images/circuiti-elettronici-digitali/caratteristica-invertitore-reale.png)
+#image(
+  "images/caratteristica-invertitore-reale.png",
+  alt: "Caratteristica di un invertitore reale",
+)
 
-### Margine di rumore
+== Margine di rumore
 
 Il collegamento in cascata di porte logiche deve essere semplice. Ogni porta
 aggiunta diminuisce la tolleranza al rumore del circuito.
@@ -55,7 +59,7 @@ Il margine di rumore è definito come la differenza $"NM"_"H" = V_"OH" - V_"IH"$
 oppure $"NM"_L = V_"IL" - V_"OL"$. Maggiore è il loro valore, maggiore sarà la
 tolleranza del circuito al rumore.
 
-### Specifiche di progetto
+== Specifiche di progetto
 
 Nella progettazione di circuiti con invertitori gli obiettivi sono:
 
@@ -69,7 +73,7 @@ Nella progettazione di circuiti con invertitori gli obiettivi sono:
 - minimizzare, se possibile, l'area occupata e i consumi di potenza,
   massimizzando la velocità;
 
-## Invertitore a carico resistivo
+= Invertitore a carico resistivo
 
 Un transistore MOS viene usato come interruttore.
 
@@ -81,14 +85,20 @@ Un transistore MOS viene usato come interruttore.
 Il problema di questo design è che il circuito di pull-up è sempre attivo e il
 transistore deve 'combattere' con il resistore.
 
-![Circuito dell'invertitore a carico resistivo](../../../../../images/circuiti-elettronici-digitali/invertitore-a-carico-resistivo.png)
+#image(
+  "images/invertitore-a-carico-resistivo.png",
+  alt: "Circuito dell'invertitore a carico resistivo",
+)
 
-## Invertitore nMOS a carico saturo
+= Invertitore nMOS a carico saturo
 
 L'invertitore nMOS usa un altro transistore nMOS come pull-up al posto del
 resistore. Chiameremo $M_"L"$ il pull-up e $M_"S"$ il pull-down.
 
-![Circuito dell'invertitore a carico saturo](../../../../../images/circuiti-elettronici-digitali/invertitore-a-carico-saturo.png)
+#image(
+  "images/invertitore-a-carico-saturo.png",
+  alt: "Circuito dell'invertitore a carico saturo",
+)
 
 $M_"L"$ è sempre in saturazione, ma la sua tensione di soglia è influenzata da
 $V_"SB"$ che è uguale a $V_O$, quindi:
@@ -96,16 +106,25 @@ $V_"SB"$ che è uguale a $V_O$, quindi:
 - $V_"L"$ non andrà mai a $0$.
 - $V_"H"$ non raggiungerà mai il valore di $V_"DD"$.
 
-![Caratteristica dell'invertitore a carico saturo](../../../../../images/circuiti-elettronici-digitali/caratteristica-invertitore-carico-saturo.png)
+#image(
+  "images/caratteristica-invertitore-carico-saturo.png",
+  alt: "Caratteristica dell'invertitore a carico saturo",
+)
 
-## Invertitore nMOS depletion mode
+= Invertitore nMOS depletion mode
 
 Il problema con $V_"H"$ si può risolvere usando un transistore $M_"L"$ in
 depletion mode, che ha tensione di soglia negativa.
 
-![Circuito dell'invertitore depletion mode](../../../../../images/circuiti-elettronici-digitali/invertitore-depletion-mode.png)
+#image(
+  "images/invertitore-depletion-mode.png",
+  alt: "Circuito dell'invertitore depletion mode",
+)
 
-![Caratteristica dell'invertitore depletion mode](../../../../../images/circuiti-elettronici-digitali/caratteristica-invertitore-depletion-mode.png)
+#image(
+  "images/caratteristica-invertitore-depletion-mode.png",
+  alt: "Caratteristica dell'invertitore depletion mode",
+)
 
 La connessione da source a gate, invece che da drain a gate, è possibile perché
 $M_"L"$ è sempre acceso in questo caso, e il vantaggio è quello di poter

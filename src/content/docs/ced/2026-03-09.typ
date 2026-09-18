@@ -1,35 +1,39 @@
----
-description:
-  Struttura del condensatore MOS e regioni di accumulazione, svuotamento e
-  inversione. Funzionamento del transistor nMOS nei regimi lineare e di
-  saturazione.
-lang: it
-title: Condensatore MOS e funzionamento transistor nMOS
----
+#import "../_templates/starlight.typ" as starlight
 
-## Condensatore MOS
+#show: starlight.setup
+
+#metadata((
+  description: "Struttura del condensatore MOS e regioni di accumulazione, svuotamento e inversione. Funzionamento del transistor nMOS nei regimi lineare e di saturazione.",
+  lang: "it",
+  title: "Condensatore MOS e funzionamento transistor nMOS",
+))
+
+= Condensatore MOS
 
 La struttura di base dei circuiti MOSFET è composta da strati:
 
-- layer conduttore detto **gate**;
+- layer conduttore detto *gate*;
 - strato isolante di biossido di silicio ($"SiO"_2$);
 - substrato di silicio drogato (di tipo P o N a seconda del fornitore);
 
-![Struttura condensatore MOS](../../../../../images/circuiti-elettronici-digitali/condensatore-mos.png)
+#image("images/condensatore-mos.png", alt: "Struttura condensatore MOS")
 
 Al confine tra il substrato e l'isolante si forma una zona in grado di
 immagazzinare carica, come in un condensatore.
 
-### Regione di accumulazione
+== Regione di accumulazione
 
 Quando non viene applicata alcuna tensione sul gate, si trova carica negativa
 sul conduttore e le lacune nel substrato formano una carica positiva.
 
 La superficie del semiconduttore è in condizione di accumulo.
 
-![Cariche nella regione di accumulazione](../../../../../images/circuiti-elettronici-digitali/mos-regione-accumulazione.png)
+#image(
+  "images/mos-regione-accumulazione.png",
+  alt: "Cariche nella regione di accumulazione",
+)
 
-### Regione di svuotamento
+== Regione di svuotamento
 
 Se il potenziale del gate viene incrementato, le lacune vengono respinte verso
 l'interno del substrato, allontanandosi dall'interfaccia con l'isolante.
@@ -39,9 +43,12 @@ Il substrato si svuota di portatori maggioritari, come in un diodo.
 La carica positiva sul gate è bilanciata dalle cariche negative degli ioni
 accettori presenti nella zona di svuotamento.
 
-![Cariche nella regione di svuotamento](../../../../../images/circuiti-elettronici-digitali/mos-regione-svuotamento.png)
+#image(
+  "images/mos-regione-svuotamento.png",
+  alt: "Cariche nella regione di svuotamento",
+)
 
-### Regione di inversione
+== Regione di inversione
 
 Se il potenziale del gate viene ulteriormente incrementato, gli elettroni
 generati termicamente nella regione di svuotamento vengono attratti verso la
@@ -54,18 +61,20 @@ elettroni.
 La tensione alla quale si forma lo strato di inversione è chiamata tensione di
 soglia ($V_"TN"$).
 
-![Cariche nella regione di inversione](../../../../../images/circuiti-elettronici-digitali/mos-regione-inversione.png)
+#image(
+  "images/mos-regione-inversione.png",
+  alt: "Cariche nella regione di inversione",
+)
 
-## Transistore nMOS
+= Transistore nMOS
 
 Il transistore si ottiene aggiungendo due terminali, con regioni di tipo $n+$ ai
-lati del gate, dette **source** e **drain**. La corrente scorre dal drain al
-source.
+lati del gate, dette *source* e *drain*. La corrente scorre dal drain al source.
 
 Il canale del condensatore è caratterizzato da una lunghezza $L$ e una larghezza
 $W$.
 
-![Struttura transistore nMOS](../../../../../images/circuiti-elettronici-digitali/transistore-nmos.png)
+#image("images/transistore-nmos.png", alt: "Struttura transistore nMOS")
 
 Le regioni $n+$ forniscono elettroni per lo strato di inversione e formano anche
 due diodi con il substrato.
@@ -75,13 +84,16 @@ corrente che vada dal drain al source e non dal substrato ai terminali. Per
 ottenere questo effetto, conviene sempre mantenere il body a potenziale 0, in
 modo da garantire che tutti gli altri terminali abbiano un potenziale maggiore.
 
-![Struttura e simbolo transistore nMOS](../../../../../images/circuiti-elettronici-digitali/transistore-nmos-2.png)
+#image(
+  "images/transistore-nmos-2.png",
+  alt: "Struttura e simbolo transistore nMOS",
+)
 
 In condizione di regime, la corrente sul gate è nulla. Pertanto, la corrente che
 entra dal drain deve essere la stessa che esce dal source, per la legge di
 Kirchhoff dei nodi.
 
-### Funzionamento
+== Funzionamento
 
 - $V_"GS" << V_"TN"$: i diodi sono polarizzati a zero o inversamente, quindi
   scorre una corrente molto debole tra di essi;
@@ -99,11 +111,12 @@ Kirchhoff dei nodi.
   Per calcolare la corrente che scorre, è necessario determinare la quantità di
   carica all'interno del canale:
 
-  $$
-  Q' = - W C''_"ox" (v_"ox" - V_"TN")
-  $$
+  $
+    Q' = - W C''_"ox" (v_"ox" - V_"TN")
+  $
 
   Dove:
+
   - $v_"ox" = V_"GS" - v(x)$, dove $v(x)$ è la tensione a distanza $x$ nel
     canale. $v_"ox"$ deve essere sempre maggiore di $V_"TN"$.
   - $C''_"ox" = epsilon_"ox" / T_"ox"$, dove $T_"ox"$ è lo spessore dello strato
@@ -114,38 +127,38 @@ Kirchhoff dei nodi.
 
   Sostituendo, si ottiene la seguente equazione differenziale:
 
-  $$
-  i(x) = - mu_n W C''_"ox" (V_"GS" - v(x) - V_"TN") (dif v(x)) / (dif x)
-  $$
+  $
+    i(x) = - mu_n W C''_"ox" (V_"GS" - v(x) - V_"TN") (dif v(x)) / (dif x)
+  $
 
   Si può integrare lungo $x$:
 
-  $$
-  integral_0^L i(x) dif x = integral_0^(V_"DS") - mu_n W C''_"ox" (V_"GS" - v(x) - V_"TN") dif v(x)
-  $$
+  $
+    integral_0^L i(x) dif x = integral_0^(V_"DS") - mu_n W C''_"ox" (V_"GS" - v(x) - V_"TN") dif v(x)
+  $
 
-  $$
-  I_D = mu_n C''_"ox" W / L (V_"GS" - V_"TN" - V_"DS" / 2) thin V_"DS"
-  $$
+  $
+    I_D = mu_n C''_"ox" W / L (V_"GS" - V_"TN" - V_"DS" / 2) thin V_"DS"
+  $
 
-### Regione lineare (triodo)
+== Regione lineare (triodo)
 
 Se il MOSFET è acceso ($V_"GS" > V_"DS" + V_"TN"$) e $V_"DS"$ è molto piccola,
 allora esso si comporta come una resistenza, il cui valore può essere
 controllato da $V_"GS"$.
 
-$$
-I_D = K_n (V_"GS" - V_"TN") thin V_"DS"
-$$
+$
+  I_D = K_n (V_"GS" - V_"TN") thin V_"DS"
+$
 
-$$
-R_"on" = 1 / (K_n (V_"GS" - V_"TN"))
-$$
+$
+  R_"on" = 1 / (K_n (V_"GS" - V_"TN"))
+$
 
 Dove $K_n = mu_n C''_"ox" W / L$ è il parametro di conduzione del dispositivo
 (transconduttanza).
 
-### Regione di saturazione
+== Regione di saturazione
 
 Con l'aumento di $V_"DS"$ il canale si assottiglia verso il drain fino a
 scomparire quando $V_"GS" = V_"DS" + V_"TN"$ (pinch-off point). Ulteriori
@@ -153,13 +166,16 @@ aumenti di $V_"DS"$ non fanno scorrere più corrente.
 
 La corrente è data da:
 
-$$
-I_D = K_n / 2(V_"GS" - V_"TN")^2
-$$
+$
+  I_D = K_n / 2(V_"GS" - V_"TN")^2
+$
 
-![Grafici delle zone di triodo e saturazione](../../../../../images/circuiti-elettronici-digitali/grafici-triodo-e-saturazione.png)
+#image(
+  "images/grafici-triodo-e-saturazione.png",
+  alt: "Grafici delle zone di triodo e saturazione",
+)
 
-#### Modulazione di lunghezza di canale
+=== Modulazione di lunghezza di canale
 
 Un transistore reale in saturazione non si comporterà mai come un generatore di
 corrente ideale.
@@ -167,9 +183,9 @@ corrente ideale.
 Il canale diventa più corto all'aumentare di $V_"DS"$, quindi la corrente
 $I_"D"$ aumenta di un piccolo fattore:
 
-$$
-I_D = K_n / 2 (V_"GS" - V_"TN")^2 thin (1 + lambda V_"DS")
-$$
+$
+  I_D = K_n / 2 (V_"GS" - V_"TN")^2 thin (1 + lambda V_"DS")
+$
 
 Questo effetto di modulazione diventa sempre più significativo man mano che i
 transistor si rimpiccioliscono, rappresentando una sfida per le tecnologie

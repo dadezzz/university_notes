@@ -79,7 +79,9 @@ Applications can also take advantage of multicore systems in 2 different ways:
 
 === Amdahl's Law
 
-$ S(N) = 1 / ((1 - P) + P / N) $
+$
+  S(N) = 1 / ((1 - P) + P / N)
+$
 
 - $S(N)$: maximum speedup achieved by using N processing cores;
 - $P$: the parallelizable portion of the task;

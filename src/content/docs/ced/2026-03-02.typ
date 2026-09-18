@@ -1,13 +1,14 @@
----
-description:
-  Classificazione materiali, struttura cristallina del silicio, bandgap,
-  concentrazione e mobilità di portatori, corrente di drift e drogaggio tipo-n e
-  tipo-p.
-lang: it
-title: Materiali, bandgap e corrente di drift nel silicio
----
+#import "../_templates/starlight.typ" as starlight
 
-## Materiali conduttori, isolanti e semiconduttori
+#show: starlight.setup
+
+#metadata((
+  description: "Classificazione materiali, struttura cristallina del silicio, bandgap, concentrazione e mobilità di portatori, corrente di drift e drogaggio tipo-n e tipo-p.",
+  lang: "it",
+  title: "Materiali, bandgap e corrente di drift nel silicio",
+))
+
+= Materiali conduttori, isolanti e semiconduttori
 
 I materiali isolanti, conduttori e semiconduttori si distinguono in base alla
 loro struttura elettronica e al modo in cui reagiscono agli stimoli esterni.
@@ -26,25 +27,21 @@ Ecco alcuni parametri da considerare:
 I semiconduttori si ottengono dalla quarta colonna della tavola periodica
 (prevalentemente il silicio), oppure da combinazioni della terza e della quinta.
 
-:::note[Resistenza di un filo]
+#starlight.note(title: "Resistenza di un filo", [
+  Preso un filo qualsiasi, la sua resistenza è data dalla resistività del
+  materiale ($rho$), dalla sua lunghezza e dalla sua area di sezione.
 
-Preso un filo qualsiasi, la sua resistenza è data dalla resistività del
-materiale ($rho$), dalla sua lunghezza e dalla sua area di sezione.
+  $ R = rho L / A $
+])
 
-$$
-R = rho L / A
-$$
-
-:::
-
-### Struttura del silicio
+== Struttura del silicio
 
 Il silicio è l'elemento 14 della tavola periodica (quindi il nucleo è composto
 da 14 protoni e 14 neutroni).
 
 Gli elettroni si dispongono lungo dei gusci che hanno delle bande di energia ben
 definite. Per spostare un elettrone da un guscio ad un altro bisogna fornire una
-certa quantità di energia (il **bandgap**).
+certa quantità di energia (il *bandgap*).
 
 Più atomi di silicio si legano tramite legami covalenti (elettroni condivisi tra
 due atomi). A temperatura $0 thick "K"$, gli elettroni sono fissi nei legami e
@@ -54,7 +51,10 @@ A temperature più alte (anche 'solo' a $293 thick "K"$), alcuni legami si
 rompono e gli elettroni sono liberi di scorrere, rendendo il silicio più
 conduttivo.
 
-![Struttura cristallina del silicio](../../../../../images/circuiti-elettronici-digitali/struttura-cristallo-silicio.png)
+#image(
+  "images/struttura-cristallo-silicio.png",
+  alt: "Struttura cristallina del silicio",
+)
 
 La rottura di un legame provoca 2 effetti: la liberazione di un elettrone e la
 creazione di una lacuna, che può essere riempita da altri elettroni disponibili.
@@ -63,11 +63,11 @@ La propagazione degli elettroni genera uno spostamento di cariche negative,
 mentre quella delle lacune uno di cariche positive (concetto astratto, dato che
 le lacune non sono particelle reali in grado di muoversi).
 
-#### Concentrazione di portatori
+=== Concentrazione di portatori
 
-$$
-n_i^2 = B T^3 e^(- E_G / (k T))
-$$
+$
+  n_i^2 = B T^3 e^(- E_G / (k T))
+$
 
 - $n_i$: concentrazione di portatori di carica intrinseci per $"cm"^3$;
 - $E_G$: bandgap in $"eV"$;
@@ -83,7 +83,7 @@ $n_i = 1.5 times 10^10 thick "elettroni" / "cm"^3$ a temperatura ambiente
 Nel silicio puro e in condizioni stabili, la concentrazione degli elettroni $n$
 e quella delle lacune $p$ sono uguali, quindi $n_i = n = p$.
 
-#### Legge dell'azione di massa
+=== Legge dell'azione di massa
 
 In chimica, la legge dell'azione di massa dice che la velocità di una reazione è
 proporzionale al prodotto delle concentrazioni dei reagenti.
@@ -92,21 +92,21 @@ I semiconduttori si comportano come una reazione reversibile tra legame intatto
 e coppia elettrone-lacuna. In uno stato di equilibrio, il numero di coppie che
 si creano deve essere uguale a quello delle coppie che si ricombinano.
 
-$$
-n_i^2 = p n
-$$
+$
+  n_i^2 = p n
+$
 
 La legge rimane valida anche per il silicio non puro (estrinseco), dove $p$ e
 $n$ non sono più uguali.
 
-## Corrente di drift
+= Corrente di drift
 
 La corrente è la quantità netta di carica che attraversa una sezione del
 materiale in un certo intervallo di tempo.
 
 In equilibrio, le cariche si muovono casualmente in tutte le direzioni, quindi
-la velocità media è nulla e la corrente totale è 0. **Applicando un campo
-elettrico, le cariche tendono a muoversi nella sua direzione** (drift), sempre
+la velocità media è nulla e la corrente totale è 0. *Applicando un campo
+elettrico, le cariche tendono a muoversi nella sua direzione* (drift), sempre
 con una certa casualità dovuta alle collisioni con le altre particelle.
 
 - Forza di Lorentz: $F = q E$;
@@ -114,7 +114,7 @@ con una certa casualità dovuta alle collisioni con le altre particelle.
 
 Quindi $a = q / m E$.
 
-### Velocità delle cariche
+== Velocità delle cariche
 
 La velocità risulta proporzionale al campo elettrico:
 
@@ -125,31 +125,32 @@ $mu_n$ è la mobilità degli elettroni, con valore di
 $1350 thick "cm"^2 / ("V" "s")$ nel silicio intrinseco, $mu_p$ è la mobilità
 delle lacune, con valore di $500 thick "cm"^2 / ("V" "s")$.
 
-:::note
-
-Le lacune si 'muovono' più lentamente, perché il processo di creazione di una
-lacuna è più complesso.
-
-:::
+#starlight.note([
+  Le lacune si 'muovono' più lentamente, perché il processo di creazione di una
+  lacuna è più complesso.
+])
 
 Non si può aumentare il voltaggio indefinitamente per ottenere una maggior
 velocità della corrente. Ad un certo punto si arriva ad un limite detto
-**velocità di saturazione**.
+*velocità di saturazione*.
 
-![Raggiungimento della velocità di saturazione](../../../../../images/circuiti-elettronici-digitali/velocita-di-saturazione-vs-voltaggio.png)
+#image(
+  "images/velocita-di-saturazione-vs-voltaggio.png",
+  alt: "Raggiungimento della velocità di saturazione",
+)
 
 Ad un certo punto la velocità di elettroni e lacune raggiunge un plateau. Questo
 pone dei limiti sulla velocità di trasferimento di dati dei circuiti
 elettronici.
 
-### Densità di corrente
+== Densità di corrente
 
 Indica la quantità di carica che attraversa un'unità di superficie in un
 intervallo di tempo e si misura in $"A" / "cm"^2$.
 
-$$
-J = Q v, quad I = integral_S J dot dif S
-$$
+$
+  J = Q v, quad I = integral_S J dot dif S
+$
 
 Dove $Q$ è la densità di carica in $"C" / "cm"^3$ e $v$ è la velocità dei
 portatori.
@@ -165,29 +166,27 @@ reciproco, otteniamo la resistività, che ha valore
 $2.25 times 10^5 thick Omega "cm"$. Il silicio intrinseco è sostanzialmente un
 isolante e quindi non sarebbe utilizzabile da solo per costruire circuiti.
 
-:::note
+#starlight.note([
+  In confronto, il rame presenta una resistività di
+  $rho = 1.68 times 10^(-6) thick Omega "cm"$ e una concentrazione di portatori
+  $n = 8.46 times 10^22 thick "cm"^(-3)$.
+])
 
-In confronto, il rame presenta una resistività di
-$rho = 1.68 times 10^(-6) thick Omega "cm"$ e una concentrazione di portatori
-$n = 8.46 times 10^22 thick "cm"^(-3)$.
-
-:::
-
-## Impurità (drogaggio)
+= Impurità (drogaggio)
 
 L'aggiunta di impurità al silicio permette di cambiare la sua resistività.
 
 Di solito si usano atomi pentavalenti (fosforo, arsenico, antimonio) che
-contribuiscono un elettrone in più, chiamati **donatori**, oppure atomi
-trivalenti (boro) che hanno un elettrone in meno e contribuiscono una lacuna,
-chiamati **accettori**.
+contribuiscono un elettrone in più, chiamati *donatori*, oppure atomi trivalenti
+(boro) che hanno un elettrone in meno e contribuiscono una lacuna, chiamati
+*accettori*.
 
 Le impurità modificano le concentrazioni di portatori:
 
-- se $n > p$ si parla di silicio di **tipo $n$**, dove gli elettroni sono i
+- se $n > p$ si parla di silicio di *tipo $n$*, dove gli elettroni sono i
   portatori maggioritari;
-- se $n < p$ si parla di silicio di **tipo $p$**, dove le lacune sono i
-  portatori maggioritari;
+- se $n < p$ si parla di silicio di *tipo $p$*, dove le lacune sono i portatori
+  maggioritari;
 
 Le concentrazioni di impurità sono dell'ordine di $10^14$ fino a $10^21$ atomi
 per $"cm"^3$. Quella intrinseca dei portatori è dell'ordine di $10^10$. Quindi
@@ -198,24 +197,24 @@ L'introduzione di impurità rende anche il silicio meno sensibile alla
 temperatura, dato che i portatori vengono introdotti forzatamente e non dalla
 rottura dei legami.
 
-### Concentrazione di portatori
+== Concentrazione di portatori
 
 La carica totale del conduttore deve essere globalmente nulla:
 
 - $N_D$: concentrazione di donatori (ioni positivi);
 - $N_A$: concentrazione di accettori (ioni negativi);
 
-$$
-q (N_D + p - N_A - n) = 0
-$$
+$
+  q (N_D + p - N_A - n) = 0
+$
 
 Continua a valere la legge dell'azione di massa $n_i^2 = p n$.
 
 Quindi per semiconduttori di tipo $n$:
 
-$$
-n^2 - (N_D - N_A) n - n_i^2 = 0 => n = ((N_D - N_A) + sqrt((N_D - N_A)^2 + 4 n_i^2)) / 2
-$$
+$
+  n^2 - (N_D - N_A) n - n_i^2 = 0 => n = ((N_D - N_A) + sqrt((N_D - N_A)^2 + 4 n_i^2)) / 2
+$
 
 Se $N_D - N_A >> 2 n_i$, allora si può approssimare:
 
@@ -230,4 +229,7 @@ La mobilità diminuisce all'aumentare del drogaggio perché un maggiore numero d
 atomi aggiunti aumenta anche la probabilità di collisioni tra essi e gli
 elettroni.
 
-![Mobilità al cambiare della concentrazione di impurità](../../../../../images/circuiti-elettronici-digitali/mobilita-portatori-estrinsici.png)
+#image(
+  "images/mobilita-portatori-estrinsici.png",
+  alt: "Mobilità al cambiare della concentrazione di impurità",
+)

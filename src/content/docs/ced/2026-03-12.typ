@@ -1,13 +1,14 @@
----
-description:
-  Effetto body sulla tensione di soglia, saturazione di velocità nei canali
-  corti, conduzione di sottosoglia e transistor MOS a svuotamento e pMOS
-  operanti.
-lang: it
-title: Transistore nMOS a svuotamento ed effetti avanzati
----
+#import "../_templates/starlight.typ" as starlight
 
-## Transistore nMOS a svuotamento (depletion mode)
+#show: starlight.setup
+
+#metadata((
+  description: "Effetto body sulla tensione di soglia, saturazione di velocità nei canali corti, conduzione di sottosoglia e transistor MOS a svuotamento e pMOS operanti.",
+  lang: "it",
+  title: "Transistore nMOS a svuotamento ed effetti avanzati",
+))
+
+= Transistore nMOS a svuotamento (depletion mode)
 
 È un transistore che possiede un canale conduttivo anche senza applicare una
 $V_"GS"$. Si realizza impiantando deliberatamente degli elettroni liberi nella
@@ -15,7 +16,7 @@ zona del canale durante il processo di fabbricazione.
 
 La tensione di soglia è quindi negativa.
 
-## Transistore pMOS
+= Transistore pMOS
 
 Il transistore di tipo $p$ opera in modo duale rispetto a quello di tipo $n$: le
 tensioni e le correnti presentano polarità opposte.
@@ -24,47 +25,45 @@ La differenza principale è che il pMOS conduce meno corrente a parità di
 condizioni, poiché la mobilità delle lacune è inferiore rispetto a quella degli
 elettroni.
 
-## Effetto body
+= Effetto body
 
 Un potenziale di bulk $V_"B"$ diverso da zero modifica la tensione di soglia
 secondo la relazione:
 
-$$
-V_"TN" = V_"TN0" + gamma (sqrt(V_"SB" + 2 phi_F) - sqrt(2 phi_F))
-$$
+$
+  V_"TN" = V_"TN0" + gamma (sqrt(V_"SB" + 2 phi_F) - sqrt(2 phi_F))
+$
 
 dove:
 
 - $V_"TN0"$ è la tensione di soglia per $V_"SB" = 0$;
-- $gamma$ è il **parametro di effetto body**, che dipende dal drogaggio del
+- $gamma$ è il *parametro di effetto body*, che dipende dal drogaggio del
   substrato e dallo spessore dell'ossido di gate;
 - $2 phi_F$ è il potenziale di Fermi superficiale a forte inversione.
 
-## Saturazione di velocità
+= Saturazione di velocità
 
 Per campi elettrici elevati, la velocità dei portatori cessa di crescere
 linearmente con il campo e tende a un valore massimo: si dice allora che la
-velocità **satura**.
+velocità *satura*.
 
 La velocità dei portatori dipende dal campo elettrico, che a sua volta dipende
 da $V_"DS"$. Quando il campo elettrico supera un valore critico $E_"crit"$, la
 velocità satura e la corrente non aumenta più quadraticamente con $V_"DS"$, ma
 solo linearmente.
 
-:::note
-
-La regione di saturazione e la saturazione di velocità sono due fenomeni
-distinti. Il secondo può verificarsi anche in zona triodo quando il parametro
-$V_"SAT"$ (dato dal fornitore) è particolarmente basso.
-
-:::
+#starlight.note([
+  La regione di saturazione e la saturazione di velocità sono due fenomeni
+  distinti. Il secondo può verificarsi anche in zona triodo quando il parametro
+  $V_"SAT"$ (dato dal fornitore) è particolarmente basso.
+])
 
 In assenza di saturazione di velocità, in regione di saturazione la corrente
 drena aumenta quadraticamente rispetto a $V_"GS"$
 ($I_"D" prop (V_"GS" - V_"TN")^2$). Quando la saturazione di velocità è
 significativa, la dipendenza diventa invece quasi lineare ($I_"D" prop V_"GS"$).
 
-## Conduzione di sottosoglia
+= Conduzione di sottosoglia
 
 Per $V_"GS" < V_"TN"$ la corrente non è nulla: scorre comunque una piccola
 corrente dovuta alla diffusione dei portatori minoritari dal source al drain
@@ -73,9 +72,9 @@ nulla.
 
 La corrente di sottosoglia varia in modo esponenziale con $V_"GS"$:
 
-$$
-I_"D" prop e^(V_"GS" / (n V_"T"))
-$$
+$
+  I_"D" prop e^(V_"GS" / (n V_"T"))
+$
 
 dove $n$ è il fattore di idealità (solitamente compreso tra 1 e 2) e $V_"T"$ è
 il potenziale termico. Di conseguenza, un aumento della tensione di soglia

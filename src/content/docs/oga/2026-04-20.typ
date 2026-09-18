@@ -15,10 +15,10 @@ controllo e il miglioramento dei processi produttivi e di servizio.
 
 == Il processo di trasformazione
 
-#starlight.note[
+#starlight.note([
   Il termine "trasformazione" è preferito a "produzione" perché include sia i
   prodotti fisici che i servizi.
-]
+])
 
 Il processo di trasformazione utilizza degli input (materiali e componentistica,
 informazioni, ecc.), impiega risorse per trasformarli (staff e facilities) e ha
@@ -81,7 +81,7 @@ la variante di prodotto più venduta, minimizzando gli sprechi.
   [Fincantieri (navi)],
 )
 
-#starlight.note[
+#starlight.note([
   Le produzioni di tipo _push_ si basano su previsioni della domanda, quelle di
   tipo _pull_ si basano sulla richiesta effettiva dai clienti.
-]
+])

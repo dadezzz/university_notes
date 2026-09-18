@@ -113,10 +113,10 @@ condurre le proprie attività.
 
   $ v_t = "valore iniziale" - (t times "quota di ammortamento") $
 
-  #starlight.note[
+  #starlight.note([
     Il valore di recupero è il valore stimato del bene al termine della sua vita
     utile. Di solito si pone a 0.
-  ]
+  ])
 
 - *Attivo circolante*: risorse che si trasformano in liquidità nel breve
   periodo.
@@ -125,10 +125,10 @@ condurre le proprie attività.
   - disponibilità liquide: cassa, conti correnti e titoli a breve termine;
   - crediti: crediti verso clienti, consorzi o altre aziende;
 
-  #starlight.note[
+  #starlight.note([
     I crediti sono esposti al netto del fondo rischi e crediti, che compensa il
     valore dei crediti che potrebbero non essere recuperati.
-  ]
+  ])
 
 == Passivo
 

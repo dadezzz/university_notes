@@ -63,10 +63,10 @@ I fornitori influiscono su diversi fattori:
 - livello di servizio offerto ai clienti (affidabilità, tempistiche);
 - abilità nello sviluppare certi prodotti;
 
-#starlight.note[
+#starlight.note([
   Nel modello Porter il processo d'acquisto è considerato un'attività di
   supporto.
-]
+])
 
 = Processo d'acquisto
 

@@ -1,13 +1,14 @@
----
-description:
-  La logica a transmission gate risolve i limiti del pass transistor. La logica
-  dinamica riduce il numero di transistori usando fasi di precarica e
-  valutazione.
-lang: it
-title: Logica pass transistor, transmission gate e dinamica
----
+#import "../_templates/starlight.typ" as starlight
 
-## Logica a pass transistor
+#show: starlight.setup
+
+#metadata((
+  description: "La logica a transmission gate risolve i limiti del pass transistor. La logica dinamica riduce il numero di transistori usando fasi di precarica e valutazione.",
+  lang: "it",
+  title: "Logica pass transistor, transmission gate e dinamica",
+))
+
+= Logica a pass transistor
 
 A differenza della logica CMOS, nella logica a pass transistor il segnale di
 ingresso può trovarsi anche sul source o sul drain oltre che sul gate.
@@ -17,19 +18,17 @@ un transitore nMOS.
 
 Una porta AND può essere implementata come nell'immagine:
 
-![Porta AND](../../../../../images/circuiti-elettronici-digitali/porta-and-pass-transistor.png)
+#image("images/porta-and-pass-transistor.png", alt: "Porta AND")
 
 L'nMOS della logica a pass transistor non riesce a condurre bene gli 1 (l'uscita
 arriva al più a $V_"DD" - V_"TN"$) perché il canale svanisce. La situazione è
 anche peggiorata dall'effetto body ($V_"SB" != 0$).
 
-:::note
+#starlight.note([
+  Se usassimo un pMOS, l'1 non avrebbe più problemi, ma lo 0 sì.
+])
 
-Se usassimo un pMOS, l'1 non avrebbe più problemi, ma lo 0 sì.
-
-:::
-
-## Logica a transmission gate
+= Logica a transmission gate
 
 La logica a transmission gate risolve il problema dei segnali del pass
 transistor mettendo in parallelo un transistore nMOS e un pMOS.
@@ -38,16 +37,14 @@ Il principale svantaggio è dovuto alla maggiore complessità dovuta all'utilizz
 di 2 transistori e un invertitore. Inoltre tutto il rumore all'ingresso è
 passato all'uscita.
 
-![Transmission gate](../../../../../images/circuiti-elettronici-digitali/transmission-gate.png)
+#image("images/transmission-gate.png", alt: "Transmission gate")
 
-:::tip
+#starlight.tip([
+  Per risolvere la questione del rumore, si possono introdurre regolarmente nel
+  circuito dei buffer di tipo CMOS.
+])
 
-Per risolvere la questione del rumore, si possono introdurre regolarmente nel
-circuito dei buffer di tipo CMOS.
-
-:::
-
-## Logica dinamica
+= Logica dinamica
 
 Nella logica dinamica, invece di implementare pull-up e pull-down come nella
 CMOS, se ne implementa solo uno e si suddivide in due fasi il circuito:
@@ -61,7 +58,10 @@ insieme al pull-up (pMOS), è comandato da un segnale di clock.
 - Nella fase di valutazione, in base al valore degli ingressi, si decide se il
   nodo di uscita viene portato a 0 o se rimane a 1.
 
-![Circuito di una porta logica dinamica](../../../../../images/circuiti-elettronici-digitali/porta-logica-dinamica.png)
+#image(
+  "images/porta-logica-dinamica.png",
+  alt: "Circuito di una porta logica dinamica",
+)
 
 Rispetto alla logica CMOS che usa $2n$ transistors, la logica dinamica ne usa
 solo $n + 2$.

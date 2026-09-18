@@ -1,13 +1,15 @@
----
-description:
-  Fondamenti di carica elettrica, campo e potenziale, resistori, generatori
-  ideali e le leggi di Kirchhoff per l'analisi e il funzionamento dei circuiti.
-lang: it
-prev: false
-title: Richiami sui circuiti elettrici e Kirchhoff
----
+#import "../_templates/starlight.typ" as starlight
 
-## Richiami sui circuiti elettrici
+#show: starlight.setup
+
+#metadata((
+  description: "Fondamenti di carica elettrica, campo e potenziale, resistori, generatori ideali e le leggi di Kirchhoff per l'analisi e il funzionamento dei circuiti.",
+  lang: "it",
+  prev: false,
+  title: "Richiami sui circuiti elettrici e Kirchhoff",
+))
+
+= Richiami sui circuiti elettrici
 
 I protoni e gli elettroni sono dotati di carica elettrica, misurata in coulomb e
 con valore assoluto di $1.60218 times 10^(-19) thick "C"$.
@@ -19,45 +21,43 @@ esercitata da $E$ su una carica $Q$ è data da: $arrow(F) = Q arrow(E)$.
 Si tratta di un campo conservativo, poiché il lavoro elettrico per spostare una
 carica non dipende dal percorso scelto.
 
-### Potenziale
+== Potenziale
 
 Il potenziale elettrico si misura in volt e rappresenta l'energia potenziale per
 unità di carica in un dato campo elettrico.
 
-$$
-V = - integral_C arrow(E) dot dif arrow(s)
-$$
+$
+  V = - integral_C arrow(E) dot dif arrow(s)
+$
 
-### Corrente
+== Corrente
 
 La corrente elettrica è la quantità di carica che attraversa una superficie
 nell'unità di tempo. Un maggior numero di elettroni, o una maggiore velocità del
 flusso, corrispondono a una corrente più elevata.
 
-$$
-i(t) = (dif Q(t)) / (dif t)
-$$
+$
+  i(t) = (dif Q(t)) / (dif t)
+$
 
-:::note
-
-La velocità degli elettroni in un filo è abbastanza bassa, nell'ordine dei
-centimetri al secondo.
-
-:::
+#starlight.note([
+  La velocità degli elettroni in un filo è abbastanza bassa, nell'ordine dei
+  centimetri al secondo.
+])
 
 Per convenzione storica, il verso della corrente è opposto al flusso degli
 elettroni.
 
-## Elementi circuitali
+= Elementi circuitali
 
 Un circuito elettrico è un sistema costituito da sorgenti di tensione o di
 corrente, carichi e connessioni.
 
 Ogni elemento stabilisce una relazione tra la differenza di potenziale $v$ ai
-suoi capi e la corrente $i$ che scorre ai suoi terminali, detta **caratteristica
-tensione/corrente**.
+suoi capi e la corrente $i$ che scorre ai suoi terminali, detta *caratteristica
+tensione/corrente*.
 
-### Connessioni
+== Connessioni
 
 Le connessioni sono i fili del circuito. Noi li consideriamo conduttori ideali,
 dove il campo elettrico è nullo e la differenza di potenziale (ddp) tra
@@ -69,7 +69,7 @@ qualsiasi valore).
 Un circuito aperto può essere rappresentato da un filo interrotto. In questo
 caso la corrente non fluisce e la ddp non è vincolata.
 
-### Resistore
+== Resistore
 
 Il resistore è un elemento con le seguenti caratteristiche:
 
@@ -89,7 +89,7 @@ il rapporto $v / i$ rappresenterebbe una retta con pendenza $R$.
 - resistenze in serie: $R_"eq" = sum_i R_i$;
 - resistenze in parallelo: $R_"eq" = 1 / (sum_i 1 / R_i)$;
 
-### Generatore di tensione
+== Generatore di tensione
 
 Un generatore di tensione costante è un elemento che impone una differenza di
 potenziale (ddp) fissa. La corrente, in questo caso, non è vincolata e viene
@@ -98,7 +98,7 @@ determinata dal resto del circuito.
 Sul grafico $i / v$ sarebbe una retta verticale. Se viene spento equivale a un
 corto circuito.
 
-### Generatore di corrente
+== Generatore di corrente
 
 Il generatore di corrente fissa la corrente, mentre la tensione è determinata
 dal resto del circuito.
@@ -106,7 +106,7 @@ dal resto del circuito.
 Sul grafico $i$/$v$ sarebbe una retta orizzontale. Se viene spento equivale a un
 circuito aperto.
 
-## Leggi di Kirchhoff
+= Leggi di Kirchhoff
 
 Si tratta di due leggi che, combinate con le caratteristiche degli altri
 elementi, ci permetteranno di analizzare i circuiti.

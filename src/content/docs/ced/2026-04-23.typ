@@ -1,16 +1,24 @@
----
-description:
-  Realizzazione del flip-flop SR ottimizzato, latch basato su multiplexer,
-  configurazione master-slave edge-triggered e organizzazione delle memorie RAM.
-lang: it
-title: Flip-flop SR, latch multiplexer e memorie RAM
----
+#import "../_templates/starlight.typ" as starlight
 
-## Flip-flop SR ottimizzato
+#show: starlight.setup
 
-![Schema del flip-flop SR](../../../../../images/circuiti-elettronici-digitali/schema-flip-flop-sr-ottimizzato.png)
+#metadata((
+  description: "Realizzazione del flip-flop SR ottimizzato, latch basato su multiplexer, configurazione master-slave edge-triggered e organizzazione delle memorie RAM.",
+  lang: "it",
+  title: "Flip-flop SR, latch multiplexer e memorie RAM",
+))
 
-![Circuito del flip-flop SR](../../../../../images/circuiti-elettronici-digitali/circuito-flip-flop-sr-ottimizzato.png)
+= Flip-flop SR ottimizzato
+
+#image(
+  "images/schema-flip-flop-sr-ottimizzato.png",
+  alt: "Schema del flip-flop SR",
+)
+
+#image(
+  "images/circuito-flip-flop-sr-ottimizzato.png",
+  alt: "Circuito del flip-flop SR",
+)
 
 Una versione più compatta del flip-flop SR con clock si può realizzare ponendo
 dei pull-down di fronte agli invertitori.
@@ -19,7 +27,7 @@ I pull-down aggiunti devono essere 'più forti' di quelli degli invertitori,
 ovvero devono portare la tensione in entrata al di sotto della tensione di
 soglia dell'invertitore.
 
-### Ritardo di commutazione
+== Ritardo di commutazione
 
 Il ritardo tra l'attivazione del reset e la commutazione di $Q'$ è dato da 2
 componenti:
@@ -28,7 +36,7 @@ componenti:
   fatto da $M_4$ e $M_8 + M_7$.
 - Il ritardo dovuto all'inverter CMOS composto da $M_1$ e $M_2$.
 
-## Latch basato su multiplexer
+= Latch basato su multiplexer
 
 Il flip-flop può essere realizzato utilizzando dei multiplexer, che sono molto
 facili da realizzare in logica transmission gate.
@@ -36,13 +44,16 @@ facili da realizzare in logica transmission gate.
 Quando il clock $C = 1$ viene letto l'ingresso $D$, mentre quando va a $0$ il
 dato resta memorizzato.
 
-![Circuito del latch a multiplexer](../../../../../images/circuiti-elettronici-digitali/circuito-latch-multiplexer.png)
+#image(
+  "images/circuito-latch-multiplexer.png",
+  alt: "Circuito del latch a multiplexer",
+)
 
 Il vantaggio è un minore consumo, dato che non c'è un pull-down che deve
 continuamente 'combattere' il pull-up per portare l'uscita a massa. Tuttavia
 bisogna usare un maggior numero di transistor.
 
-## Flip-flop master-slave
+= Flip-flop master-slave
 
 Tutte le memorie viste finora lavorano su un livello. Se l'ingresso si aggiorna
 in mezzo al ciclo alto di clock, l'uscita si aggiorna subito. In molte
@@ -55,26 +66,24 @@ clock è alto e il secondo quando il clock è basso.
 Non c'è mai un cammino diretto tra ingresso e uscita e quindi non si possono
 trasmettere modifiche avvenute durante il ciclo di clock.
 
-:::note
+#starlight.note([
+  Il flip-flop edge-triggered funziona allo stesso modo, ma il master è un latch
+  di tipo D.
+])
 
-Il flip-flop edge-triggered funziona allo stesso modo, ma il master è un latch
-di tipo D.
-
-:::
-
-## Memorie RAM
+= Memorie RAM
 
 Le memorie RAM sono organizzate a matrice:
 
-1. un decoder seleziona la riga (**wordline**) dalla prima metà dell'indirizzo;
+1. un decoder seleziona la riga (*wordline*) dalla prima metà dell'indirizzo;
 2. tutta la riga viene letta;
 3. i sense amplifier amplificano i valori nelle celle lette;
-4. un multiplexer (column decoder) seleziona la colonna (**bitline**) e quindi
-   la cella desiderata usando l'altra metà dell'indirizzo;
+4. un multiplexer (column decoder) seleziona la colonna (*bitline*) e quindi la
+  cella desiderata usando l'altra metà dell'indirizzo;
 
-![Memoria RAM](../../../../../images/circuiti-elettronici-digitali/memoria-ram.png)
+#image("images/memoria-ram.png", alt: "Memoria RAM")
 
 Ogni cella funziona come visto in precedenza: 2 invertitori incrociati
 (flip-flop statico), controllati da pass transistors.
 
-![Cella di memoria RAM](../../../../../images/circuiti-elettronici-digitali/cella-ram.png)
+#image("images/cella-ram.png", alt: "Cella di memoria RAM")
