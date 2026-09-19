@@ -130,13 +130,6 @@ Alternatively, follow the manual installation steps below.
 | `pnpm format:fix`   | Auto-fix formatting issues               |
 | `pnpm clean`        | Remove build artifacts                   |
 
-### What you can help with
-
-- Correcting typos and grammatical errors;
-- Improving explanations and adding examples;
-- Adding missing course notes;
-- Suggesting new features or improvements;
-
 ## AI
 
 Content is human-written and AI-reviewed. Review skills are located in
@@ -153,9 +146,3 @@ This work is licensed under a
 Feel free to share and adapt these notes for non-commercial purposes, provided
 you give appropriate credit and license your contributions under identical
 terms.
-
-## Links
-
-- DISI Department: [https://disi.unitn.it](https://disi.unitn.it)
-- ICE Course:
-  [https://corsi.unitn.it/en/computer-communications-and-electronic-engineering](https://corsi.unitn.it/en/computer-communications-and-electronic-engineering)
