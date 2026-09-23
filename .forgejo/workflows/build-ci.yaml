@@ -5,7 +5,7 @@ concurrency:
 jobs:
   build:
     container:
-      image: quay.io/containers/aio:latest@sha256:b89bca582492b87656cc0e362d4c6b7a3ad0bc590b846a926fa3b598da281d93
+      image: quay.io/containers/aio:latest@sha256:c23be6fc265a3e79ece04d7b9fbd09ad1f18c589acc1a9dda1a304a924ce5b6e
     name: Build the CI container
     runs-on: srv-hetz-nbg-0
     steps:
