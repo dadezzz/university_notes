@@ -1,0 +1,264 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Potenza ed energia nei circuiti elettrici. Resistori, condensatori e induttori in serie e parallelo. Studio dei circuiti RC con carica e scarica completa.",
+  lang: "it",
+  title: "Circuiti RC e componenti in serie e parallelo",
+))
+
+= Potenza ed energia elettrica
+
+Se colleghiamo un generatore a un dipolo, avremo una corrente e una differenza
+di potenziale.
+
+Definiamo la potenza dissipata dal circuito come:
+
+$
+  P(t) = I(t) V(t)
+$
+
+Possiamo creare un grafico con $I(t)$ sull'asse verticale e $V(t)$
+sull'orizzontale. Il grafico della funzione potenza sarà sempre nel 1° o 3°
+quadrante, dato che corrente e tensione sono sempre o entrambe positive o
+entrambe negative.
+
+L'energia immagazzinata da un circuito elettrico si può esprimere come la
+potenza utilizzata per un certo periodo di tempo:
+
+$
+  E(t_1, t_2) = integral_(t_1)^(t_2) P(t) dif t = integral_(t_1)^(t_2) I(t) V(t) dif t
+$
+
+Per il condensatore:
+
+$
+  E(t_1, t_2) = C integral_(t_1)^(t_2) V(t) (dif V(t)) / (dif t) dif t = C integral_V(t_1)^V(t_2) V(t) dif V(t) = [1 / 2 C V(t)^2]_V(t_1)^V(t_2)
+$
+
+Per l'induttore:
+
+$
+  E(t_1, t_2) = L integral_(t_1)^(t_2) I(t) (dif I(t)) / (dif t) dif t = L integral_I(t_1)^I(t_2) I(t) dif I(t) = [1 / 2 L I(t)^2]_I(t_1)^I(t_2)
+$
+
+= Legame tra le grandezze elettromagnetiche
+
+#image("images/legame-grandezze-elettromagnetiche.svg", alt: "Grafico")
+
+= Elementi in serie e in parallelo
+
+== Resistori in serie
+
+Prendiamo $n$ resistori in serie $R_1, ..., R_n$.
+
+La differenza di potenziale è data dalla somma di tutte le differenze di
+potenziale dei singoli resistori. La corrente che attraversa il circuito è la
+stessa per ogni resistore.
+
+$
+  V_("tot")(t) = sum_(i = 1)^n V_(R_i)(t)
+$
+
+$
+  R_"tot" = (V_("tot")(t)) / I(t) = sum_(i = 1)^n R_i
+$
+
+== Resistori in parallelo
+
+Prendiamo $n$ resistori in parallelo $R_1, ..., R_n$.
+
+Ogni resistore avrà la stessa differenza di potenziale ai suoi capi. Ciò che
+cambia è la corrente che attraversa ciascun ramo.
+
+$
+  I_("tot")(t) = sum_(i = 1)^n V(t) / R_i
+$
+
+$
+  1 / R_"tot" = (I_("tot")(t)) / V(t) = sum_(i = 1)^n 1 / R_i
+$
+
+== Condensatori in serie
+
+Prendiamo $n$ condensatori in serie $C_1, ..., C_n$.
+
+La carica sulle armature è la stessa per tutti i condensatori, mentre la
+differenza di potenziale totale sarà:
+
+$
+  V_("tot")(t) = sum_(i = 1)^n V_i(t) = sum_(i = 1)^n Q(t) / C_i
+$
+
+$
+  1 / C_"tot" = (V_("tot")(t)) / Q(t) = sum_(i = 1)^n 1 / C_i
+$
+
+== Condensatori in parallelo
+
+Prendiamo $n$ condensatori in parallelo $C_1, ..., C_n$.
+
+La carica totale si distribuisce in maniera non uniforme sulle armature, mentre
+la differenza di potenziale è uguale per tutti.
+
+$
+  Q_("tot")(t) = sum_(i = 1)^n Q_i(t) = sum_(i = 1)^n C_i V(t)
+$
+
+$
+  C_"tot" = sum_(i = 1)^n (Q_("tot")(t)) / V(t) = sum_(i = 1)^n C_i
+$
+
+== Induttori in serie
+
+Prendiamo $n$ induttori in serie $L_1, ..., L_n$.
+
+L'induttanza, come la resistenza, è proporzionale alla lunghezza. In questo caso
+l'induttore ha lo stesso comportamento del resistore e quindi:
+
+$
+  L_"tot" = sum_(i = 1)^n L_i
+$
+
+== Induttori in parallelo
+
+Prendiamo $n$ induttori in parallelo $L_1, ..., L_n$.
+
+La corrente si distribuisce su ogni ramo. La differenza di potenziale è la
+stessa per tutti gli induttori.
+
+$
+  I_("tot")(t) = sum_(i = 1)^n I_i(t) = integral_0^t V(t) dif t sum_(i = 1)^n 1 / L_i
+$
+
+$
+  1 / L_"tot" = (I_("tot")(t)) / (integral_0^t V(t) dif t) = sum_(i = 1)^n 1 / L_i
+$
+
+= Circuiti RC
+
+Prendiamo un circuito formato da un generatore di tensione $V$, una resistenza
+$R_1$ e poi in parallelo un condensatore $C$ e un'altra resistenza $R_2$.
+
+Sopra $C$ c'è un interruttore che permette di collegare o staccare il
+generatore; definiamo la fase di carica quando l'interruttore è in posizione $a$
+e la fase di scarica quando è in posizione $b$.
+
+```
+# carica
+┌──R_1─a\ b┐         ┌──R_1──┐
+│+      │  │         │+      │
+V_s     C  R_2  ──>  V_s     C
+│-      │  │         │-      │
+└───────┴──┘         └───────┘
+
+# scarica
+┌──R_1─a /b─┐         ┌────┐
+│+       │  │         │+   │
+V_s      C  R_2  ──>  C    R_2
+│-       │  │         │-   │
+└────────┴──┘         └────┘
+```
+
+In entrambi i casi la corrente scorre in senso orario.
+
+== Fase di scarica
+
+Consideriamo il sistema:
+
+$
+  cases(
+    -I_(R_2)(t) - I_(C)(t) = 0,
+    -V_(C)(t) + V_(R_2)(t) = 0,
+    V_(R_2)(t) = R_2 I_(R_2)(t),
+    I_(C)(t) = C (dif V_(C)(t)) / (dif t),
+    V_(C)(t_0) = V_s
+  )
+$
+
+Semplificando, otteniamo un problema di Cauchy:
+
+$
+  cases(
+    C (dif V_(C)(t)) / (dif t) = - V_(C)(t) / R_2,
+    V_(C)(t_0) = V_s
+  )
+$
+
+Definiamo la *costante di tempo* $tau = C R_2$. Rappresenta il tempo necessario
+a raggiungere il 63,2% della tensione massima ai capi del condensatore o il
+tempo necessario perché essa scenda al 36.8% del valore massimo.
+
+$
+  cases(
+    (dif V_C(t)) / (dif t) = - V_(C)(t) / tau <=> integral_(V_(C)(t_0))^(V_(C)(t)) (dif V_(C)(t)) / V_(C)(t) = - 1 / tau integral_(t_0)^t dif t,
+    V_(C)(t_0) = V_s,
+  )
+$
+
+$
+  cases(
+    ln(V_(C)(t)) - ln(V_(C)(t_0)) = - t / tau,
+    V_(C)(t_0) = V_s
+  )
+$
+
+Abbiamo trovato la funzione che dà la differenza di potenziale in base al tempo
+durante la scarica del circuito:
+
+$
+  ln(V_(C)(t)) = ln(V_s) - t / tau <=> V_(C)(t) = V_s e^(- t / tau)
+$
+
+== Fase di carica
+
+Consideriamo il sistema:
+
+$
+  cases(
+    I_(R_1)(t) - I_(C)(t) = 0,
+    -V_s + V_(R_1)(t) + V_(C)(t) = 0,
+    V_(R_1)(t) = R_1 I_(R_1)(t),
+    I_(C)(t) = C (dif V_(C)(t)) / (dif t),
+    V_(C)(t_0) = 0,
+  )
+$
+
+Semplificando, otteniamo un altro problema di Cauchy:
+
+$
+  cases(
+    C (dif V_(C)(t)) / (dif t) = (V_s - V_(C)(t)) / (R_1),
+    V_(C)(t_0) = 0,
+  )
+$
+
+Questa volta $tau = C R_1$.
+
+$
+  cases(
+    (dif V_(C)(t)) / (dif t) = (V_s - V_(C)(t)) / tau <=> integral_(V_(C)(t_0))^(V_(C)(t)) (dif V_(C)(t)) / (V_s - V_(C)(t)) = 1 / tau integral_(t_0)^t dif t,
+    V_(C)(t_0) = 0,
+  )
+$
+
+$
+  cases(
+    -ln(V_s - V_(C)(t)) + ln(V_s - V_(C)(t_0)) = t / tau,
+    V_(C)(t_0) = 0,
+  )
+$
+
+E ora abbiamo trovato la funzione che dà la differenza di potenziale in base al
+tempo durante la carica del circuito:
+
+$
+  ln(V_s - V_(C)(t)) - ln(V_s - V_(C)(t_0)) = - t / tau <=> V_(C)(t) = V_s (1 - e^(- t / tau))
+$
+
+Alcuni punti interessanti:
+
+- $V_(C)(tau) = V_s (1 - e^(-1))$
+- $V_(C)(4 tau) = V_s (1 - e^(-4))$: corrispondente a circa il 98% della
+  tensione massima.

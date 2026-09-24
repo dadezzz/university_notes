@@ -1,0 +1,157 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi di un circuito RLC con risposta a stato nullo e ingresso nullo, decomposizione in fratti semplici e risposta all'impulso tramite trasformata di Laplace.",
+  lang: "it",
+  title: "Analisi circuito RLC con trasformata di Laplace",
+))
+
+Considerato un circuito RLC in cui $V_"in"(t)$ è un ingresso causale, ci
+interessano determinare la differenza di potenziale ai capi di $R$:
+
+```text
+┌───L───C───┐
+│+          │
+V_in        R
+│-          │
+└───────────┘
+```
+
+Possiamo dire che esistono $tilde(V)_"in"(s) = cal(L){V_"in"(t)}$ e
+$tilde(I)(s) = cal(L){I(t)}$.
+
+Scriviamo il sistema senza conoscere ancora le condizioni iniziali:
+
+$
+  cases(
+    V_"in"(t) = V_L(t) + V_C(t) + V_R(t),
+    I(t) = I_L(t) = I_C(t) = I_R(t),
+    V_L(t) = L (dif I_L(t)) / (dif t),
+    V_R(t) = I_R(t) R,
+    V_C(t) = 1 / C integral_0^t I_C(t) dif t + V_C(0),
+    I_L(0) = ?,
+    V_C(0) = ?,
+  )
+$
+
+$
+  cases(
+    V_"in"(t) = L (dif I(t)) / (dif t) + I(t) R + 1 / C integral_0^t I(t') dif t' + V_C(0),
+    I_L(0) = ?,
+    V_C(0) = ?,
+  )
+$
+
+$
+  cases(
+    tilde(V)_"in"(s) = L s tilde(I)(s) - L I(0) + tilde(I)(s) s R + 1 / (C s) tilde(I)(s) + V_C(0) / s,
+    <=> tilde(V)_"in"(s) = tilde(I)(s) (L s + R + 1 / (C s)) - L I(0) + V_C(0) / s,
+    <=> s tilde(V)_"in"(s) = tilde(I)(s) (L s^2 + R s + 1 / C) - L s I(0) + V_C(0),
+    <=> tilde(I)(s) = (s tilde(V)_"in"(s) + L s I(0) - V_C(0)) / (L s^2 + R s + 1 / C),
+    <=> tilde(V)_R(s) = (R s tilde(V)_"in"(s) + R L s I(0) - R V_C(0)) / (L s^2 + R s + 1 / C),
+    <=> tilde(V)_R(s) = (R s tilde(V)_"in"(s)) / (L s^2 + R s + 1 / C) + (R L s I(0) - R V_C(0)) / (L s^2 + R s + 1 / C),
+    I_L(0) = ?,
+    V_C(0) = ?,
+  )
+$
+
+Nell'ultima espressione ottenuta, il primo termine della somma (quello che
+contiene $tilde(V)_"in"(s)$) è la risposta a stato nullo del sistema. Il secondo
+termine invece è la risposta a ingresso nullo.
+
+Ora fissiamo alcuni dati:
+
+- $V_"in"(t) = 2 sin(2 t) theta(t) thick ["V"]$
+- $I(0) = 0 thick ["A"]$
+- $V_C(0) = 2 thick ["V"]$
+- $L = 1 / 2 thick ["H"]$
+- $C = 1 / 3 thick ["F"]$
+- $R = 5 / 2 thick [Omega]$
+
+La trasformata del seno è:
+
+$
+  sin(d t) limits(<->)^cal(L) d / (s^2 + d^2)
+$
+
+Quindi nel nostro caso avremo $4 / (s^2 + 4)$. Ora sostituiamo le variabili con
+le costanti date:
+
+$
+  tilde(V)_R(s) &= 4 / (s^2 + 4) (s (5 / 2)) / (s^2 / 2 + (5 s) / 2 + 3) - 5 / (s^2 / 2 + (5 s) / 2 + 3) \
+  &= 4 / (s^2 + 4) (5 s) / (s^2 + 5 s + 6) - 10 / (s^2 + 5 s + 6) \
+  &= 4 / (s^2 + 4) (5 s) / ((s + 2) (s + 3)) - 10 / ((s + 2) (s + 3)) \
+  &= 4 / ((s + 2 j) (s - 2 j)) (5 s) / ((s + 2) (s + 3)) - 10 / ((s + 2) (s + 3))
+$
+
+Il problema sta nella risposta a stato nullo, che contiene degli zeri complessi:
+
+$
+  (20 s) / ((s + 2 j) (s - 2 j) (s + 2) (s + 3))
+$
+
+La regola che dovremo usare è:
+
+$
+  2 abs(A) e^(-a t) cos(b t + phi_A) limits(<->)^cal(L) A / (s + a - j b) + overline(A) / (s + a + j b)
+$
+
+#starlight.tip([
+  Una versione leggermente diversa (utile quando $K in bb(R)$) è:
+
+  $
+    K e^(-p t) sin(omega t) limits(<->)^cal(L) (K omega) / ((s + p)^2 + omega^2)
+  $
+
+  dove
+
+  $
+    (s + p)^2 + omega^2 = (s + p + j omega)(s + p - j omega)
+  $
+])
+
+Quindi possiamo riscrivere l'espressione sopra come:
+
+$
+  A / (s + 2 j) + overline(A) / (s - 2 j) + B / (s + 2) + C / (s + 3)
+$
+
+Per trovare $A$ dobbiamo fare il limite:
+
+$
+  lim_(s -> 2 j) (s - 2 j) (20 s) / ((s + 2 j) (s - 2 j) (s + 2) (s + 3)) = (40 j) / (4 j (2 j + 2) (2 j + 3)) = 10 / (2 + 10 j) = 5 / (1 + 5 j) = (5 - 25 j) / 26
+$
+
+Otteniamo quindi:
+
+$
+  2 5 / sqrt(26) cos(2 t + phi_A)
+$
+
+dove la fase è $phi_A = arctan((Im(A)) / (Re(A)))$.
+
+$
+  2 5 / sqrt(26) cos(2 t - 1.37)
+$
+
+Per trovare $B$ e $C$ calcolo i rispettivi limiti, come visto in precedenza, e
+ottengo i valori $-5$ e $60 / 13$.
+
+L'anti-trasformata della risposta a stato nullo è:
+
+$
+  V_R^"stato nullo"(t) = 10 / sqrt(26) cos(2 t - 1.37) - 5 e^(-2 t) + 60 / 13 e^(-3 t)
+$
+
+La risposta a ingresso nullo si calcola con il metodo visto in precedenza:
+
+$
+  V_R^"ingresso nullo"(t) = 10 e^(-3 t) - 10 e^(-2 t)
+$
+
+= Risposta all'impulso con Laplace
+
+La funzione di trasferimento $H(s)$ di un circuito corrisponde alla trasformata
+della risposta all'impulso. Quindi anti-trasformando si ottiene $h(t)$.

@@ -1,13 +1,14 @@
----
-description:
-  Analisi di reti LTI con ingresso sinusoidale attraverso l'impedenza complessa
-  e i fasori per studiare circuiti RLC paralleli e il comportamento dei
-  componenti.
-lang: it
-title: Reti LTI sinusoidali e impedenza complessa
----
+#import "../_templates/starlight.typ" as starlight
 
-## Soluzione di una rete LTI con ingresso sinusoidale
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi di reti LTI con ingresso sinusoidale attraverso l'impedenza complessa e i fasori per studiare circuiti RLC paralleli e il comportamento dei componenti.",
+  lang: "it",
+  title: "Reti LTI sinusoidali e impedenza complessa",
+))
+
+= Soluzione di una rete LTI con ingresso sinusoidale
 
 La scorsa lezione abbiamo visto che è possibile trovare la soluzione di una
 generica rete LTI con ingresso sinusoidale.
@@ -15,15 +16,13 @@ generica rete LTI con ingresso sinusoidale.
 In genere $s_i$ è un numero complesso. Chiameremo $s'_i$ la parte reale e
 $s''_i$ la parte immaginaria.
 
-$$
-y_h(t) = sum_(i = 1)^n k_i e^(s_i t) = sum_(i = 1)^n k_i e^(s'_i t) e^(j s''_i t)
-$$
+$
+  y_h(t) = sum_(i = 1)^n k_i e^(s_i t) = sum_(i = 1)^n k_i e^(s'_i t) e^(j s''_i t)
+$
 
-:::note
-
-$e^(j s''_i t)$ è il termine che fa oscillare $y_h(t)$ quando non è nullo.
-
-:::
+#starlight.note([
+  $e^(j s''_i t)$ è il termine che fa oscillare $y_h(t)$ quando non è nullo.
+])
 
 - Se $s'_i > 0$, allora $lim_(t -> oo) y_h(t) = oo$. Questo non è accettabile
   perché il sistema arriverebbe a consumare una quantità di energia infinita.
@@ -33,13 +32,11 @@ $e^(j s''_i t)$ è il termine che fa oscillare $y_h(t)$ quando non è nullo.
 - Se $s'_i < 0$, allora $lim_(t -> oo) y_h(t) = 0$. Ci troviamo nei casi
   smorzati visti in precedenza.
 
-:::note
+#starlight.note([
+  Nel caso smorzato, quando il circuito arriva a regime, rimane solo $y_p(t)$.
+])
 
-Nel caso smorzato, quando il circuito arriva a regime, rimane solo $y_p(t)$.
-
-:::
-
-## Collegamento di un generatore ad un dipolo
+= Collegamento di un generatore ad un dipolo
 
 Prendo un generatore $i(t) = Re(tilde(I) e^(j omega t))$.
 
@@ -51,39 +48,39 @@ i(t)  B
 └─────┘
 ```
 
-### Dipolo di tipo resistore ($B = R$)
+== Dipolo di tipo resistore ($B = R$)
 
-$$
-v(t) = R i(t) &<=> Re(tilde(V) e^(j omega t)) = Re(R tilde(I) e^(j omega t)) \
-              &<=> tilde(V) = R tilde(I)
-$$
+$
+  v(t) = R i(t) & <=> Re(tilde(V) e^(j omega t)) = Re(R tilde(I) e^(j omega t)) \
+                & <=> tilde(V) = R tilde(I)
+$
 
-### Dipolo di tipo condensatore ($B = C$)
+== Dipolo di tipo condensatore ($B = C$)
 
-$$
-i(t) = C (dif v(t)) / (dif t)
+$
+  i(t) = C (dif v(t)) / (dif t)
   &<=> Re(tilde(I) e^(j omega t)) = Re(C (dif tilde(V) e^(j omega t)) / (dif t)) = Re(C j omega tilde(V) e^(j omega t)) \
   &<=> tilde(I) = j omega C tilde(V) \
   &<=> tilde(V) = tilde(I) / (j omega C)
-$$
+$
 
-### Dipolo di tipo induttore ($B = L$)
+== Dipolo di tipo induttore ($B = L$)
 
-$$
-v(t) = L (dif i(t)) / (dif t)
+$
+  v(t) = L (dif i(t)) / (dif t)
   &<=> Re(tilde(V) e^(j omega t)) = Re(L (dif tilde(I) e^(j omega t)) / (dif t)) = Re(L j omega tilde(I) e^(j omega t)) \
   &<=> tilde(V) = j omega L tilde(I)
-$$
+$
 
-## Impedenza
+= Impedenza
 
 L'impedenza è il corrispettivo della resistenza per i circuiti a corrente
 alternata. È un numero costante nel tempo e dipendente solamente dalla frequenza
 di un circuito, definito come:
 
-$$
-Z = tilde(V) / tilde(I)
-$$
+$
+  Z = tilde(V) / tilde(I)
+$
 
 - Per il resistore: $Z = R$;
 - Per il condensatore: $Z = 1 / (j omega C)$;
@@ -93,20 +90,18 @@ In generale $Z$ è un numero complesso, quindi
 $abs(Z) = abs(tilde(V)) / abs(tilde(I))$ e
 $theta_Z = theta_(tilde(V)) - theta_(tilde(I))$.
 
-:::note
+#starlight.note([
+  Il reciproco dell'impedenza $Y = tilde(I) / tilde(V)$ è chiamato ammettanza.
+])
 
-Il reciproco dell'impedenza $Y = tilde(I) / tilde(V)$ è chiamato ammettanza.
-
-:::
-
-### Impedenze in serie e parallelo
+== Impedenze in serie e parallelo
 
 Si ricavano facilmente con le leggi di Kirchhoff.
 
 - in serie: $Z_"tot" = sum_i Z_i$;
 - in parallelo: $1 / Z_"tot" = sum_i 1 / Z_i$;
 
-## Circuito RLC in parallelo con fasori
+= Circuito RLC in parallelo con fasori
 
 Prendo un circuito dove resistore, condensatore e induttore sono in parallelo.
 La corrente in entrata ha andamento sinusoidale
@@ -121,27 +116,27 @@ i_s(t)  C_1  L_1  R_1
 Supponiamo di voler trovare $i_(R_1)(t)$. Bastano 2 equazioni (+ quelle per
 trovare l'impedenza):
 
-$$
-cases(
-tilde(I)_(R_1) = tilde(V)_s / R_1,
-tilde(I)_s = tilde(V)_s / Z_"tot",
-)
-$$
+$
+  cases(
+    tilde(I)_(R_1) = tilde(V)_s / R_1,
+    tilde(I)_s = tilde(V)_s / Z_"tot",
+  )
+$
 
-$$
-tilde(I)_(R_1) = Z_"tot" / R_1 tilde(I)_s
-$$
+$
+  tilde(I)_(R_1) = Z_"tot" / R_1 tilde(I)_s
+$
 
 Con una formula algebrica abbiamo trovato il risultato, senza dover risolvere
 equazioni differenziali. Poi basta riconvertire il fasore della corrente sulla
 resistenza in un'onda sinusoidale.
 
-## Comportamento dei componenti circuitali rispetto al tempo e alla fase
+= Comportamento dei componenti circuitali rispetto al tempo e alla fase
 
 Rispetto al tempo: https://www.geogebra.org/calculator/nqdfrchm
 
-![Grafico](../../../../../images/fisica-2/comportamento-componenti-rispetto-a-tempo.png)
+#image("images/comportamento-componenti-rispetto-a-tempo.png", alt: "Grafico")
 
 Rispetto alla fase: https://www.geogebra.org/calculator/xbdrevxx
 
-![Grafico](../../../../../images/fisica-2/comportamento-componenti-rispetto-a-fase.png)
+#image("images/comportamento-componenti-rispetto-a-fase.png", alt: "Grafico")

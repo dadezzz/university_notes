@@ -1,12 +1,14 @@
----
-description:
-  Analisi della risposta a gradino e impulso di circuiti RC, risoluzione di
-  problemi di Cauchy e studio della delta di Dirac con operatori di traslazione.
-lang: it
-title: Risposta di circuiti RC a gradino e impulso
----
+#import "../_templates/starlight.typ" as starlight
 
-## Interruttori dal punto di vista matematico
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi della risposta a gradino e impulso di circuiti RC, risoluzione di problemi di Cauchy e studio della delta di Dirac con operatori di traslazione.",
+  lang: "it",
+  title: "Risposta di circuiti RC a gradino e impulso",
+))
+
+= Interruttori dal punto di vista matematico
 
 ```
 ┌──/ ──┐
@@ -19,19 +21,19 @@ V_s    R_1
 Se chiudo l'interruttore all'istante $t_0$, il circuito avrà questo
 comportamento:
 
-$$
-V_(R_1)(t) = cases(
-0 & t < t_0,
-V_s & t >= t_0,
-)
-$$
+$
+  V_(R_1)(t) = cases(
+    0 & t < t_0,
+    V_s & t >= t_0,
+  )
+$
 
 Se tracciamo il grafico sul piano cartesiano, otteniamo la forma di una funzione
 gradino $theta(t - t_0)$.
 
 Di conseguenza, $V_(R_1)(t) = V_s theta(t - t_0)$.
 
-## Circuito RC in parallelo con gradino
+= Circuito RC in parallelo con gradino
 
 Prendiamo un generatore di corrente $I_s$ che, a circuito chiuso, eroga una
 corrente costante $I_0$.
@@ -46,114 +48,114 @@ I_s  R_1  C_1
 
 Costruiamo il sistema:
 
-$$
-cases(
-V_(R_1)(t) = V_(C_1)(t) = V(t),
-I_s(t) = I_(R_1)(t) + I_(C_1)(t),
-V_(R_1)(t) = I_(R_1)(t) R_1,
-I_(C_1)(t) = C_1 (dif V_(C_1)(t)) / (dif t),
-I_s(t) = I_0 theta(t - t_0),
-V(t_0) = 0,
-)
-$$
+$
+  cases(
+    V_(R_1)(t) = V_(C_1)(t) = V(t),
+    I_s(t) = I_(R_1)(t) + I_(C_1)(t),
+    V_(R_1)(t) = I_(R_1)(t) R_1,
+    I_(C_1)(t) = C_1 (dif V_(C_1)(t)) / (dif t),
+    I_s(t) = I_0 theta(t - t_0),
+    V(t_0) = 0,
+  )
+$
 
 Otteniamo ancora una volta un problema di Cauchy:
 
-$$
-cases(
-I_s(t) = V(t) / R_1 + C_1 (dif V(t)) / (dif t),
-I_s(t) = I_0 theta(t - t_0),
-V(t_0) = 0,
-)
-$$
+$
+  cases(
+    I_s(t) = V(t) / R_1 + C_1 (dif V(t)) / (dif t),
+    I_s(t) = I_0 theta(t - t_0),
+    V(t_0) = 0,
+  )
+$
 
 Ora possiamo studiare due casi:
 
 - A circuito aperto e scarico non succede niente.
 
-  $$
+$
   cases(
-  t < t_0,
-  V(t) / R_1 + C_1 (dif V(t)) / (dif t) = 0,
-  V(t_0) = 0,
+    t < t_0,
+    V(t) / R_1 + C_1 (dif V(t)) / (dif t) = 0,
+    V(t_0) = 0,
   )
-  $$
+$
 
 - Quando l'interruttore viene chiuso, otteniamo un'equazione differenziale a
   variabili separabili.
 
-  $$
+$
   cases(
-  t >= t_0,
-  V(t) / R_1 + C_1 (dif V(t)) / (dif t) = I_0,
-  V(t_0) = 0,
+    t >= t_0,
+    V(t) / R_1 + C_1 (dif V(t)) / (dif t) = I_0,
+    V(t_0) = 0,
   )
-  $$
+$
 
-  $$
+$
   cases(
-  t >= t_0,
-  integral_(V(t_0))^(V(t)) (dif V(t)) / (V(t) - I_0 R_1) = - integral_(t_0)^t (dif t) / tau
+    t >= t_0,
+    integral_(V(t_0))^(V(t)) (dif V(t)) / (V(t) - I_0 R_1) = - integral_(t_0)^t (dif t) / tau
     <=> [ln(V(t) - I_0 R_1)]_(V(t_0))^(V(t)) = - (t - t_0) / tau,
-  tau = R_1 C_1,
-  V(t_0) = 0,
+    tau = R_1 C_1,
+    V(t_0) = 0,
   )
-  $$
+$
 
-  $$
+$
   ln(V(t) - I_0 R_1) - ln(I_0 R_1) = - (t - t_0) / tau
-    <=> V(t) = I_0 R_1 (1 - e^(-(t - t_0) / tau))
-  $$
+  <=> V(t) = I_0 R_1 (1 - e^(-(t - t_0) / tau))
+$
 
 Otteniamo così la funzione completa, che tiene conto del gradino:
 
-$$
-V(t) = I_0 theta(t - t_0) R_1 (1 - e^(-(t - t_0) / tau))
-$$
+$
+  V(t) = I_0 theta(t - t_0) R_1 (1 - e^(-(t - t_0) / tau))
+$
 
-## Risposta di un circuito ad un gradino
+= Risposta di un circuito ad un gradino
 
 Presa una funzione gradino, avremo sempre una risposta specifica per un
 circuito, che chiameremo $g(t)$. Nel caso trattato sopra, l'ingresso è
 $I_0 theta(t - t_0)$ e la risposta sarà $I_0 g(t - t_0)$.
 
-Chiameremo $Z_0$ la risposta in **condizioni di stato zero** di un generico
+Chiameremo $Z_0$ la risposta in *condizioni di stato zero* di un generico
 circuito a un generico ingresso. Riprendendo la definizione precedente,
 $g(t) = Z_0[theta(t)]$.
 
-### Operatore traslazione
+== Operatore traslazione
 
-Introduciamo un operatore **lineare** che trasla una funzione di un certo
+Introduciamo un operatore *lineare* che trasla una funzione di un certo
 $Delta t$:
 
-$$
-cal(T)_(Delta t)[f(t)] = f(t - Delta t)
-$$
+$
+  cal(T)_(Delta t)[f(t)] = f(t - Delta t)
+$
 
 Poiché entrambi gli operatori sono lineari, non c'è differenza nell'ordine di
 composizione tra $Z_0$ e $cal(T)$.
 
-## Risposta di un circuito ad un impulso
+= Risposta di un circuito ad un impulso
 
 Possiamo descrivere il grafico di un impulso come un rettangolo di base $d$ e
 altezza $1 / d$:
 
-$$
-cases(
-0 & t < 0,
-1 / d & 0 <= t <= d,
-0 & t > d,
-)
-$$
+$
+  cases(
+    0 & t < 0,
+    1 / d & 0 <= t <= d,
+    0 & t > d,
+  )
+$
 
 Otteniamo la delta di Dirac $delta(t)$ quando $d$ tende a zero. Più in generale,
 data una funzione di test $f$, la delta di Dirac è definita dalla proprietà:
 
-$$
-integral_(-oo)^(+oo) delta(t) f(t) dif t = f(0) => integral_(-oo)^(+oo) delta(t) dif t = 1
-$$
+$
+  integral_(-oo)^(+oo) delta(t) f(t) dif t = f(0) => integral_(-oo)^(+oo) delta(t) dif t = 1
+$
 
-### Circuito RC in parallelo con impulso
+== Circuito RC in parallelo con impulso
 
 Riprendiamo l'esempio del circuito visto in precedenza. Questa volta
 l'interruttore rimarrà chiuso per un intervallo di tempo $d = t_1 - t_0$. La
@@ -165,27 +167,27 @@ Si distinguono tre fasi:
 
 - Per $t_0 <= t <= t_1$ otteniamo:
 
-  $$
+$
   V(t) = R_1 / d (1 - e^(-(t - t_0) / tau))
-  $$
+$
 
 - Per $t > t_1$, la risposta è data dalla scarica del circuito a partire dal
   valore di tensione raggiunto durante l'impulso:
 
-  $$
+$
   cases(
-  C_1 (dif V(t)) / (dif t) + V(t) / R_1 = 0,
-  V(t_1) = R_1 / d (1 - e^(- d / tau)),
+    C_1 (dif V(t)) / (dif t) + V(t) / R_1 = 0,
+    V(t_1) = R_1 / d (1 - e^(- d / tau)),
   )
   => V(t) = V(t_1) e^(-(t - t_1) / tau)
-  $$
+$
 
 Per studiare la risposta alla delta di Dirac, dobbiamo far tendere $d$ a zero:
 
-$$
-V(t) &= lim_(d -> 0) V(t_1) e^(-(t - t_1) / tau) \
-     &= lim_(d -> 0) R_1 / d (1 - e^(- d / tau)) e^(-(t - t_0 - d) / tau) \
-     &= R_1 e^(-(t - t_0) / tau) lim_(d -> 0) (1 - e^(- d / tau)) / d \
-     &= R_1 e^(-(t - t_0) / tau) 1 / tau \
-     &= 1 / C_1 e^(-(t - t_0) / tau)
-$$
+$
+  V(t) & = lim_(d -> 0) V(t_1) e^(-(t - t_1) / tau) \
+       & = lim_(d -> 0) R_1 / d (1 - e^(- d / tau)) e^(-(t - t_0 - d) / tau) \
+       & = R_1 e^(-(t - t_0) / tau) lim_(d -> 0) (1 - e^(- d / tau)) / d \
+       & = R_1 e^(-(t - t_0) / tau) 1 / tau \
+       & = 1 / C_1 e^(-(t - t_0) / tau)
+$

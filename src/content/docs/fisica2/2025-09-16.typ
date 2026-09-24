@@ -1,12 +1,14 @@
----
-description:
-  Analisi del trasferimento di segnale e di potenza nei circuiti elettrici con
-  lo studio dei condensatori e degli induttori come componenti fondamentali.
-lang: it
-title: Trasferimento di segnale e componenti elettrici
----
+#import "../_templates/starlight.typ" as starlight
 
-## Trasferimento di segnale e di potenza
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi del trasferimento di segnale e di potenza nei circuiti elettrici con lo studio dei condensatori e degli induttori come componenti fondamentali.",
+  lang: "it",
+  title: "Trasferimento di segnale e componenti elettrici",
+))
+
+= Trasferimento di segnale e di potenza
 
 Prendiamo un circuito composto da un generatore di tensione ($V_s$: $s$ sta per
 source) e 2 resistenze $R_s$ (source resistance) e $R_l$ (load resistance).
@@ -19,21 +21,19 @@ V_s     R_l
 └───────┘
 ```
 
-:::tip
+#starlight.tip([
+  Le lettere 'l' e 's' sono una convenzione standard in elettronica, per
+  distinguere la parte che invia il segnale (source) e quella che lo riceve
+  (load).
+])
 
-Le lettere 'l' e 's' sono una convenzione standard in elettronica, per
-distinguere la parte che invia il segnale (source) e quella che lo riceve
-(load).
-
-:::
-
-### Segnale
+== Segnale
 
 Se volessimo un efficiente trasferimento di segnale, la resistenza $R_l$
 dovrebbe essere molto più grande di $R_s$ perché vogliamo massimizzare la
 tensione ai capi della resistenza di carico.
 
-### Potenza
+== Potenza
 
 La potenza è data da $P = V_l I_l$. Dobbiamo quindi trovare il valore della
 resistenza che massimizza questa grandezza.
@@ -46,15 +46,15 @@ si annulla.
 In condizioni ideali, il risultato è che il valore da assegnare a $R_l$ per
 massimizzare la potenza trasferita è sempre uguale a $R_s$.
 
-## Condensatore
+= Condensatore
 
-$$
-Q(t) = f(V(t))
-$$
+$
+  Q(t) = f(V(t))
+$
 
 Simbolo:
 
-![Simbolo condensatore](../../../../../images/fisica-2/simbolo-condensatore.jpg)
+#image("images/simbolo-condensatore.jpg", alt: "Simbolo condensatore")
 
 Restrizioni:
 
@@ -67,34 +67,32 @@ $I(t) = (dif Q(t)) / (dif t) = C (dif V(t)) / (dif t)$.
 Se invertiamo l'equazione possiamo trovare la differenza di potenziale del
 condensatore a partire dalla corrente che passa:
 
-$$
-I(t) dif t = C dif V(t) \
-arrow.t.b.double \
-integral_V(t_0)^V(t) dif V = 1 / C integral_(t_0)^t I(t) dif t \
-arrow.t.b.double \
-V(t) = 1 / C integral_(t_0)^t I(t) dif t + V(t_0)
-$$
+$
+  I(t) dif t = C dif V(t) \
+  arrow.t.b.double \
+  integral_V(t_0)^V(t) dif V = 1 / C integral_(t_0)^t I(t) dif t \
+  arrow.t.b.double \
+  V(t) = 1 / C integral_(t_0)^t I(t) dif t + V(t_0)
+$
 
 I condensatori sono componenti che mantengono la carica anche quando la corrente
 del circuito si interrompe. Infatti, in assenza di corrente, la tensione è
 costante nel tempo (dipende solo dal valore presente a $t_0$).
 
-:::danger
+#starlight.danger([
+  Quando si lavora con un circuito elettrico bisogna assicurarsi che i
+  condensatori siano scarichi, altrimenti si rischia di rimanere fulminati.
+])
 
-Quando si lavora con un circuito elettrico bisogna assicurarsi che i
-condensatori siano scarichi, altrimenti si rischia di rimanere fulminati.
+= Induttore
 
-:::
-
-## Induttore
-
-$$
-Phi_(B)(t) = f(I(t))
-$$
+$
+  Phi_(B)(t) = f(I(t))
+$
 
 Simbolo:
 
-![Simbolo induttore](../../../../../images/fisica-2/simbolo-induttore.png)
+#image("images/simbolo-induttore.png", alt: "Simbolo induttore")
 
 Restrizioni:
 
@@ -111,27 +109,27 @@ Conseguenze:
 - l'induttore immagazzina energia nel campo magnetico generato dalla corrente; è
   solo la variazione della corrente a provocare una reazione;
 
-### Calcolo dell'induttanza di un induttore
+== Calcolo dell'induttanza di un induttore
 
 Il solenoide è un classico esempio di induttore. Considerato un solenoide di
 lunghezza $l$ e numero di spire $N$, il campo magnetico al suo interno è dato
 dalla legge di Ampère:
 
-$$
-integral.cont arrow(B)(t) dot dif arrow(l) = mu_0 N I(t) <=> B(t) = mu_0 I(t) N / l
-$$
+$
+  integral.cont arrow(B)(t) dot dif arrow(l) = mu_0 N I(t) <=> B(t) = mu_0 I(t) N / l
+$
 
 Per trovare l'induttanza $L$ devo conoscere l'area $A$ di una singola spira, da
 cui posso ricavare il flusso magnetico passante attraverso una spira.
 
-$$
-Phi_(B)(t) = B(t) A = mu_0 I(t) (N A) / l
-$$
+$
+  Phi_(B)(t) = B(t) A = mu_0 I(t) (N A) / l
+$
 
 L'induttanza è definita come il rapporto tra il flusso magnetico totale
 (legatura di flusso) e la corrente che lo genera. Poiché il solenoide ha $N$
 spire, il flusso totale è $N Phi_(B)(t)$.
 
-$$
-L = (N Phi_(B)(t)) / I(t) = mu_0 (N^2 A) / l
-$$
+$
+  L = (N Phi_(B)(t)) / I(t) = mu_0 (N^2 A) / l
+$

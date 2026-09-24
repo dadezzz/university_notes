@@ -1,13 +1,14 @@
----
-description:
-  Analisi di circuiti RC e RL con teorema di Thévenin, risposta libera e
-  forzata, linearità e risoluzione di carica e scarica con equazioni
-  differenziali.
-lang: it
-title: Circuiti RC e RL con Thévenin e linearità
----
+#import "../_templates/starlight.typ" as starlight
 
-## Circuiti RC più complicati
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi di circuiti RC e RL con teorema di Thévenin, risposta libera e forzata, linearità e risoluzione di carica e scarica con equazioni differenziali.",
+  lang: "it",
+  title: "Circuiti RC e RL con Thévenin e linearità",
+))
+
+= Circuiti RC più complicati
 
 Abbiamo un generatore di tensione $V_s(t)$, collegato ad una resistenza $R_1$,
 poi il circuito si divide tra una resistenza $R_2$ e un condensatore $C$.
@@ -40,13 +41,13 @@ V_s       R_2  ──>  V_T
 
 Otteniamo il sistema:
 
-$$
-cases(
-(dif V_(C)(t)) / (dif t) + (V_(C)(t)) / tau = (V_(T)(t)) / tau,
-tau = C R_T,
-V_(C)(t_0) = A,
-)
-$$
+$
+  cases(
+    (dif V_(C)(t)) / (dif t) + (V_(C)(t)) / tau = (V_(T)(t)) / tau,
+    tau = C R_T,
+    V_(C)(t_0) = A,
+  )
+$
 
 che contiene un'equazione differenziale del tipo
 $(dif y(t)) / (dif t) + a(t) y(t) = b(t)$ con soluzione
@@ -54,23 +55,23 @@ $y(t) = y(t_0) e^(-(alpha(t) - alpha(t_0))) + e^(-alpha(t)) integral_(t_0)^t e^(
 
 dove $alpha(t) = integral a(t) dif t$ è la primitiva di $a(t)$.
 
-$$
-V_(C)(t) = A e^(- (t - t_0) / tau) + e^(- t / tau) / tau integral_(t_0)^t e^(s / tau) V_T(s) dif s
-$$
+$
+  V_(C)(t) = A e^(- (t - t_0) / tau) + e^(- t / tau) / tau integral_(t_0)^t e^(s / tau) V_T(s) dif s
+$
 
 - Se l'integrale è troppo complicato, non possiamo risolvere il circuito.
 - La somma dei due termini indica che ci sono una fase di scarica (primo
-  termine), detta **risposta libera**, e una di carica (secondo termine), detta
-  **risposta forzata**.
+  termine), detta *risposta libera*, e una di carica (secondo termine), detta
+  *risposta forzata*.
 
-## Linearità
+= Linearità
 
 Un operatore $O[x(t)]$ si definisce lineare se e solo se possiede due proprietà:
 
 - è additivo: $O[x_1(t) + x_2(t)] = O[x_1(t)] + O[x_2(t)]$
 - è omogeneo: $O[a x(t)] = a O[x(t)]$
 
-**Esempio**:
+*Esempio*:
 
 ```
        ┌─R_2─┐
@@ -88,19 +89,19 @@ $I_(R_4) = I_(R_4)' + I_(R_4)''$ dove:
 - $I_(R_4)'$ è il contributo dato dal generatore di corrente $I$. Si calcola
   come:
 
-  $$
+$
   (I (1 / R_2 + 1 / R_3 + 1 / R_4)^(-1)) / R_4
-  $$
+$
 
-  È necessario applicare un partitore di tensione, poiché la corrente si
-  ripartisce tra le tre resistenze.
+È necessario applicare un partitore di tensione, poiché la corrente si
+ripartisce tra le tre resistenze.
 
 - $I_(R_4)''$ è il contributo dato dal generatore di tensione $V$. Si calcola
   applicando la legge di Ohm: il rapporto tra la tensione del generatore e la
   resistenza equivalente, data dal parallelo di $R_2$ e $R_3$ in serie con
   $R_4$.
 
-## Circuiti RL
+= Circuiti RL
 
 Consideriamo un circuito formato da un generatore di tensione $V_s$, una
 resistenza $R_1$ e, in serie, un induttore $L_1$.
@@ -119,71 +120,71 @@ spostiamo l'interruttore su $b$, dando inizio alla fase di scarica.
 └─────┴────┘
 ```
 
-### Fase di carica
+== Fase di carica
 
 Costruiamo un sistema:
 
-$$
-cases(
-V_s = V_(R_1)(t) + V_(L_1)(t),
-I_(R_1)(t) = I_(L_1)(t) = I(t),
-V_(R_1)(t) = R_1 I_(R_1)(t),
-V_(L_1)(t) = L_1 (dif I_(L_1)(t)) / (dif t),
-I_(L_1)(t_0) = 0,
-)
-$$
+$
+  cases(
+    V_s = V_(R_1)(t) + V_(L_1)(t),
+    I_(R_1)(t) = I_(L_1)(t) = I(t),
+    V_(R_1)(t) = R_1 I_(R_1)(t),
+    V_(L_1)(t) = L_1 (dif I_(L_1)(t)) / (dif t),
+    I_(L_1)(t_0) = 0,
+  )
+$
 
 Semplificando troviamo il problema di Cauchy:
 
-$$
-cases(
-V_s = R_1 I(t) + L_1 (dif I(t)) / (dif t),
-<=> 1 / (I(t) - V_s / R_1) dif I(t) = - R_1 / L_1 dif t,
-<=> integral_(I(t_0))^(I(t)) 1 / (I(t) - V_s / R_1) dif I(t) = integral_(t_0)^t - R_1 / L_1 dif t,
-<=> ln(I(t) - V_s / R_1) - ln(I(t_0) - V_s / R_1) = - R_1 / L_1 (t - t_0),
-I(t_0) = 0,
-)
-$$
+$
+  cases(
+    V_s = R_1 I(t) + L_1 (dif I(t)) / (dif t),
+    <=> 1 / (I(t) - V_s / R_1) dif I(t) = - R_1 / L_1 dif t,
+    <=> integral_(I(t_0))^(I(t)) 1 / (I(t) - V_s / R_1) dif I(t) = integral_(t_0)^t - R_1 / L_1 dif t,
+    <=> ln(I(t) - V_s / R_1) - ln(I(t_0) - V_s / R_1) = - R_1 / L_1 (t - t_0),
+    I(t_0) = 0,
+  )
+$
 
-$$
-ln(I(t) - V_s / R_1) - ln(- V_s / R_1) = - R_1 / L_1 (t - t_0)
+$
+  ln(I(t) - V_s / R_1) - ln(- V_s / R_1) = - R_1 / L_1 (t - t_0)
   <=> I(t) = V_s / R_1 (1 - e^(- R_1 / L_1 (t - t_0)))
-$$
+$
 
-### Fase di scarica
+== Fase di scarica
 
 Costruiamo un sistema:
 
-$$
-cases(
-V_(R_1)(t) + V_(L_1)(t) = 0,
-I_(R_1)(t) = I_(L_1)(t) = I(t),
-V_(R_1)(t) = R_1 I_(R_1)(t),
-V_(L_1)(t) = L_1 (dif I_(L_1)(t)) / (dif t),
-I(t_1) = V_s / R_1,
-)
-$$
+$
+  cases(
+    V_(R_1)(t) + V_(L_1)(t) = 0,
+    I_(R_1)(t) = I_(L_1)(t) = I(t),
+    V_(R_1)(t) = R_1 I_(R_1)(t),
+    V_(L_1)(t) = L_1 (dif I_(L_1)(t)) / (dif t),
+    I(t_1) = V_s / R_1,
+  )
+$
 
 Semplificando troviamo il problema di Cauchy:
 
-$$
-cases(
-R_1 I(t) = - L_1 (dif I(t)) / (dif t),
-<=> integral_(I(t_1))^(I(t)) (dif I(t)) / I(t) = integral_(t_1)^t - R_1 / L_1 dif t,
-<=> ln(I(t)) - ln(I(t_1)) = - R_1 / L_1 (t - t_1),
-I(t_1) = V_s / R_1,
-)
-$$
+$
+  cases(
+    R_1 I(t) = - L_1 (dif I(t)) / (dif t),
+    <=> integral_(I(t_1))^(I(t)) (dif I(t)) / I(t) = integral_(t_1)^t - R_1 / L_1 dif t,
+    <=> ln(I(t)) - ln(I(t_1)) = - R_1 / L_1 (t - t_1),
+    I(t_1) = V_s / R_1,
+  )
+$
 
-$$
-ln(I(t)) - ln(V_s / R_1) = - R_1 / L_1 (t - t_1)
+$
+  ln(I(t)) - ln(V_s / R_1) = - R_1 / L_1 (t - t_1)
   <=> I(t) = V_s / R_1 e^(- R_1 / L_1 (t - t_1))
-$$
+$
 
 Per trovare la tensione basta usare la quarta espressione del sistema:
 
-$$
-V_(L_1)(t) &= L_1 (dif (V_s / R_1 e^(- R_1 / L_1 (t - t_1)))) / (dif t) \
-           &= L_1 V_s / R_1 (- R_1 / L_1) e^(- R_1 / L_1 (t - t_1)) \
-           &= - V_s e^(- R_1 / L_1 (t - t_1))
-$$
+$
+  V_(L_1)(t) & = L_1 (dif (V_s / R_1 e^(- R_1 / L_1 (t - t_1)))) / (dif t) \
+             & = L_1 V_s / R_1 (- R_1 / L_1) e^(- R_1 / L_1 (t - t_1)) \
+             & = - V_s e^(- R_1 / L_1 (t - t_1))
+$

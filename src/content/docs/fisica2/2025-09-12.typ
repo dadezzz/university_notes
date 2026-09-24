@@ -1,13 +1,15 @@
----
-description:
-  Circuiti a parametri concentrati con leggi di Kirchhoff, componenti passivi,
-  generatori, partitore di tensione e teoremi di Thévenin e Norton.
-lang: it
-prev: false
-title: Circuiti a parametri concentrati e teoremi di rete
----
+#import "../_templates/starlight.typ" as starlight
 
-## Circuiti a parametri concentrati
+#show: starlight.setup
+
+#metadata((
+  description: "Circuiti a parametri concentrati con leggi di Kirchhoff, componenti passivi, generatori, partitore di tensione e teoremi di Thévenin e Norton.",
+  lang: "it",
+  prev: false,
+  title: "Circuiti a parametri concentrati e teoremi di rete",
+))
+
+= Circuiti a parametri concentrati
 
 Quando si parla di circuiti, si possono considerare due macro-modelli:
 
@@ -23,9 +25,9 @@ Quando si parla di circuiti, si possono considerare due macro-modelli:
 
 Nel corso tratteremo solo circuiti a parametri concentrati.
 
-## Ripasso
+= Ripasso
 
-### Topologia
+== Topologia
 
 Introduciamo un elemento generico con due morsetti. Attraverso i morsetti,
 l'oggetto si collega agli altri elementi del circuito.
@@ -38,8 +40,8 @@ Quando un elemento presenta una differenza di potenziale tra i suoi morsetti,
 una corrente lo attraversa. In fisica, per convenzione, la corrente scorre dal
 polo positivo a quello negativo dell'elemento.
 
-Un **nodo** è definito come la connessione tra due o più elementi. Una
-**maglia** è definita come un percorso chiuso all'interno di un circuito.
+Un *nodo* è definito come la connessione tra due o più elementi. Una *maglia* è
+definita come un percorso chiuso all'interno di un circuito.
 
 ```
                                ┌───┐
@@ -55,37 +57,36 @@ Un **nodo** è definito come la connessione tra due o più elementi. Una
 Nei circuiti sopra ci sono sempre due nodi, però nel primo c'è solo una maglia,
 mentre nel secondo tre.
 
-### Leggi di Kirchhoff
+== Leggi di Kirchhoff
 
-#### Legge dei nodi (Kirchhoff Current Law)
+=== Legge dei nodi (Kirchhoff Current Law)
 
-**La somma delle correnti che entrano ed escono in un nodo è sempre uguale a
-0**.
+*La somma delle correnti che entrano ed escono in un nodo è sempre uguale a 0*.
 
-$$
-sum_(i = 1)^n I_(i)(t) = 0
-$$
+$
+  sum_(i = 1)^n I_(i)(t) = 0
+$
 
-**Convenzione**: se la corrente è entrante nel nodo il suo segno sarà positivo,
-se invece è uscente sarà negativo.
+*Convenzione*: se la corrente è entrante nel nodo il suo segno sarà positivo, se
+invece è uscente sarà negativo.
 
-**Convenzione**: la corrente scorre dai punti con potenziale più alto a quelli
-con potenziale più basso.
+*Convenzione*: la corrente scorre dai punti con potenziale più alto a quelli con
+potenziale più basso.
 
-#### Legge delle maglie (Kirchhoff Voltage Law)
+=== Legge delle maglie (Kirchhoff Voltage Law)
 
-Fissato un verso di percorrenza della maglia (tipicamente in senso orario), **la
-somma delle differenze di potenziale lungo il percorso sarà sempre uguale a 0**.
+Fissato un verso di percorrenza della maglia (tipicamente in senso orario), *la
+somma delle differenze di potenziale lungo il percorso sarà sempre uguale a 0*.
 
-$$
-sum_(i = 1)^n V_(i)(t) = 0
-$$
+$
+  sum_(i = 1)^n V_(i)(t) = 0
+$
 
-**Convenzione**: entrare nel componente dal morsetto positivo e uscire da quello
+*Convenzione*: entrare nel componente dal morsetto positivo e uscire da quello
 negativo genera una differenza di potenziale con segno positivo. Viceversa se il
 componente è attraversato nell'altro verso.
 
-## Componenti circuitali
+= Componenti circuitali
 
 I componenti che studieremo in questo corso saranno sempre:
 
@@ -94,15 +95,15 @@ I componenti che studieremo in questo corso saranno sempre:
 - lineari;
 - tempo-invarianti;
 
-## Resistore
+= Resistore
 
-$$
-V(t) = f(I(t))
-$$
+$
+  V(t) = f(I(t))
+$
 
 Simbolo:
 
-![Simboli ANSI e IEC del resistore](../../../../../images/fisica-2/simbolo-resistore.png)
+#image("images/simbolo-resistore.png", alt: "Simboli ANSI e IEC del resistore")
 
 Proprietà:
 
@@ -116,14 +117,14 @@ Per una rappresentazione grafica, si usa un grafico a due assi ($I$ verticale e
 $V$ orizzontale). Il diagramma di un resistore è sempre una retta passante per
 il primo o terzo quadrante.
 
-## Generatori di tensione e corrente
+= Generatori di tensione e corrente
 
-Un **generatore di tensione** è un oggetto che **mantiene una differenza di
-potenziale** ai suoi capi. Il suo grafico $I / V$ è una retta verticale che
-passa per la $V$ del generatore.
+Un *generatore di tensione* è un oggetto che *mantiene una differenza di
+potenziale* ai suoi capi. Il suo grafico $I / V$ è una retta verticale che passa
+per la $V$ del generatore.
 
-Un **generatore di corrente** è un oggetto che **mantiene una corrente** in
-uscita. Il suo grafico $I / V$ è una retta orizzontale che passa per la $I$ del
+Un *generatore di corrente* è un oggetto che *mantiene una corrente* in uscita.
+Il suo grafico $I / V$ è una retta orizzontale che passa per la $I$ del
 generatore.
 
 Il generatore ideale è in grado di mantenere la stessa tensione per ogni
@@ -140,7 +141,7 @@ simulare un generatore di corrente spento. Questo dimostra che un generatore di
 corrente con $I = 0$ è equivalente a un resistore con $R = +oo$ e quindi a un
 circuito aperto.
 
-## Partitore di tensione
+= Partitore di tensione
 
 Preso un generatore di tensione ($V$) collegato in serie a due resistenze $R_1$
 e $R_2$. Vogliamo sapere qual è la tensione nel nodo $o_1$, tra $R_1$ e $R_2$.
@@ -158,13 +159,13 @@ so che $V = V_R_1 + V_R_2 = I (R_1 + R_2)$:
 
 Risolvendo il sistema si ottiene:
 
-$$
-V_o_1 = V R_1  / (R_1 + R_2)
-$$
+$
+  V_o_1 = V R_1 / (R_1 + R_2)
+$
 
 Questa formula è detta partitore di tensione.
 
-### Teorema di Thévenin
+== Teorema di Thévenin
 
 Per calcolare la differenza di potenziale tra $o_1$ e $o_2$ alimentata da un
 circuito composto da un certo numero di generatori e resistori, è sempre
@@ -187,43 +188,43 @@ semplici manipolazioni algebriche.
 Passaggi:
 
 1. Determiniamo il valore di $R_t$: per fare ciò, spegniamo il generatore di
-   tensione (e quindi lo sostituiamo con un cortocircuito).
+  tensione (e quindi lo sostituiamo con un cortocircuito).
 
-   Otteniamo così un circuito con due resistori in parallelo:
+  Otteniamo così un circuito con due resistori in parallelo:
 
-   ```
+```
    ┌────┬────o_1
    │    │
    R_1  R_2
    │    │
    └────┴────o_2
-   ```
+```
 
-   Quindi in questo caso $R_t = 1 / (1 / R_1 + 1 / R_2)$.
+Quindi in questo caso $R_t = 1 / (1 / R_1 + 1 / R_2)$.
 
 2. Determiniamo la differenza di potenziale equivalente $V_t$ (partitore di
-   tensione tra $R_1$ e $R_2$). Questa è la parte più complessa, ma vedremo in
-   seguito che può essere evitata.
+  tensione tra $R_1$ e $R_2$). Questa è la parte più complessa, ma vedremo in
+  seguito che può essere evitata.
 
 3. Determiniamo la corrente equivalente $I_t$, cortocircuitando il circuito tra
-   $o_1$ e $o_2$.
+  $o_1$ e $o_2$.
 
-   ```
+```
    ┌────R_1──┬────o_1
    │+        │    │
    V_1       R_2  │
    │-        │    │
    └─────────┴────o_2
          <── I
-   ```
+```
 
-   In questo caso $I_t = V_1 / R_1$.
+In questo caso $I_t = V_1 / R_1$.
 
 Poiché vale sempre la legge di Ohm ($V_t = R_t I_t$), abbiamo due modi per
 calcolare $V_t$. Ciò consente di evitare i calcoli del punto 2, che tendono a
 essere i più complessi.
 
-### Teorema di Norton
+== Teorema di Norton
 
 Dato un circuito composto da resistori e generatori, lo si può sempre
 rappresentare come un generatore di corrente in parallelo a un resistore

@@ -1,0 +1,189 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Risposta impulsiva e al gradino nei sistemi lineari con studio dei casi sovrasmorzati sottosmorzati e criticamente smorzati nei circuiti RLC di secondo ordine.",
+  lang: "it",
+  title: "Impulso, gradino e circuiti RLC di secondo ordine",
+))
+
+= Risposta all'impulso e al gradino
+
+Chiamiamo:
+
+- $g(t)$ la risposta a stato $0$ ad un gradino unitario: $Z_0[theta(t)]$;
+- $h(t)$ la risposta a stato $0$ ad una delta di Dirac: $Z_0[delta(t)]$;
+
+== Delta di Dirac in termini di gradini
+
+Possiamo scrivere un impulso come una combinazione di due gradini:
+
+- $theta(t) / d$: gradino a $0$ alto $1 / d$;
+- $theta(t - d) / d$: gradino a $d$ alto $1 / d$;
+
+L'impulso si ottiene così:
+
+$
+  P_d(t) = theta(t) / d - theta(t - d) / d
+$
+
+Quindi la risposta a questo impulso sarà:
+
+$
+  Z_0[P_d(t)] & = 1 / d (Z_0[theta(t)] - Z_0[theta(t - d)]) \
+              & = 1 / d (g(t) - Z_0[cal(T)_d[theta(t)]]) \
+              & = 1 / d (g(t) - cal(T)_d[g(t)])
+$
+
+Per $d$ che tende a $0$ (e quindi per la delta di Dirac), si nota che
+l'equazione sopra corrisponde a quella della definizione di derivata di $g$:
+$Z_0[delta(t)] = h(t) = (dif g(t)) / (dif t)$.
+
+= Circuiti RLC di secondo ordine a ingresso nullo
+
+Prendiamo un circuito dove a $t_0$ la tensione ai capi dei componenti in
+parallelo è $V_(C_1)(t_0) = V_0$ e la corrente passante per l'induttore è
+$I_(L_1)(t_0) = I_0$.
+
+```
+┌────┬────┐
+C_1  L_1  R_1
+└────┴────┘
+```
+
+Costruiamo il solito sistema:
+
+$
+  cases(
+    V_(C_1)(t) = V_(R_1)(t) = V_(L_1)(t) = V(t),
+    I_(C_1)(t) + I_(L_1)(t) + I_(R_1)(t) = 0,
+    V_(R_1)(t) = R_1 I_(R_1)(t),
+    I_(C_1)(t) = C_1 (dif V_(C_1)(t)) / (dif t),
+    V_(L_1)(t) = L_1 (dif I_(L_1)(t)) / (dif t),
+    V_(C_1)(t_0) = V_0,
+    I_(L_1)(t_0) = I_0,
+  )
+$
+
+Semplificando otteniamo il seguente problema di Cauchy, che contiene
+un'equazione differenziale di secondo grado:
+
+$
+  cases(
+    C_1 (dif V(t)) / (dif t) + I_(L_1)(t) + V(t) / R_1 = 0,
+    <=> L_1 C_1 (dif^2 I_(L_1)(t)) / (dif t^2) + L_1 / R_1 (dif I_(L_1)(t)) / (dif t) + I_(L_1)(t) = 0,
+    <=> (dif^2 I_(L_1)(t)) / (dif t^2) + 1 / (R_1 C_1) (dif I_(L_1)(t)) / (dif t) + I_(L_1)(t) / (L_1 C_1) = 0,
+    V_(C_1)(t_0) = V_0,
+    I_(L_1)(t_0) = I_0,
+  )
+$
+
+Definiamo due parametri reali e sempre positivi:
+
+- $alpha = 1 / (2 R_1 C_1)$ *costante di smorzamento*: indica quanto velocemente
+  la corrente viene smorzata;
+- $omega_0 = 1 / sqrt(L_1 C_1)$ *frequenza di risonanza*: frequenza con la quale
+  C e L si scambiano energia;
+
+Il sistema diventa:
+
+$
+  cases(
+    (dif^2 I_(L_1)(t)) / (dif t^2) + 2 alpha (dif I_(L_1)(t)) / (dif t) + omega_0^2 I_(L_1)(t) = 0,
+    V_(C_1)(t_0) = V_0,
+    I_(L_1)(t_0) = I_0,
+  )
+$
+
+Si può notare che l'equazione assomiglia ad un polinomio di secondo grado:
+$x^2 + 2 alpha x + omega_0^2 = 0$, con soluzioni:
+
+$
+  x_1, x_2 = (-2 alpha +- sqrt(4 alpha^2 - 4 omega_0^2)) / 2 = - alpha +- sqrt(alpha^2 - omega_0^2)
+$
+
+Le soluzioni possono essere:
+
+- reali e distinte se $Delta > 0$: nel caso sopra saranno $x_2 < x_1 < 0$.
+
+  La soluzione dell'equazione differenziale è:
+
+$
+  I_(L_1)(t) = k_1 e^(x_1 t) + k_2 e^(x_2 t)
+$
+
+Questo caso è detto *sovrasmorzato* poiché abbiamo la somma di due esponenziali
+decrescenti.
+
+#image("images/rlc-caso-sovrasmorzato.png", alt: "Grafico caso sovrasmorzato")
+
+- complesse se $Delta < 0$:
+
+  Quindi avremo $x_1, x_2 = - alpha +- j omega_d$, dove
+  $omega_d = sqrt(omega_0^2 - alpha^2)$ è la pulsazione smorzata del circuito.
+
+#starlight.note([
+  In fisica l'unità dei numeri complessi si denota con $j$ e non $i$ per evitare
+  confusione con la corrente.
+])
+
+A differenza del caso reale, $x_1$ e $x_2$ sono numeri complessi. La soluzione
+dell'equazione differenziale è:
+
+$
+  I_(L_1)(t) &= k_1 e^(x_1 t) + k_2 e^(x_2 t) \
+  &= k_1 e^((- alpha + j omega_d) t) + k_2 e^((- alpha - j omega_d) t) \
+  &= e^(- alpha t) (k_1 e^(j omega_d t) + k_2 e^(- j omega_d t)) \
+  &= e^(- alpha t) (k_1 (cos(omega_d t) + j sin(omega_d t)) + k_2 (cos(omega_d t) - j sin(omega_d t))) \
+  &= e^(- alpha t) (cos(omega_d t) (k_1 + k_2) + j sin(omega_d t) (k_1 - k_2)) \
+  &= e^(- alpha t) (cos(omega_d t) A + sin(omega_d t) B) \
+  &= e^(- alpha t) sqrt(A^2 + B^2) (A cos(omega_d t) / sqrt(A^2 + B^2) + B sin(omega_d t) / sqrt(A^2 + B^2)) \
+  &= e^(- alpha t) sqrt(A^2 + B^2) (cos(phi) cos(omega_d t) + sin(phi) sin(omega_d t)) \
+  &= e^(- alpha t) K (cos(phi) cos(omega_d t) + sin(phi) sin(omega_d t)) \
+  &= e^(- alpha t) K cos(omega_d t - phi)
+$
+
+Le variabili che appaiono sono:
+- $A = k_1 + k_2$
+- $B = j (k_1 - k_2)$
+- $K = sqrt(A^2 + B^2) = 2 sqrt(k_1 k_2)$: è un numero reale per le condizioni
+  iniziali che abbiamo dato;
+- $phi$: angolo del triangolo rettangolo con cateti $A$ e $B$. Indica la fase
+  del circuito;
+
+Il grafico è quello di una sinusoidale che viene smorzata progressivamente.
+Questo caso è detto *sottosmorzato*.
+
+#image("images/rlc-caso-sottosmorzato.png", alt: "Grafico caso sottosmorzato")
+
+#starlight.note([
+  Lo stesso procedimento si usa molto comunemente anche in altri fenomeni
+  fisici, ad esempio un oggetto oscillante su una molla con attrito.
+])
+
+- coincidenti se $Delta = 0$, $x_1 = x_2 = - alpha$:
+
+  La soluzione dell'equazione differenziale è:
+
+$
+  I_(L_1)(t) = k_1 t e^(- alpha t) + k_2 e^(- alpha t)
+$
+
+Il grafico è sempre una somma di due esponenziali decrescenti. Questo caso viene
+detto *criticamente smorzato*.
+
+#image(
+  "images/rlc-caso-criticamente-smorzato.png",
+  alt: "Grafico caso criticamente smorzato",
+)
+
+#starlight.note([
+  Nel caso sottosmorzato con $alpha = 0$, il grafico è quello di una sinusoidale
+  con valori periodici costanti all'infinito.
+
+  Questo caso viene detto *non smorzato* e non si può mai verificare nella
+  realtà, poiché ci sarà sempre almeno una resistenza intrinseca nel circuito.
+
+  #image("images/rlc-caso-senza-attrito.png", alt: "Grafico caso senza attriti")
+])

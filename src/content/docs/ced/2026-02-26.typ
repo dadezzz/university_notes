@@ -82,5 +82,5 @@ raggiunge un nuovo stato di regime.
 
 #starlight.note([
   Per "regime" si intende una condizione in cui la tensione rimane costante, non
-  un regime sinusoidale come trattato in #link("/fisica-2", [Fisica 2]).
+  un regime sinusoidale come trattato in #link("/fisica2", [Fisica 2]).
 ])

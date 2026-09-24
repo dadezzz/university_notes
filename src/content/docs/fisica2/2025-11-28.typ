@@ -1,14 +1,15 @@
----
-description:
-  Il trasformatore elettrico, la mutua induttanza, il coefficiente di
-  accoppiamento e la trasformazione di impedenza nel circuito e il rapporto di
-  trasformazione.
-lang: it
-next: false
-title: Trasformatore elettrico e impedenza in ingresso
----
+#import "../_templates/starlight.typ" as starlight
 
-## Trasformatore
+#show: starlight.setup
+
+#metadata((
+  description: "Il trasformatore elettrico, la mutua induttanza, il coefficiente di accoppiamento e la trasformazione di impedenza nel circuito e il rapporto di trasformazione.",
+  lang: "it",
+  next: false,
+  title: "Trasformatore elettrico e impedenza in ingresso",
+))
+
+= Trasformatore
 
 Il trasformatore è un apparecchio che si usa per cambiare la tensione della
 corrente in ingresso in un'altra tensione desiderata.
@@ -20,7 +21,7 @@ rapporto tra le resistenze.
 Ci sono però dei problemi nel trasferimento di potenza. Il trasformatore ideale
 dovrebbe trasferire tutta la potenza in ingresso all'uscita.
 
-### Trasferimento di potenza senza il partitore
+== Trasferimento di potenza senza il partitore
 
 Il trasformatore è composto da un circuito:
 
@@ -51,7 +52,7 @@ V_1   L_1  L_2   V_2
 Ponendo un altro induttore vicino al circuito iniziale, si genera una nuova
 differenza di potenziale $V_2$.
 
-### Mutua induttanza
+== Mutua induttanza
 
 Il flusso di campo magnetico generato dal primario è
 $Phi_1(t) = L_1 I_1(t) + M I_2(t)$. Quello del secondario è
@@ -60,12 +61,10 @@ $Phi_2(t) = L_2 I_2(t) + M I_1(t)$.
 In queste espressioni, $L_1$ e $L_2$ sono le autoinduttanze e $M$ è la mutua
 induttanza. Per il teorema di reciprocità, $M_12 = M_21$.
 
-:::note
-
-I due punti nel circuito indicano convenzionalmente che $M > 0$ se le correnti
-seguono il verso specificato sopra.
-
-:::
+#starlight.note([
+  I due punti nel circuito indicano convenzionalmente che $M > 0$ se le correnti
+  seguono il verso specificato sopra.
+])
 
 Nel caso iniziale, $I_2(t) = 0$, quindi
 $V_2(t) = (dif Phi_2) / (dif t) = M (dif I_1) / (dif t)$. Quindi
@@ -73,9 +72,9 @@ $V_2(t) > 0 <=> (dif I_1) / (dif t) > 0$.
 
 Definiamo il grado di accoppiamento:
 
-$$
-k = M / sqrt(L_1 L_2)
-$$
+$
+  k = M / sqrt(L_1 L_2)
+$
 
 Il trasformatore ideale ha $k = 1$.
 
@@ -87,21 +86,21 @@ Avvolgendo $L_1$ e $L_2$ attorno a un materiale ad alta permeabilità magnetica,
 si possono indirizzare tutte le linee di campo uscenti nell'induttore
 secondario.
 
-### Tensione ai capi
+== Tensione ai capi
 
 Si possono derivare $V_1$ e $V_2$ a partire dal flusso generato e dal numero di
 spire $n$ degli induttori.
 
-$$
-V_1(t) = (dif Phi_B) / (dif t) n_1 \
-V_2(t) = (dif Phi_B) / (dif t) n_2
-$$
+$
+  V_1(t) = (dif Phi_B) / (dif t) n_1 \
+  V_2(t) = (dif Phi_B) / (dif t) n_2
+$
 
 Quindi $V_1(t) / V_2(t) = n_1 / n_2$. Abbiamo di nuovo ottenuto il rapporto tra
 le tensioni ai capi, senza però perdere la potenza iniziale.
 
-### Impedenza in ingresso
+== Impedenza in ingresso
 
-$$
-Z_"in" = V_1(t) / I_1(t) = (n_1 / n_2 V_2(t)) / (n_2 / n_1 I_2(t)) = n_1^2 / n_2^2 V_2(t) / I_2(t) = n_1^2 / n_2^2 R_2
-$$
+$
+  Z_"in" = V_1(t) / I_1(t) = (n_1 / n_2 V_2(t)) / (n_2 / n_1 I_2(t)) = n_1^2 / n_2^2 V_2(t) / I_2(t) = n_1^2 / n_2^2 R_2
+$
