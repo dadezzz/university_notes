@@ -1,12 +1,14 @@
----
-description:
-  Filtri ideali passa-tutto, passa-basso, passa-alto e passa-banda, con guadagno
-  e ritardo costanti nella risposta e applicazioni come integratore o derivatore
-lang: it
-title: Filtri ideali e risposta in frequenza dei segnali
----
+#import "../_templates/starlight.typ" as starlight
 
-## Filtraggio di segnali
+#show: starlight.setup
+
+#metadata((
+  description: "Filtri ideali passa-tutto, passa-basso, passa-alto e passa-banda, con guadagno e ritardo costanti nella risposta e applicazioni come integratore o derivatore",
+  lang: "it",
+  title: "Filtri ideali e risposta in frequenza dei segnali",
+))
+
+= Filtraggio di segnali
 
 Un filtro è un sistema lineare tempo-invariante che elabora il segnale,
 restituendone una versione modificata secondo qualche criterio arbitrario.
@@ -25,19 +27,19 @@ frequenze su cui operano:
 - passa-banda: fa passare inalterate solo certe frequenze intermedie;
 - elimina-banda: elimina una data gamma di frequenze;
 
-### Risposta di un filtro ideale
+== Risposta di un filtro ideale
 
 Il filtro ideale lascia passare inalterate alcune frequenze e ne taglia
 completamente le altre.
 
 Si può scrivere come funzione di trasferimento:
 
-$$
-H(f) = cases(
-k e^(-j 2 pi f t_d) & f_1 < f < f_2,
-0 & "altrove",
-)
-$$
+$
+  H(f) = cases(
+    k e^(-j 2 pi f t_d) & f_1 < f < f_2,
+    0 & "altrove",
+  )
+$
 
 Come si può notare, è possibile applicare 2 tipi di modifica in frequenza: un
 guadagno costante in ampiezza $k$ e un ritardo costante $t_d$.
@@ -48,103 +50,97 @@ proporzionale a $t_d$.
 Chiamiamo $f_1$ la frequenza di taglio inferiore e $f_2$ la frequenza di taglio
 superiore.
 
----
-
 Esaminiamo ora il comportamento dei diversi filtri lasciando inalterata
 l'ampiezza.
 
-#### Filtro passa-tutto ideale (APF)
+=== Filtro passa-tutto ideale (APF)
 
 È il caso in cui $f_1 = 0$ e $f_2 = oo$, quindi passano tutte le frequenze.
 
-$$
-H(f) = 1
-$$
+$
+  H(f) = 1
+$
 
-$$
-Y(f) = X(f) H(f) = X(f)
-$$
+$
+  Y(f) = X(f) H(f) = X(f)
+$
 
-$$
-y(t) = x(t) * delta(t) = x(t)
-$$
+$
+  y(t) = x(t) * delta(t) = x(t)
+$
 
-#### Filtro passa-basso ideale (LPF)
+=== Filtro passa-basso ideale (LPF)
 
 È il caso in cui $f_1 = 0$ e $f_2 < oo$, quindi passano tutte le frequenze
 $abs(f) < f_2$.
 
-$$
-H(f) = op("rect")(f / (2 f_2))
-$$
+$
+  H(f) = op("rect")(f / (2 f_2))
+$
 
-$$
-Y(f) = X(f) H(f) = cases(
-X(f) & abs(f) < f_2,
-0 & "altrove",
-)
-$$
+$
+  Y(f) = X(f) H(f) = cases(
+    X(f) & abs(f) < f_2,
+    0 & "altrove",
+  )
+$
 
-$$
-y(t) = 2 f_2 x(t) * op("sinc")(2 f_2 t)
-$$
+$
+  y(t) = 2 f_2 x(t) * op("sinc")(2 f_2 t)
+$
 
 Il filtro passa-basso funziona come un integratore: taglia le frequenze alte e
 lascia inalterate quelle basse, rendendo il segnale più dolce. Di solito si usa
 per rimuovere le componenti di rumore dal segnale.
 
-#### Filtro passa-alto ideale (HPF)
+=== Filtro passa-alto ideale (HPF)
 
 È il caso in cui $f_1 > 0$ e $f_2 = oo$, quindi passano tutte le frequenze
 $abs(f) > f_1$.
 
-$$
-H(f) = 1 - op("rect")(f / (2 f_1))
-$$
+$
+  H(f) = 1 - op("rect")(f / (2 f_1))
+$
 
-:::tip
+#starlight.tip([
+  Il filtro passa-alto si può realizzare a partire da un filtro passa-basso.
+])
 
-Il filtro passa-alto si può realizzare a partire da un filtro passa-basso.
+$
+  Y(f) = X(f) H(f) = cases(
+    X(f) & abs(f) > f_1,
+    0 & "altrove",
+  )
+$
 
-:::
-
-$$
-Y(f) = X(f) H(f) = cases(
-X(f) & abs(f) > f_1,
-0 & "altrove",
-)
-$$
-
-$$
-y(t) = x(t) - 2 f_1 x(t) * op("sinc")(2 f_1 t)
-$$
+$
+  y(t) = x(t) - 2 f_1 x(t) * op("sinc")(2 f_1 t)
+$
 
 Il filtro passa-alto si comporta come un derivatore, cioè mette in risalto le
 variazioni all'interno del segnale. Un esempio di utilizzo è il rilevamento dei
 bordi nelle immagini.
 
-#### Filtro passa-banda ideale (BPF)
+=== Filtro passa-banda ideale (BPF)
 
 È il caso in cui $f_1 > 0$ e $f_2 < oo$, quindi passano tutte le frequenze
 $f_1 < abs(f) < f_2$.
 
-$$
-H(f) = op("rect")(f / (2 f_2)) - op("rect")(f / (2 f_1))
-$$
+$
+  H(f) = op("rect")(f / (2 f_2)) - op("rect")(f / (2 f_1))
+$
 
-:::tip
+#starlight.tip([
+  Anche il passa-banda si può realizzare con una combinazione di LPF.
+])
 
-Anche il passa-banda si può realizzare con una combinazione di LPF.
+$
+  Y(f) = X(f) H(f) = cases(
+    X(f) & f_1 < abs(f) < f_2,
+    0 & "altrove",
+  )
+$
 
-:::
-
-$$
-Y(f) = X(f) H(f) = cases(
-X(f) & f_1 < abs(f) < f_2,
-0 & "altrove",
-)
-$$
-
-$$
-y(t) = 2 x(t) * (f_2 op("sinc")(2 f_2 t) - f_1 op("sinc")(2 f_1 t))
-$$
+$
+  y(t) = 2 x(t) * (f_2 op("sinc")(2 f_2 t) - f_1 op("sinc")(2 f_1 t))
+$

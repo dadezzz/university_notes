@@ -1,12 +1,14 @@
----
-description:
-  Filtri ideali e reali, sistemi non distorcenti con guadagno costante e fase
-  lineare, equalizzatori in serie, distorsione di seconda armonica e companding
-lang: it
-title: Filtri reali, distorsione ed equalizzazione
----
+#import "../_templates/starlight.typ" as starlight
 
-## Filtri ideali e filtri reali
+#show: starlight.setup
+
+#metadata((
+  description: "Filtri ideali e reali, sistemi non distorcenti con guadagno costante e fase lineare, equalizzatori in serie, distorsione di seconda armonica e companding",
+  lang: "it",
+  title: "Filtri reali, distorsione ed equalizzazione",
+))
+
+= Filtri ideali e filtri reali
 
 I filtri ideali sono irrealizzabili nella realtà. Per esempio, la risposta
 impulsiva di un filtro passa-basso è una $op("sinc")(t)$, che rende il segnale
@@ -24,7 +26,7 @@ frazionaria $(Delta f) / f_1$, dove $Delta f = f_2 - f_1$. Se questo valore è a
 di fuori del range $0.01 < (Delta f) / f_1 < 0.1$, allora il filtro diventa
 molto più difficile da realizzare.
 
-## Distorsione ed equalizzazione
+= Distorsione ed equalizzazione
 
 Per definire la distorsione, bisogna prima definire cosa deve fare un sistema
 per non distorcere.
@@ -39,22 +41,28 @@ gruppo deve essere costante).
 
 - Spettro di un sistema non distorcente:
 
-  ![Spettri di ampiezza e fase di $H(f)$ di un sistema non distorcente](../../../../../images/elaborazione-dei-segnali/spettro-sistema-non-distorcente.png)
+  #image(
+    "images/spettro-sistema-non-distorcente.png",
+    alt: "Spettri di ampiezza e fase di $H(f)$ di un sistema non distorcente",
+  )
 
 - Spettro di un sistema distorcente:
 
-  ![Spettri di ampiezza e fase di $H(f)$ di un sistema distorcente](../../../../../images/elaborazione-dei-segnali/spettro-sistema-distorcente.png)
+  #image(
+    "images/spettro-sistema-distorcente.png",
+    alt: "Spettri di ampiezza e fase di $H(f)$ di un sistema distorcente",
+  )
 
-### Misura delle distorsioni lineari
+== Misura delle distorsioni lineari
 
 Per misurare la distorsione generata da un sistema:
 
 1. Metto in ingresso un segnale (sinusoidale) con frequenza nota e vedo come
-   viene ritardato/attenuato.
+  viene ritardato/attenuato.
 2. Faccio la stessa cosa variando la frequenza. Così posso ricavare gli spettri
-   della funzione di trasferimento.
+  della funzione di trasferimento.
 
-### Equalizzatori
+== Equalizzatori
 
 Se è presente una distorsione, si può provare a correggerla. I sistemi che
 producono tale correzione vengono chiamati equalizzatori (equalizzare significa
@@ -65,7 +73,7 @@ Il sistema equalizzatore viene messo in serie a quello distorcente.
 Per trovare $H_("eq")(f)$ dobbiamo imporre $H_("tot")(f) = k e^(-j 2 pi f t_d)$
 e poi calcolare $H_("eq")(f) = (H_("tot")(f)) / (H_("dist")(f))$.
 
-### Distorsioni non lineari
+== Distorsioni non lineari
 
 Quando il sistema non è lineare, non possiamo trattarlo in termini di risposta
 impulsiva e risposta in frequenza.
@@ -78,30 +86,30 @@ frequenze.
 
 Se mettiamo in ingresso una sinusoidale, otteniamo:
 
-$$
-y(t) &= a_1 cos(2 pi f_0 t) + a_2 (cos(2 pi f_0 t))^2 + ... \
-     &= K + alpha cos(2 pi f_0 t) + beta cos(2 pi 2 f_0 t) + ...
-$$
+$
+  y(t) & = a_1 cos(2 pi f_0 t) + a_2 (cos(2 pi f_0 t))^2 + ... \
+       & = K + alpha cos(2 pi f_0 t) + beta cos(2 pi 2 f_0 t) + ...
+$
 
 La componente continua $K$ è facile da rimuovere. Mentre i termini frequenziali
 $alpha$ e $beta$ danno più fastidio.
 
-Una misura di linearità del sistema è data dalla **distorsione di seconda
-armonica**:
+Una misura di linearità del sistema è data dalla *distorsione di seconda
+armonica*:
 
-$$
-abs(beta / alpha) 100 thick [%]
-$$
+$
+  abs(beta / alpha) 100 thick [%]
+$
 
 Se la non linearità è troppo alta, bisogna equalizzare il sistema (senza basarsi
 sulla $H(f)$). Se si deve comunque usare un sistema non lineare, si può usare
-una tecnica chiamata **companding**:
+una tecnica chiamata *companding*:
 
 1. Si comprime il segnale con un altro sistema non lineare che limita il suo
-   valore alla zona lineare del sistema da usare.
+  valore alla zona lineare del sistema da usare.
 2. Il segnale viene fatto passare nel sistema, correggendo eventuali distorsioni
-   con un equalizzatore lineare.
+  con un equalizzatore lineare.
 3. Si riespande il segnale con un sistema non lineare inverso a quello
-   compressore.
+  compressore.
 
-![Diagramma a blocchi](../../../../../images/elaborazione-dei-segnali/nlti-nlti-equalizzatore-nlti.png)
+#image("images/nlti-nlti-equalizzatore-nlti.png", alt: "Diagramma a blocchi")

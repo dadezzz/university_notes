@@ -1,13 +1,14 @@
----
-description:
-  Banda di un segnale e analisi di sistemi in frequenza con risposta in ampiezza
-  fase e ritardo di gruppo. Segnali in serie, parallelo, retroazione e banda
-  passante a 3 dB
-lang: it
-title: Analisi dei sistemi in frequenza e banda passante
----
+#import "../_templates/starlight.typ" as starlight
 
-## Larghezza di banda di un segnale
+#show: starlight.setup
+
+#metadata((
+  description: "Banda di un segnale e analisi di sistemi in frequenza con risposta in ampiezza fase e ritardo di gruppo. Segnali in serie, parallelo, retroazione e banda passante a 3 dB",
+  lang: "it",
+  title: "Analisi dei sistemi in frequenza e banda passante",
+))
+
+= Larghezza di banda di un segnale
 
 La larghezza di banda di un segnale è l'intervallo di frequenze per cui il suo
 spettro assume valori non nulli.
@@ -19,11 +20,11 @@ cui si concentra la parte energeticamente più rilevante del segnale.
 Per esempio possiamo prendere l'intervallo $[-B, B]$ entro il quale è incluso il
 90% dell'energia:
 
-$$
-lr(B mid(|) integral_(-B)^B abs(X(f))^2 dif f = 0.9 E_x)
-$$
+$
+  lr(B mid(|) integral_(-B)^B abs(X(f))^2 dif f = 0.9 E_x)
+$
 
-## Analisi di sistemi in frequenza
+= Analisi di sistemi in frequenza
 
 Abbiamo visto che la risposta di un sistema LTI si può scrivere come la
 convoluzione tra il segnale e la risposta all'impulso.
@@ -35,29 +36,29 @@ moltiplicazione.
 Dato un sistema con ingresso $x(t)$, uscita $y(t)$ e risposta all'impulso
 $h(t)$:
 
-$$
-y(t) = x(t) * h(t) limits(<->)^cal(F) Y(f) = X(f) H(f)
-$$
+$
+  y(t) = x(t) * h(t) limits(<->)^cal(F) Y(f) = X(f) H(f)
+$
 
 $H(f)$ si può esprimere come il rapporto tra l'uscita e l'ingresso. Tale
-funzione è detta **risposta in frequenza** del sistema.
+funzione è detta *risposta in frequenza* del sistema.
 
 Da $H(f)$ possiamo ricavare tre funzioni:
 
-- **Risposta in ampiezza** $abs(H(f))$: dice come viene modificata in ampiezza
+- *Risposta in ampiezza* $abs(H(f))$: dice come viene modificata in ampiezza
   ogni componente del segnale.
-- **Risposta in fase** $Phi(f) = arg(H(f))$: dice quanto viene sfasata ogni
+- *Risposta in fase* $Phi(f) = arg(H(f))$: dice quanto viene sfasata ogni
   componente del segnale.
-- **Ritardo di gruppo** $tau(f) = - 1 / (2 pi) (dif Phi(f)) / (dif f)$: dice
+- *Ritardo di gruppo* $tau(f) = - 1 / (2 pi) (dif Phi(f)) / (dif f)$: dice
   quanto viene ritardata nel tempo ogni componente del segnale (fornisce la
   stessa informazione della risposta in fase).
 
-### Composizione di sistemi
+== Composizione di sistemi
 
 Analizzeremo ora qual è il comportamento di un 'blocco' di sistemi composto dai
 componenti di trasformazione che abbiamo visto finora.
 
-- **Sistemi in serie**:
+- *Sistemi in serie*:
 
   ```
   X(f)───H_1(f)───H_2(f)───Y(f)
@@ -65,7 +66,7 @@ componenti di trasformazione che abbiamo visto finora.
 
   La risposta in frequenza è $op(H_"tot")(f) = H_1(f) H_2(f)$.
 
-- **Sistemi in parallelo**:
+- *Sistemi in parallelo*:
 
   ```
         ┌─H_1(f)─┐
@@ -75,20 +76,18 @@ componenti di trasformazione che abbiamo visto finora.
 
   La risposta in frequenza è $op(H_"tot")(f) = H_1(f) + H_2(f)$.
 
-- **Retroazione negativa**:
+- *Retroazione negativa*:
 
   Si collega l'uscita di $H_1(f)$ ad $H_2(f)$, e si sottrae l'uscita di $H_2(f)$
   all'ingresso del sistema.
 
-  :::note[Perché solo la negativa?]
+  #starlight.note(title: "Perché solo la negativa?", [
+    Per quella positiva si creerebbe un loop di feedback positivo che
+    continuerebbe ad aumentare l'energia del sistema.
 
-  Per quella positiva si creerebbe un loop di feedback positivo che
-  continuerebbe ad aumentare l'energia del sistema.
-
-  **Esempio**: quando un microfono è posto vicino all'altoparlante che amplifica
-  il suo segnale.
-
-  :::
+    *Esempio*: quando un microfono è posto vicino all'altoparlante che amplifica
+    il suo segnale.
+  ])
 
   ```
   X(f) ──(+)──► H_1(f) ──▶ Y(f)
@@ -99,26 +98,24 @@ componenti di trasformazione che abbiamo visto finora.
 
   La risposta in frequenza è $op(H_"tot")(f) = (H_1(f)) / (1 + H_1(f) H_2(f))$.
 
-### Banda passante di un sistema
+== Banda passante di un sistema
 
 La larghezza di banda di un sistema, o banda passante, è la massima frequenza
 che il sistema lascia passare.
 
 Anche in questo caso si definisce una banda massima in termini di energia 'non
 trascurabile', ma dato che il sistema non ha una propria energia, bisogna
-definire una nuova misura: il **guadagno** in funzione della frequenza.
+definire una nuova misura: il *guadagno* in funzione della frequenza.
 
-$$
-G(f) = abs(H(f))^2
-$$
+$
+  G(f) = abs(H(f))^2
+$
 
 Per convenzione, la banda passante è la frequenza oltre la quale il guadagno del
 sistema scende di 3 dB rispetto al picco. A questa frequenza il sistema dimezza
 la potenza (in watt) delle componenti frequenziali del segnale in ingresso.
 
-:::note[Perché 3 dB?]
-
-Il guadagno in decibel è definito come: $G_"dB" = 10 log_10(G_"W") = -3 "dB"$.
-Quindi $G_"W" = 1 / 2$.
-
-:::
+#starlight.note(title: "Perché 3 dB?", [
+  Il guadagno in decibel è definito come: $G_"dB" = 10 log_10(G_"W") = -3 "dB"$.
+  Quindi $G_"W" = 1 / 2$.
+])

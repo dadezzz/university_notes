@@ -1,27 +1,28 @@
----
-description:
-  Teorema di convoluzione multi-dimensionale, campionamento secondo Nyquist
-  contro l'aliasing, filtri IIR e FIR, convoluzione discreta e DFT
-  multi-dimensionale
-lang: it
-next: false
-title: Segnali multi-dimensionali, convoluzione e DFT
----
+#import "../_templates/starlight.typ" as starlight
 
-## Teorema di convoluzione multi-dimensionale
+#show: starlight.setup
+
+#metadata((
+  description: "Teorema di convoluzione multi-dimensionale, campionamento secondo Nyquist contro l'aliasing, filtri IIR e FIR, convoluzione discreta e DFT multi-dimensionale",
+  lang: "it",
+  next: false,
+  title: "Segnali multi-dimensionali, convoluzione e DFT",
+))
+
+= Teorema di convoluzione multi-dimensionale
 
 Il teorema di convoluzione si estende direttamente al caso multi-dimensionale.
 Quindi basta moltiplicare la trasformata di Fourier multi-dimensionale per la
 risposta in frequenza:
 
-$$
-Y(f_1, ..., f_n) = X(f_1, ..., f_n) thin H(f_1, ..., f_n)
-$$
+$
+  Y(f_1, ..., f_n) = X(f_1, ..., f_n) thin H(f_1, ..., f_n)
+$
 
 Diventa quindi possibile applicare filtri sul dominio delle frequenze, come nel
 caso mono-dimensionale.
 
-## Segnali digitali multi-dimensionali
+= Segnali digitali multi-dimensionali
 
 - campionamento: occorre campionare in più dimensioni, tenendo conto delle
   diverse frequenze spaziali.
@@ -32,13 +33,16 @@ Nel campionamento bisogna evitare l'aliasing in ogni dimensione. Le varie
 dimensioni possono avere frequenze massime diverse. Bisogna quindi applicare il
 limite di Nyquist ad ogni dimensione.
 
-![Spettri multi-dimensionali](../../../../../images/elaborazione-dei-segnali/nyquist-multidimensionale.png)
+#image(
+  "images/nyquist-multidimensionale.png",
+  alt: "Spettri multi-dimensionali",
+)
 
 Dato che i campioni possono avere distanze diverse, si generano griglie
 rettangolari (in 2D). Per semplicità di solito si prende la frequenza massima
 tra tutte le dimensioni, in modo da ottenere griglie di dimensioni uguali.
 
-## Risposta di sistemi digitali multi-dimensionali
+= Risposta di sistemi digitali multi-dimensionali
 
 È possibile ottenere la risposta in frequenza multi-dimensionale continua,
 antitrasformarla e campionarla in ogni direzione. Quindi otteniamo filtri IIR
@@ -47,32 +51,32 @@ multi-dimensionali, che si possono convertire in FIR tramite finestratura.
 La maschera di convoluzione ottenuta deve avere lo stesso numero di dimensioni
 del segnale. Però il numero di campioni su ciascuna di esse può variare.
 
-### Convoluzione numerica multi-dimensionale
+== Convoluzione numerica multi-dimensionale
 
 Per applicare il filtro discreto al segnale, è necessario applicare la
 convoluzione in maniera discreta, dove $N$ è il numero di dimensioni del
 segnale/kernel e $K_i$ è il numero di campioni su ogni dimensione del kernel:
 
-$$
-y[n_1, ..., n_N] &= x[n_1, ..., n_N] * h[n_1, ..., n_N] \
-                 &= sum_(k_1 = - (K_1 - 1) / 2)^((K_1 - 1) / 2) ... sum_(k_N = - (K_N - 1) / 2)^((K_N - 1) / 2) x[k_1, ..., k_N] thin h[n_1 - k_1, ..., n_N - k_N]
-$$
+$
+  y[n_1, ..., n_N] &= x[n_1, ..., n_N] * h[n_1, ..., n_N] \
+  &= sum_(k_1 = - (K_1 - 1) / 2)^((K_1 - 1) / 2) ... sum_(k_N = - (K_N - 1) / 2)^((K_N - 1) / 2) x[k_1, ..., k_N] thin h[n_1 - k_1, ..., n_N - k_N]
+$
 
 Applicare filtri multi-dimensionali ha una complessità di $O(K^N)$.
 
-## DFT multi-dimensionale
+= DFT multi-dimensionale
 
 La trasformata discreta multi-dimensionale è definita:
 
-$$
-X[k_1, ..., k_N] = sum_(n_1 = 0)^(N_1 - 1) ... sum_(n_N = 0)^(N_N - 1) x[n_1, ..., n_N] thin e^(- j 2 pi ((k_1 n_1) / N_1 + ... + (k_N n_N) / N_N))
-$$
+$
+  X[k_1, ..., k_N] = sum_(n_1 = 0)^(N_1 - 1) ... sum_(n_N = 0)^(N_N - 1) x[n_1, ..., n_N] thin e^(- j 2 pi ((k_1 n_1) / N_1 + ... + (k_N n_N) / N_N))
+$
 
 L'inversa:
 
-$$
-x[n_1, ..., n_N] = 1 / (N_1 ... N_N) sum_(k_1 = 0)^(N_1 - 1) ... sum_(k_N = 0)^(N_N - 1) X[k_1, ..., k_N] thin e^(j 2 pi ((k_1 n_1) / N_1 + ... + (k_N n_N) / N_N))
-$$
+$
+  x[n_1, ..., n_N] = 1 / (N_1 ... N_N) sum_(k_1 = 0)^(N_1 - 1) ... sum_(k_N = 0)^(N_N - 1) X[k_1, ..., k_N] thin e^(j 2 pi ((k_1 n_1) / N_1 + ... + (k_N n_N) / N_N))
+$
 
 Le proprietà e il teorema di convoluzione si applicano come nel caso
 mono-dimensionale.

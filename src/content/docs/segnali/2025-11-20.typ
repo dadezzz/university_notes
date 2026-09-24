@@ -1,12 +1,14 @@
----
-description:
-  Definizione di kernel per filtri FIR, dalla risposta impulsiva tagliata con
-  errore e aliasing a media mobile, LPF gaussiano, passa-alto e filtri iterativi
-lang: it
-title: Definire kernel di convoluzione per filtri FIR
----
+#import "../_templates/starlight.typ" as starlight
 
-## Definire un kernel di convoluzione per ottenere un dato obiettivo
+#show: starlight.setup
+
+#metadata((
+  description: "Definizione di kernel per filtri FIR, dalla risposta impulsiva tagliata con errore e aliasing a media mobile, LPF gaussiano, passa-alto e filtri iterativi",
+  lang: "it",
+  title: "Definire kernel di convoluzione per filtri FIR",
+))
+
+= Definire un kernel di convoluzione per ottenere un dato obiettivo
 
 Vogliamo, come nel caso analogico, definire delle strategie per scegliere un
 kernel che abbia il comportamento che desideriamo (ad esempio un filtro
@@ -16,26 +18,24 @@ In teoria bisognerebbe campionare la risposta impulsiva analogica $h(t)$ per
 ottenere $h[k]$. Però una risposta impulsiva a banda limitata produce un segnale
 di durata infinita e quindi infiniti campioni.
 
-Questo tipo di filtro viene chiamato **Infinite Impulse Response** (IIR) ed è
+Questo tipo di filtro viene chiamato *Infinite Impulse Response* (IIR) ed è
 irrealizzabile tramite convoluzione diretta: richiederebbe una quantità infinita
 di somme e prodotti. Per renderlo realizzabile bisogna tagliare il kernel ad una
-lunghezza $K$ limitata nel tempo. Si ottiene così un filtro **Finite Impulse
-Response** (FIR). Con questa operazione si introducono sia un errore (cambia la
+lunghezza $K$ limitata nel tempo. Si ottiene così un filtro *Finite Impulse
+Response* (FIR). Con questa operazione si introducono sia un errore (cambia la
 risposta in frequenza, con oscillazioni ai bordi della banda), sia un effetto di
 aliasing: il taglio rende la risposta impulsiva non più a banda limitata, quindi
 il suo campionamento non è esente da aliasing.
 
----
-
 Vediamo ora alcuni esempi comuni di filtri FIR:
 
-### LPF a media mobile
+== LPF a media mobile
 
 Il kernel del filtro a media mobile contiene coefficienti con lo stesso valore:
 
-$$
-h[k] = mat(delim: "[", 1 / K, 1 / K, ..., 1 / K) = 1 / K mat(delim: "[", 1, 1, ..., 1)
-$$
+$
+  h[k] = mat(delim: "[", 1 / K, 1 / K, ..., 1 / K) = 1 / K mat(delim: "[", 1, 1, ..., 1)
+$
 
 Quando viene usato nella convoluzione, sostituisce ogni campione con la media
 dei $K$ campioni che cadono nella finestra centrata in esso.
@@ -46,7 +46,7 @@ segnale in ingresso.
 L'intensità del filtro dipende solo dal valore di $K$. Più è lungo il kernel,
 minore sarà la larghezza di banda del filtro.
 
-### LPF gaussiano
+== LPF gaussiano
 
 Anche per $K$ piccoli, il filtro a media mobile produce un effetto pesante sul
 segnale in ingresso.
@@ -59,22 +59,20 @@ La gaussiana ha valor medio nullo e varianza $sigma^2$. Maggiore è il valore di
 $sigma$, maggiore sarà l'estensione della curva, producendo una media più estesa
 e uniforme (con $sigma -> oo$ si ottiene il filtro a media mobile).
 
-### HPF
+== HPF
 
 Come abbiamo visto in precedenza, i filtri passa-alto possono essere ottenuti
 per differenza dal corrispondente passa-basso:
 
-$$
-h_("HPF")[k] = delta[k] - h_("LPF")[k] = mat(delim: "[", 0, 0, 1, 0, 0) - mat(delim: "[", 1 / 5, 1 / 5, 1 / 5, 1 / 5, 1 / 5) = mat(delim: "[", - 1 / 5, - 1 / 5, 4 / 5, - 1 / 5, - 1 / 5)
-$$
+$
+  h_("HPF")[k] = delta[k] - h_("LPF")[k] = mat(delim: "[", 0, 0, 1, 0, 0) - mat(delim: "[", 1 / 5, 1 / 5, 1 / 5, 1 / 5, 1 / 5) = mat(delim: "[", - 1 / 5, - 1 / 5, 4 / 5, - 1 / 5, - 1 / 5)
+$
 
-:::note
-
-Nei filtri passa-basso, la somma dei coefficienti deve essere 1 (non modifica il
-valor medio del segnale); nei filtri passa-alto deve essere 0 (annulla il valor
-medio del segnale).
-
-:::
+#starlight.note([
+  Nei filtri passa-basso, la somma dei coefficienti deve essere 1 (non modifica
+  il valor medio del segnale); nei filtri passa-alto deve essere 0 (annulla il
+  valor medio del segnale).
+])
 
 Due esempi di filtri passa-alto sono:
 
@@ -83,7 +81,7 @@ Due esempi di filtri passa-alto sono:
 - filtro laplaciano: $h[k] = mat(delim: "[", 0, 1, -2, 1, 0)$, esegue una
   derivata seconda del segnale.
 
-### Filtri iterativi
+== Filtri iterativi
 
 Preso un LPF ideale, taglia le frequenze maggiori di $f_0$. Applicandolo
 nuovamente non cambia il risultato.

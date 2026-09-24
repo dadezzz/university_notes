@@ -1,14 +1,15 @@
----
-description:
-  Cos'è un segnale, la percezione tramite sensori, i limiti di rumore,
-  interferenze e distorsioni e la conversione in forma elettrica o numerica per
-  elaborarlo
-lang: it
-prev: false
-title: Cos'è un segnale e come viene elaborato
----
+#import "../_templates/starlight.typ" as starlight
 
-## Cos'è un segnale?
+#show: starlight.setup
+
+#metadata((
+  description: "Cos'è un segnale, la percezione tramite sensori, i limiti di rumore, interferenze e distorsioni e la conversione in forma elettrica o numerica per elaborarlo",
+  lang: "it",
+  prev: false,
+  title: "Cos'è un segnale e come viene elaborato",
+))
+
+= Cos'è un segnale?
 
 Tutto ciò che ci circonda genera segnali (luce, suoni, odori, sapori). Da un
 punto di vista fisico sono cose molto diverse.
@@ -31,18 +32,18 @@ Il corpo umano percepisce questi segnali tramite sensori. Possiamo definirli
 come trasduttori, ovvero organi che trasformano una grandezza fisica in
 un'altra.
 
-### Limitazioni
+== Limitazioni
 
 I nostri sensi non sono in grado di percepire tutti i segnali (vediamo e udiamo
 solo una parte dello spettro delle onde elettromagnetiche e sonore).
 
 Anche i segnali sono soggetti a fenomeni che ne limitano la percettibilità.
 
-- **rumore** (disturbi aleatori);
-- **interferenze** (altre sorgenti di segnali);
-- **distorsioni** (alterazioni sistematiche causate da sistemi fisici);
+- *rumore* (disturbi aleatori);
+- *interferenze* (altre sorgenti di segnali);
+- *distorsioni* (alterazioni sistematiche causate da sistemi fisici);
 
-### Elaborazione
+== Elaborazione
 
 Il metodo più semplice di trattare i segnali è quello di rimanere nel loro
 dominio originale (il grammofono amplificava il suono emesso dallo scorrimento

@@ -1,19 +1,20 @@
----
-description:
-  Filtri non lineari con rimappatura dei livelli e filtri di rango massimo
-  minimo e mediana, quindi la DFT con funzioni base e teorema di Rayleigh
-  sull'energia
-lang: it
-title: Filtri di rango e Discrete Fourier Transform
----
+#import "../_templates/starlight.typ" as starlight
 
-## Filtri non lineari
+#show: starlight.setup
+
+#metadata((
+  description: "Filtri non lineari con rimappatura dei livelli e filtri di rango massimo minimo e mediana, quindi la DFT con funzioni base e teorema di Rayleigh sull'energia",
+  lang: "it",
+  title: "Filtri di rango e Discrete Fourier Transform",
+))
+
+= Filtri non lineari
 
 I filtri non lineari sono complessi da realizzare nel dominio analogico:
 richiedono una componentistica non lineare. Sui segnali numerici invece tutto è
 più semplice e si possono sfruttare i vantaggi offerti dalla non linearità.
 
-### Rimappatura dei livelli
+== Rimappatura dei livelli
 
 La quantizzazione è un'operazione non lineare. Sull'output si può agire
 nuovamente in maniera non lineare usando funzioni che rimappano i livelli (per
@@ -26,7 +27,7 @@ Operazioni di questo tipo vengono usate per:
 - cancellare alcune variazioni;
 - estrarre alcune parti, azzerandone altre;
 
-### Filtri di rango
+== Filtri di rango
 
 I filtri di rango si basano sull'ordinamento dei valori all'interno della
 finestra di filtraggio e poi sul calcolo di una media pesata basata sul valore
@@ -34,7 +35,10 @@ finestra di filtraggio e poi sul calcolo di una media pesata basata sul valore
 
 L'effetto dipende dalla dimensione della finestra e dai pesi utilizzati.
 
-![Schema a blocchi di un filtro di rango](../../../../../images/elaborazione-dei-segnali/filtro-di-rango.png)
+#image(
+  "images/filtro-di-rango.png",
+  alt: "Schema a blocchi di un filtro di rango",
+)
 
 Alcuni filtri di rango molto usati sono:
 
@@ -42,21 +46,19 @@ Alcuni filtri di rango molto usati sono:
 - minimo: $a_i = cases(0 & i != 1, 1 & i = 1)$
 - mediana: $a_i = cases(0 & i != ceil(N / 2), 1 & i = ceil(N / 2))$
 
-:::note
+#starlight.note([
+  Un filtro mediano si usa solitamente per rimuovere variazioni non volute nel
+  segnale, particolarmente quelle di tipo impulsivo.
 
-Un filtro mediano si usa solitamente per rimuovere variazioni non volute nel
-segnale, particolarmente quelle di tipo impulsivo.
-
-Si riesce ad eliminare picchi isolati senza introdurre un effetto di passa-basso
-(che abbassa e allarga i picchi ma non li rimuove completamente).
-
-:::
+  Si riesce ad eliminare picchi isolati senza introdurre un effetto di
+  passa-basso (che abbassa e allarga i picchi ma non li rimuove completamente).
+])
 
 I filtri di rango presentano una maggiore complessità computazionale, dovuta
 alla necessità di eseguire l'operazione di ordinamento (la cui complessità
 minima è $O(N log(N))$).
 
-## Discrete Fourier Transform (DFT)
+= Discrete Fourier Transform (DFT)
 
 La DFT è l'analogo discreto della formula che restituisce i coefficienti della
 serie di Fourier. L'IDFT (inversa) è l'analogo della serie (che ricostruisce il
@@ -64,20 +66,20 @@ segnale nel tempo).
 
 - DFT:
 
-  $$
-  X[k] = 1 / sqrt(N) sum_(n = 0)^(N - 1) x[n] thin e^(- j 2 pi k / N n)
-  $$
+  $
+    X[k] = 1 / sqrt(N) sum_(n = 0)^(N - 1) x[n] thin e^(- j 2 pi k / N n)
+  $
 
 - IDFT:
 
-  $$
-  x[n] = 1 / sqrt(N) sum_(k = 0)^(N - 1) X[k] thin e^(j 2 pi k / N n)
-  $$
+  $
+    x[n] = 1 / sqrt(N) sum_(k = 0)^(N - 1) X[k] thin e^(j 2 pi k / N n)
+  $
 
-### Funzioni base
+== Funzioni base
 
 Le armoniche campionate $e^(- j 2 pi k / N n)$ sono $N$ sinusoidi complesse
-discretizzate nel tempo, e prendono il nome di **funzioni base**. La $k$-esima
+discretizzate nel tempo, e prendono il nome di *funzioni base*. La $k$-esima
 funzione base è una sinusoide a frequenza pari a $k$ volte la frequenza
 fondamentale (ovvero la frequenza che compie un intero ciclo nella durata del
 segnale).
@@ -92,16 +94,16 @@ periodica. La DFT è la discretizzazione di tale rappresentazione. Poi, quando s
 applica la trasformata inversa, si genera anche una periodizzazione nel tempo
 (si pensi al caso duale della trasformata di Fourier).
 
-### Proprietà della DFT
+== Proprietà della DFT
 
 La DFT mantiene tutte le proprietà della FT (linearità, invertibilità,
 simmetria, traslazione, ecc.)
 
-#### Teorema di Rayleigh
+=== Teorema di Rayleigh
 
 Per calcolare l'energia di una sequenza discreta, è possibile lavorare
 direttamente sui coefficienti nel dominio della frequenza:
 
-$$
-E_x = sum_(n = 0)^(N - 1) x[n]^2 = sum_(k = 0)^(N - 1) X[k]^2
-$$
+$
+  E_x = sum_(n = 0)^(N - 1) x[n]^2 = sum_(k = 0)^(N - 1) X[k]^2
+$

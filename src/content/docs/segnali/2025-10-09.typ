@@ -1,77 +1,79 @@
----
-description:
-  Teorema di Parseval per la potenza dei segnali periodici, deperiodizzazione,
-  trasformata e antitrasformata di Fourier con proprietà e trasformate notevoli
-lang: it
-title: Trasformata di Fourier e teorema di Parseval
----
+#import "../_templates/starlight.typ" as starlight
 
-## Teorema di Parseval
+#show: starlight.setup
+
+#metadata((
+  description: "Teorema di Parseval per la potenza dei segnali periodici, deperiodizzazione, trasformata e antitrasformata di Fourier con proprietà e trasformate notevoli",
+  lang: "it",
+  title: "Trasformata di Fourier e teorema di Parseval",
+))
+
+= Teorema di Parseval
 
 Prendiamo la definizione di potenza di un segnale periodico e sostituiamo $x(t)$
 con la sua rappresentazione di Fourier.
 
-$$
-
-P_x &= 1 / T_0 integral_0^(T_0) (sum_(k = -oo)^(+oo) X_k e^(j 2 pi k f_0 t) sum_(k' = -oo)^(+oo) X_k' e^(j 2 pi k' f_0 t)) dif t \
-    &= 1 / T_0 sum_(k = -oo)^(+oo) sum_(k' = -oo)^(+oo) X_k X_k' integral_0^(T_0) e^(j 2 pi (k + k') f_0 t) dif t
-$$
+$
+  P_x &= 1 / T_0 integral_0^(T_0) (sum_(k = -oo)^(+oo) X_k e^(j 2 pi k f_0 t) sum_(k' = -oo)^(+oo) X_k' e^(j 2 pi k' f_0 t)) dif t \
+  &= 1 / T_0 sum_(k = -oo)^(+oo) sum_(k' = -oo)^(+oo) X_k X_k' integral_0^(T_0) e^(j 2 pi (k + k') f_0 t) dif t
+$
 
 $integral_0^(T_0) e^(j 2 pi (k + k') f_0 t) dif t$ vale $T_0$ se $k + k' = 0$, o
 $0$ altrimenti. L'integrale è quindi non nullo solo per $k' = -k$:
 
-$$
-P_x = 1 / T_0 sum_(k = -oo)^(+oo) X_k X_(-k) T_0
-    = sum_(k = -oo)^(+oo) X_k X_(-k)
-    = sum_(k = -oo)^(+oo) abs(X_k)^2
-$$
+$
+  P_x = 1 / T_0 sum_(k = -oo)^(+oo) X_k X_(-k) T_0
+  = sum_(k = -oo)^(+oo) X_k X_(-k)
+  = sum_(k = -oo)^(+oo) abs(X_k)^2
+$
 
 La potenza media del segnale è pari alla somma delle potenze delle singole
 armoniche.
 
-## Trasformata di Fourier
+= Trasformata di Fourier
 
 La serie di Fourier è limitata: si può applicare solo a segnali periodici.
 Vogliamo generalizzare.
 
-### Deperiodizzazione
+== Deperiodizzazione
 
 Prendiamo un'onda quadra di ampiezza unitaria con ritorno a $0$ e periodo $T_0$.
 Ogni rettangolo avrà durata $tau$. La sua serie di Fourier sarà:
 
-$$
-x(t) = sum_(k = -oo)^(+oo) op("rect")((t - k T_0) / tau) <=> X_k = tau / T_0 op("sinc")(k f_0 tau)
-$$
+$
+  x(t) = sum_(k = -oo)^(+oo) op("rect")((t - k T_0) / tau) <=> X_k = tau / T_0 op("sinc")(k f_0 tau)
+$
 
-:::note
-
-Il rapporto $tau / T_0$ è detto **duty cycle**. In elettronica misura il
-rapporto tra il tempo in cui un clock assume valore 1 e il periodo totale.
-
-:::
+#starlight.note([
+  Il rapporto $tau / T_0$ è detto *duty cycle*. In elettronica misura il
+  rapporto tra il tempo in cui un clock assume valore 1 e il periodo totale.
+])
 
 Per deperiodizzare il segnale possiamo far tendere $T_0$ a infinito: in questo
 modo le prime repliche dell'onda si sposterebbero a $plus.minus oo$, lasciando
 solo un rettangolo centrato nell'origine.
 
-$$
-x(t) tilde.eq op("rect")(t / tau)
-$$
+$
+  x(t) tilde.eq op("rect")(t / tau)
+$
 
-![Rappresentazione grafica della deperiodizzazione](../../../../../images/elaborazione-dei-segnali/deperiodizzazione-onda-quadra-con-ritorno-a-zero.png)
+#image(
+  "images/deperiodizzazione-onda-quadra-con-ritorno-a-zero.png",
+  alt: "Rappresentazione grafica della deperiodizzazione",
+)
 
-#### Generalizzazione
+=== Generalizzazione
 
 Prendiamo un segnale periodico $x(t)$, dove $w(t)$ è la funzione che rappresenta
 il segnale in ogni periodo. Riscriviamo il segnale come:
 
-$$
-x(t) = sum_(k = -oo)^(+oo) w(t - k T_0) = w(t) * sum_(k = -oo)^(+oo) delta(t - k T_0)
-$$
+$
+  x(t) = sum_(k = -oo)^(+oo) w(t - k T_0) = w(t) * sum_(k = -oo)^(+oo) delta(t - k T_0)
+$
 
 Per $T_0 -> oo$, il segnale $x(t)$ coinciderà con $w(t)$.
 
-### Deperiodizzazione e serie di Fourier
+== Deperiodizzazione e serie di Fourier
 
 All'allontanarsi delle repliche del segnale, le righe dello spettro diventano
 sempre più fitte (le frequenze hanno distanza $1 / T_0$) mentre l'ampiezza dei
@@ -80,23 +82,23 @@ coefficienti di ogni armonica si riduce.
 Lo spettro tende a diventare una funzione continua, la cui ampiezza tende a $0$.
 Per evitare questo problema, definiamo un coefficiente di Fourier modificato:
 
-$$
-X'_k = X_k T_0 = integral_(- T_0 / 2)^(T_0 / 2) w(t) thin e^(-j 2 pi k f_0 t) dif t
-$$
+$
+  X'_k = X_k T_0 = integral_(- T_0 / 2)^(T_0 / 2) w(t) thin e^(-j 2 pi k f_0 t) dif t
+$
 
 e quindi la relativa serie modificata:
 
-$$
-x(t) = sum_(k = -oo)^(+oo) X'_k thin e^(j 2 pi k f_0 t) f_0
-$$
+$
+  x(t) = sum_(k = -oo)^(+oo) X'_k thin e^(j 2 pi k f_0 t) f_0
+$
 
-### FT e IFT
+== FT e IFT
 
 La trasformata di Fourier e la sua inversa si ottengono portando $T_0$ a $oo$:
 
-- **Inversa** (IFT):
+- *Inversa* (IFT):
   $x(t) = integral_(-oo)^(+oo) X(f) thin e^(j 2 pi f t) dif f$
-- **Diretta** (FT):
+- *Diretta* (FT):
   $X(f) = integral_(-oo)^(+oo) x(t) thin e^(-j 2 pi f t) dif t$
 
 A differenza della serie, $X(f)$ è una funzione continua in $f$, quindi lo
@@ -106,43 +108,39 @@ $x(t) limits(<->)^cal(F) X(f)$ costituisce una 'coppia' di Fourier. Si può
 passare da uno all'altro con la FT e la IFT, ma l'informazione contenuta è
 identica.
 
-:::note
+#starlight.note([
+  Dato un segnale $x(t)$, la sua trasformata di Fourier si denota con
+  $cal(F){x(t)}$.
+])
 
-Dato un segnale $x(t)$, la sua trasformata di Fourier si denota con
-$cal(F){x(t)}$.
+== Proprietà
 
-:::
-
-### Proprietà
-
-- **Simmetrie**:
+- *Simmetrie*:
   - Hermitiana: $X(f) = overline(X(-f))$
   - segnale pari: $X(f) = 2 integral_0^(+oo) x(t) cos(2 pi f t) dif t$
   - segnale dispari: $X(f) = -2 j integral_0^(+oo) x(t) sin(2 pi f t) dif t$
 
-- **Linearità**: $z(t) = a x(t) + b y(t) => Z(f) = a X(f) + b Y(f)$
+- *Linearità*: $z(t) = a x(t) + b y(t) => Z(f) = a X(f) + b Y(f)$
 
-- **Fattore di scala**:
+- *Fattore di scala*:
   $x(t) limits(<->)^cal(F) X(f) => x(alpha t) limits(<->)^cal(F) 1 / abs(alpha) X(f / alpha)$
 
   Se comprimiamo un segnale, le frequenze diventano più alte e quindi lo spettro
   si allarga. Se lo espandiamo, succede il contrario.
 
-  :::note
+  #starlight.note([
+    Principio di indeterminazione tempo-frequenza:
+    - un segnale a durata limitata avrà un'estensione spettrale infinita;
+    - un segnale a durata infinita può avere un'estensione spettrale finita;
+  ])
 
-  Principio di indeterminazione tempo-frequenza:
-  - un segnale a durata limitata avrà un'estensione spettrale infinita;
-  - un segnale a durata infinita può avere un'estensione spettrale finita;
-
-  :::
-
-- **Ritardo**:
+- *Ritardo*:
   $x(t) limits(<->)^cal(F) X(f) => x(t - T) limits(<->)^cal(F) X(f) thin e^(-j 2 pi f T)$
 
   Le componenti frequenziali non vengono modificate: cambia solo la loro fase.
   Lo sfasamento è proporzionale alla frequenza.
 
-- **Teorema di dualità**:
+- *Teorema di dualità*:
   $(x(t) limits(<->)^cal(F) X(f)) <=> (X(t) limits(<->)^cal(F) x(-f))$
 
   Nella seconda corrispondenza, $X(t)$ è un segnale nel tempo che ha la stessa
@@ -152,18 +150,16 @@ $cal(F){x(t)}$.
   Se conosciamo la trasformata di un segnale, possiamo ricavare anche quella del
   segnale che ha l'andamento del suo spettro.
 
-  :::note
+  #starlight.note([
+    *Esempio*: $cal(F){1} = delta(f) => cal(F){delta(t)} = 1$
 
-  **Esempio**: $cal(F){1} = delta(f) => cal(F){delta(t)} = 1$
+    L'impulso è l'unica funzione che contiene tutte le frequenze con uguale
+    intensità.
+  ])
 
-  L'impulso è l'unica funzione che contiene tutte le frequenze con uguale
-  intensità.
+- *Teorema della convoluzione*: $x(t) * y(t) <=> X(f) Y(f)$
 
-  :::
-
-- **Teorema della convoluzione**: $x(t) * y(t) <=> X(f) Y(f)$
-
-### Trasformate di segnali notevoli
+== Trasformate di segnali notevoli
 
 - rettangolo:
   $x(t) = A op("rect")(t / T) limits(<->)^cal(F) X(f) = A T op("sinc")(f T)$

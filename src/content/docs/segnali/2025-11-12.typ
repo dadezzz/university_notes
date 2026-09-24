@@ -1,12 +1,14 @@
----
-description:
-  Segnali digitali e conversione analogico-digitale. Campionamento, aliasing e
-  teorema di Nyquist. Ricostruzione ideale e campionamento reale Sample&Hold
-lang: it
-title: Campionamento, aliasing e teorema di Nyquist
----
+#import "../_templates/starlight.typ" as starlight
 
-## Segnali digitali
+#show: starlight.setup
+
+#metadata((
+  description: "Segnali digitali e conversione analogico-digitale. Campionamento, aliasing e teorema di Nyquist. Ricostruzione ideale e campionamento reale Sample&Hold",
+  lang: "it",
+  title: "Campionamento, aliasing e teorema di Nyquist",
+))
+
+= Segnali digitali
 
 I computer al giorno d'oggi trattano bit, non segnali continui. I vantaggi di un
 segnale digitale sono l'efficienza e la robustezza della trasmissione e
@@ -15,37 +17,40 @@ dell'archiviazione.
 Un segnale digitale rimane invariato anche se viene applicata una certa quantità
 di rumore; basta definire una soglia adeguata tra i vari valori.
 
-### Conversione analogico-digitale
+== Conversione analogico-digitale
 
 I segnali digitali sono discreti sia nel dominio che nell'ampiezza, quindi per
 convertire segnali analogici bisogna operare tre trasformazioni:
 
-- **campionamento**: discretizzazione del dominio;
-- **quantizzazione**: discretizzazione dell'ampiezza;
-- **codifica**: rappresentazione dei campioni quantizzati (di solito è binaria);
+- *campionamento*: discretizzazione del dominio;
+- *quantizzazione*: discretizzazione dell'ampiezza;
+- *codifica*: rappresentazione dei campioni quantizzati (di solito è binaria);
 
-## Campionamento
+= Campionamento
 
 Campionare un segnale significa estrarre i valori che esso assume in istanti
 temporali equispaziati, multipli di un intervallo di tempo $T_c$ chiamato
-**periodo di campionamento**.
+*periodo di campionamento*.
 
 Matematicamente un campione si può modellare come la funzione continua $x(t)$
 moltiplicata per l'impulso traslato:
 
-$$
-x(t) delta(t - n T_c) = x(n T_c) thin delta(t - n T_c)
-$$
+$
+  x(t) delta(t - n T_c) = x(n T_c) thin delta(t - n T_c)
+$
 
 A questo punto basta ripetere l'operazione attraverso un treno di impulsi:
 
-$$
-x_c(t) = x(t) sum_(n = -oo)^(+oo) delta(t - n T_c)
-$$
+$
+  x_c(t) = x(t) sum_(n = -oo)^(+oo) delta(t - n T_c)
+$
 
-![Campionamento ad impulsi nel tempo](../../../../../images/elaborazione-dei-segnali/campionamento-ad-impulsi.png)
+#image(
+  "images/campionamento-ad-impulsi.png",
+  alt: "Campionamento ad impulsi nel tempo",
+)
 
-### Aliasing e periodo di campionamento
+== Aliasing e periodo di campionamento
 
 Dobbiamo ora capire come fissare un $T_c$ opportuno. Apparentemente,
 l'operazione sembra distruttiva, infatti si perdono le informazioni
@@ -54,72 +59,77 @@ sull'andamento del segnale tra due impulsi successivi.
 Quindi, intuitivamente si dovrebbe far tendere $T_c$ a $0$, ma è impossibile
 prendere un numero infinito di campioni.
 
-Dimostriamo che non è vero: consideriamo un segnale $x(t)$ **limitato in
-banda**, cioè con spettro nullo oltre la frequenza $f_"max"$ (un segnale a
-durata infinita _può_ avere un'estensione spettrale finita). Se trasformiamo
-(con Fourier) il segnale campionato, otterremo un segnale con lo spettro di
-$x(t)$ moltiplicato per $1 / T_c$ e ripetuto con periodicità $1 / T_c$ sull'asse
-delle frequenze.
+Dimostriamo che non è vero: consideriamo un segnale $x(t)$ *limitato in banda*,
+cioè con spettro nullo oltre la frequenza $f_"max"$ (un segnale a durata
+infinita _può_ avere un'estensione spettrale finita). Se trasformiamo (con
+Fourier) il segnale campionato, otterremo un segnale con lo spettro di $x(t)$
+moltiplicato per $1 / T_c$ e ripetuto con periodicità $1 / T_c$ sull'asse delle
+frequenze.
 
 Se isoliamo solo lo spettro della banda di base e lo moltiplichiamo per $T_c$,
 otteniamo esattamente lo spettro di $x(t)$. Quindi nessuna informazione sul
 segnale è stata persa.
 
-![Isolamento della banda base](../../../../../images/elaborazione-dei-segnali/ricostruzione-frequenze-da-campionamento.png)
+#image(
+  "images/ricostruzione-frequenze-da-campionamento.png",
+  alt: "Isolamento della banda base",
+)
 
 L'unico caso in cui questo non vale è quello in cui il valore di $T_c$ è
 abbastanza alto (frequenza di campionamento troppo bassa) da permettere agli
 spettri di sovrapporsi. Per risolvere il problema è necessario aumentare la
 frequenza di campionamento.
 
-Questo fenomeno viene chiamato **aliasing** e coinvolge tutto l'intervallo delle
+Questo fenomeno viene chiamato *aliasing* e coinvolge tutto l'intervallo delle
 frequenze.
 
-![Esempio di aliasing sullo spettro delle frequenze](../../../../../images/elaborazione-dei-segnali/aliasing.png)
+#image(
+  "images/aliasing.png",
+  alt: "Esempio di aliasing sullo spettro delle frequenze",
+)
 
-#### Teorema del campionamento
+=== Teorema del campionamento
 
-**Teorema del campionamento** (o condizione di Nyquist): per non avere aliasing,
+*Teorema del campionamento* (o condizione di Nyquist): per non avere aliasing,
 le repliche devono essere distanziate di almeno due volte $f_"max"$
 ($f_c >= 2 f_"max"$).
 
 Avvicinandosi al limite $f_c = 2 f_"max"$ si rischia comunque di cadere in casi
 in cui non è possibile ricostruire il segnale. Considerando il funzionamento di
 un filtro passa-basso reale che taglia le frequenze in modo graduale, si
-consiglia anche di aggiungere una costante, detta **banda di guardia**
+consiglia anche di aggiungere una costante, detta *banda di guardia*
 ($epsilon$), e quindi si ottiene:
 
-$$
-f_c >= 2 f_"max" + epsilon
-$$
+$
+  f_c >= 2 f_"max" + epsilon
+$
 
-:::note[Campionamento di segnali non limitati in banda]
+#starlight.note(title: "Campionamento di segnali non limitati in banda", [
+  Per applicare il criterio di Nyquist a segnali non limitati in banda (ad
+  esempio quelli a durata limitata nel tempo) si prende solo la banda
+  significativa del segnale (ad esempio quella corrispondente al 90%
+  dell'energia).
+])
 
-Per applicare il criterio di Nyquist a segnali non limitati in banda (ad esempio
-quelli a durata limitata nel tempo) si prende solo la banda significativa del
-segnale (ad esempio quella corrispondente al 90% dell'energia).
-
-:::
-
-### Ricostruzione ideale del segnale campionato
+== Ricostruzione ideale del segnale campionato
 
 Il filtro di ricostruzione sarà
 $H_("LPF")(f) = T_c op("rect")(f / f_c) <=> h_("LPF")(t) = op("sinc")(t / T_c)$.
 
 Quindi il segnale ricostruito sarà:
 
-$$
-x(t) = sum_(n = -oo)^(+oo) x(n T_c) op("sinc")((t - n T_c) / T_c)
-$$
+$
+  x(t) = sum_(n = -oo)^(+oo) x(n T_c) op("sinc")((t - n T_c) / T_c)
+$
 
 Il picco di una singola $op("sinc")(t)$ dà il valore del segnale nel punto di
 campionamento. Negli altri punti invece essa viene annullata dalle
 $op("sinc")(t)$ degli istanti precedente e successivo.
 
-### Campionamento reale
+== Campionamento reale
 
 Campionare un segnale con impulsi è impossibile, perché essi sono fisicamente
-irrealizzabili. La soluzione che si adotta tipicamente è il **Sample&Hold**,
+irrealizzabili. La soluzione che si adotta tipicamente è il *Sample&Hold*,
 ovvero si prende il segnale nell'istante di campionamento e lo si trattiene per
 un periodo di tempo pari a quello di campionamento.
 
@@ -130,9 +140,9 @@ Per modellare matematicamente questo processo si può immaginare una cascata tra
 un campionatore ideale e un filtro di trattenimento $H$. Quindi il segnale
 campionato reale sarà:
 
-$$
-x_("SH")(t) = x_(c)(t) * h_(H)(t)
-$$
+$
+  x_("SH")(t) = x_(c)(t) * h_(H)(t)
+$
 
 dove $h_(H)(t)$ è una funzione rettangolare. La $H_(H)(f)$ sarà una
 $op("sinc")(f)$, quindi si introduce necessariamente una distorsione lineare che

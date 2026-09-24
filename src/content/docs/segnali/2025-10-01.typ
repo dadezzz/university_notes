@@ -1,21 +1,23 @@
----
-description:
-  Convoluzione di impulsi, rettangoli e gaussiane, sistemi non LTI con relazione
-  ingresso-uscita e rappresentazione in frequenza tramite serie di Fourier
-lang: it
-title: Convoluzioni notevoli e serie di Fourier
----
+#import "../_templates/starlight.typ" as starlight
 
-## Convoluzioni notevoli
+#show: starlight.setup
 
-### Convoluzione con impulso
+#metadata((
+  description: "Convoluzione di impulsi, rettangoli e gaussiane, sistemi non LTI con relazione ingresso-uscita e rappresentazione in frequenza tramite serie di Fourier",
+  lang: "it",
+  title: "Convoluzioni notevoli e serie di Fourier",
+))
+
+= Convoluzioni notevoli
+
+== Convoluzione con impulso
 
 - La convoluzione di un segnale qualsiasi con un impulso restituisce il segnale
   stesso.
 - Se invece si esegue la convoluzione con un impulso traslato, la risposta è il
   segnale traslato.
 
-### Convoluzione di 2 rettangoli simmetrici di pari durata
+== Convoluzione di 2 rettangoli simmetrici di pari durata
 
 Consideriamo 2 rettangoli di uguale durata e simmetria pari:
 
@@ -24,9 +26,9 @@ Consideriamo 2 rettangoli di uguale durata e simmetria pari:
 
 La convoluzione sarà:
 
-$$
-y(t) = integral_(-oo)^(+oo) x_1(tau) x_2(t - tau) dif tau
-$$
+$
+  y(t) = integral_(-oo)^(+oo) x_1(tau) x_2(t - tau) dif tau
+$
 
 Possiamo dividere il calcolo dell'integrale di convoluzione in intervalli. Per
 $abs(t) > T$ i rettangoli non si incontrano, quindi $y(t) = 0$; resta da
@@ -34,20 +36,20 @@ calcolare l'intervallo $abs(t) < T$.
 
 - In $-T < t < 0$:
 
-  $$
-  y(t) = integral_(- T / 2)^(t + T / 2) A_1 A_2 dif tau = A_1 A_2 (T + t)
-  $$
+  $
+    y(t) = integral_(- T / 2)^(t + T / 2) A_1 A_2 dif tau = A_1 A_2 (T + t)
+  $
 
 - In $0 < t < T$:
 
-  $$
-  y(t) = integral_(t - T / 2)^(T / 2) A_1 A_2 dif tau = A_1 A_2 (T - t)
-  $$
+  $
+    y(t) = integral_(t - T / 2)^(T / 2) A_1 A_2 dif tau = A_1 A_2 (T - t)
+  $
 
 Combinando i pezzi della funzione otteniamo un triangolo isoscele centrato
 nell'origine e di durata $2T$.
 
-### Convoluzione di 2 rettangoli simmetrici di diversa durata
+== Convoluzione di 2 rettangoli simmetrici di diversa durata
 
 Fissiamo le idee supponendo $T_2 > T_1$ (nel caso opposto i ruoli si invertono)
 e consideriamo 2 ulteriori punti notevoli:
@@ -61,18 +63,16 @@ e consideriamo 2 ulteriori punti notevoli:
 
 Otteniamo così un trapezio isoscele.
 
-:::tip
+#starlight.tip([
+  Nel caso di rettangoli non simmetrici si possono usare le proprietà LTI della
+  convoluzione.
 
-Nel caso di rettangoli non simmetrici si possono usare le proprietà LTI della
-convoluzione.
+  Infatti un rettangolo traslato si ottiene convolvendo il rettangolo
+  all'origine con un impulso traslato, quindi ci si riconduce al risultato dei
+  casi precedenti, traslato dello stesso impulso.
+])
 
-Infatti un rettangolo traslato si ottiene convolvendo il rettangolo all'origine
-con un impulso traslato, quindi ci si riconduce al risultato dei casi
-precedenti, traslato dello stesso impulso.
-
-:::
-
-### Convoluzione di gaussiane
+== Convoluzione di gaussiane
 
 Prese 2 gaussiane con diverse medie e varianze:
 
@@ -81,11 +81,11 @@ Prese 2 gaussiane con diverse medie e varianze:
 
 Si dimostra che si ottiene un'altra gaussiana:
 
-$$
-y(t) = x_1(t) * x_2(t) = 1 / sqrt(2 pi (sigma_1^2 + sigma_2^2)) e^(- (t - (mu_1 + mu_2))^2 / (2 (sigma_1^2 + sigma_2^2)))
-$$
+$
+  y(t) = x_1(t) * x_2(t) = 1 / sqrt(2 pi (sigma_1^2 + sigma_2^2)) e^(- (t - (mu_1 + mu_2))^2 / (2 (sigma_1^2 + sigma_2^2)))
+$
 
-## Sistemi non LTI
+= Sistemi non LTI
 
 Se un sistema non è lineare tempo-invariante, possiamo ottenere la risposta
 all'impulso e l'integrale di convoluzione, ma non è garantito che coincidano con
@@ -99,39 +99,45 @@ La relazione ingresso-uscita dà informazioni utili solo nel caso di sistemi
 senza memoria. In quelli con memoria l'uscita dipende anche dai valori ricevuti
 in precedenza.
 
-## Rappresentazione dei segnali in frequenza
+= Rappresentazione dei segnali in frequenza
 
 In fisica il concetto di frequenza è associato a fenomeni periodici. Nei segnali
 il concetto viene allargato anche al contenuto frequenziale di un segnale non
 periodico.
 
-![Segnali ad alta e bassa frequenza](../../../../../images/elaborazione-dei-segnali/comparazione-frequenza-segnali.png)
+#image(
+  "images/comparazione-frequenza-segnali.png",
+  alt: "Segnali ad alta e bassa frequenza",
+)
 
 Come quantificare la frequenza? Il problema l'ha risolto Jean-Baptiste Joseph
 Fourier.
 
-### Serie di Fourier
+== Serie di Fourier
 
 Con la serie di Fourier si può rappresentare la frequenza di qualsiasi segnale
 come una serie infinita di sinusoidali (delle quali conosciamo già tutte le
 proprietà matematiche).
 
-Un generico segnale **periodico** di periodo $T_0$ può essere rappresentato
+Un generico segnale *periodico* di periodo $T_0$ può essere rappresentato
 mediante la seguente serie (serie di Fourier):
 
-$$
-x(t) = a_0 + sum_(k = 1)^(+oo) a_k cos(2 pi k f_0 t + theta_k)
-$$
+$
+  x(t) = a_0 + sum_(k = 1)^(+oo) a_k cos(2 pi k f_0 t + theta_k)
+$
 
 - Le oscillazioni della serie hanno frequenza multipla di $f_0 = 1 / T_0$, detta
-  **frequenza fondamentale**.
-- Il termine $k$-esimo della serie è detto **armonica** di ordine $k$ ed è
+  *frequenza fondamentale*.
+- Il termine $k$-esimo della serie è detto *armonica* di ordine $k$ ed è
   caratterizzato da 3 valori:
   - $k f_0$: frequenza dell'armonica;
   - $a_k$: ampiezza dell'armonica;
   - $theta_k$: sfasamento dell'armonica;
-- Il termine $a_0$ (a frequenza nulla) è detto **componente continua**.
+- Il termine $a_0$ (a frequenza nulla) è detto *componente continua*.
 
-**Esempio**: costruzione di un'onda quadra con serie di Fourier
+*Esempio*: costruzione di un'onda quadra con serie di Fourier
 
-![Grafico onda quadra e armoniche](../../../../../images/elaborazione-dei-segnali/esempio-onda-quadra-con-fourier.png)
+#image(
+  "images/esempio-onda-quadra-con-fourier.png",
+  alt: "Grafico onda quadra e armoniche",
+)

@@ -1,12 +1,14 @@
----
-description:
-  La quantizzazione uniforme e il rumore associato, il rapporto segnale-rumore,
-  il quantizzatore ottimo di Lloyd-Max e la codifica PCM con relativo bitrate
-lang: it
-title: Quantizzazione e codifica PCM del segnale
----
+#import "../_templates/starlight.typ" as starlight
 
-## Quantizzazione
+#show: starlight.setup
+
+#metadata((
+  description: "La quantizzazione uniforme e il rumore associato, il rapporto segnale-rumore, il quantizzatore ottimo di Lloyd-Max e la codifica PCM con relativo bitrate",
+  lang: "it",
+  title: "Quantizzazione e codifica PCM del segnale",
+))
+
+= Quantizzazione
 
 Il segnale ottenuto tramite il campionatore ha ancora valori continui in
 ampiezza, quindi non lo si può rappresentare in forma numerica. La
@@ -15,22 +17,20 @@ ampiezza, associandoli a un numero limitato di livelli.
 
 Dato il segnale campionato $x(n T_c)$ avremo:
 
-$$
-x(n T_c) = x_(q)(n T_c) + epsilon_(q)(n T_c)
-$$
+$
+  x(n T_c) = x_(q)(n T_c) + epsilon_(q)(n T_c)
+$
 
-:::caution
-
-L'errore (o rumore di quantizzazione) $epsilon_q$ è inevitabile: la
-quantizzazione è sempre un'operazione lossy.
-
-:::
+#starlight.caution([
+  L'errore (o rumore di quantizzazione) $epsilon_q$ è inevitabile: la
+  quantizzazione è sempre un'operazione lossy.
+])
 
 Il numero di livelli viene solitamente scelto come una potenza di $2$, in modo
 che $2^N$ livelli siano rappresentabili con $N$ bit. Il livello che viene
 assegnato è quello a distanza minore dal valore reale del segnale.
 
-### Quantizzatore uniforme
+== Quantizzatore uniforme
 
 Nel quantizzatore uniforme, gli $M$ livelli sono equispaziati, quindi il massimo
 errore $epsilon_q$ che si può commettere su un campione è $abs(Delta / 2)$ (se
@@ -39,7 +39,7 @@ l'errore massimo è $1 / M$).
 
 La relazione ingresso-uscita è una funzione a scalini non lineare.
 
-### Rumore di quantizzazione
+== Rumore di quantizzazione
 
 Se la distribuzione dei valori assunti dal segnale è uniforme (la densità di
 probabilità è un rettangolo), allora anche l'errore di quantizzazione sarà una
@@ -50,28 +50,28 @@ $1 / Delta$.
 Si può stimare la potenza media del rumore che coincide con la varianza e con il
 valore quadratico medio:
 
-$$
-sigma_q^2 = integral_(- Delta / 2)^(Delta / 2) epsilon^2 f_(epsilon_q)(epsilon) dif epsilon
-          = 1 / Delta integral_(- Delta / 2)^(Delta / 2) epsilon^2 dif epsilon
-          = (Delta^2) / 12
-$$
+$
+  sigma_q^2 = integral_(- Delta / 2)^(Delta / 2) epsilon^2 f_(epsilon_q)(epsilon) dif epsilon
+  = 1 / Delta integral_(- Delta / 2)^(Delta / 2) epsilon^2 dif epsilon
+  = (Delta^2) / 12
+$
 
-### Rapporto segnale-rumore
+== Rapporto segnale-rumore
 
 Più che la potenza del rumore, è interessante misurare il suo rapporto con la
 potenza del segnale $x(t)$.
 
-Questo rapporto viene chiamato **rapporto segnale-rumore**:
+Questo rapporto viene chiamato *rapporto segnale-rumore*:
 
-$$
-"SNR" = 10 log_10(P_x / P_epsilon_q)
-$$
+$
+  "SNR" = 10 log_10(P_x / P_epsilon_q)
+$
 
 Più elevato è il rapporto, maggiore sarà la qualità di un segnale. Per un
 segnale a valor medio nullo, si può dimostrare che ogni bit aggiunto (raddoppio
 dei livelli) fa aumentare il rapporto di 6 dB.
 
-### Quantizzatore ottimo
+== Quantizzatore ottimo
 
 Quando il segnale è distribuito in maniera non uniforme, il quantizzatore
 dovrebbe generare più livelli nella zona in cui il segnale ha maggiore
@@ -86,22 +86,20 @@ segnale e il numero di livelli che si vuole supportare.
 
 1. Si scelgono arbitrariamente i valori dei livelli $a_i$, $i = 1, ..., n$.
 2. Si impostano i punti di soglia $b_j$, $j = 1, ..., n - 1$ ai valori centrali
-   tra livelli successivi: $b_j = 1 / 2 (a_(j + 1) + a_j)$.
+  tra livelli successivi: $b_j = 1 / 2 (a_(j + 1) + a_j)$.
 3. Si ricalcolano i livelli di quantizzazione $a_i$, $i = 1, ..., n$ imponendoli
-   pari al valor medio del segnale nell'intervallo $[b_(i - 1), b_i]$, con
-   $b_0 = -oo$ e $b_n = +oo$.
+  pari al valor medio del segnale nell'intervallo $[b_(i - 1), b_i]$, con
+  $b_0 = -oo$ e $b_n = +oo$.
 4. Si calcola l'errore quadratico medio confrontandolo con il ciclo precedente.
-   Se la variazione è inferiore a una certa soglia, allora ci si può fermare.
-   Altrimenti si ripete il ciclo dal punto 2.
+  Se la variazione è inferiore a una certa soglia, allora ci si può fermare.
+  Altrimenti si ripete il ciclo dal punto 2.
 
-:::note
+#starlight.note([
+  L'algoritmo converge sempre, però non è garantito che non si fermi in un
+  minimo locale.
+])
 
-L'algoritmo converge sempre, però non è garantito che non si fermi in un minimo
-locale.
-
-:::
-
-## Codificatore PCM
+= Codificatore PCM
 
 Una volta quantizzato il segnale abbiamo ottenuto campioni discreti con un
 numero finito di livelli di ampiezza. Quindi si può rappresentare il segnale in
@@ -116,9 +114,9 @@ PCM.
 In uscita dalla PCM, avremo una sequenza di bit, emessi con una certa frequenza.
 Per un segnale con $N$ campioni al secondo e $M$ livelli, il bitrate sarà:
 
-$$
-r_b = N log_2(M) = N B
-$$
+$
+  r_b = N log_2(M) = N B
+$
 
 Quindi il bitrate è legato alla massima frequenza (larghezza di banda) del
 segnale e alla qualità che vogliamo ottenere dopo la quantizzazione.

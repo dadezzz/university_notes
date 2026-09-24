@@ -1,12 +1,14 @@
----
-description:
-  La serie di Fourier in forma esponenziale, il calcolo dei coefficienti, le
-  proprietà di simmetria, gli spettri di ampiezza e fase e il fenomeno di Gibbs
-lang: it
-title: Serie di Fourier, spettro e fenomeno di Gibbs
----
+#import "../_templates/starlight.typ" as starlight
 
-## Serie di Fourier
+#show: starlight.setup
+
+#metadata((
+  description: "La serie di Fourier in forma esponenziale, il calcolo dei coefficienti, le proprietà di simmetria, gli spettri di ampiezza e fase e il fenomeno di Gibbs",
+  lang: "it",
+  title: "Serie di Fourier, spettro e fenomeno di Gibbs",
+))
+
+= Serie di Fourier
 
 La serie può essere applicata solo a segnali periodici e solo se il segnale è
 integrabile sul periodo e quell'integrale ha valore finito. I segnali reali
@@ -16,37 +18,37 @@ Le frequenze delle sinusoidi non sono arbitrarie: si ricavano dalla frequenza
 fondamentale. L'unica cosa che bisogna calcolare sono i valori dei coefficienti
 $a_k$ e $theta_k$.
 
-### Forma esponenziale della serie di Fourier
+== Forma esponenziale della serie di Fourier
 
 La serie di Fourier si può riscrivere sfruttando la formula di Eulero:
 
-$$
-x(t) = a_0
-     + sum_(k = 1)^(+oo) a_k / 2 e^(j theta_k) e^(j 2 pi k f_0 t)
-     + sum_(k = -oo)^(-1) a_(-k) / 2 e^(-j theta_(-k)) e^(j 2 pi k f_0 t)
-$$
+$
+  x(t) = a_0
+  + sum_(k = 1)^(+oo) a_k / 2 e^(j theta_k) e^(j 2 pi k f_0 t)
+  + sum_(k = -oo)^(-1) a_(-k) / 2 e^(-j theta_(-k)) e^(j 2 pi k f_0 t)
+$
 
 e in forma più compatta:
 
-$$
-x(t) = sum_(k = -oo)^(+oo) X_k e^(j 2 pi k f_0 t)
-$$
+$
+  x(t) = sum_(k = -oo)^(+oo) X_k e^(j 2 pi k f_0 t)
+$
 
-$$
-X_k = cases(
-a_k / 2 e^(j theta_k) & k > 0,
-a_(-k) / 2 e^(-j theta_(-k)) & k < 0,
-a_0 & k = 0,
-)
-$$
+$
+  X_k = cases(
+    a_k / 2 e^(j theta_k) & k > 0,
+    a_(-k) / 2 e^(-j theta_(-k)) & k < 0,
+    a_0 & k = 0,
+  )
+$
 
-### Calcolo dei coefficienti
+== Calcolo dei coefficienti
 
 Il coefficiente $k$-esimo della serie è dato dalla seguente espressione:
 
-$$
-X_k = f_0 integral_(- T_0 / 2)^(T_0 / 2) x(t) thin e^(-j 2 pi k f_0 t) dif t
-$$
+$
+  X_k = f_0 integral_(- T_0 / 2)^(T_0 / 2) x(t) thin e^(-j 2 pi k f_0 t) dif t
+$
 
 La formula equivale alla cross-correlazione tra il segnale $x(t)$ e la sinusoide
 $e^(-j 2 pi k f_0 t)$ sul periodo $T_0$ (entrambi i segnali sono periodici e
@@ -60,13 +62,13 @@ La conoscenza dei coefficienti è sufficiente per ricostruire il segnale in
 maniera perfetta. Per questo possiamo usarla come una rappresentazione
 alternativa: $x(t) <-> X_k$.
 
-#### Frequenze negative
+=== Frequenze negative
 
 Eseguendo i calcoli, talvolta compaiono frequenze negative. In fisica non
 esistono: sono solo anomalie necessarie per la correttezza dei calcoli
 matematici.
 
-### Proprietà della serie
+== Proprietà della serie
 
 - Simmetria Hermitiana: $X_k = overline(X_(-k))$
 
@@ -75,71 +77,74 @@ matematici.
 
 - Linearità: dati due segnali $x(t)$ e $y(t)$ periodici, avremo:
 
-  $$
-  z(t) = a x(t) + b y(t) => Z_n = a X_n + b Y_n
-  $$
+  $
+    z(t) = a x(t) + b y(t) => Z_n = a X_n + b Y_n
+  $
 
 - Dato un segnale periodico pari, i coefficienti saranno reali, per cui la serie
   sarà costituita solamente da coseni.
 
-  $$
-  X_k = 2 f_0 integral_0^(T_0 / 2) x(t) cos(2 pi k f_0 t) dif t
-  $$
+  $
+    X_k = 2 f_0 integral_0^(T_0 / 2) x(t) cos(2 pi k f_0 t) dif t
+  $
 
-  $$
-  x(t) = a_0 + sum_(k = 1)^(+oo) a_k cos(2 pi k f_0 t)
-  $$
+  $
+    x(t) = a_0 + sum_(k = 1)^(+oo) a_k cos(2 pi k f_0 t)
+  $
 
 - Dato un segnale periodico dispari, i coefficienti saranno immaginari, per cui
   la serie sarà costituita solamente da seni.
 
-  $$
-  X_k = -2 j f_0 integral_0^(T_0 / 2) x(t) sin(2 pi k f_0 t) dif t
-  $$
+  $
+    X_k = -2 j f_0 integral_0^(T_0 / 2) x(t) sin(2 pi k f_0 t) dif t
+  $
 
-  $$
-  x(t) = sum_(k = 1)^(+oo) a_k sin(2 pi k f_0 t)
-  $$
+  $
+    x(t) = sum_(k = 1)^(+oo) a_k sin(2 pi k f_0 t)
+  $
 
-  :::note
+  #starlight.note([
+    Il coefficiente $a_0$ sarà nullo perché il valore medio di un segnale
+    dispari è $0$.
+  ])
 
-  Il coefficiente $a_0$ sarà nullo perché il valore medio di un segnale dispari
-  è $0$.
-
-  :::
-
-## Segnale alternato
+= Segnale alternato
 
 Si dice segnale alternato un segnale periodico di periodo $T$ e antisimmetrico
 sul periodo, ovvero:
 
-$$
-x(t) = -x(t + T / 2)
-$$
+$
+  x(t) = -x(t + T / 2)
+$
 
-![Esempio di segnale alternato](../../../../../images/elaborazione-dei-segnali/segnale-alternato.png)
+#image("images/segnale-alternato.png", alt: "Esempio di segnale alternato")
 
 - I segnali alternati non sono necessariamente dispari, ma hanno valor medio
   nullo.
 - La serie di Fourier di un segnale alternato ha solo i coefficienti dispari.
 
-## Spettro di un segnale
+= Spettro di un segnale
 
 La rappresentazione dei coefficienti nel dominio delle frequenze armoniche viene
 detta spettro.
 
 Ce ne sono due tipi:
 
-- **spettro di ampiezza**: mostra quanto è ampia l'armonica a una certa
-  frequenza;
+- *spettro di ampiezza*: mostra quanto è ampia l'armonica a una certa frequenza;
 
-  ![Esempio di rappresentazione dello spettro di ampiezza di un'onda quadra](../../../../../images/elaborazione-dei-segnali/spettro-ampiezza-onda-quadra.png)
+  #image(
+    "images/spettro-ampiezza-onda-quadra.png",
+    alt: "Esempio di rappresentazione dello spettro di ampiezza di un'onda quadra",
+  )
 
-- **spettro di fase**: mostra quanto è sfasata l'armonica a una certa frequenza;
+- *spettro di fase*: mostra quanto è sfasata l'armonica a una certa frequenza;
 
-  ![Esempio di rappresentazione dello spettro di fase di un'onda quadra](../../../../../images/elaborazione-dei-segnali/spettro-fase-onda-quadra.png)
+  #image(
+    "images/spettro-fase-onda-quadra.png",
+    alt: "Esempio di rappresentazione dello spettro di fase di un'onda quadra",
+  )
 
-## Considerazioni generali
+= Considerazioni generali
 
 - I segnali che presentano variazioni più brusche (come le onde quadrate) hanno
   rappresentazioni spettrali più ampie (le frequenze distanti da $f_0$
@@ -148,26 +153,28 @@ Ce ne sono due tipi:
 - Se sono presenti discontinuità nel segnale, lo spettro contiene infinite
   armoniche (i cui valori tendono a 0, quindi nella realtà si possono ignorare).
 
-:::note
+#starlight.note([
+  Nelle telecomunicazioni, l'estensione dello spettro prende il nome di *banda*.
 
-Nelle telecomunicazioni, l'estensione dello spettro prende il nome di **banda**.
+  - I segnali a banda larga hanno un contenuto significativo a frequenze più
+    alte.
+  - Quelli a banda stretta hanno un contenuto significativo in un intervallo di
+    frequenze più limitato.
+])
 
-- I segnali a banda larga hanno un contenuto significativo a frequenze più alte.
-- Quelli a banda stretta hanno un contenuto significativo in un intervallo di
-  frequenze più limitato.
-
-:::
-
-## Fenomeno di Gibbs
+= Fenomeno di Gibbs
 
 Per rappresentare qualsiasi tipo di segnale nel dominio delle frequenze,
 servirebbe un'ampiezza di banda infinita. Ciò che succede quando si tronca una
 serie di Fourier è stato studiato dal fisico statunitense Josiah Willard Gibbs.
 
-Si osserva che il segnale oscilla intorno ai punti di discontinuità (**ripple**)
-e presenta sovraelongazioni di ampiezza (**overshoot**). All'aumentare delle
+Si osserva che il segnale oscilla intorno ai punti di discontinuità (*ripple*) e
+presenta sovraelongazioni di ampiezza (*overshoot*). All'aumentare delle
 armoniche le oscillazioni si restringono e si concentrano in prossimità del
 punto di transizione, ma l'ampiezza dell'overshoot non si riduce: tende a un
 valore costante (circa il 9% del salto).
 
-![Rappresentazione del fenomeno di Gibbs](../../../../../images/elaborazione-dei-segnali/fenomeno-di-gibbs.png)
+#image(
+  "images/fenomeno-di-gibbs.png",
+  alt: "Rappresentazione del fenomeno di Gibbs",
+)

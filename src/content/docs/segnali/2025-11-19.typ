@@ -1,10 +1,12 @@
----
-description:
-  Codifica differenziale per ridurre i bit, modulazione delta e DPCM, proprietà
-  e statistiche dei segnali digitali, sistemi LTI e impulso di Kronecker
-lang: it
-title: Modulazione delta, DPCM e impulso di Kronecker
----
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Codifica differenziale per ridurre i bit, modulazione delta e DPCM, proprietà e statistiche dei segnali digitali, sistemi LTI e impulso di Kronecker",
+  lang: "it",
+  title: "Modulazione delta, DPCM e impulso di Kronecker",
+))
 
 Dalla codificazione nasce un nuovo problema, ovvero ridurre il numero di bit
 emessi per rappresentare il segnale, senza diminuirne la qualità.
@@ -12,7 +14,7 @@ emessi per rappresentare il segnale, senza diminuirne la qualità.
 Esistono 2 tecniche che si basano sulla variazione differenziale del segnale e
 non sul suo valore assoluto:
 
-## Codificatore a modulazione delta
+= Codificatore a modulazione delta
 
 Con la modulazione delta, si codificano le variazioni (positive o negative) tra
 un campione e l'altro invece dei loro singoli valori.
@@ -21,7 +23,7 @@ Il passo $Delta$ è la quantità fissa da aggiungere o sottrarre al campione
 corrente rispetto al precedente. Quindi, dato che ci sono solo 2 possibili
 valori, si possono codificare come 0 e 1.
 
-### Svantaggi
+== Svantaggi
 
 Il primo tipo di errore si verifica quando ci sono variazioni brusche nel
 segnale, infatti il segnale codificato non può scendere o salire a una velocità
@@ -30,9 +32,12 @@ maggiore di un $Delta$ per campione.
 Il secondo, invece, si verifica nelle zone piatte, dato che il segnale deve
 continuare ad oscillare tra $plus.minus Delta$.
 
-![Visualizzazione degli errori](../../../../../images/elaborazione-dei-segnali/errore-codifica-modulazione-delta.png)
+#image(
+  "images/errore-codifica-modulazione-delta.png",
+  alt: "Visualizzazione degli errori",
+)
 
-## Codificatore DPCM
+= Codificatore DPCM
 
 Il valore del campione successivo si basa sulla codifica dell'errore commesso su
 una predizione (che deriva da 1 o più campioni precedenti).
@@ -40,55 +45,55 @@ una predizione (che deriva da 1 o più campioni precedenti).
 Quindi, se l'errore di predizione sarà piccolo (succede quando il segnale
 predetto è molto correlato), serviranno pochi bit (codifica entropica).
 
-## Sistemi e filtri digitali
+= Sistemi e filtri digitali
 
 D'ora in poi non parleremo più di segnali continui nel tempo $x(t)$, ma useremo
 sequenze di campioni $x[n] = x_(q)(n T_c)$.
 
-### Proprietà di segnali digitali
+== Proprietà di segnali digitali
 
-- **simmetria**:
-  - **pari**: $x(t) = x(-t) => x[n] = x[-n]$;
-  - **dispari**: $x(t) = -x(-t) => x[n] = -x[-n]$;
-- **guadagno**: $a x(t) => a x[n]$;
-- **ritardo**: $x(t - Delta t) => x[n - k]$ (segnale traslato di $k$ campioni);
-- **fattore di scala**: corrisponde a ricampionamenti del segnale, ovvero la
+- *simmetria*:
+  - *pari*: $x(t) = x(-t) => x[n] = x[-n]$;
+  - *dispari*: $x(t) = -x(-t) => x[n] = -x[-n]$;
+- *guadagno*: $a x(t) => a x[n]$;
+- *ritardo*: $x(t - Delta t) => x[n - k]$ (segnale traslato di $k$ campioni);
+- *fattore di scala*: corrisponde a ricampionamenti del segnale, ovvero la
   compressione riduce il numero di campioni (e può introdurre aliasing,
   evitabile applicando un filtro passa-basso (LPF) anti-aliasing prima di
   ridurre i campioni) e l'espansione fa aumentare il numero di campioni (per
   interpolazione o replica);
-- **integrazione**: l'integrazione diventa una somma dei valori del segnale;
-- **derivazione**: diventa una differenza finita tra il campione e il
-  precedente: $1 / T_c (x[n] - x[n - 1])$;
+- *integrazione*: l'integrazione diventa una somma dei valori del segnale;
+- *derivazione*: diventa una differenza finita tra il campione e il precedente:
+  $1 / T_c (x[n] - x[n - 1])$;
 
-### Statistiche di segnali digitali
+== Statistiche di segnali digitali
 
-- **valor medio**: $lim_(K -> oo) 1 / K sum_(k = - K / 2)^(K / 2) x[k]$
-- **varianza**:
+- *valor medio*: $lim_(K -> oo) 1 / K sum_(k = - K / 2)^(K / 2) x[k]$
+- *varianza*:
   $lim_(K -> oo) 1 / K sum_(k = - K / 2)^(K / 2) (x[k] - overline(x))^2$
-- **energia**: $sum_(k = -oo)^(+oo) (x[k])^2$
-- **potenza**: $lim_(K -> oo) 1 / K sum_(k = - K / 2)^(K / 2) (x[k])^2$
-- **cross-correlazione**:
-  - **segnali di energia**:
+- *energia*: $sum_(k = -oo)^(+oo) (x[k])^2$
+- *potenza*: $lim_(K -> oo) 1 / K sum_(k = - K / 2)^(K / 2) (x[k])^2$
+- *cross-correlazione*:
+  - *segnali di energia*:
     $cal(R)_(x,y)(k) = sum_(n = -oo)^(+oo) x[n] thin y[n + k]$
-  - **segnali di potenza**:
+  - *segnali di potenza*:
     $cal(R)_(x,y)(k) = lim_(K -> oo) 1 / K sum_(n = - K / 2)^(K / 2) x[n] thin y[n + k]$
 
-#### Istogramma
+=== Istogramma
 
 Dato un segnale discreto, è possibile calcolare la densità di probabilità dei
 livelli assunti dal segnale.
 
 La PDF di un segnale di $N$ campioni e $L$ valori $v(l)$ è:
 
-$$
-h[l] = 1 / N sum_(n = 1)^N cases(
-1 & x[n] = v(l),
-0 & "altrove",
-)
-$$
+$
+  h[l] = 1 / N sum_(n = 1)^N cases(
+    1 & x[n] = v(l),
+    0 & "altrove",
+  )
+$
 
-## Sistemi numerici
+= Sistemi numerici
 
 L'elaborazione dei segnali digitali prevede l'utilizzo di sistemi numerici, che
 a loro volta producono altri segnali digitali.
@@ -98,22 +103,22 @@ ingresso (dimensionalità, rappresentazione dei campioni, ecc.).
 
 I sistemi numerici possono essere sia LTI che non-LTI.
 
-### Sistemi numerici LTI
+== Sistemi numerici LTI
 
 - linearità: $f(a x_1[n] + b x_2[n]) = a f(x_1[n]) + b f(x_2[n])$;
 - invarianza temporale: $f(x[n]) = y[n] => f(x[n - k]) = y[n - k]$;
 
-## Impulso di Kronecker
+= Impulso di Kronecker
 
 Per capire come definire la convoluzione nel caso discreto, dobbiamo prima dare
 una definizione di impulso (dato che non è possibile campionare un impulso).
 
-$$
-delta[n] = cases(
-1 & n = 0,
-0 & n != 0,
-)
-$$
+$
+  delta[n] = cases(
+    1 & n = 0,
+    0 & n != 0,
+  )
+$
 
 Questa definizione mantiene tutte le proprietà della delta di Dirac:
 
@@ -122,7 +127,7 @@ Questa definizione mantiene tutte le proprietà della delta di Dirac:
 - un impulso $delta[n - k]$ moltiplicato per un segnale discreto restituisce il
   valore del segnale $x[n]$ in posizione $k$: $x[k]$.
 
-### Risposta impulsiva discreta
+== Risposta impulsiva discreta
 
 Dando in ingresso un impulso di Kronecker a un sistema numerico LTI, otterremo
 la risposta impulsiva discreta.
@@ -133,12 +138,10 @@ Function (PSF).
 
 La convoluzione tra segnali discreti diventa:
 
-$$
-y[n] = x[n] * h[n] = sum_(k = -oo)^(+oo) x[k] thin h[n - k]
-$$
+$
+  y[n] = x[n] * h[n] = sum_(k = -oo)^(+oo) x[k] thin h[n - k]
+$
 
-:::note
-
-La sequenza $h[n]$ viene anche detta kernel o maschera di convoluzione.
-
-:::
+#starlight.note([
+  La sequenza $h[n]$ viene anche detta kernel o maschera di convoluzione.
+])

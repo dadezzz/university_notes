@@ -1,12 +1,14 @@
----
-description:
-  Definisce i modelli dei segnali, i parametri per classificarli, riepiloga i
-  numeri complessi e descrive le funzioni notevoli come gradino e delta di Dirac
-lang: it
-title: Modelli dei segnali e funzioni notevoli
----
+#import "../_templates/starlight.typ" as starlight
 
-## Modellazione di un sistema
+#show: starlight.setup
+
+#metadata((
+  description: "Definisce i modelli dei segnali, i parametri per classificarli, riepiloga i numeri complessi e descrive le funzioni notevoli come gradino e delta di Dirac",
+  lang: "it",
+  title: "Modelli dei segnali e funzioni notevoli",
+))
+
+= Modellazione di un sistema
 
 Modellare un sistema significa creare un modello matematico che spiega come il
 sistema agisce su un segnale.
@@ -18,9 +20,9 @@ segnale senza realizzarlo, si può usare per:
 - prevedere il funzionamento di un dato sistema;
 - realizzare simulatori software;
 
-### Modello matematico di un segnale
+== Modello matematico di un segnale
 
-Il segnale è legato alla **variazione** di una grandezza fisica in un certo
+Il segnale è legato alla *variazione* di una grandezza fisica in un certo
 dominio. Dal punto di vista matematico questo può essere espresso tramite una
 funzione che restituisce i valori assunti dalla grandezza nel dominio.
 
@@ -38,37 +40,35 @@ In base al dominio:
 - segnale multi-dimensionale: cambia rispetto a più variabili (esempio: un
   segnale che cambia in base alla posizione in cui viene rilevato);
 
-## Parametri usati per classificare un segnale
+= Parametri usati per classificare un segnale
 
-### Dominio
+== Dominio
 
 - segnali a dominio continuo: possono essere misurati in ogni punto del dominio,
   che è quindi una variabile reale;
 - segnali a dominio discreto: possono essere misurati solo in un insieme di
   punti predefiniti;
 
-### Ampiezza
+== Ampiezza
 
 - segnali ad ampiezza continua: possono assumere con continuità tutti i valori
   reali in un certo intervallo;
 - segnali ad ampiezza discreta: possono assumere valori compresi in un insieme
   numerabile;
 
-:::note
+#starlight.note([
+  In base a dominio ed ampiezza sono definite 4 categorie di segnali:
 
-In base a dominio ed ampiezza sono definite 4 categorie di segnali:
-
-- **analogici**: dominio e ampiezza continui;
-- **campionati**: dominio discreto e ampiezza continua;
-- **quantizzati**: dominio continuo e ampiezza discreta;
-- **digitali**: dominio e ampiezza discreti;
-
-:::
+  - *analogici*: dominio e ampiezza continui;
+  - *campionati*: dominio discreto e ampiezza continua;
+  - *quantizzati*: dominio continuo e ampiezza discreta;
+  - *digitali*: dominio e ampiezza discreti;
+])
 
 In natura i segnali hanno prevalentemente forma analogica; la loro controparte
 digitale viene solitamente ottenuta tramite elaborazioni artificiali.
 
-### Periodicità
+== Periodicità
 
 - segnali periodici: si ripetono uguali a se stessi ad ogni intervallo di tempo
   prefissato, detto periodo;
@@ -77,7 +77,7 @@ digitale viene solitamente ottenuta tramite elaborazioni artificiali.
     periodo;
 - segnali aperiodici: segnali che non si ripetono periodicamente;
 
-### Natura deterministica o aleatoria
+== Natura deterministica o aleatoria
 
 - segnali deterministici: il valore del segnale è univocamente definito una
   volta fissate le variabili di dominio. Un segnale è deterministico quando esso
@@ -88,13 +88,16 @@ digitale viene solitamente ottenuta tramite elaborazioni artificiali.
 
 In questo corso ci concentreremo solo sui segnali deterministici.
 
-## Breve ripasso sui numeri complessi
+= Breve ripasso sui numeri complessi
 
 - $z = x + i y in bb(C)$
 - $r = norm(z) = sqrt(x^2 + y^2) in bb(R)$
 - $theta = arg(z) = arctan(y / x) in bb(R)$
 
-![Relazione tra coordinate cartesiane e polari](../../../../../images/elaborazione-dei-segnali/conversione-coordinate-numeri-complessi.png)
+#image(
+  "images/conversione-coordinate-numeri-complessi.png",
+  alt: "Relazione tra coordinate cartesiane e polari",
+)
 
 Formule di Eulero:
 
@@ -103,14 +106,14 @@ Formule di Eulero:
 - $e^(i theta) = cos(theta) + i sin(theta)$
 - $z = r e^(i theta)$
 
-### Funzioni complesse
+== Funzioni complesse
 
 Una funzione complessa è una funzione di variabile reale o complessa che
 restituisce valori complessi.
 
-## Proprietà dei segnali
+= Proprietà dei segnali
 
-### Simmetria
+== Simmetria
 
 Una funzione ha simmetria nel dominio $D$:
 
@@ -121,79 +124,88 @@ Una funzione ha simmetria nel dominio $D$:
 
 Altrimenti la funzione non ha proprietà di simmetria.
 
-### Causalità
+== Causalità
 
 Si dice causale un sistema la cui risposta all'impulso $h(t)$ è nulla per $t$
 precedenti l'origine:
 
-$$
-forall t < 0, h(t) = 0
-$$
+$
+  forall t < 0, h(t) = 0
+$
 
 La funzione gradino unitario ($u(t)$) ha valore $0$ prima dell'origine ($t < 0$)
 e $1$ dopo ($t >= 0$). Qualsiasi segnale causale può essere rappresentato come
 il prodotto tra una funzione e il gradino unitario.
 
-## Funzioni notevoli
+= Funzioni notevoli
 
-### Rettangolo simmetrico
+== Rettangolo simmetrico
 
-$$
-A op("rect")(t / T) = cases(
-A & abs(t) <= T / 2,
-0 & "altrove",
-)
-$$
+$
+  A op("rect")(t / T) = cases(
+    A & abs(t) <= T / 2,
+    0 & "altrove",
+  )
+$
 
 Definisce un segnale rettangolare con base $T$ e altezza $A$, centrato in $0$.
 
-![Grafico funzione rettangolo](../../../../../images/elaborazione-dei-segnali/grafico-funzione-rettangolo.png)
-
-### Funzione gradino unitario
-
-$$
-u(t) = cases(
-1 & t >= 0,
-0 & t < 0,
+#image(
+  "images/grafico-funzione-rettangolo.png",
+  alt: "Grafico funzione rettangolo",
 )
-$$
+
+== Funzione gradino unitario
+
+$
+  u(t) = cases(
+    1 & t >= 0,
+    0 & t < 0,
+  )
+$
 
 Usata per rappresentare segnali causali.
 
-![Grafico funzione gradino-unitario](../../../../../images/elaborazione-dei-segnali/grafico-funzione-gradino.png)
-
-### Funzione segno
-
-$$
-op("sgn")(t) = 2 u(t) - 1
-$$
-
-![Grafico funzione segno](../../../../../images/elaborazione-dei-segnali/grafico-funzione-segno.png)
-
-### Triangolo simmetrico
-
-$$
-A op("tri")(t / T) = cases(
-(A (T / 2 - abs(t))) / (T / 2) & abs(t) <= T / 2,
-0 & "altrove",
+#image(
+  "images/grafico-funzione-gradino.png",
+  alt: "Grafico funzione gradino-unitario",
 )
-$$
+
+== Funzione segno
+
+$
+  op("sgn")(t) = 2 u(t) - 1
+$
+
+#image("images/grafico-funzione-segno.png", alt: "Grafico funzione segno")
+
+== Triangolo simmetrico
+
+$
+  A op("tri")(t / T) = cases(
+    (A (T / 2 - abs(t))) / (T / 2) & abs(t) <= T / 2,
+    0 & "altrove",
+  )
+$
 
 Triangolo di altezza $A$ e base $T$.
 
-![Grafico funzione triangolo](../../../../../images/elaborazione-dei-segnali/grafico-funzione-triangolo.png)
+#image(
+  "images/grafico-funzione-triangolo.png",
+  alt: "Grafico funzione triangolo",
+)
 
-### Funzione $op("sinc")(t)$
+== Funzione $op("sinc")(t)$
 
-$$
-op("sinc")(t) = sin(pi t) / (pi t)
-$$
+$
+  op("sinc")(t) = sin(pi t) / (pi t)
+$
 
 Per $t = 0$ la funzione si definisce per continuità: $op("sinc")(0) = 1$.
 
-![Grafico funzione sinc](../../../../../images/elaborazione-dei-segnali/grafico-funzione-sinc.png)
+#image("images/grafico-funzione-sinc.png", alt: "Grafico funzione sinc")
 
-### Funzione impulso unitario (o delta di Dirac)
+== Funzione impulso unitario (o delta di Dirac)
 
 È una funzione generalizzata, ovvero definita unicamente sulla base delle sue
 proprietà (integrali).
@@ -202,16 +214,16 @@ Chiamiamo impulso unitario la funzione $delta(t)$ che, data una generica
 funzione di test $f(t)$, continua ed integrabile, soddisfa la seguente
 uguaglianza:
 
-$$
-integral_(-oo)^(+oo) f(t) delta(t) dif t = f(0)
-$$
+$
+  integral_(-oo)^(+oo) f(t) delta(t) dif t = f(0)
+$
 
 Possiamo ottenere una funzione che soddisfi questa proprietà partendo da un
 rettangolo di area unitaria e durata $T$. Portando al limite $T -> 0$ si
 ottiene:
 
-$$
-delta(t) = lim_(T -> 0) 1 / T op("rect")(t / T) = cases(+oo & t = 0, 0 & "altrove")
-$$
+$
+  delta(t) = lim_(T -> 0) 1 / T op("rect")(t / T) = cases(+oo & t = 0, 0 & "altrove")
+$
 
-![Limite delta di Dirac](../../../../../images/elaborazione-dei-segnali/limite-delta-di-dirac.png)
+#image("images/limite-delta-di-dirac.png", alt: "Limite delta di Dirac")

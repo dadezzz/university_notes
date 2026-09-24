@@ -1,27 +1,28 @@
----
-description:
-  Il prodotto in frequenza della DFT equivale a una convoluzione circolare,
-  corretta con zero padding. FFT, filtri in frequenza e segnali
-  multi-dimensionali
-lang: it
-title: Convoluzione circolare e segnali multidimensionali
----
+#import "../_templates/starlight.typ" as starlight
 
-## Teorema di convoluzione discreto
+#show: starlight.setup
+
+#metadata((
+  description: "Il prodotto in frequenza della DFT equivale a una convoluzione circolare, corretta con zero padding. FFT, filtri in frequenza e segnali multi-dimensionali",
+  lang: "it",
+  title: "Convoluzione circolare e segnali multidimensionali",
+))
+
+= Teorema di convoluzione discreto
 
 L'estensione del teorema di convoluzione al dominio discreto non è immediata.
 Dati un segnale discreto $x[n]$, $n = 0, ..., N_x - 1$ e un filtro $h[n]$,
 $n = 0, ..., N_h - 1$. La loro convoluzione sarà:
 
-$$
-y[n] = x[n] * h[n]
-$$
+$
+  y[n] = x[n] * h[n]
+$
 
 Il teorema ci porterebbe a pensare che:
 
-$$
-Y[k] = X[k] thin H[k] => y[n] limits(<->)^cal(F) Y[k]
-$$
+$
+  Y[k] = X[k] thin H[k] => y[n] limits(<->)^cal(F) Y[k]
+$
 
 Tuttavia c'è un problema: se le 2 sequenze non hanno la stessa lunghezza, si può
 eseguire la convoluzione ma non il prodotto.
@@ -30,34 +31,32 @@ Una soluzione potrebbe essere quella di portare le 2 sequenze alla stessa
 lunghezza aggiungendo degli zeri a quella più corta. Però il risultato non è
 ancora corretto.
 
-### Convoluzione circolare
+== Convoluzione circolare
 
-**Problema**: Eseguire il prodotto in frequenza equivale a convoluire la
+*Problema*: Eseguire il prodotto in frequenza equivale a convoluire la
 periodizzazione di $x[n]$ per $h[n]$ (diventano periodiche perché la DFT è
 appunto discretizzata).
 
 Anche prendendo solo i primi $N$ valori, otteniamo comunque un risultato diverso
 da quello atteso. Il risultato dell'anti-trasformata sarà quindi il risultato di
-questa operazione, detta **convoluzione circolare**.
+questa operazione, detta *convoluzione circolare*.
 
-$$
-y[n] = x[n] ast.op.o h[n] = sum_(k = 0)^(N - 1) x[k] thin h[n - k]
-$$
+$
+  y[n] = x[n] ast.op.o h[n] = sum_(k = 0)^(N - 1) x[k] thin h[n - k]
+$
 
 Date 2 sequenze $x[n]$ e $h[n]$ di lunghezza $N_x$ e $N_h$, il prodotto delle
 trasformate è la trasformata della convoluzione circolare tra le 2 sequenze:
 
-$$
-x[n] ast.op.o h[n] limits(<->)^cal(F) X[k] thin H[k]
-$$
+$
+  x[n] ast.op.o h[n] limits(<->)^cal(F) X[k] thin H[k]
+$
 
-:::caution
+#starlight.caution([
+  Questo risultato non ci fornisce la risposta del filtro.
+])
 
-Questo risultato non ci fornisce la risposta del filtro.
-
-:::
-
-### Risposta in frequenza di sistemi discreti
+== Risposta in frequenza di sistemi discreti
 
 Per far coincidere la convoluzione circolare bisogna evitare il sovrapporsi dei
 campioni lungo un periodo. Bisogna quindi aggiungere un ulteriore zero padding
@@ -65,13 +64,13 @@ in entrambe le sequenze, in modo che i campioni delle sequenze originali siano
 separati da almeno $N_x + N_h - 1$ (lunghezza della convoluzione lineare).
 
 1. Generiamo 2 sequenze di lunghezza $M >= N_x + N_h - 1$ aggiungendo gli zeri
-   alla fine delle sequenze originali.
+  alla fine delle sequenze originali.
 2. Applichiamo la DFT ad entrambe le sequenze, ottenendo le trasformate di
-   lunghezza $M$.
+  lunghezza $M$.
 3. Moltiplichiamo le 2 sequenze.
 4. Applichiamo la IDFT e selezioniamo i primi $N_x + N_h - 1$ campioni.
 
-## FFT
+= FFT
 
 Con la convoluzione è possibile calcolare l'uscita di un sistema LTI con minore
 complessità computazionale. Tuttavia, il calcolo della DFT con la definizione
@@ -80,7 +79,7 @@ data ha complessità $O(N^2)$.
 Un algoritmo più veloce per calcolare la trasformata viene chiamato Fast Fourier
 Transform (FFT) e riduce la complessità a $O(N log(N))$.
 
-## Filtri numerici in frequenza
+= Filtri numerici in frequenza
 
 Dato che ora il filtro viene implementato in frequenza, è possibile definire
 filtri ideali con risposta impulsiva infinita (IIR) specificando direttamente la
@@ -93,9 +92,9 @@ quindi il risultato non coincide con la convoluzione lineare.
 In pratica questi filtri hanno inoltre effetti indesiderati sul segnale, come la
 manifestazione di ripple e overshoot in prossimità delle discontinuità: un
 fronte netto richiede le armoniche ad alta frequenza, che il filtro taglia
-(fenomeno di Gibbs). Questo fenomeno viene chiamato **ringing**.
+(fenomeno di Gibbs). Questo fenomeno viene chiamato *ringing*.
 
-## Segnali multi-dimensionali
+= Segnali multi-dimensionali
 
 In natura, molti segnali si muovono su domini spaziali o spazio-temporali. Ciò
 significa che il valore di un segnale dipende da più di una variabile.
@@ -103,13 +102,13 @@ significa che il valore di un segnale dipende da più di una variabile.
 Un segnale multi-dimensionale in $N$ dimensioni sarà rappresentato da una
 funzione:
 
-$$
-x: bb(R)^N -> bb(R)^K
-$$
+$
+  x: bb(R)^N -> bb(R)^K
+$
 
 dove $K$ rappresenta la dimensionalità dei valori assunti dal segnale.
 
-### Sistemi multi-dimensionali
+== Sistemi multi-dimensionali
 
 Un sistema multi-dimensionale riceve in ingresso un segnale $N$-dimensionale e
 restituisce un segnale $M$-dimensionale.
@@ -117,7 +116,7 @@ restituisce un segnale $M$-dimensionale.
 D'ora in poi, per semplicità considereremo segnali e sistemi multi-dimensionali
 che danno un risultato scalare.
 
-### Sistemi LDI
+== Sistemi LDI
 
 Il concetto di sistema LDI è praticamente identico a quello di un sistema LTI,
 solo che si parla di dominio-invarianza anziché di tempo-invarianza.
@@ -125,27 +124,27 @@ solo che si parla di dominio-invarianza anziché di tempo-invarianza.
 Questo significa che il sistema si comporterà allo stesso modo in qualsiasi
 punto del dominio.
 
-### Risposta impulsiva di sistemi LDI
+== Risposta impulsiva di sistemi LDI
 
 Dato un sistema multi-dimensionale LDI, la risposta sarà sempre data dalla
 convoluzione tra l'ingresso e la risposta impulsiva.
 
-$$
-y(v_1, ..., v_N) &= x(v_1, ..., v_N) * h(v_1, ..., v_N) \
-                 &= integral_(lambda_1 = -oo)^(+oo) ... integral_(lambda_N = -oo)^(+oo) x(lambda_1, ..., lambda_N) thin h(v_1 - lambda_1, ..., v_N - lambda_N) dif lambda_N ... dif lambda_1
-$$
+$
+  y(v_1, ..., v_N) &= x(v_1, ..., v_N) * h(v_1, ..., v_N) \
+  &= integral_(lambda_1 = -oo)^(+oo) ... integral_(lambda_N = -oo)^(+oo) x(lambda_1, ..., lambda_N) thin h(v_1 - lambda_1, ..., v_N - lambda_N) dif lambda_N ... dif lambda_1
+$
 
 Quindi il concetto rimane lo stesso: per ogni asse ribaltiamo la risposta
 impulsiva, facciamo scorrere il filtro su tutti i punti dello spazio e infine
 moltiplichiamo e integriamo su tutte le dimensioni.
 
-### Trasformata di Fourier multi-dimensionale
+== Trasformata di Fourier multi-dimensionale
 
 Dato un segnale $x(v_1, ..., v_N)$, la sua FT sarà:
 
-$$
-X(f_1, ..., f_N) = integral_(-oo)^(+oo) ... integral_(-oo)^(+oo) x(v_1, ..., v_N) thin e^(-j 2 pi (f_1 v_1 + ... + f_N v_N)) dif v_1 ... dif v_N
-$$
+$
+  X(f_1, ..., f_N) = integral_(-oo)^(+oo) ... integral_(-oo)^(+oo) x(v_1, ..., v_N) thin e^(-j 2 pi (f_1 v_1 + ... + f_N v_N)) dif v_1 ... dif v_N
+$
 
 L'operazione equivale a trasformare il segnale sequenzialmente su ogni
 dimensione. Quindi si dimostra facilmente che essa mantiene ed estende tutte le
