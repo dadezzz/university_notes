@@ -1,9 +1,14 @@
----
-lang: it
-title: Lezione (2025-10-03)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Modelli lineari
+#show: starlight.setup
+
+#metadata((
+  description: "Modelli lineari e affini, regressione col prodotto scalare, generalizzazione con feature, classificazione tramite iperpiano e minimi quadrati con pseudoinversa.",
+  lang: "it",
+  title: "Modelli lineari, regressione e pseudoinversa",
+))
+
+= Modelli lineari
 
 I modelli lineari servono a generalizzare problemi in cui la relazione tra il
 cambiamento di valore dell'input $bold(x)$ e l'output $y$ può essere trovata
@@ -13,35 +18,35 @@ Ciò li rende molto semplici sia da addestrare che da capire, basta analizzare i
 parametri per capire quali sono quelli che maggiormente influenzano il
 risultato.
 
-**Esempio**: si può generalizzare la relazione tra la potenza e il costo di
+*Esempio*: si può generalizzare la relazione tra la potenza e il costo di
 un'automobile:
 
-![Grafico retta della media](../../../../../images/introduzione-al-machine-learning/grafico-retta-media-tra-punti.png)
+#image(
+  "images/grafico-retta-media-tra-punti.png",
+  alt: "Grafico retta della media",
+)
 
-### Regressione lineare
+== Regressione lineare
 
 In un modello lineare, ogni componente $x_i$ di $bold(x)$ è moltiplicata da un
 parametro $w_i$. Possiamo generalizzare e scrivere che il risultato è dato dal
 prodotto scalare tra la matrice trasposta dei parametri e il vettore input.
 
-$$
-f(bold(x)) = bold(w)^T dot bold(x)
-$$
+$
+  f(bold(x)) = bold(w)^T dot bold(x)
+$
 
-:::note
+#starlight.note([
+  Per convenzione, dato un vettore $bold(v)$, esso sarà un vettore colonna.
+  $bold(v)^T$ sarà un vettore riga.
+])
 
-Per convenzione, dato un vettore $bold(v)$, esso sarà un vettore colonna.
-$bold(v)^T$ sarà un vettore riga.
+#starlight.note([
+  I parametri si denotano con $bold(w)$ perché in inglese sono chiamati
+  'weights'.
+])
 
-:::
-
-:::note
-
-I parametri si denotano con $bold(w)$ perché in inglese sono chiamati 'weights'.
-
-:::
-
-### Tecniche di approssimazione non lineare
+== Tecniche di approssimazione non lineare
 
 La prima restrizione che incontriamo usando la $f$ definita sopra è che si
 assume che $f(0) = 0$.
@@ -49,23 +54,23 @@ assume che $f(0) = 0$.
 Per risolvere il problema basta aggiungere una dimensione fittizia al vettore in
 input e poi fissare la nuova componente a 1.
 
-Questi modelli vengono detti **affini**.
+Questi modelli vengono detti *affini*.
 
 In questo caso $f$ sarà la funzione lineare e $g$ la funzione affine:
 
-$$
-g(bold(x)) = f(1, bold(x)) = w_0 + bold(w)^T dot bold(x)
-$$
+$
+  g(bold(x)) = f(1, bold(x)) = w_0 + bold(w)^T dot bold(x)
+$
 
 Questo permette di modellare relazioni che non passano per l'origine, pur
 continuando a usare l'approssimazione della retta che minimizza la somma degli
 errori quadratici.
 
-Per usare l'algebra lineare per ottimizzare **è necessario che il modello sia
-lineare nei pesi, non nei dati in input**. Infatti durante l'ottimizzazione la
+Per usare l'algebra lineare per ottimizzare *è necessario che il modello sia
+lineare nei pesi, non nei dati in input*. Infatti durante l'ottimizzazione la
 variabile da trovare è $bold(w)$, mentre $bold(x)$ rimane costante.
 
-#### Generalizzazione
+=== Generalizzazione
 
 In pratica i dati di input possono essere processati a piacimento per estrarre
 più features.
@@ -74,11 +79,11 @@ Possiamo definire una funzione $phi: bb(R)^d -> bb(R)^n$ che applica
 trasformazioni arbitrarie al vettore di input (anche non lineari). Poi passeremo
 quel risultato in ingresso al nostro modello lineare:
 
-$$
-f(bold(x)) = bold(w)^T dot phi(bold(x))
-$$
+$
+  f(bold(x)) = bold(w)^T dot phi(bold(x))
+$
 
-### Classificazione lineare
+== Classificazione lineare
 
 Nel caso della classificazione possiamo usare il risultato della regressione
 lineare come discriminante.
@@ -88,29 +93,27 @@ di frontiera che divide lo spazio in due regioni: una dove il risultato è
 positivo e una dove è negativo. La frontiera è data dai vettori perpendicolari a
 $bold(w)$.
 
-:::note
+#starlight.note([
+  In più dimensioni, un piano generalizza la retta e un iperpiano generalizza il
+  piano. Le due regioni generate dalla suddivisione generalizzano i semipiani.
+])
 
-In più dimensioni, un piano generalizza la retta e un iperpiano generalizza il
-piano. Le due regioni generate dalla suddivisione generalizzano i semipiani.
-
-:::
-
-### Ottimizzazione attraverso la pseudo-inversa
+== Ottimizzazione attraverso la pseudo-inversa
 
 Come visto in precedenza, dobbiamo trovare il valore dei pesi $bold(w)$ in modo
 da minimizzare gli errori del modello:
 
-$$
-E(bold(w)) = sum_(i = 1)^n (bold(w)^T dot bold(x)_i - y_i)^2
-$$
+$
+  E(bold(w)) = sum_(i = 1)^n (bold(w)^T dot bold(x)_i - y_i)^2
+$
 
 Nel caso ideale, senza errori di misurazione sul dataset degli esempi, si
 potrebbero trovare i pesi attraverso un sistema di equazioni lineari, che si
 risolve invertendo la matrice dei coefficienti:
 
-$$
-bold(A) bold(w) = bold(b) <=> bold(w) = bold(A)^(-1) bold(b)
-$$
+$
+  bold(A) bold(w) = bold(b) <=> bold(w) = bold(A)^(-1) bold(b)
+$
 
 Nella realtà, purtroppo, ci sono sempre errori di misurazione. Quindi si ottiene
 un sistema sovradeterminato, in cui alcune equazioni risultano contraddittorie.
@@ -120,15 +123,15 @@ $E(bold(w))$ anche se difficilmente si arriverà a $0$.
 Per fare ciò possiamo usare la pseudoinversa di $bold(A)$, denotata con
 $bold(A)^+$ e definita come:
 
-$$
-bold(A)^+ = (bold(A)^T bold(A))^(-1) bold(A)^T
-$$
+$
+  bold(A)^+ = (bold(A)^T bold(A))^(-1) bold(A)^T
+$
 
 Noi dobbiamo risolvere, usando tutti gli esempi, il sistema di equazioni
 $bold(w)^T dot bold(x)_i = y_i$. Otteniamo quindi la seguente formula, in cui
 $bold(X)$ è la matrice che raccoglie tutti gli esempi di input e $bold(y)$ il
 vettore degli output corrispondenti:
 
-$$
-bold(w) = (bold(X)^T bold(X))^(-1) bold(X)^T bold(y)
-$$
+$
+  bold(w) = (bold(X)^T bold(X))^(-1) bold(X)^T bold(y)
+$

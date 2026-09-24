@@ -1,9 +1,14 @@
----
-lang: it
-title: Lezione (2025-11-04)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Classificazione di testi
+#show: starlight.setup
+
+#metadata((
+  description: "Classificazione di testi tramite bag of words, test del Chi quadro, entropia e informazione mutua; clustering e approcci di apprendimento non supervisionato.",
+  lang: "it",
+  title: "Classificazione di testi, entropia e clustering",
+))
+
+= Classificazione di testi
 
 Per classificare un testo in base al suo contenuto è necessario ottenere un
 vettore di ingresso.
@@ -12,59 +17,57 @@ Prendiamo un vettore con le $n$ parole più significative del 'dizionario'. Poi
 per ogni parola trovata nel testo, aumentiamo di 1 la componente corrispondente
 nel vettore (bag of words).
 
-:::info
-
-Ignoriamo per il momento che viene persa l'informazione data dall'ordine delle
-parole.
-
-:::
+#starlight.note([
+  Ignoriamo per il momento che viene persa l'informazione data dall'ordine delle
+  parole.
+])
 
 Otteniamo un grande vettore di ingresso. Ora dobbiamo capire quali sono le
 features più significative. Per trovare correlazioni tra coppie di parole
 possiamo misurarne la dipendenza.
 
-$$
-abs(bb(P)("word"_1, "word"_2) - bb(P)("word"_1) bb(P)("word"_2))
-$$
+$
+  abs(bb(P)("word"_1, "word"_2) - bb(P)("word"_1) bb(P)("word"_2))
+$
 
 Se il valore della differenza è alto, allora c'è alta dipendenza tra le
 variabili.
 
-### Test del Chi quadro
+== Test del Chi quadro
 
 Si usa per testare la dipendenza degli output dall'input.
 
-$$
-Chi^2 = sum_(y, x) ("count"_(y, x) - n bb(P)(y) bb(P)(x))^2 / (n bb(P)(y) bb(P)(x))
-$$
+$
+  Chi^2 = sum_(y, x) ("count"_(y, x) - n bb(P)(y) bb(P)(x))^2 / (n bb(P)(y) bb(P)(x))
+$
 
 Dove $"count"_(y, x)$ è il numero di occorrenze del valore $x$ per una data
 classe $y$ e $n$ è il numero totale di esempi nel dataset.
 
 Le features migliori sono quelle con il $Chi^2$ più grande.
 
-### Entropia
+== Entropia
 
 Si usa per misurare quanta informazione fornisce una certa feature, maggiore è
 l'incertezza, maggiore sarà il valore:
 
-$$
-H(Y) = - sum_(y in Y) bb(P)(y) log(bb(P)(y)) thick ["bit"]
-$$
+$
+  H(Y) = - sum_(y in Y) bb(P)(y) log(bb(P)(y)) thick ["bit"]
+$
 
-Quando conosciamo un valore d'ingresso $x_i$, otteniamo l'**entropia
-condizionale**. Essa sarà minore o uguale a quella iniziale.
+Quando conosciamo un valore d'ingresso $x_i$, otteniamo l'*entropia
+condizionale*. Essa sarà minore o uguale a quella iniziale.
 
-$$
-H(Y | X_i) = sum_(x_i in X_i) bb(P)(x_i) (- sum_(y in Y) bb(P)(y | x_i) log(bb(P)(y | x_i))) thick ["bit"]
-$$
+$
+  H(Y | X_i) = sum_(x_i in X_i) bb(P)(x_i) (- sum_(y in Y) bb(P)(y | x_i) log(bb(P)(y | x_i))) thick ["bit"]
+$
 
-L'**informazione mutua** di $x_i$ è definita come la differenza tra l'entropia
+L'*informazione mutua* di $x_i$ è definita come la differenza tra l'entropia
 iniziale e quella condizionale.
 
-$$
-I(Y, X_i) = H(Y) - H(Y | X_i) = sum_(y, x_i) bb(P)(y, x_i) log(bb(P)(y, x_i) / bb(P)(y) bb(P)(x_i))
-$$
+$
+  I(Y, X_i) = H(Y) - H(Y | X_i) = sum_(y, x_i) bb(P)(y, x_i) log(bb(P)(y, x_i) / bb(P)(y) bb(P)(x_i))
+$
 
 Se $y$ e $x_i$ sono indipendenti, allora $I(Y, X_i) = 0$ e possiamo scartare la
 feature.
@@ -73,7 +76,7 @@ L'informazione mutua è in grado di catturare dipendenze non lineari arbitrarie
 tra due variabili, quindi ci dice se otteniamo informazioni anche quando il
 coefficiente di correlazione è 0.
 
-## Clustering
+= Clustering
 
 Il clustering è l'operazione di raggruppare nuovi input (in maniera non
 supervisionata) e assegnare etichette ad essi.
@@ -87,7 +90,7 @@ riassume l'informazione contenuta nel sottoinsieme di casi che rappresenta. In
 questo caso riassumere significa applicare una funzione $f: bb(R)^n -> bb(R)^m$,
 dove $n > m$.
 
-### Approcci per l'apprendimento non supervisionato
+== Approcci per l'apprendimento non supervisionato
 
 - top-down: si decide il numero di classi e poi si dividono i dati in queste
   classi.

@@ -1,10 +1,15 @@
----
-lang: it
-prev: false
-title: Lezione (2025-09-16)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Probabilità
+#show: starlight.setup
+
+#metadata((
+  description: "Riflessione sul metodo scientifico e sull'incertezza: ipotesi nulla, P-value, significatività statistica e distinzione tra correlazione e causalità nei dati.",
+  lang: "it",
+  prev: false,
+  title: "Metodo scientifico, ipotesi nulla e P-value",
+))
+
+= Probabilità
 
 Cosa distingue la scienza dalle altre forme di conoscenza? La scienza ha un
 metodo che si può usare per dimostrare che alcune ipotesi sono false. Non dà
@@ -15,13 +20,13 @@ L'esito di un esperimento dipende sempre da molti fattori, quindi possiamo dire
 che nei risultati c'è una componente aleatoria che non si può ignorare del
 tutto.
 
-L'**ipotesi nulla** ($H_0$) è l'affermazione secondo la quale non c'è differenza
-o relazione tra fenomeni misurati. Il metodo scientifico assume come vera
+L'*ipotesi nulla* ($H_0$) è l'affermazione secondo la quale non c'è differenza o
+relazione tra fenomeni misurati. Il metodo scientifico assume come vera
 l'ipotesi nulla finché non viene effettuato un esperimento ripetibile in grado
 di confutarla.
 
-Il **P-value** è la probabilità di ottenere quel risultato assumendo che
-l'ipotesi nulla sia vera.
+Il *P-value* è la probabilità di ottenere quel risultato assumendo che l'ipotesi
+nulla sia vera.
 
 - un P-value alto indica che è molto probabile che i dati usati per
   l'esperimento soddisfano solo per puro caso l'ipotesi nulla;
@@ -35,5 +40,6 @@ Bisogna comunque stare attenti: causa $!=$ correlazione. Anche se dei dati
 sembrano avere un andamento simile, non si può direttamente affermare che uno
 causi l'altro.
 
-Per esempi di correlazioni spurie:
-[Spurious Correlations](https://tylervigen.com/spurious-correlations).
+Per esempi di correlazioni spurie: #link(
+  "https://tylervigen.com/spurious-correlations",
+)[Spurious Correlations].

@@ -32,7 +32,7 @@ Uno stadio di alimentazione complesso può avere:
   Infatti, collegare resistenze in parallelo riduce il loro effetto totale.
 ])
 
-#starlight.warn([
+#starlight.caution([
   I condensatori possono rimanere carichi per un tempo indefinito. Talvolta si
   aggiunge una resistenza molto grande in parallelo per questioni di sicurezza.
 ])

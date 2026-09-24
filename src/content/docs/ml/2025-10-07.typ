@@ -1,16 +1,21 @@
----
-lang: it
-title: Lezione (2025-10-07)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Instabilità nei modelli lineari
+#show: starlight.setup
+
+#metadata((
+  description: "L'instabilità dei modelli lineari e la regolarizzazione ridge, quindi le regole decisionali: alberi, guadagno informativo, impurità di Gini e foreste.",
+  lang: "it",
+  title: "Ridge regression, alberi di decisione e foreste",
+))
+
+= Instabilità nei modelli lineari
 
 Un modello è detto stabile quando piccoli errori di misura sull'input o errori
 di arrotondamento sui calcoli eseguiti dal computer influenzano in maniera
 negligibile il risultato.
 
-Il primo modo per rendere un modello più stabile è quello di **ottenere dati
-migliori**. Nei grafici qui sotto:
+Il primo modo per rendere un modello più stabile è quello di *ottenere dati
+migliori*. Nei grafici qui sotto:
 
 - il primo insieme è ben distribuito, quindi lo spostamento di alcuni punti
   (valori degli esempi nel training set) non genera variazioni nell'inclinazione
@@ -19,42 +24,46 @@ migliori**. Nei grafici qui sotto:
 - il secondo insieme rende il modello molto sensibile a piccoli cambiamenti nei
   valori degli esempi;
 
-![Distribuzione punti del training set](../../../../../images/introduzione-al-machine-learning/stabilità-training-set.png)
+#image(
+  "images/stabilità-training-set.png",
+  alt: "Distribuzione punti del training set",
+)
 
 Il secondo modo, quando non c'è possibilità di modificare gli esempi, è quello
-di utilizzare la **ridge regression**, ovvero l'aggiunta di un **termine di
-regolarizzazione** alla funzione di errore.
+di utilizzare la *ridge regression*, ovvero l'aggiunta di un *termine di
+regolarizzazione* alla funzione di errore.
 
 Quando si inserisce un piccolo termine diagonale ($lambda$) nella pseudoinversa,
 l'operazione di inversione diventa molto meno sensibile agli errori di calcolo
 del computer:
 
-$$
-E(bold(w)) = sum_i (bold(w)^T dot bold(x)_i - y_i)^2 + lambda bold(w)^T dot bold(w)
-$$
+$
+  E(bold(w)) = sum_i (bold(w)^T dot bold(x)_i - y_i)^2 + lambda bold(w)^T dot bold(w)
+$
 
 Per minimizzare rispetto a $bold(w)$ si usa la seguente espressione:
 
-$$
-bold(w) = (lambda bold(I) + bold(X)^T bold(X))^(-1) bold(X)^(T) bold(y)
-$$
+$
+  bold(w) = (lambda bold(I) + bold(X)^T bold(X))^(-1) bold(X)^(T) bold(y)
+$
 
 Il valore di $lambda$ può essere ottenuto provandone diversi sul validation set
 tenendo quello che dà i risultati migliori. Nell'immagine qui sotto si vede come
 un $lambda$ troppo grande fa perdere significato ai pesi.
 
-![Valore pesi a seconda di $lambda$](../../../../../images/introduzione-al-machine-learning/valore-pesi-con-ridge-coefficient.png)
+#image(
+  "images/valore-pesi-con-ridge-coefficient.png",
+  alt: "Valore pesi a seconda di $lambda$",
+)
 
-:::tip
+#starlight.tip([
+  È una buona idea normalizzare i dati di input a numeri non troppo grandi o
+  piccoli in modo da evitare di avere errori troppo grandi (dovuti a grandi
+  variazioni nei valori dei dati) o una precisione troppo bassa (dovuta ai
+  problemi che hanno i computer a gestire numeri reali).
+])
 
-È una buona idea normalizzare i dati di input a numeri non troppo grandi o
-piccoli in modo da evitare di avere errori troppo grandi (dovuti a grandi
-variazioni nei valori dei dati) o una precisione troppo bassa (dovuta ai
-problemi che hanno i computer a gestire numeri reali).
-
-:::
-
-## Regole decisionali
+= Regole decisionali
 
 Negli anni '70 si era cercato di sviluppare sistemi di intelligenza artificiale
 basati su regole: il risultato era deterministico, perché per ogni causa era
@@ -76,9 +85,12 @@ all'inizio.
 Se si organizzano le regole sotto forma di albero, si può creare una gerarchia
 senza contraddizioni.
 
-### Alberi di decisione
+== Alberi di decisione
 
-![Esempio di albero di decisione per 2 domande](../../../../../images/introduzione-al-machine-learning/albero-di-decisione.png)
+#image(
+  "images/albero-di-decisione.png",
+  alt: "Esempio di albero di decisione per 2 domande",
+)
 
 Un albero di decisione è un insieme di domande, organizzate in maniera
 gerarchica, con un sotto-albero per ogni risposta che può ricevere una specifica
@@ -88,12 +100,10 @@ La costruzione di un albero è un processo ricorsivo: basta prendere una domanda
 e dividere il training set a seconda della risposta; poi per ogni ramo si ripete
 il processo passando alla domanda successiva.
 
-:::note
-
-Di solito si cerca di creare domande che abbiano una risposta binaria (tipo sì o
-no), in modo da limitare il numero di rami che ciascun nodo può avere.
-
-:::
+#starlight.note([
+  Di solito si cerca di creare domande che abbiano una risposta binaria (tipo sì
+  o no), in modo da limitare il numero di rami che ciascun nodo può avere.
+])
 
 Il problema che resta è quello di determinare qual è la domanda più informativa
 da usare all'inizio.
@@ -104,25 +114,25 @@ non ha più senso continuare il processo e si può restituire un output
 all'utente.
 
 Le domande che classificano un alto numero di esempi in un ramo rispetto agli
-altri sono dette più **pure** rispetto alle altre. Le domande più informative
-sono quelle che purificano maggiormente l'input.
+altri sono dette più *pure* rispetto alle altre. Le domande più informative sono
+quelle che purificano maggiormente l'input.
 
-#### Misura quantitativa della purezza
+=== Misura quantitativa della purezza
 
 La purezza può essere misurata in due modi:
 
-- **Guadagno informativo** (information gain):
+- *Guadagno informativo* (information gain):
 
   Preso un campione del set di training associato al nodo (ovvero la domanda)
   dell'albero, per ogni elemento dell'insieme ci sarà una probabilità $bb(P)(y)$
   che esso appartenga ad una certa classe (ovvero dia una certa risposta).
 
-  **Incertezza o entropia di Shannon**: l'incertezza su tutte le possibili
-  classi è data dalla formula:
+  *Incertezza o entropia di Shannon*: l'incertezza su tutte le possibili classi
+  è data dalla formula:
 
-  $$
-  H(Y) = - sum_(y in Y) bb(P)(y) log(bb(P)(y))
-  $$
+  $
+    H(Y) = - sum_(y in Y) bb(P)(y) log(bb(P)(y))
+  $
 
   L'entropia misura l'impurità dell'insieme. È massima ($H(Y) = log(n)$) quando
   le classi hanno la stessa probabilità, e minima ($H(Y) = 0$) quando tutti i
@@ -131,14 +141,14 @@ La purezza può essere misurata in due modi:
   Il guadagno informativo di un nodo dell'albero allenato con un insieme $S$ di
   esempi è dato dalla seguente formula:
 
-  $$
-  "IG" = H(S) - S_"yes" / S H(S_"yes") - S_"no" / S H(S_"no")
-  $$
+  $
+    "IG" = H(S) - S_"yes" / S H(S_"yes") - S_"no" / S H(S_"no")
+  $
 
   Se la risposta ad una domanda fa guadagnare più informazioni, l'entropia
   generale dell'albero diminuirà.
 
-- **Impurità di Gini**:
+- *Impurità di Gini*:
 
   Si prende un input e gli si assegna una risposta tra quelle dei rami, con una
   percentuale data dalla distribuzione delle risposte del set di training sui
@@ -150,7 +160,7 @@ La purezza può essere misurata in due modi:
   Essa raggiunge il minimo quando tutti i casi in un nodo cadono in un'unica
   classe.
 
-### Come gestire i valori mancanti
+== Come gestire i valori mancanti
 
 Spesso l'input dato all'albero non contiene tutti i dati necessari per dare una
 risposta.
@@ -159,11 +169,11 @@ Quando si arriva a un nodo per cui non si può rispondere, si può usare la
 seguente tecnica:
 
 1. si suddivide (virtualmente) la risposta tra tutti i rami, con una percentuale
-   data dal numero di esempi caduti in ognuno di essi;
+  data dal numero di esempi caduti in ognuno di essi;
 2. si calcola la risposta per ogni sotto-albero;
 3. poi è possibile prendere una media pesata tra le risposte di ogni ramo;
 
-### Foreste di alberi
+== Foreste di alberi
 
 Spesso durante il training, a causa della casualità introdotta nel processo, si
 ottengono diversi alberi validi, che daranno risposte leggermente diverse.

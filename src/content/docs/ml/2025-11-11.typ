@@ -1,9 +1,14 @@
----
-lang: it
-title: Lezione (2025-11-11)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Rappresentazioni in clustering
+#show: starlight.setup
+
+#metadata((
+  description: "Rappresentazioni interne ed esterne, misure di distanza euclidea e Manhattan, hard e soft clustering, k-means e aggiornamento dei centroidi tramite membership.",
+  lang: "it",
+  title: "Rappresentazioni, distanze e metodi di clustering",
+))
+
+= Rappresentazioni in clustering
 
 - rappresentazione esterna: per ogni entità, l'informazione è data dalla
   relazione tra essa e un'altra.
@@ -17,30 +22,30 @@ Alcuni esempi di distanza:
 
 - Distanza euclidea:
 
-  $$
-  delta_E(x,y) = norm(y - x) = sqrt(sum_(i = 1)^n (x_i - y_i)^2)
-  $$
+  $
+    delta_E(x,y) = norm(y - x) = sqrt(sum_(i = 1)^n (x_i - y_i)^2)
+  $
 
 - Norma di Manhattan: distanza misurata solo muovendosi in verticale o in
   orizzontale:
 
-  $$
-  d_(i, j)^"Manhattan" = norm(x_i - x_j)_1 = sum_(k = 1)^n abs(x_(i, k) - x_(j, k))
-  $$
+  $
+    d_(i, j)^"Manhattan" = norm(x_i - x_j)_1 = sum_(k = 1)^n abs(x_(i, k) - x_(j, k))
+  $
 
 - Angolo del prodotto scalare:
 
-  $$
-  cos(theta) = (x dot y) / (norm(x) norm(y))
-  $$
+  $
+    cos(theta) = (x dot y) / (norm(x) norm(y))
+  $
 
 Può essere utile normalizzare le componenti dei vettori quando si calcola la
 distanza euclidea, ad esempio dividendo ogni componente per il suo intervallo di
 variazione:
 
-$$
-delta_("norm")(bold(x), bold(y)) = sqrt(sum_(i = 1)^n ((x_i - y_i) / (max_i - min_i))^2)
-$$
+$
+  delta_("norm")(bold(x), bold(y)) = sqrt(sum_(i = 1)^n ((x_i - y_i) / (max_i - min_i))^2)
+$
 
 dove $max_i$ e $min_i$ sono i valori massimo e minimo della componente $i$-esima
 nell'insieme di dati.
@@ -48,7 +53,7 @@ nell'insieme di dati.
 Queste misure di distanza, essendo basate sulle relazioni tra coppie di entità,
 costituiscono invece una rappresentazione esterna.
 
-## Hard e soft clustering
+= Hard e soft clustering
 
 - Hard clustering: gli insiemi di partizione sono disgiunti, l'obiettivo è
   quello di minimizzare le dissimilarità tra elementi dello stesso sottoinsieme
@@ -56,7 +61,7 @@ costituiscono invece una rappresentazione esterna.
 - Soft clustering: l'appartenenza ad una certa classe è espressa da un numero,
   quindi i confini tra i sottoinsiemi si sovrappongono parzialmente.
 
-### K-means
+== K-means
 
 L'algoritmo di k-means è un algoritmo partizionale: partiziona l'insieme di dati
 in $k$ sottoinsiemi disgiunti a partire da un insieme di prototipi iniziali.
@@ -64,42 +69,42 @@ in $k$ sottoinsiemi disgiunti a partire da un insieme di prototipi iniziali.
 Per ogni cluster, il prototipo (di solito la media delle componenti) viene
 calcolato minimizzando l'errore di quantizzazione.
 
-$$
-E = sum_d norm(x_d - p_(c(d)))^2
-$$
+$
+  E = sum_d norm(x_d - p_(c(d)))^2
+$
 
 1. si sceglie il numero di cluster ($k$);
 2. si generano in maniera casuale $k$ prototipi;
 3. si ripete finché non viene soddisfatto un criterio di arresto:
-   - si assegna ogni punto al cluster il cui prototipo è più vicino;
-   - si sposta il prototipo nella posizione data dalla media dei punti che gli
-     appartengono;
+  - si assegna ogni punto al cluster il cui prototipo è più vicino;
+  - si sposta il prototipo nella posizione data dalla media dei punti che gli
+    appartengono;
 
-![Diagrammi di Voronoi per k-means](../../../../../images/introduzione-al-machine-learning/k-means-voronoi.png)
+#image("images/k-means-voronoi.png", alt: "Diagrammi di Voronoi per k-means")
 
-### Soft clustering
+== Soft clustering
 
 In alcuni casi, l'assegnamento di un'entità ad un cluster non è netto ma dipende
 da una probabilità:
 
 Il valore di appartenenza ad un certo cluster può essere dato da:
 
-$$
-"membership"(x, c) = e^(-delta(x, p_c)) / (sum_c e^(-delta(x, p_c)))
-$$
+$
+  "membership"(x, c) = e^(-delta(x, p_c)) / (sum_c e^(-delta(x, p_c)))
+$
 
 L'aggiornamento dei centroidi può essere eseguito in modo leggermente diverso.
 Il centroide viene 'tirato' da ogni entità di una distanza proporzionale al
 grado di membership e alla learning rate $n$. Il contributo di una singola
 entità è:
 
-$$
-Delta p_c = n "membership"(x, c) (x - p_c)
-$$
+$
+  Delta p_c = n "membership"(x, c) (x - p_c)
+$
 
-$$
-p_c_"next" = p_c + Delta p_c
-$$
+$
+  p_c_"next" = p_c + Delta p_c
+$
 
 Ci sono due versioni leggermente differenti:
 

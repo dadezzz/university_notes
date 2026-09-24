@@ -1,9 +1,14 @@
----
-lang: it
-title: Lezione (2025-10-21)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Learning rate
+#show: starlight.setup
+
+#metadata((
+  description: "Come scegliere il learning rate: bold driver e backpropagation stocastica, il problema dei gradienti che svaniscono nelle reti profonde e gli auto-encoders.",
+  lang: "it",
+  title: "Learning rate, backpropagation e reti profonde",
+))
+
+= Learning rate
 
 Quando ci spostiamo durante la discesa del gradiente, come stabiliamo di quanto
 spostarci?
@@ -11,14 +16,14 @@ spostarci?
 - se ci muoviamo di troppo, rischiamo di 'saltare' il punto di minimo;
 - se ci muoviamo troppo poco, l'apprendimento richiederà troppo tempo;
 
-### Bold driver backpropagation
+== Bold driver backpropagation
 
 - Se gli step successivi fanno diminuire $E(w)$, possiamo aumentare
   esponenzialmente lo spostamento.
 - La prima volta che il valore di $E(w)$ sale anziché scendere, ridurremo
   rapidamente la velocità.
 
-### On-line or stochastic backpropagation
+== On-line or stochastic backpropagation
 
 $E(w)$ è una somma degli errori su tutti gli esempi. Di conseguenza, anche il
 gradiente è una somma dei corrispondenti gradienti di ogni esempio.
@@ -27,14 +32,14 @@ Invece di calcolare la somma di tutti i gradienti, ogni volta che prendiamo un
 esempio $p$, preso casualmente dal training set, ne calcoliamo il gradiente e
 facciamo un piccolo step ($epsilon$) verso il minimo:
 
-$$
-w_(k + 1) = w_k - epsilon nabla E_(p)(w_k)
-$$
+$
+  w_(k + 1) = w_k - epsilon nabla E_(p)(w_k)
+$
 
 Questo rende l'operazione di training altamente parallelizzabile anche se si
 perde un po' di precisione.
 
-## Reti neurali profonde
+= Reti neurali profonde
 
 Mappare degli input a degli output risulta molto più facile se il modello
 contiene più layers nascosti. L'ideale sarebbe che il MLP crei automaticamente
@@ -46,7 +51,7 @@ porta le derivate dei primi strati ad avere valori molto piccoli (che il
 computer approssima a 0). Quindi i pesi nei primi strati resterebbero al loro
 valore casuale iniziale, rendendoli inutili.
 
-### Auto-encoders
+== Auto-encoders
 
 Gli auto-encoders permettono di costruire rappresentazioni interne degli esempi
 in maniera non supervisionata.
@@ -62,13 +67,18 @@ regolarità nei dati di esempio.
 Questo tipo di modelli sta alla base di quasi tutti i modelli in grado di
 generare immagini.
 
-![Rappresentazione degli strati di un autoencoder](../../../../../images/introduzione-al-machine-learning/auto-encoder.png)
+#image(
+  "images/auto-encoder.png",
+  alt: "Rappresentazione degli strati di un autoencoder",
+)
 
-### Regressione con reti neurali non supervisionate
+== Regressione con reti neurali non supervisionate
 
 Se rimuoviamo la parte superiore del modello visto sopra, possiamo ricombinare
 le attivazioni interne, calcolate con i pesi appresi e utili per il
-riconoscimento (**senza modificarli**), per ottenere un singolo numero in
-output.
+riconoscimento (*senza modificarli*), per ottenere un singolo numero in output.
 
-![Regressione su un modello non supervisionato](../../../../../images/introduzione-al-machine-learning/auto-encoder-con-regressione.png)
+#image(
+  "images/auto-encoder-con-regressione.png",
+  alt: "Regressione su un modello non supervisionato",
+)

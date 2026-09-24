@@ -1,0 +1,76 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Tipi di errore in classificazione (veri e falsi positivi e negativi), metriche accuracy, precision e recall, e la media che minimizza l'errore quadratico.",
+  lang: "it",
+  title: "Metriche di errore e significato della media",
+))
+
+= Statistiche di errore
+
+Prendiamo per esempio un modello il cui output è semplicemente 1 o -1.
+
+Durante la validazione possiamo classificare l'output del modello per un certo
+input rispetto all'etichetta che aveva quell'input:
+
+#table(
+  columns: 3,
+  [], [*valore output*], [*etichetta*],
+  [_true positive_], [1], [1],
+  [_true negative_], [-1], [-1],
+  [_false positive_], [1], [-1],
+  [_false negative_], [-1], [1],
+)
+
+Le prime due categorie di risultati sono corrette, le altre rappresentano gli
+errori.
+
+Non tutti i tipi di errore sono uguali: per esempio, un sistema che sbaglia
+classificando un fungo come commestibile rischia di far stare male una persona
+(grave), mentre uno che lo classifica erroneamente come velenoso farà soltanto
+perdere qualche fungo in più (meno grave).
+
+In genere si possono usare tre metriche per valutare gli errori generati da un
+sistema:
+
+- *accuracy*: misura il numero di risposte corrette su quelle totali.
+
+  $
+    ("true positive" + "true negative") / "total"
+  $
+
+- *precision*: misura il numero di risposte positive corrette su tutte quelle
+  positive.
+
+  $
+    "true positive" / ("true positive" + "false positive")
+  $
+
+- *recall*: misura il numero di risposte positive corrette sul totale delle
+  risposte che avrebbero dovuto essere positive.
+
+  $
+    "true positive" / ("true positive" + "false negative")
+  $
+
+#starlight.note([
+  Nell'esempio sui funghi descritto sopra è più importante avere un alto valore
+  di precision piuttosto che quello di recall.
+])
+
+= Significato matematico del valor medio
+
+Dato un insieme di valori ${x_1, ..., x_n}$, la media è il valore per cui la
+somma degli errori quadratici si minimizza:
+
+$
+  lr(m mid(|) dif / (dif m) sum_(i = 1)^n (x_i - m)^2 = 0)
+$
+
+Quindi risolvendo l'equazione:
+
+$
+  m = (sum_(i = 1)^n x_i) / n
+$

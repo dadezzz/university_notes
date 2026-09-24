@@ -1,16 +1,21 @@
----
-lang: it
-title: Lezione (2025-10-28)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Varietà
+#show: starlight.setup
+
+#metadata((
+  description: "Lo spazio delle varietà, i metodi di feature selection (wrapper, filter ed embedded) e il coefficiente di correlazione di Pearson per scegliere le feature.",
+  lang: "it",
+  title: "Varietà e selezione delle feature nei modelli",
+))
+
+= Varietà
 
 In geometria, una varietà è uno spazio che localmente è simile ad uno spazio
 euclideo, ma che globalmente può avere proprietà diverse.
 
 In una varietà è possibile interpolare linearmente due punti vicini.
 
-## Feature selection
+= Feature selection
 
 Nel mondo reale, i dati che usiamo per allenare un modello possono essere
 duplicati, irrilevanti o mancanti.
@@ -27,7 +32,7 @@ vantaggi:
 Il processo di feature selection non ha una soluzione unica: serve molto intuito
 e conoscenza del dominio. Ci sono però tre tipi di metodi efficaci:
 
-- **Wrapper methods**: Si testa ogni combinazione di features del training set,
+- *Wrapper methods*: Si testa ogni combinazione di features del training set,
   poi si tiene quella che dà l'errore minore.
 
   Per disabilitare una feature, si moltiplica il vettore di input per un vettore
@@ -36,12 +41,12 @@ e conoscenza del dominio. Ci sono però tre tipi di metodi efficaci:
   Quindi, dato un input a $n$ dimensioni, si hanno $2^n$ possibili combinazioni
   di features.
 
-- **Filter methods**: Al posto di usare l'errore, che richiede il training di
+- *Filter methods*: Al posto di usare l'errore, che richiede il training di
   molti modelli diversi (costoso), si possono provare a usare altri indici che
   predicono quanto una variabile potrebbe influire sul risultato finale. Alcuni
   esempi sono la correlazione e l'informazione mutua tra due variabili.
 
-- **Embedded methods**: Le features vengono selezionate durante il training,
+- *Embedded methods*: Le features vengono selezionate durante il training,
   portando a 0 i pesi di quelle che si vuole disabilitare.
 
 Ci sono due modi di procedere per scegliere le features:
@@ -51,41 +56,37 @@ Ci sono due modi di procedere per scegliere le features:
 - top-down: si eliminano progressivamente features fino a quando si ottengono le
   performance migliori (sia di errore, sia di grandezza del modello);
 
-### Metodi di selezione
+== Metodi di selezione
 
-#### Valore dei pesi
+=== Valore dei pesi
 
 Il metodo più intuitivo per definire l'importanza di una feature potrebbe essere
 quello di osservare il valore del suo peso e tenere solo quelli più
 significativi.
 
-:::caution
-
-Questo metodo funziona solo se il valore dell'input è stato normalizzato in
-precedenza.
-
-:::
+#starlight.caution([
+  Questo metodo funziona solo se il valore dell'input è stato normalizzato in
+  precedenza.
+])
 
 Inoltre ci sono features che non hanno nessun valore quando vengono prese da
 sole. Però la presenza di altri input può cambiare il risultato (si pensi a
 situazioni simili ad un XOR logico).
 
-:::caution
+#starlight.caution([
+  Misurare alcune features in maniera isolata può rimuovere dal modello le
+  relazioni mutue tra le diverse componenti. Quindi i metodi di filtro possono
+  talvolta darci informazioni non corrette.
+])
 
-Misurare alcune features in maniera isolata può rimuovere dal modello le
-relazioni mutue tra le diverse componenti. Quindi i metodi di filtro possono
-talvolta darci informazioni non corrette.
-
-:::
-
-#### Coefficiente di correlazione
+=== Coefficiente di correlazione
 
 Per misurare relazioni di tipo lineare (che formano una retta su uno scatter
 plot) tra due variabili, si usa il coefficiente di correlazione di Pearson:
 
-$$
-rho_(X_i, Y) = ("cov"[X_i, Y]) / (sigma_X_i sigma_Y) = (bb(E)[(X_i - mu_X_i)(Y - mu_Y)]) / (sigma_X_i sigma_Y)
-$$
+$
+  rho_(X_i, Y) = ("cov"[X_i, Y]) / (sigma_X_i sigma_Y) = (bb(E)[(X_i - mu_X_i)(Y - mu_Y)]) / (sigma_X_i sigma_Y)
+$
 
 Per due variabili altamente correlate (valore vicino a $1$ o $-1$), la
 conoscenza di $X_i$ ci dice quale sarà il valore di $Y$. Quindi quella feature
@@ -95,4 +96,7 @@ Anche se una feature ha correlazione $0$, non è detto che non contenga
 informazioni sull'output: la loro relazione potrebbe infatti essere di tipo non
 lineare.
 
-![Scatter plot di diversi tipi di dati correlati e non correlati](../../../../../images/introduzione-al-machine-learning/scatter-plot-coefficiente-correlazione.png)
+#image(
+  "images/scatter-plot-coefficiente-correlazione.png",
+  alt: "Scatter plot di diversi tipi di dati correlati e non correlati",
+)

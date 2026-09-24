@@ -1,17 +1,22 @@
----
-lang: it
-title: Lezione (2025-09-23)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Apprendimento supervisionato
+#show: starlight.setup
+
+#metadata((
+  description: "Definizione di apprendimento supervisionato, features e pesi, regressione e classificazione, funzione di errore, gradient descent e K-fold cross-validation.",
+  lang: "it",
+  title: "Apprendimento supervisionato e gradient descent",
+))
+
+= Apprendimento supervisionato
 
 Il nostro obiettivo è quello di costruire una funzione $y = f(bold(x))$.
 
-Si definisce **apprendimento supervisionato** perché ci vuole un supervisore (un
+Si definisce *apprendimento supervisionato* perché ci vuole un supervisore (un
 umano o anche una macchina) che crea un database di esempi.
 
-Dobbiamo imporre una restrizione, ovvero che **l'argomento $bold(x)$ abbia la
-stessa distribuzione di probabilità degli esempi che il sistema ha già visto**.
+Dobbiamo imporre una restrizione, ovvero che *l'argomento $bold(x)$ abbia la
+stessa distribuzione di probabilità degli esempi che il sistema ha già visto*.
 
 Una distribuzione di probabilità rappresenta la probabilità che le componenti
 dei vettori di esempio e di input assumano certi valori. La nostra $f$ dà
@@ -25,65 +30,63 @@ La nostra funzione (d'ora in poi modello) esprime l'associazione tra input e
 output tramite dei parametri che possono essere modificati per migliorare la
 correttezza dell'output.
 
-$$
-y = f(bold(x), bold(w))
-$$
+$
+  y = f(bold(x), bold(w))
+$
 
 Il processo di apprendimento sta nel trovare i migliori parametri in maniera
 automatica. Ecco perché si chiama machine learning.
 
-### Nomenclatura
+== Nomenclatura
 
 Di seguito definiamo alcuni termini che vengono spesso usati nel campo:
 
-- **Features**: rappresentano una caratteristica misurabile di ciò che viene
-  dato in input al modello. Di solito una feature corrisponde ad una componente
-  di $bold(x)$.
-- **Pesi**: in inglese ci si riferisce alle componenti del vettore $bold(w)$
-  come weights.
-- **Ottimizzazione**: processo con il quale si trovano i pesi che permettono di
+- *Features*: rappresentano una caratteristica misurabile di ciò che viene dato
+  in input al modello. Di solito una feature corrisponde ad una componente di
+  $bold(x)$.
+- *Pesi*: in inglese ci si riferisce alle componenti del vettore $bold(w)$ come
+  weights.
+- *Ottimizzazione*: processo con il quale si trovano i pesi che permettono di
   abbassare la percentuale di errori commessi dal modello.
 
 In generale l'output di un modello si può definire in due modi:
 
-- **Regressione**: il modello, partendo dall'input dato, calcola un numero
-  reale.
-- **Classificazione**: il modello restituisce sempre un numero, ma questo numero
+- *Regressione*: il modello, partendo dall'input dato, calcola un numero reale.
+- *Classificazione*: il modello restituisce sempre un numero, ma questo numero
   appartiene ad un insieme finito di possibili valori.
 
-### Come trovare i pesi
+== Come trovare i pesi
 
 Iniziamo a calcolare $f$ sull'insieme degli esempi. Con parametri casuali il
 modello dà risultati che possono essere giusti o sbagliati.
 
-Definiamo una misura (che chiameremo **errore**) di quanto una risposta sia
+Definiamo una misura (che chiameremo *errore*) di quanto una risposta sia
 sbagliata rispetto all'etichetta dell'esempio. Il modo per ottimizzare i
 parametri è quello di trovare i valori che minimizzano la funzione di errore.
 
 Una buona misura di errore può essere la somma dei quadrati degli errori
 commessi dalla funzione sugli esempi:
 
-$$
-E(bold(w)) = sum_i (f(bold(x)_i, bold(w)) - y_i)^2
-$$
+$
+  E(bold(w)) = sum_i (f(bold(x)_i, bold(w)) - y_i)^2
+$
 
 Se $E(bold(w))$ è una funzione derivabile, allora posso 'spostarmi' verso il
 minimo.
 
-**Gradient descent**: dato che il computer non può trovare il minimo della
+*Gradient descent*: dato che il computer non può trovare il minimo della
 funzione in maniera visiva (come farebbe un umano a colpo d'occhio), l'algoritmo
 che si usa è quello di spostarsi a piccoli passi sulla funzione nella direzione
 del gradiente di $E(bold(w))$. In questo modo eventualmente si arriva a un punto
 di minimo dove $nabla E(bold(w)) = 0$.
 
-:::tip
+#starlight.tip([
+  Si elevano gli errori al quadrato e non si usa il valore assoluto perché
+  l'elevamento a potenza dà una funzione derivabile, mentre il valore assoluto
+  no.
+])
 
-Si elevano gli errori al quadrato e non si usa il valore assoluto perché
-l'elevamento a potenza dà una funzione derivabile, mentre il valore assoluto no.
-
-:::
-
-## Come testare un modello
+= Come testare un modello
 
 Nell'apprendimento supervisionato è importante tenere ben separati l'insieme dei
 dati di esempio usati per l'allenamento e quello dei dati usati per testare le
@@ -94,15 +97,15 @@ date dal sistema sui dati di test su cui non è stato allenato.
 
 Il metodo più corretto sarebbe quello di dividere in tre insiemi i dati:
 
-- **training set**: usato per ottimizzare i parametri attraverso il gradient
+- *training set*: usato per ottimizzare i parametri attraverso il gradient
   descent;
-- **validation set**: usato per validare un modello; dà risultati ottimistici
+- *validation set*: usato per validare un modello; dà risultati ottimistici
   perché stiamo modificando il modello per ottenere prestazioni migliori su
   questo set;
-- **testing set**: si usa come prova finale per vedere se ci sono discrepanze
-  tra il validation set e un caso più generale;
+- *testing set*: si usa come prova finale per vedere se ci sono discrepanze tra
+  il validation set e un caso più generale;
 
-### $K$-fold cross-validation
+== $K$-fold cross-validation
 
 Tecnica usata per decidere come suddividere i dati di esempio negli insiemi di
 training e validazione.
@@ -110,7 +113,7 @@ training e validazione.
 1. Si divide l'insieme totale in $K$ sottoinsiemi.
 2. Se ne tiene uno da parte come validation set.
 3. Ogni volta che si modifica il modello, si usa un altro sottoinsieme di dati
-   come validation set.
+  come validation set.
 4. Infine, si fa una media tra tutti i risultati di validazione.
 
 In questo modo si evita di concentrare l'ottimizzazione del modello su uno

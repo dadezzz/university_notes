@@ -1,9 +1,14 @@
----
-lang: it
-title: Lezione (2025-10-14)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Reti neurali
+#show: starlight.setup
+
+#metadata((
+  description: "Dai neuroni artificiali alla funzione sigmoidale e agli strati degli MLP, fino al calcolo del gradiente con la backpropagation e al problema dei minimi locali.",
+  lang: "it",
+  title: "Reti neurali, perceptron MLP e backpropagation",
+))
+
+= Reti neurali
 
 Il nostro cervello è composto da circa $10^11$ neuroni (unità computazionali) e
 $10^15$ sinapsi (connessioni).
@@ -14,7 +19,7 @@ Il neurone ha un funzionamento molto semplice: in base allo stimolo che riceve,
 Sistemi complessi come il cervello umano si formano dall'interazione di un gran
 numero di unità semplici.
 
-### Architettura MLP (Multilayer Perceptron)
+== Architettura MLP (Multilayer Perceptron)
 
 Il neurone _artificiale_ (detto perceptron) è riprodotto con 2 operazioni
 matematiche in sequenza:
@@ -28,30 +33,36 @@ a seconda dell'input dato:
 - a sinistra si vede lo spazio diviso usando solo il prodotto scalare;
 - a destra è stata applicata la funzione sigmoidale;
 
-![Divisione del piano con gradino e sigmoidale](../../../../../images/introduzione-al-machine-learning/divisione-piano-con-sigmoidale.png)
+#image(
+  "images/divisione-piano-con-sigmoidale.png",
+  alt: "Divisione del piano con gradino e sigmoidale",
+)
 
-#### Funzione sigmoidale
+=== Funzione sigmoidale
 
 La funzione sigmoidale imita il comportamento di un neurone naturale: il segnale
 che esso invia cresce gradualmente tra l'intensità minima e la massima.
 
-Essa fa parte di una famiglia di funzioni **non lineari** dette funzioni di
-**squashing**. Queste funzioni sono limitate superiormente e inferiormente.
-Quella usata più comunemente è:
+Essa fa parte di una famiglia di funzioni *non lineari* dette funzioni di
+*squashing*. Queste funzioni sono limitate superiormente e inferiormente. Quella
+usata più comunemente è:
 
-$$
-f(x) = 1 / (1 + e^(-x))
-$$
+$
+  f(x) = 1 / (1 + e^(-x))
+$
 
-![Grafico funzione sigmoidale](../../../../../images/introduzione-al-machine-learning/funzione-sigmoidale.png)
+#image("images/funzione-sigmoidale.png", alt: "Grafico funzione sigmoidale")
 
 Applicando la funzione sigmoidale, si può far rientrare l'output del prodotto
 scalare in un intervallo $[0, 1]$. L'output della funzione può essere
 interpretato come una probabilità.
 
-#### Strati
+=== Strati
 
-![Rappresentazione di una rete a strati](../../../../../images/introduzione-al-machine-learning/architettura-layers.png)
+#image(
+  "images/architettura-layers.png",
+  alt: "Rappresentazione di una rete a strati",
+)
 
 Gli MLP sono composti da un gran numero di unità parallele interconnesse,
 organizzate in strati. L'output di uno strato diventa l'input dello strato
@@ -61,7 +72,7 @@ In un modello con almeno uno strato nascosto (né di input né di output), si pu
 ottenere un modello flessibile capace di approssimare qualsiasi funzione
 $in C^1$.
 
-## Backpropagation
+= Backpropagation
 
 - Si prende una funzione di errore da ottimizzare (come la somma degli errori
   quadrati vista in precedenza ($E(w)$)).
@@ -74,11 +85,11 @@ spostare i pesi di un piccolo passo verso il punto di minimo.
 Dato che il nostro modello è una composizione di funzioni, si deve usare la
 regola della catena per trovare il gradiente.
 
-$$
-(dif f) / (dif x) = (dif f) / (dif g) (dif g) / (dif x)
-$$
+$
+  (dif f) / (dif x) = (dif f) / (dif g) (dif g) / (dif x)
+$
 
-### Come non incastrarsi nei minimi locali?
+== Come non incastrarsi nei minimi locali?
 
 È un problema non ancora risolto; i risultati sul campo dimostrano però che è
 possibile allenare modelli affidabili anche quando la discesa si ferma su punti

@@ -1,10 +1,15 @@
----
-lang: it
-next: false
-title: Lezione (2025-11-25)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Bottom-up: agglomerative clustering
+#show: starlight.setup
+
+#metadata((
+  description: "Clustering agglomerativo bottom-up: merging e dendrogramma, distanza di Mahalanobis e self-organizing maps per esplorare e ridurre dati ad alta dimensionalità.",
+  lang: "it",
+  next: false,
+  title: "Clustering agglomerativo e distanza di Mahalanobis",
+))
+
+= Bottom-up: agglomerative clustering
 
 Nel clustering agglomerativo, si parte da piccoli sottoinsiemi e ad ogni ciclo
 si uniscono quelli più simili.
@@ -14,15 +19,15 @@ gruppi. Ci sono 3 scelte principali, che funzionano bene a seconda della
 tipologia di input: distanza media tra i punti, distanza minima e distanza
 massima.
 
-### Algoritmo di merging
+== Algoritmo di merging
 
 Dato un insieme di clusters $C$:
 
 1. Prendi i clusters $D$ e $E$ con la distanza minima tra loro;
 2. Sostituisci $D$ e $E$ con la loro unione, registra la distanza $y_i$ tra i 2
-   insiemi, e ripeti;
+  insiemi, e ripeti;
 
-### Dendrogramma
+== Dendrogramma
 
 L'algoritmo può essere visualizzato attraverso un albero, dove le foglie sono i
 punti iniziali e la radice è l'insieme totale degli input.
@@ -33,15 +38,15 @@ la $y_i$ registrata in precedenza.
 Il punto in cui si vuole tagliare orizzontalmente l'albero determina dove
 fermare l'algoritmo.
 
-![Dendrogramma](../../../../../images/introduzione-al-machine-learning/dendrogramma.png)
+#image("images/dendrogramma.png", alt: "Dendrogramma")
 
-## Distanza di Mahalanobis
+= Distanza di Mahalanobis
 
 Per una distribuzione sferica simmetrica rispetto agli assi:
 
 1. si calcola la media $mu$ dei punti;
 2. si calcola la deviazione standard $sigma$ delle distanze dei punti dalla
-   media;
+  media;
 3. per ogni punto: $x' = (x - mu) / sigma$;
 
 Questa procedura basta quando la distribuzione è sferica, cioè quando le
@@ -59,25 +64,23 @@ compare al denominatore attraverso la sua inversa. La distanza di Mahalanobis di
 un vettore $x$ da un cluster di punti con media $mu$ e matrice di covarianza $S$
 è definita:
 
-$$
-delta_M(x) = sqrt((x - mu)^T S^(-1) (x - mu))
-$$
+$
+  delta_M(x) = sqrt((x - mu)^T S^(-1) (x - mu))
+$
 
-:::tip
+#starlight.tip([
+  Nel caso sferico, in cui $S = sigma^2 bold(I)$, la formula si riduce alla
+  distanza standardizzata del passo 3: $delta_M(x) = norm(x - mu) / sigma$.
+])
 
-Nel caso sferico, in cui $S = sigma^2 bold(I)$, la formula si riduce alla
-distanza standardizzata del passo 3: $delta_M(x) = norm(x - mu) / sigma$.
-
-:::
-
-## Self-organizing maps
+= Self-organizing maps
 
 Una mappa è una funzione che prende input n-dimensionali e li suddivide in celle
 (su una mappa bidimensionale) a seconda della distanza tra loro.
 
-$$
-p_i(t + 1) = p_i(t) + n(t) op("activation")(c(x), i, sigma(t)) thin (x - p_i(t))
-$$
+$
+  p_i(t + 1) = p_i(t) + n(t) op("activation")(c(x), i, sigma(t)) thin (x - p_i(t))
+$
 
 Con il passare del tempo, ogni neurone si specializza e lo stimolo di
 attivazione influisce sempre meno sui neuroni circostanti.
