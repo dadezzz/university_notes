@@ -1,5 +1,10 @@
 {
-  "dockerComposeFile": "docker-compose.yml",
+  "customizations": {
+    "vscode": {
+      "extensions": ["myriad-dreamin.tinymist", "astro-build.astro-vscode", "esbenp.prettier-vscode", "biomejs.biome"]
+    }
+  },
+  "dockerComposeFile": "docker-compose.yaml",
   "service": "workspace",
   "workspaceFolder": "/workspace"
 }

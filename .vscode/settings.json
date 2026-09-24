@@ -1,0 +1,8 @@
+{
+  "tinymist.formatterPrintWidth": 80,
+  "tinymist.formatterProseWrap": true,
+  "tinymist.lint.enabled": true,
+  "[typst]": {
+    "editor.wordWrap": "wordWrapColumn"
+  }
+}

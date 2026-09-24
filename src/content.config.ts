@@ -186,12 +186,12 @@ export const collections = {
     schema: z.object({
       code: z.string().length(6),
       name: z.string().nonempty(),
-      lang: z.string(),
+      lang: z.enum(["en", "it"]),
       professors: z.array(z.string().nonempty()),
     }),
   }),
   docs: defineCollection({
     loader: typstLoader(),
-    schema: docsSchema({ extend: z.object({ lang: z.string() }) }),
+    schema: docsSchema({ extend: z.object({ lang: z.enum(["en", "it"]) }) }),
   }),
 };
