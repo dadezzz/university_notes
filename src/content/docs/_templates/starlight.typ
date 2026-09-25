@@ -18,7 +18,7 @@
   doc
 }
 
-#let aside(type: "", title: "", body) = {
+#let aside(type: str, title: str, body) = {
   html.elem(
     "aside",
     attrs: (data-starlight-aside: type, data-starlight-aside-title: title),
@@ -35,6 +35,6 @@
   html.hr()
 }
 
-#let img(path, alt: "") = {
+#let img(path, alt: str) = {
   html.div(html.img(src: path, alt: alt))
 }
