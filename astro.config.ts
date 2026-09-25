@@ -13,9 +13,6 @@ export default defineConfig({
       customCss: ["./src/styles/code-blocks.css", "./src/styles/math-blocks.css", "./src/styles/list-markers.css"],
       description:
         "Collection of course notes from the ICE (Information, Communications and Electronics) engineering program at the University of Trento.",
-      editLink: {
-        baseUrl: "https://git.zarantonello.dev/university/notes/_edit/main",
-      },
       head: [
         { tag: "link", attrs: { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" } },
         { tag: "link", attrs: { rel: "icon", type: "image/png", sizes: "96x96", href: "/favicon-96x96.png" } },

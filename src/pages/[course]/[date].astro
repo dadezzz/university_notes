@@ -203,6 +203,9 @@ const typstTree = fromHtml(lesson.rendered?.html ?? "", { fragment: true });
 const file = new VFile();
 const processedTree = await processor.run(typstTree, file);
 const headings = file.data.astro?.headings ?? [];
+
+// Restore the editUrl since the one in starlight config doesn't work.
+lesson.data.editUrl = `https://git.zarantonello.dev/university/notes/_edit/main/src/content/docs/${course}/${date}.typ`;
 ---
 
 <StarlightPage
