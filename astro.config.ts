@@ -2,6 +2,8 @@ import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
+  // Used to cache image optimization output to a volume.
+  cacheDir: process.env.CI ? "/astro" : undefined,
   image: {
     responsiveStyles: true,
     layout: "constrained",

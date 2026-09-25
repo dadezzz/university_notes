@@ -8,6 +8,7 @@ jobs:
       image: git.zarantonello.dev/university/notes-ci:v2026.09.23.2@sha256:c1a077e1cdb8c2e75a650332128345a3c15a4c39620e870c5b194c427a16b674
       volumes:
         - forgejo-runner-cache-pnpm:/usr/local/pnpm/store
+        - forgejo-runner-cache-university-notes-astro:/astro
     name: Check that project builds
     runs-on: srv-generic
     steps:

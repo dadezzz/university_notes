@@ -18,7 +18,7 @@
   doc
 }
 
-#let note(type: "note", title: "", body) = {
+#let aside(type: "", title: "", body) = {
   html.elem(
     "aside",
     attrs: (data-starlight-aside: type, data-starlight-aside-title: title),
@@ -26,9 +26,10 @@
   )
 }
 
-#let tip(title: "", body) = note(type: "tip", title: title, body)
-#let caution(title: "", body) = note(type: "caution", title: title, body)
-#let danger(title: "", body) = note(type: "danger", title: title, body)
+#let note(title: "", body) = aside(type: "note", title: title, body)
+#let tip(title: "", body) = aside(type: "tip", title: title, body)
+#let caution(title: "", body) = aside(type: "caution", title: title, body)
+#let danger(title: "", body) = aside(type: "danger", title: title, body)
 
 #let hr() = {
   html.hr()

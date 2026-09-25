@@ -33,6 +33,14 @@ function isTypstFile(absPath: string): boolean {
   return insideDocs && absPath.endsWith(".typ");
 }
 
+function filterTypstLogs(logs: string): string {
+  return logs
+    .split("\n\n")
+    .filter((g) => !g.startsWith("warning: html export is under active development and incomplete"))
+    .filter((g) => !g.startsWith("warning: elem was ignored during paged export"))
+    .join("\n\n");
+}
+
 async function compileTypst(context: LoaderContext, filePath: string): Promise<string> {
   const { logger } = context;
 
@@ -42,8 +50,9 @@ async function compileTypst(context: LoaderContext, filePath: string): Promise<s
     EXEC_OPTIONS,
   );
 
-  if (stderr) {
-    logger.warn(stderr);
+  const logs = filterTypstLogs(stderr);
+  if (logs) {
+    logger.warn(logs);
   }
 
   // Capture group avoids matching a <body> tag with attributes as "no match",
@@ -64,8 +73,9 @@ async function getMetadata(context: LoaderContext, filePath: string): Promise<Re
     EXEC_OPTIONS,
   );
 
-  if (stderr) {
-    logger.warn(stderr);
+  const logs = filterTypstLogs(stderr);
+  if (logs) {
+    logger.warn(logs);
   }
 
   const metadataMerged = {};

@@ -9,21 +9,23 @@ math {
   font-size: 125%;
 }
 
-/* Make block expressions horizontally scrollable. Typst wraps every equation in
-   a `<span class="not-content">` (see `_templates/starlight.typ`), so that span
-   is the scroll container. It needs `display: block` because `overflow` has no
-   effect on an inline element. */
-span:has(> math[display="block"]) {
+/* Disable wrapping block expressions, to give priority to scrolling. */
+math[display="block"] {
+  white-space: nowrap;
+}
+
+/* 
+  Make block expressions horizontally scrollable. Typst wraps every equation in
+  a `<span class="not-content">` (see `_templates/starlight.typ`), so that span
+  is the scroll container. It needs `display: block` because `overflow` has no
+  effect on an inline element.
+*/
+span math[display="block"] {
   display: block;
   max-width: 100%;
   /* Hide vertical scrollbars that are sometimes added by browsers. */
   overflow-y: hidden;
   overflow-x: scroll;
-}
-
-/* Disable wrapping block expressions, to give priority to scrolling. */
-math[display="block"] {
-  white-space: nowrap;
 }
 
 /* Make equations align, works only for 2 columns where alignment is r|l */
