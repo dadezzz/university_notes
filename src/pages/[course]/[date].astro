@@ -2,20 +2,21 @@
 // This page renders the lesson like Starlight would, but it sets the correct
 // lang for each one on the wrapper element, as specified in the frontmatter.
 
-import { VFile } from "vfile";
+import { getImage } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
-import type { GetStaticPaths } from "astro";
-import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import type { StarlightPageProps } from "@astrojs/starlight/props";
-import type { Root, Element } from "hast";
-import { visit } from "unist-util-visit";
-import { experimental_AstroContainer } from "astro/container";
-import AnchorHeading from "@astrojs/starlight/components/AnchorHeading.astro";
-import { toHtml } from "hast-util-to-html";
-import { fromHtml } from "hast-util-from-html";
-import { unified } from "unified";
 import { rehypeHeadingIds, rehypeShiki } from "@astrojs/markdown-remark";
 import { Aside } from "@astrojs/starlight/components";
+import AnchorHeading from "@astrojs/starlight/components/AnchorHeading.astro";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import type { StarlightPageProps } from "@astrojs/starlight/props";
+import type { GetStaticPaths } from "astro";
+import { experimental_AstroContainer } from "astro/container";
+import type { Element, Root } from "hast";
+import { fromHtml } from "hast-util-from-html";
+import { toHtml } from "hast-util-to-html";
+import { unified } from "unified";
+import { visit } from "unist-util-visit";
+import { VFile } from "vfile";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const lessons = await getCollection("docs");
@@ -49,9 +50,10 @@ function rehypeNormalizeCodeLang() {
   };
 }
 
+const container = await experimental_AstroContainer.create();
+
 function renderStarlightHeadings() {
   return async (tree: Root) => {
-    const container = await experimental_AstroContainer.create();
     const matches: { node: Element; index?: number; parent?: Element | Root }[] = [];
 
     visit(tree, "element", (node, index, parent) => {
@@ -86,7 +88,6 @@ function renderStarlightHeadings() {
 
 function renderStarlightAsides() {
   return async (tree: Root) => {
-    const container = await experimental_AstroContainer.create();
     const matches: { node: Element; index?: number; parent?: Element | Root }[] = [];
 
     visit(tree, "element", (node, index, parent) => {
@@ -119,12 +120,81 @@ function renderStarlightAsides() {
   };
 }
 
+const images = import.meta.glob<{ default: ImageMetadata }>("./*/images/*.{svg,png,jpg,jpeg,gif,webp}", {
+  base: "/src/content/docs",
+  eager: false,
+});
+
+function renderStarlightImages() {
+  return async (tree: Root) => {
+    const matches: { node: Element; index?: number; parent?: Element | Root }[] = [];
+
+    visit(tree, "element", (node, index, parent) => {
+      if (node.properties.src?.startsWith("images/")) {
+        matches.push({ node, index, parent });
+      }
+    });
+
+    await Promise.all(
+      matches.map(async ({ node, index, parent }) => {
+        const imagePath = `./${course}/${node.properties.src}`;
+        const imageMetadata = (await images[imagePath]()).default;
+        const imageFormats = imagePath.endsWith(".svg") ? ["svg"] : ["avif", "webp", "png"];
+
+        const imageResults = await Promise.all(
+          imageFormats.map((f) =>
+            getImage({
+              src: imageMetadata,
+              format: f,
+            }),
+          ),
+        );
+
+        let newNodeHtml = "<picture>";
+
+        // Add <source> elements.
+        imageFormats
+          .filter((f) => f !== "svg")
+          .forEach((f, i) => {
+            const result = imageResults[i];
+            if (result.srcSet.attribute) {
+              newNodeHtml += `<source srcset="${result.srcSet.attribute}" type="image/${f}">`;
+            }
+          });
+
+        const fallbackResult = imageResults[imageResults.length - 1];
+        newNodeHtml += `<img src="${fallbackResult.src}" alt="${node.properties.alt ?? ""}" `;
+
+        // Add the remaining attributes from getImage result (width, height, etc.)
+        Object.entries(fallbackResult.attributes).forEach(([key, value]) => {
+          if (key !== "src" && key !== "alt" && value) {
+            newNodeHtml += `${key}="${value}" `;
+          }
+        });
+
+        newNodeHtml += ">";
+        newNodeHtml += "</picture>";
+
+        const parsedRoot = fromHtml(newNodeHtml, { fragment: true });
+
+        // Find the top-level HTML element inside the parsed fragment
+        const newElement = parsedRoot.children.find((child): child is Element => child.type === "element");
+
+        if (newElement && parent && typeof index === "number") {
+          parent.children[index] = newElement;
+        }
+      }),
+    );
+  };
+}
+
 const processor = unified()
   .use(rehypeNormalizeCodeLang)
   .use(rehypeShiki, { theme: "one-dark-pro" })
   .use(rehypeHeadingIds)
   .use(renderStarlightHeadings)
-  .use(renderStarlightAsides);
+  .use(renderStarlightAsides)
+  .use(renderStarlightImages);
 
 // `fragment: true` is required because the loader stores only the inner
 // content of the compiled `<body>`; without it the parser would wrap everything

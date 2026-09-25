@@ -43,21 +43,27 @@ cosa mettere per $H = L = 0$:
 
 - Se la tengo spenta:
 
-  #image("images/caldaia-hl-spenta.png", alt: "Temperatura a caldaia spenta")
+  #starlight.img(
+    "images/caldaia-hl-spenta.png",
+    alt: "Temperatura a caldaia spenta",
+  )
 
 - Se la tengo accesa:
 
-  #image("images/caldaia-hl-accesa.png", alt: "Temperatura a caldaia accesa")
+  #starlight.img(
+    "images/caldaia-hl-accesa.png",
+    alt: "Temperatura a caldaia accesa",
+  )
 
 In questo caso servono 2 valori diversi: 1 se si stava già scaldando e 0 se non
 si stava scaldando. Quindi occorre guardare il valore di output precedente:
 
-#image(
+#starlight.img(
   "images/caldaia-lh-ritorno-valore-output.png",
   alt: "Circuito caldaia con ritorno dell'output",
 )
 
----
+#starlight.hr()
 
 I circuiti il cui output varia a seconda della storia dei valori d'uscita
 precedenti sono detti circuiti sequenziali.
@@ -72,7 +78,7 @@ prossimo calcolo.
 È conveniente separare la parte di memoria del circuito in un componente
 distinto e ben definito.
 
-#image(
+#starlight.img(
   "images/separazione-combinatorio-memoria.png",
   alt: "Separazione tra parte combinatoria e memoria",
 )
@@ -99,7 +105,7 @@ Il latch D è un componente che si comporta come una porta:
 - Quando $C = 0$, la porta è chiusa e l'uscita diventa l'ultimo valore su $D$
   prima che $C$ sia passato a $0$.
 
-#image("images/simbolo-latch-d.png", alt: "Simbolo di latch D")
+#starlight.img("images/simbolo-latch-d.png", alt: "Simbolo di latch D")
 
 Esiste anche un'altra variante, detta a clock attivo basso, con l'ingresso C
 negato, che quindi lascia passare il valore in ingresso se $C = 0$.
@@ -131,7 +137,7 @@ La soluzione più semplice sarebbe utilizzare un clock con una fase attiva (duty
 cycle) molto corta: in questo modo la rete combinatoria non sarà in grado di
 calcolare un nuovo valore in tempo.
 
-#image(
+#starlight.img(
   "images/clock-fase-attiva-simmetrica-vs-accorciata.png",
   alt: "Clock con fase attiva simmetrica e accorciata",
 )
@@ -149,7 +155,7 @@ Per realizzarlo si collegano 2 latch D in cascata, il primo detto *master* e il
 secondo detto *slave*. Non c'è mai un collegamento diretto tra l'ingresso e
 l'uscita.
 
-#image("images/circuito-flip-flop.png", alt: "Circuito del flip-flop")
+#starlight.img("images/circuito-flip-flop.png", alt: "Circuito del flip-flop")
 
 + Quando $C = 1$ il master si apre ed è trasparente, quindi segue il valore in
   ingresso. Il valore in uscita non cambia perché lo slave è chiuso.
@@ -176,7 +182,7 @@ Ci sono 2 varianti del flip-flop:
 
 == Preset e clear
 
-#image(
+#starlight.img(
   "images/simbolo-flip-flop.png",
   alt: "Simbolo circuitale del flip-flop con preset e clear",
 )
@@ -229,7 +235,7 @@ Ritornando all'esempio della caldaia visto in precedenza, possiamo scrivere
 tutti gli stati che il circuito può assumere in una tabella simile alla tabella
 della verità:
 
-#image(
+#starlight.img(
   "images/tabella-stati-caldaia.png",
   alt: "Tabella degli stati della caldaia",
 )
@@ -237,7 +243,7 @@ della verità:
 La tabella si può semplificare: se due righe hanno lo stesso stato presente,
 stato futuro e uscita, rappresentano la stessa transazione:
 
-#image(
+#starlight.img(
   "images/tabella-stati-caldaia-semplificata.png",
   alt: "Tabella degli stati semplificata",
 )

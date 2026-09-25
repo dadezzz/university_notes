@@ -38,7 +38,7 @@ la $y_i$ registrata in precedenza.
 Il punto in cui si vuole tagliare orizzontalmente l'albero determina dove
 fermare l'algoritmo.
 
-#image("images/dendrogramma.png", alt: "Dendrogramma")
+#starlight.img("images/dendrogramma.png", alt: "Dendrogramma")
 
 = Distanza di Mahalanobis
 

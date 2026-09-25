@@ -117,7 +117,10 @@ access control.
   are issues when a large number of files is present or there is more than one
   user.
 
-  #image("images/directory-single-level.png", alt: "Single level directory")
+  #starlight.img(
+    "images/directory-single-level.png",
+    alt: "Single level directory",
+  )
 
 - *Two-level directory*: the system is divided into separate directories for
   each user (User File Directory) and the underlying Master File Directory.
@@ -125,7 +128,7 @@ access control.
   File names can be repeated across users but they still can't be logically
   grouped. The UFDs are managed by the sysadmin who also manages the users.
 
-  #image(
+  #starlight.img(
     "images/directory-two-level-tree.png",
     alt: "Two-level tree directories",
   )
@@ -145,7 +148,10 @@ access control.
 
   To delete a directory it is necessary to empty it first.
 
-  #image("images/directory-general-tree.png", alt: "General tree directories")
+  #starlight.img(
+    "images/directory-general-tree.png",
+    alt: "General tree directories",
+  )
 
 - *Acyclic-graph directory*: this structure allows to have shared subdirectories
   and files with different path names.
@@ -160,13 +166,19 @@ access control.
     file. This works across filesystems, can point to directories and even to
     non-existent targets.
 
-  #image("images/directory-acyclic-graph.png", alt: "Acyclic-graph directories")
+  #starlight.img(
+    "images/directory-acyclic-graph.png",
+    alt: "Acyclic-graph directories",
+  )
 
 - *General-graph directory*: this is a generalization of acyclic graphs. Care
   must be taken when creating links since cycles in the filesystem could lead to
   infinite loops when traversing it.
 
-  #image("images/directory-general-graph.png", alt: "General-graph directories")
+  #starlight.img(
+    "images/directory-general-graph.png",
+    alt: "General-graph directories",
+  )
 
 = Protection
 

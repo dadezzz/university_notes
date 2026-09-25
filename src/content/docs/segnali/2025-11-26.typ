@@ -35,7 +35,7 @@ finestra di filtraggio e poi sul calcolo di una media pesata basata sul valore
 
 L'effetto dipende dalla dimensione della finestra e dai pesi utilizzati.
 
-#image(
+#starlight.img(
   "images/filtro-di-rango.png",
   alt: "Schema a blocchi di un filtro di rango",
 )

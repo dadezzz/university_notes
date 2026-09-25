@@ -54,7 +54,7 @@ $delta(t)$.
   Chiameremo $x_(R)(t)$ il segnale approssimato e $R(t)$ ogni rettangolo.
   Inoltre $h_(R)(t)$ sarà la risposta del sistema a ogni rettangolo.
 
-  #image(
+  #starlight.img(
     "images/suddivisione-segnale-rettangoli.png",
     alt: "Suddivisione del segnale in rettangoli",
   )
@@ -111,7 +111,7 @@ $y(t) = u(t) * h(t)$ può essere interpretata come la sequenza di 3 operazioni:
 2. traslazione della funzione ribaltata;
 3. prodotto punto a punto e integrazione del prodotto.
 
-#image(
+#starlight.img(
   "images/interpretazione-grafica-convoluzione.png",
   alt: "Interpretazione grafica della convoluzione",
 )

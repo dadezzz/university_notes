@@ -80,7 +80,10 @@ $
   - si sposta il prototipo nella posizione data dalla media dei punti che gli
     appartengono;
 
-#image("images/k-means-voronoi.png", alt: "Diagrammi di Voronoi per k-means")
+#starlight.img(
+  "images/k-means-voronoi.png",
+  alt: "Diagrammi di Voronoi per k-means",
+)
 
 == Soft clustering
 

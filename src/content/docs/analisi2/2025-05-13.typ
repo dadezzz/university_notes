@@ -1,13 +1,14 @@
----
-description:
-  Definizioni e teoremi su lunghezza di curve rettificabili integrali curvilinei
-  di prima e seconda specie campi vettoriali e forme differenziali con
-  applicazioni fisiche.
-lang: it
-title: Lunghezza di curve e integrali curvilinei
----
+#import "../_templates/starlight.typ" as starlight
 
-## Lunghezza di una curva
+#show: starlight.setup
+
+#metadata((
+  description: "Definizioni e teoremi su lunghezza di curve rettificabili integrali curvilinei di prima e seconda specie campi vettoriali e forme differenziali con applicazioni fisiche.",
+  lang: "it",
+  title: "Lunghezza di curve e integrali curvilinei",
+))
+
+= Lunghezza di una curva
 
 Sia $gamma: [a, b] -> bb(R)^n$ una curva e sia
 $D = {a = t_0 < t_1 < ... < t_N = b}$ una suddivisione di $[a, b]$. Di
@@ -17,79 +18,77 @@ da $gamma(t_0), ..., gamma(t_N)$.
 Consideriamo i segmenti $[gamma(t_(i - 1)), gamma(t_i)]$. La lunghezza
 dell'unione $union_(i = 1)^N [gamma(t_(i - 1)), gamma(t_i)]$ è data da:
 
-$$
-L(gamma, D) = sum_(i = 1)^N norm(gamma(t_(i - 1)) - gamma(t_i))
-$$
+$
+  L(gamma, D) = sum_(i = 1)^N norm(gamma(t_(i - 1)) - gamma(t_i))
+$
 
 Ora denotiamo:
 
-$$
-L(gamma) = sup_D L(gamma, D)
-$$
+$
+  L(gamma) = sup_D L(gamma, D)
+$
 
 Se $L(gamma) < oo$, allora la curva si dice rettificabile e $L(gamma)$ è detta
 lunghezza di $gamma$.
 
-:::note
+#starlight.note([
+  Si può provare che esistono curve (frattali) che hanno lunghezza infinita
+  anche se l'intervallo di partenza è limitato.
+])
 
-Si può provare che esistono curve (frattali) che hanno lunghezza infinita anche
-se l'intervallo di partenza è limitato.
-
-:::
-
-### Teorema della lunghezza di una curva
+== Teorema della lunghezza di una curva
 
 Sia $gamma: [a, b] -> bb(R)^n$ una curva di classe $C^1$. Allora $gamma$ è
 rettificabile e:
 
-$$
-L(gamma) = integral_a^b norm(gamma'(t)) dif t = integral_a^b sqrt((gamma'_1(t))^2 + ... + (gamma'_(n)(t))^2) dif t
-$$
+$
+  L(gamma) = integral_a^b norm(gamma'(t)) dif t = integral_a^b sqrt((gamma'_1(t))^2 + ... + (gamma'_(n)(t))^2) dif t
+$
 
-### Lunghezza di curve piane cartesiane
+== Lunghezza di curve piane cartesiane
 
 Sia $gamma: [a, b] -> bb(R)^2$ una curva piana cartesiana di classe $C^1$,
 ovvero:
 
-$$
-gamma(t) = (t, f(t)) or gamma(t) = (f(t), t), thick "con" f in C^1([a, b])
-$$
+$
+  gamma(t) = (t, f(t)) or gamma(t) = (f(t), t), thick "con" f in C^1([a, b])
+$
 
 Allora $gamma$ è rettificabile e:
 
-$$
-L(gamma) = integral_a^b sqrt(1 + f'(t)^2) dif t
-$$
+$
+  L(gamma) = integral_a^b sqrt(1 + f'(t)^2) dif t
+$
 
-### Indipendenza della lunghezza dalla parametrizzazione
+== Indipendenza della lunghezza dalla parametrizzazione
 
 Siano $gamma: [a, b] -> bb(R)^n$ e $tilde(gamma): [alpha, beta] -> bb(R)^n$
 curve di classe $C^1$ equivalenti. Allora:
 
-$$
-L(gamma) = L(tilde(gamma))
-$$
+$
+  L(gamma) = L(tilde(gamma))
+$
 
-### Lunghezza di una curva $C^1$ a tratti
+== Lunghezza di una curva $C^1$ a tratti
 
 La lunghezza di una curva $C^1$ a tratti è data dalla somma delle lunghezze dei
 vari segmenti che la compongono.
 
-## Integrali curvilinei di I specie
+= Integrali curvilinei di I specie
 
 Sia $gamma: [a, b] -> bb(R)^n$ una curva di classe $C^1$ e sia
 $f: gamma([a, b]) -> bb(R)$ una funzione continua. Si definisce l'integrale
 curvilineo di I specie di $f$ su $gamma$ come:
 
-$$
-integral_gamma f dif s = integral_a^b f(gamma(t)) thin norm(gamma'(t)) dif t
-$$
+$
+  integral_gamma f dif s = integral_a^b f(gamma(t)) thin norm(gamma'(t)) dif t
+$
 
 Se $gamma$ è una curva chiusa e semplice, allora si usa anche il simbolo:
 
-$$
-integral.cont_(gamma) f dif s
-$$
+$
+  integral.cont_(gamma) f dif s
+$
 
 - L'integrale curvilineo di I specie è lineare:
   $integral_gamma (alpha f + beta g) dif s = alpha integral_gamma f dif s + beta integral_gamma g dif s$
@@ -98,7 +97,7 @@ $$
 - Il valore dell'integrale curvilineo non dipende dalla parametrizzazione della
   curva.
 
-## Campi vettoriali
+= Campi vettoriali
 
 Si chiama campo vettoriale su un insieme $E subset.eq bb(R)^n$ una mappa
 $F: E -> bb(R)^n$, dove $F(bold(x)) = (F_1(bold(x)), ..., F_n(bold(x)))$.
@@ -106,22 +105,25 @@ $F: E -> bb(R)^n$, dove $F(bold(x)) = (F_1(bold(x)), ..., F_n(bold(x)))$.
 In fisica, un campo vettoriale può rappresentare una forza applicata ad un punto
 $bold(x) in E$.
 
-![Campo vettoriale in $bb(R)^2$](../../../../../images/analisi-2/campo-vettoriale-r2.png)
+#starlight.img(
+  "images/campo-vettoriale-r2.png",
+  alt: "Campo vettoriale in $bb(R)^2$",
+)
 
-### Forma differenziale
+== Forma differenziale
 
 Dato un campo vettoriale $F: E subset.eq bb(R)^n -> bb(R)^n$, si chiama forma
 differenziale (lineare) su $E$ l'espressione formale:
 
-$$
-omega = F_1 dif x_1 + ... + F_n dif x_n = sum_(i = 1)^n F_i dif x_i
-$$
+$
+  omega = F_1 dif x_1 + ... + F_n dif x_n = sum_(i = 1)^n F_i dif x_i
+$
 
 che si scrive anche come il prodotto scalare:
 
-$$
-omega = F dot dif bold(x)
-$$
+$
+  omega = F dot dif bold(x)
+$
 
 Dalla definizione si evince che ad ogni campo vettoriale corrisponde
 biunivocamente una forma differenziale.
@@ -130,7 +132,7 @@ Una forma differenziale $omega = sum_(i = 1)^n F_i dif x_i$ su un insieme
 $E subset.eq bb(R)^n$ è detta di classe $C^0$ se
 $forall i in {1, ..., n}, F_i in C^0(E)$
 
-#### Lavoro compiuto da una forza lungo un percorso
+=== Lavoro compiuto da una forza lungo un percorso
 
 Sia $F: bb(R)^3 -> bb(R)^3$ una forza
 $F(x, y, z) = (F_1(x, y, z), F_2(x, y, z), F_3(x, y, z))$, $F in C^0(bb(R)^3)$.
@@ -147,11 +149,11 @@ lungo la curva $gamma$.
 Il lavoro compiuto dalla forza nell'intervallo di tempo infinitesimo $dif t$ è
 dato da:
 
-$$
-(F(gamma(t)) dot gamma'(t)) dif t
-$$
+$
+  (F(gamma(t)) dot gamma'(t)) dif t
+$
 
-## Integrali curvilinei di II specie
+= Integrali curvilinei di II specie
 
 Sia $gamma: [a,b] -> E subset.eq bb(R)^n$ una curva di classe $C^1$ e sia
 $omega = F dot dif bold(x)$ una forma differenziale di classe $C^0$ su $E$.
@@ -159,15 +161,15 @@ $omega = F dot dif bold(x)$ una forma differenziale di classe $C^0$ su $E$.
 Si definisce integrale curvilineo di II specie di $omega$ lungo $gamma$ il
 valore:
 
-$$
-integral_gamma omega = integral_a^b F(gamma(t)) dot gamma'(t) dif t = integral_a^b sum_(i = 1)^n F_(i)(gamma(t)) gamma'_(i)(t) dif t
-$$
+$
+  integral_gamma omega = integral_a^b F(gamma(t)) dot gamma'(t) dif t = integral_a^b sum_(i = 1)^n F_(i)(gamma(t)) gamma'_(i)(t) dif t
+$
 
 Se $gamma$ è chiusa, si scrive anche:
 
-$$
-integral.cont_gamma omega
-$$
+$
+  integral.cont_gamma omega
+$
 
 - L'integrale curvilineo di II specie è lineare.
 - L'integrale curvilineo di II specie si estende anche a curve $C^1$ a tratti.

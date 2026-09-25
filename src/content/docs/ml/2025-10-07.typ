@@ -24,7 +24,7 @@ migliori*. Nei grafici qui sotto:
 - il secondo insieme rende il modello molto sensibile a piccoli cambiamenti nei
   valori degli esempi;
 
-#image(
+#starlight.img(
   "images/stabilità-training-set.png",
   alt: "Distribuzione punti del training set",
 )
@@ -51,7 +51,7 @@ Il valore di $lambda$ può essere ottenuto provandone diversi sul validation set
 tenendo quello che dà i risultati migliori. Nell'immagine qui sotto si vede come
 un $lambda$ troppo grande fa perdere significato ai pesi.
 
-#image(
+#starlight.img(
   "images/valore-pesi-con-ridge-coefficient.png",
   alt: "Valore pesi a seconda di $lambda$",
 )
@@ -87,7 +87,7 @@ senza contraddizioni.
 
 == Alberi di decisione
 
-#image(
+#starlight.img(
   "images/albero-di-decisione.png",
   alt: "Esempio di albero di decisione per 2 domande",
 )

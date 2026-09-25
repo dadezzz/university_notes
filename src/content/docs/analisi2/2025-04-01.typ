@@ -1,14 +1,16 @@
----
-description:
-  Il teorema di Weierstrass garantisce estremi assoluti su insiemi chiusi e
-  limitati. La parametrizzazione semplifica il calcolo degli estremi vincolati.
-lang: it
-title: Teorema di Weierstrass ed estremi vincolati
----
+#import "../_templates/starlight.typ" as starlight
 
-## Teorema di Weierstrass
+#show: starlight.setup
 
-**Problema**: Stabilire le condizioni sufficienti per l'esistenza di massimi e
+#metadata((
+  description: "Il teorema di Weierstrass garantisce estremi assoluti su insiemi chiusi e limitati. La parametrizzazione semplifica il calcolo degli estremi vincolati.",
+  lang: "it",
+  title: "Teorema di Weierstrass ed estremi vincolati",
+))
+
+= Teorema di Weierstrass
+
+*Problema*: Stabilire le condizioni sufficienti per l'esistenza di massimi e
 minimi assoluti di una funzione e procedere alla loro determinazione.
 
 Sia $f: A subset.eq bb(R)^n -> bb(R)$ e assumiamo che $A$ sia un insieme
@@ -26,20 +28,20 @@ $bold(x)^*$:
 - $bold(x)^* in partial A$, il punto è un candidato per un estremo vincolato e
   richiede un'analisi specifica.
 
-## Ricerca di punti di massimo e minimo sulla frontiera del dominio
+= Ricerca di punti di massimo e minimo sulla frontiera del dominio
 
-Gli **estremi vincolati** di $f$ sono i punti di massimo o di minimo che
-giacciono sulla frontiera del suo dominio.
+Gli *estremi vincolati* di $f$ sono i punti di massimo o di minimo che giacciono
+sulla frontiera del suo dominio.
 
-### Frontiera tramite parametrizzazione
+== Frontiera tramite parametrizzazione
 
 Per semplicità, consideriamo il caso $A subset.eq bb(R)^2$ (il discorso si
 estende a dimensioni superiori con parametrizzazioni più complesse). Si
 definisce parametrizzazione di $partial A$ una funzione:
 
-$$
-gamma: [a, b] -> bb(R)^2, quad gamma(t) = (gamma_1(t), gamma_2(t))
-$$
+$
+  gamma: [a, b] -> bb(R)^2, quad gamma(t) = (gamma_1(t), gamma_2(t))
+$
 
 che soddisfa le seguenti condizioni:
 
@@ -53,12 +55,10 @@ $t in [a, b]$, ha come immagine la curva che coincide con la frontiera di $A$.
 In questo modo, trovare $min_(partial A) f$ e $max_(partial A) f$ si riduce a
 trovare $min_([a, b]) (f compose gamma)$ e $max_([a, b]) (f compose gamma)$.
 Poiché $gamma$ è una funzione di una variabile, si può procedere con le tecniche
-studiate nel corso di [Analisi 1](/1/1/145403).
+studiate nel corso di #link("/1/1/145403")[Analisi 1].
 
-:::caution
-
-Per funzioni di $n > 2$ variabili, questo metodo risulta più complesso poiché la
-frontiera di un insieme in $bb(R)^n$ richiede una parametrizzazione di
-dimensione $n - 1$.
-
-:::
+#starlight.caution([
+  Per funzioni di $n > 2$ variabili, questo metodo risulta più complesso poiché
+  la frontiera di un insieme in $bb(R)^n$ richiede una parametrizzazione di
+  dimensione $n - 1$.
+])

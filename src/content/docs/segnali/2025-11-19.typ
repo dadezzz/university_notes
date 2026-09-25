@@ -32,7 +32,7 @@ maggiore di un $Delta$ per campione.
 Il secondo, invece, si verifica nelle zone piatte, dato che il segnale deve
 continuare ad oscillare tra $plus.minus Delta$.
 
-#image(
+#starlight.img(
   "images/errore-codifica-modulazione-delta.png",
   alt: "Visualizzazione degli errori",
 )

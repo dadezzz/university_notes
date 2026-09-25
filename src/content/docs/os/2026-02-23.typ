@@ -241,7 +241,7 @@ the available tasks.
 
   The specific timings depend on the physical topology of the system.
 
-  #image("images/numa-system.png", alt: "Example of NUMA system")
+  #starlight.img("images/numa-system.png", alt: "Example of NUMA system")
 ])
 
 = Protection and security

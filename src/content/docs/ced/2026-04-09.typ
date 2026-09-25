@@ -10,7 +10,7 @@
 
 = Caratteristica statica dell'invertitore CMOS
 
-#image(
+#starlight.img(
   "images/caratteristica-invertitore-cmos.png",
   alt: "Caratteristica invertitore CMOS",
 )
@@ -78,7 +78,7 @@ disattiva il pMOS e viceversa.
 
 Ad esempio per una NAND:
 
-#image("images/porta-nand-cmos.png", alt: "Porta NAND CMOS")
+#starlight.img("images/porta-nand-cmos.png", alt: "Porta NAND CMOS")
 
 La logica CMOS richiede un utilizzo di $2n$ transistori rispetto al numero di
 porte logiche. Quindi per realizzare circuiti grandi viene richiesta una grande

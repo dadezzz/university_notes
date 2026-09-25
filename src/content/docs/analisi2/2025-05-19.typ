@@ -1,0 +1,113 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Analisi delle forme differenziali esatte e chiuse con condizione di Jacobi integrali curvilinei seconda specie e teorema fondamentale del calcolo integrale.",
+  lang: "it",
+  title: "Forme differenziali esatte, chiuse e integrali",
+))
+
+= Integrale curvilineo di II specie per curve equivalenti
+
+Siano $E subset.eq bb(R)^n$ un insieme, $gamma: [a, b] -> E$ e
+$tilde(gamma): [alpha, beta] -> E$ curve equivalenti di classe $C^1$, e $omega$
+una forma differenziale di classe $C^0(E)$.
+
+- Se $gamma$ e $tilde(gamma)$ hanno lo stesso verso, allora
+  $integral_gamma omega = integral_tilde(gamma) omega$.
+- Se $gamma$ e $tilde(gamma)$ hanno verso opposto, allora
+  $integral_gamma omega = - integral_tilde(gamma) omega$.
+
+= Forme differenziali esatte (o campi vettoriali conservativi)
+
+Sia $E subset.eq bb(R)^n$ un insieme aperto e sia $U: E -> bb(R)$ una funzione
+di classe $C^1(E)$.
+
+Possiamo associare ad $U$ la forma differenziale:
+
+$
+  dif U = nabla U dot dif bold(x) = (partial U) / (partial x_1) dif x_1 + ... + (partial U) / (partial x_n) dif x_n
+$
+
+#starlight.note([
+  Questa forma è anche denominata differenziale di $U$, poiché coincide con la
+  notazione standard per il differenziale di una funzione scalare.
+])
+
+Sia $omega = F dot dif bold(x)$, dove $F: E -> bb(R)^n$ è un campo vettoriale di
+classe $C^0(E)$. La forma differenziale $omega$ è *esatta* in $E$ se esiste una
+funzione $U$ tale che:
+
+$
+  forall bold(x) in E, nabla U(bold(x)) = F(bold(x))
+$
+
+o, in forma differenziale:
+
+$
+  dif U = omega
+$
+
+In questo caso, $U$ è detta *funzione potenziale* (o primitiva) di $omega$ (o di
+$F$) in $E$.
+
+== Integrale per forme esatte
+
+Sia $omega = F dot dif bold(x)$ una forma differenziale continua ed esatta su
+$E$. Allora, per ogni curva $gamma: [a, b] -> E$ di classe $C^1$ a tratti, vale
+il teorema fondamentale del calcolo integrale:
+
+$
+  integral_gamma omega = U(gamma(b)) - U(gamma(a))
+$
+
+dove $U$ è una funzione potenziale di $omega$.
+
+Dalla definizione di forma esatta, segue che se $omega$ è una forma esatta su
+$E$, allora per ogni curva chiusa $gamma: [a, b] -> E$ di classe $C^1$ a tratti:
+
+$
+  integral.cont_gamma omega = 0
+$
+
+= Forme differenziali chiuse
+
+Definiamo ora il criterio per verificare l'ipotesi di esattezza di una forma
+differenziale.
+
+Sia $E subset.eq bb(R)^n$ un insieme aperto e sia $omega = F dot dif bold(x)$,
+dove $F: E -> bb(R)^n$ è un campo vettoriale con componenti $F_i in C^1(E)$.
+
+La forma $omega$ è chiusa in $E$ se è verificata la *condizione di Jacobi* (o
+regola delle derivate in croce):
+
+$
+  forall i, j in {1, ..., n}, (partial F_i) / (partial x_j) (bold(x)) = (partial F_j) / (partial x_i) (bold(x))
+$
+
+Se $omega in C^1(E)$, si ha la seguente implicazione:
+
+$
+  omega "esatta in" E => omega "chiusa in" E
+$
+
+== Condizione sufficiente per l'esattezza di una forma differenziale
+
+Sia $E subset.eq bb(R)^n$ un insieme aperto e convesso.
+
+#starlight.tip([
+  Un insieme è convesso se, per ogni coppia di punti $p$ e $q$ appartenenti a
+  $E$, il segmento che li unisce è interamente contenuto in $E$:
+
+  $
+    forall p, q in E, [p, q] = {t p + (1 - t) q mid(|) 0 <= t <= 1} subset E
+  $
+])
+
+Se $omega in C^1(E)$, allora la condizione di chiusura è necessaria e
+sufficiente per l'esattezza:
+
+$
+  omega "esatta in" E <=> omega "chiusa in" E
+$

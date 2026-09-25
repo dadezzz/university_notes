@@ -1,23 +1,23 @@
----
-description:
-  Il teorema del valor medio per funzioni di più variabili, la matrice Jacobiana
-  come estensione del gradiente e la regola della catena per funzioni composte.
-lang: it
-title: Teorema del valor medio e regola della catena
----
+#import "../_templates/starlight.typ" as starlight
 
-## Teorema del valor medio in $n$ variabili
+#show: starlight.setup
 
-:::tip[Interpolazione lineare]
+#metadata((
+  description: "Il teorema del valor medio per funzioni di più variabili, la matrice Jacobiana come estensione del gradiente e la regola della catena per funzioni composte.",
+  lang: "it",
+  title: "Teorema del valor medio e regola della catena",
+))
 
-$f(t) = t bold(q) + (1 - t) bold(p)$, con $f: [0, 1] -> bb(R)^n$, è detta
-interpolazione lineare tra i punti $bold(p)$ e $bold(q)$. Nei linguaggi di
-programmazione, spesso la funzione è chiamata `lerp`.
+= Teorema del valor medio in $n$ variabili
 
-L'immagine di $f$ è rappresentata dal segmento con estremi $bold(p)$ e
-$bold(q)$.
+#starlight.tip(title: "Interpolazione lineare", [
+  $f(t) = t bold(q) + (1 - t) bold(p)$, con $f: [0, 1] -> bb(R)^n$, è detta
+  interpolazione lineare tra i punti $bold(p)$ e $bold(q)$. Nei linguaggi di
+  programmazione, spesso la funzione è chiamata `lerp`.
 
-:::
+  L'immagine di $f$ è rappresentata dal segmento con estremi $bold(p)$ e
+  $bold(q)$.
+])
 
 Consideriamo una funzione $f: A subset.eq bb(R)^n -> bb(R)$ definita su un
 insieme $A$ tale che:
@@ -30,25 +30,23 @@ insieme $A$ tale che:
 
 In queste condizioni, esiste un punto $bold(c) in (bold(p), bold(q))$ tale che:
 
-$$
-f(bold(q)) - f(bold(p)) = nabla f(bold(c)) dot (bold(q) - bold(p))
-$$
+$
+  f(bold(q)) - f(bold(p)) = nabla f(bold(c)) dot (bold(q) - bold(p))
+$
 
-**Corollario**: Se $forall bold(p) in B(bold(p)_0, r)$, il gradiente è nullo
+*Corollario*: Se $forall bold(p) in B(bold(p)_0, r)$, il gradiente è nullo
 ($nabla f(bold(p)) = bold(0)$), allora la funzione $f$ è costante su
 quell'intorno, ovvero
 $forall bold(p) in B(bold(p)_0, r), f(bold(p)) = f(bold(p)_0)$.
 
-## Derivate parziali di una funzione composta di più variabili
+= Derivate parziali di una funzione composta di più variabili
 
-:::note[Ripasso]
+#starlight.note(title: "Ripasso", [
+  La regola della catena per una funzione di una variabile
+  $h(x) = (f compose g)(x) = f(g(x))$ è data da: $h'(x) = f'(g(x)) thin g'(x)$.
+])
 
-La regola della catena per una funzione di una variabile
-$h(x) = (f compose g)(x) = f(g(x))$ è data da: $h'(x) = f'(g(x)) thin g'(x)$.
-
-:::
-
-### Matrice Jacobiana
+== Matrice Jacobiana
 
 Sia $f: A subset.eq bb(R)^n -> bb(R)^m$,
 $f(bold(x)) = (f_1(bold(x)), ..., f_m(bold(x)))$, con $f_i: A -> bb(R)$.
@@ -58,22 +56,21 @@ $nabla f_(i)(bold(x))$ esista in $bold(x)$, la matrice Jacobiana $D_f(bold(x))$
 è una matrice di dimensione $m times n$ la cui $i$-esima riga è data da
 $nabla f_(i)(bold(x))$:
 
-$$
-D_(f)(bold(x)) = mat(
-(partial f_1) / (partial x_1) (bold(x)), dots.h, (partial f_1) / (partial x_n) (bold(x));
-dots.v, , dots.v;
-(partial f_m) / (partial x_1) (bold(x)), dots.h, (partial f_m) / (partial x_n) (bold(x));
-)
-$$
+$
+  D_(f)(bold(x)) = mat(
+    (partial f_1) / (partial x_1) (bold(x)), dots.h, (partial f_1) / (partial x_n) (bold(x));
+    dots.v, , dots.v;
+    (partial f_m) / (partial x_1) (bold(x)), dots.h, (partial f_m) / (partial x_n) (bold(x));
+  )
+$
 
-:::note
+#starlight.note([
+  La nozione di matrice Jacobiana generalizza la nozione di vettore gradiente
+  per funzioni scalari. Infatti ponendo $m = 1$ si ottiene il vettore del
+  gradiente.
+])
 
-La nozione di matrice Jacobiana generalizza la nozione di vettore gradiente per
-funzioni scalari. Infatti ponendo $m = 1$ si ottiene il vettore del gradiente.
-
-:::
-
-### Regola della catena
+== Regola della catena
 
 La regola della catena permette di calcolare le derivate parziali di una
 funzione composta, richiedendo solo il calcolo delle derivate parziali delle
@@ -89,13 +86,13 @@ Inoltre supponiamo che, dato un punto $bold(x) in A$:
 - $f(bold(y)) = (f_1(bold(y)), ..., f_k(bold(y)))$, con $f_j: B -> bb(R)$
   differenziabili in $bold(y) = g(bold(x))$.
 
-![Regola della catena](../../../../../images/analisi-2/regola-della-catena.png)
+#starlight.img("images/regola-della-catena.png", alt: "Regola della catena")
 
 Consideriamo ora la funzione composta $h: A -> bb(R)^k$,
 $h(bold(x)) = (f compose g)(bold(x))$; allora le funzioni $h_1, ..., h_k$ sono
 differenziabili in $bold(x)$ e la matrice Jacobiana di $h$ è data dal prodotto
 delle matrici Jacobiane delle funzioni di partenza.
 
-$$
-D_(h)(bold(x)) = D_(f)(g(bold(x))) thin D_(g)(bold(x))
-$$
+$
+  D_(h)(bold(x)) = D_(f)(g(bold(x))) thin D_(g)(bold(x))
+$

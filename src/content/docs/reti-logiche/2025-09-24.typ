@@ -50,14 +50,14 @@ e 1.
 
 - esempio invertitore senza ritardi:
 
-  #image(
+  #starlight.img(
     "images/diagramma-temporale-inverter-senza-ritardi.png",
     alt: "Diagramma temporale invertitore senza ritardi",
   )
 
 - esempio con ritardi:
 
-  #image(
+  #starlight.img(
     "images/diagramma-temporale-inverter-con-ritardi.png",
     alt: "Diagramma temporale invertitore con ritardi",
   )

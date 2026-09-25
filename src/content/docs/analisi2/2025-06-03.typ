@@ -1,14 +1,15 @@
----
-description:
-  Definizioni calcolo integrali di superficie e area tramite parametrizzazione
-  prodotto vettoriale per superfici regolari con formule e dimostrazioni
-  dettagliate.
-lang: it
-next: false
-title: Integrali e area di superfici regolari
----
+#import "../_templates/starlight.typ" as starlight
 
-## Integrali di superficie
+#show: starlight.setup
+
+#metadata((
+  description: "Definizioni calcolo integrali di superficie e area tramite parametrizzazione prodotto vettoriale per superfici regolari con formule e dimostrazioni dettagliate.",
+  lang: "it",
+  next: false,
+  title: "Integrali e area di superfici regolari",
+))
+
+= Integrali di superficie
 
 Dati:
 
@@ -19,16 +20,16 @@ Dati:
 Essendo $sigma in C^1$ e differenziabile nel punto $(u_0, v_0) in D$, possiamo
 approssimarla con la seguente espressione:
 
-$$
-sigma(u, v) = sigma(u_0, v_0) + dif sigma(u_0, v_0) (u - u_0, v - v_0) + o(norm((u - u_0, v - v_0)))
-$$
+$
+  sigma(u, v) = sigma(u_0, v_0) + dif sigma(u_0, v_0) (u - u_0, v - v_0) + o(norm((u - u_0, v - v_0)))
+$
 
 In un piccolo intervallo si può considerare l'errore trascurabile. Pertanto,
 $op("area")(sigma(Q)) = op("area")(tilde(Q))$, dove:
 
-$$
-tilde(Q) = sigma(u_0, v_0) + lambda sigma_(u)(u_0, v_0) + mu sigma_(v)(u_0, v_0)
-$$
+$
+  tilde(Q) = sigma(u_0, v_0) + lambda sigma_(u)(u_0, v_0) + mu sigma_(v)(u_0, v_0)
+$
 
 con $0 <= lambda <= dif u$ e $0 <= mu <= dif v$.
 
@@ -38,26 +39,26 @@ $dif u sigma_(u)(u_0, v_0)$ e $dif v sigma_(v)(u_0, v_0)$.
 L'elemento infinitesimo di area della superficie, $dif S$, è dato dal modulo del
 prodotto vettoriale dei due vettori che definiscono il parallelogramma:
 
-$$
-dif S = op("area")(tilde(Q)) = norm(sigma_(u)(u_0, v_0) times sigma_(v)(u_0, v_0)) dif u dif v
-$$
+$
+  dif S = op("area")(tilde(Q)) = norm(sigma_(u)(u_0, v_0) times sigma_(v)(u_0, v_0)) dif u dif v
+$
 
-### Area di $S$
+== Area di $S$
 
 Sia $D subset.eq bb(R)^2$ un insieme misurabile, e supponiamo che
 $norm(sigma_u times sigma_v)(u, v)$ sia integrabile su $D$.
 
 L'area di $S$ è definita come il seguente integrale:
 
-$$
-A(S) = integral.double_D norm(sigma_(u)(u, v) times sigma_(v)(u, v)) dif u dif v
-$$
+$
+  A(S) = integral.double_D norm(sigma_(u)(u, v) times sigma_(v)(u, v)) dif u dif v
+$
 
-### Integrale di superficie
+== Integrale di superficie
 
 Sia $f: S -> bb(R)$ continua e limitata. L'integrale di superficie di $f$ è il
 valore:
 
-$$
-integral.double_S f dif S = integral.double_D f(sigma(u, v)) norm(sigma_u times sigma_v)(u, v) dif u dif v
-$$
+$
+  integral.double_S f dif S = integral.double_D f(sigma(u, v)) norm(sigma_u times sigma_v)(u, v) dif u dif v
+$

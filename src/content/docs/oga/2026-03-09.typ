@@ -185,7 +185,7 @@ La catena del valore fornisce una rappresentazione schematica delle attività
 svolte dall'impresa, evidenziandone il valore creato e i costi sopportati per
 crearlo.
 
-#image("images/catena-del-valore.png", alt: "Catena del valore")
+#starlight.img("images/catena-del-valore.png", alt: "Catena del valore")
 
 - Le attività primarie sono quelle necessarie per la creazione fisica del
   prodotto, il suo trasferimento al cliente e l'assistenza post-vendita.

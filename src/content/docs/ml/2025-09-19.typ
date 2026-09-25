@@ -24,7 +24,7 @@ metodo che sia in grado di riconoscere anche nuove immagini.
 Questo diagramma mostra la distribuzione di funghi edibili e velenosi in base
 alle dimensioni:
 
-#image("images/lazy-neighbors-funghi.png", alt: "Distribuzione funghi")
+#starlight.img("images/lazy-neighbors-funghi.png", alt: "Distribuzione funghi")
 
 Quando si osserva un nuovo fungo, si può definire se esso è edibile o no
 copiando il valore del fungo con le dimensioni più vicine.

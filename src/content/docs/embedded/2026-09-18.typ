@@ -79,7 +79,7 @@ The `SECTIONS` directive tells the linker:
 For example, if we have two object files, three default sections and two
 developer-specified sections (`loader` and `my_section`):
 
-#image("images/linker-sections.png", alt: "Diagram of linker sections")
+#starlight.img("images/linker-sections.png", alt: "Diagram of linker sections")
 
 ```
 SECTIONS {
@@ -187,7 +187,10 @@ handler, and then resumes the interrupted program.
 An interrupt is a request from the device to the CPU, which can choose to accept
 the request with an acknowledge signal.
 
-#image("images/interrupt-request.png", alt: "Hardware interrupt request flow")
+#starlight.img(
+  "images/interrupt-request.png",
+  alt: "Hardware interrupt request flow",
+)
 
 Once an interrupt is accepted, the processor starts executing from the address
 pointed to by the associated entry in the interrupt vector table.

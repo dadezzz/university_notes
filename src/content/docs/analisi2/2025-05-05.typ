@@ -1,12 +1,14 @@
----
-description:
-  Additività degli integrali doppi su insiemi semplici e teorema del cambio di
-  variabili con determinante jacobiano per il calcolo delle superfici piane.
-lang: it
-title: Additività e cambio variabili integrali doppi
----
+#import "../_templates/starlight.typ" as starlight
 
-## Additività dell'integrale doppio
+#show: starlight.setup
+
+#metadata((
+  description: "Additività degli integrali doppi su insiemi semplici e teorema del cambio di variabili con determinante jacobiano per il calcolo delle superfici piane.",
+  lang: "it",
+  title: "Additività e cambio variabili integrali doppi",
+))
+
+= Additività dell'integrale doppio
 
 Siano $A_1, ..., A_n$ insiemi semplici tali che
 $A_i inter A_j subset.eq partial A_i inter partial A_j$ con $i != j$ (due
@@ -16,17 +18,17 @@ Sia $f: A_1 union ... union A_n -> bb(R)$ e supponiamo che
 $forall i, f in R(A_i)$. Allora $f$ è integrabile su $A_1 union ... union A_n$
 e:
 
-$$
-integral.double_(A_1 union ... union A_n) f = sum_(i = 1)^n integral.double_A_i f
-$$
+$
+  integral.double_(A_1 union ... union A_n) f = sum_(i = 1)^n integral.double_A_i f
+$
 
-## Cambiamento di variabili per integrali doppi
+= Cambiamento di variabili per integrali doppi
 
 Siano $A, A' subset.eq bb(R)^2$ aperti, limitati e misurabili e sia
 $psi: A' -> A$, $psi(u, v) = (psi_1(u, v), psi_2(u, v))$, con
 $psi_1, psi_2: A' -> bb(R)$.
 
-La trasformazione $psi$ è definita come **cambiamento di variabili** se:
+La trasformazione $psi$ è definita come *cambiamento di variabili* se:
 
 - $psi$ è biettiva;
 - $psi_i in C^1(A')$, e le funzioni
@@ -38,6 +40,6 @@ La trasformazione $psi$ è definita come **cambiamento di variabili** se:
 Denotiamo $dif A' = dif u dif v$ e $dif A = dif x dif y$. Allora vale il
 seguente teorema:
 
-$$
-integral.double_A f(x, y) dif x dif y = integral.double_A' f(psi(u,v)) thin abs(det(D_psi(u,v))) dif u dif v
-$$
+$
+  integral.double_A f(x, y) dif x dif y = integral.double_A' f(psi(u, v)) thin abs(det(D_psi(u, v))) dif u dif v
+$

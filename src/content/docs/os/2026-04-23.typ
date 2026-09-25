@@ -90,7 +90,7 @@ The controller (or host adapter) is the hardware component that manages
 communication between the CPU and the I/O device. It acts as the interface that
 connects the I/O device to the system bus.
 
-#image("images/io-buses.png", alt: "I/O buses")
+#starlight.img("images/io-buses.png", alt: "I/O buses")
 
 The device driver is the software layer in the OS kernel that interacts with the
 controller. It translates high-level OS commands into low-level device-specific

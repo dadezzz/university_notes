@@ -33,7 +33,7 @@ Nel campionamento bisogna evitare l'aliasing in ogni dimensione. Le varie
 dimensioni possono avere frequenze massime diverse. Bisogna quindi applicare il
 limite di Nyquist ad ogni dimensione.
 
-#image(
+#starlight.img(
   "images/nyquist-multidimensionale.png",
   alt: "Spettri multi-dimensionali",
 )

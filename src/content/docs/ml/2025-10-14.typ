@@ -33,7 +33,7 @@ a seconda dell'input dato:
 - a sinistra si vede lo spazio diviso usando solo il prodotto scalare;
 - a destra è stata applicata la funzione sigmoidale;
 
-#image(
+#starlight.img(
   "images/divisione-piano-con-sigmoidale.png",
   alt: "Divisione del piano con gradino e sigmoidale",
 )
@@ -51,7 +51,10 @@ $
   f(x) = 1 / (1 + e^(-x))
 $
 
-#image("images/funzione-sigmoidale.png", alt: "Grafico funzione sigmoidale")
+#starlight.img(
+  "images/funzione-sigmoidale.png",
+  alt: "Grafico funzione sigmoidale",
+)
 
 Applicando la funzione sigmoidale, si può far rientrare l'output del prodotto
 scalare in un intervallo $[0, 1]$. L'output della funzione può essere
@@ -59,7 +62,7 @@ interpretato come una probabilità.
 
 === Strati
 
-#image(
+#starlight.img(
   "images/architettura-layers.png",
   alt: "Rappresentazione di una rete a strati",
 )

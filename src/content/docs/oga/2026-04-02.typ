@@ -25,7 +25,7 @@ su quali mercati è utile concentrarsi. Essa fonde due prospettive:
 L'analisi della domanda è lo studio delle quantità acquistate da un dato gruppo
 di clienti in un determinato segmento in un periodo specifico.
 
-#image("images/analisi-domanda.png", alt: "Tipologie di domanda")
+#starlight.img("images/analisi-domanda.png", alt: "Tipologie di domanda")
 
 == Analisi PESTLE
 
@@ -48,7 +48,7 @@ strategia che l'azienda deve adottare per ogni settore del mercato.
 Nella matrice, attrattività e competitività del settore sono due assi. Ci sono
 nove caselle, dove a ciascuna è assegnato un comportamento strategico ottimale.
 
-#image("images/matrice-ge-mckinsey.png", alt: "Matrice GE-McKinsey")
+#starlight.img("images/matrice-ge-mckinsey.png", alt: "Matrice GE-McKinsey")
 
 = Positioning
 
@@ -77,7 +77,7 @@ servizio risultano sottodimensionati o sovrastimati rispetto all'importanza
 percepita. Ciò consente di definire le priorità di intervento nelle aree da
 migliorare.
 
-#image(
+#starlight.img(
   "images/importance-performance-matrix.png",
   alt: "Importance performance matrix",
 )
@@ -115,4 +115,4 @@ della filiera ed evitare bias o tunneling mentali del management.
 SERVQUAL è uno strumento progettato per catturare le aspettative dei consumatori
 e le percezioni di un servizio lungo cinque dimensioni.
 
-#image("images/servqual.png", alt: "SERVQUAL")
+#starlight.img("images/servqual.png", alt: "SERVQUAL")

@@ -116,7 +116,10 @@ $
 Questo caso è detto *sovrasmorzato* poiché abbiamo la somma di due esponenziali
 decrescenti.
 
-#image("images/rlc-caso-sovrasmorzato.png", alt: "Grafico caso sovrasmorzato")
+#starlight.img(
+  "images/rlc-caso-sovrasmorzato.png",
+  alt: "Grafico caso sovrasmorzato",
+)
 
 - complesse se $Delta < 0$:
 
@@ -155,7 +158,10 @@ Le variabili che appaiono sono:
 Il grafico è quello di una sinusoidale che viene smorzata progressivamente.
 Questo caso è detto *sottosmorzato*.
 
-#image("images/rlc-caso-sottosmorzato.png", alt: "Grafico caso sottosmorzato")
+#starlight.img(
+  "images/rlc-caso-sottosmorzato.png",
+  alt: "Grafico caso sottosmorzato",
+)
 
 #starlight.note([
   Lo stesso procedimento si usa molto comunemente anche in altri fenomeni
@@ -173,7 +179,7 @@ $
 Il grafico è sempre una somma di due esponenziali decrescenti. Questo caso viene
 detto *criticamente smorzato*.
 
-#image(
+#starlight.img(
   "images/rlc-caso-criticamente-smorzato.png",
   alt: "Grafico caso criticamente smorzato",
 )
@@ -185,5 +191,8 @@ detto *criticamente smorzato*.
   Questo caso viene detto *non smorzato* e non si può mai verificare nella
   realtà, poiché ci sarà sempre almeno una resistenza intrinseca nel circuito.
 
-  #image("images/rlc-caso-senza-attrito.png", alt: "Grafico caso senza attriti")
+  #starlight.img(
+    "images/rlc-caso-senza-attrito.png",
+    alt: "Grafico caso senza attriti",
+  )
 ])

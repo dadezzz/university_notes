@@ -45,7 +45,7 @@ It can happen at three different stages:
   program. Addresses are virtual and the hardware translates them to physical
   addresses.
 
-#image("images/address-binding.png", alt: "Address binding diagram")
+#starlight.img("images/address-binding.png", alt: "Address binding diagram")
 
 == Memory protection
 
@@ -113,7 +113,10 @@ A virtual address is made up of 2 parts:
 - *Page offset*: added to the base address to identify the specific byte
   requested in physical memory.
 
-#image("images/virtual-memory-hardware.png", alt: "Virtual memory hardware")
+#starlight.img(
+  "images/virtual-memory-hardware.png",
+  alt: "Virtual memory hardware",
+)
 
 === Page table
 

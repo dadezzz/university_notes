@@ -1,15 +1,16 @@
----
-description:
-  Ottimizzazione vincolata con moltiplicatori di Lagrange e teorema della
-  funzione implicita di Dini per rappresentare curve locali come circonferenze
-  ed ellissi.
-lang: it
-title: Moltiplicatori di Lagrange e funzione implicita
----
+#import "../_templates/starlight.typ" as starlight
 
-## Metodo dei moltiplicatori di Lagrange
+#show: starlight.setup
 
-https://www.youtube.com/watch?v=8mjcnxGMwFo
+#metadata((
+  description: "Ottimizzazione vincolata con moltiplicatori di Lagrange e teorema della funzione implicita di Dini per rappresentare curve locali come circonferenze ed ellissi.",
+  lang: "it",
+  title: "Moltiplicatori di Lagrange e funzione implicita",
+))
+
+= Metodo dei moltiplicatori di Lagrange
+
+#link("https://www.youtube.com/watch?v=8mjcnxGMwFo")
 
 Consideriamo l'insieme $A = {bold(p) in bb(R)^2 mid(|) g(bold(p)) <= 0}$, dove
 $g in C^1(bb(R)^2)$. Definiamo la sua frontiera come
@@ -27,19 +28,19 @@ In queste condizioni, esiste un numero reale $lambda_0$, noto come
 moltiplicatore di Lagrange, tale che il punto $(x_0, y_0, lambda_0)$ sia un
 punto stazionario (libero) della funzione lagrangiana definita come:
 
-$$
-L(x, y, lambda) = f(x, y) + lambda g(x, y)
-$$
+$
+  L(x, y, lambda) = f(x, y) + lambda g(x, y)
+$
 
 Equivalentemente, deve esistere $lambda_0$ tale che siano soddisfatte le
 seguenti condizioni:
 
-$$
-cases(
-g(bold(p)_0) = 0,
-nabla f(bold(p)_0) + lambda_0 nabla g(bold(p)_0) = bold(0),
-)
-$$
+$
+  cases(
+    g(bold(p)_0) = 0,
+    nabla f(bold(p)_0) + lambda_0 nabla g(bold(p)_0) = bold(0),
+  )
+$
 
 La prima condizione assicura che $bold(p)_0$ si trovi sulla frontiera di $A$,
 mentre la seconda condizione implica che i gradienti di $f$ e di $g$ siano
@@ -52,7 +53,7 @@ Un punto $bold(p)_0$ che soddisfa queste condizioni (ovvero dove la curva di
 livello di $f$ e la frontiera $partial A$ sono tangenti) è definito punto
 stazionario vincolato della funzione $f$ rispetto al vincolo $partial A$.
 
-## Teorema della funzione implicita di U. Dini
+= Teorema della funzione implicita di U. Dini
 
 Supponiamo che la funzione $g$ sia $C^1$ in un intorno del punto
 $bold(p)_0 = (x_0, y_0)$, che $g(bold(p)_0) = 0$ e che

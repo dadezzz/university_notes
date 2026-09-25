@@ -22,7 +22,7 @@ and saturation, plus optionally an FPU.
 
 == Block diagram
 
-#image(
+#starlight.img(
   "images/cortex-m4-diagram.png",
   alt: "Diagram of the internals of the Cortex M4",
 )
@@ -81,7 +81,10 @@ of 4 GB.
 The memory space is subdivided into a number of regions, each with a particular
 recommended use.
 
-#image("images/cortex-m4-memory.png", alt: "Regions in the Cortex M4 memory")
+#starlight.img(
+  "images/cortex-m4-memory.png",
+  alt: "Regions in the Cortex M4 memory",
+)
 
 / Code region: primarily used to store code or data memory.
 / SRAM region: primarily used to store runtime data such as heaps and stacks.
@@ -90,7 +93,10 @@ recommended use.
 / External RAM and external device: used for external memories or peripherals.
 / Private peripherals bus: used for the NVIC and SCS.
 
-#image("images/cortex-m4-memory-2.png", alt: "Regions in the Cortex M4 memory")
+#starlight.img(
+  "images/cortex-m4-memory-2.png",
+  alt: "Regions in the Cortex M4 memory",
+)
 
 == Bit-band operations
 

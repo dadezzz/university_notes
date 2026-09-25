@@ -1,72 +1,71 @@
----
-description:
-  Definizione di piano tangente e differenziabilità per funzioni di più
-  variabili con gradiente e differenziale come approssimazione locale della
-  funzione.
-lang: it
-title: Piano tangente e differenziale multivariabile
----
+#import "../_templates/starlight.typ" as starlight
 
-## Piano tangente al grafico di una funzione a 2 variabili
+#show: starlight.setup
+
+#metadata((
+  description: "Definizione di piano tangente e differenziabilità per funzioni di più variabili con gradiente e differenziale come approssimazione locale della funzione.",
+  lang: "it",
+  title: "Piano tangente e differenziale multivariabile",
+))
+
+= Piano tangente al grafico di una funzione a 2 variabili
 
 Il piano tangente ad una funzione $f: A subset.eq bb(R)^2 -> bb(R)$ nel punto
 $(x_0, y_0, f(x_0, y_0))$ è definito come il piano $pi subset bb(R)^3$ di
 equazione:
 
-$$
-z = a (x - x_0) + b (y - y_0) + f(x_0, y_0)
-$$
+$
+  z = a (x - x_0) + b (y - y_0) + f(x_0, y_0)
+$
 
-:::caution
-
-Il piano $pi$ non può essere parallelo all'asse $z$.
-
-:::
+#starlight.caution([
+  Il piano $pi$ non può essere parallelo all'asse $z$.
+])
 
 I parametri $a$ e $b$ sono costanti tali che il piano $pi$ rappresenti una buona
 approssimazione locale della funzione $f$ nel punto $(x_0, y_0)$.
 
-Una funzione a due variabili si definisce **differenziabile** se è soddisfatta
-la seguente condizione:
+Una funzione a due variabili si definisce *differenziabile* se è soddisfatta la
+seguente condizione:
 
-$$
-lim_((x, y) -> (x_0, y_0)) (f(x, y) - (f(x_0, y_0) + a (x - x_0) + b (y - y_0))) / (d((x, y), (x_0, y_0))) = 0
-$$
+$
+  lim_((x, y) -> (x_0, y_0)) (f(x, y) - (f(x_0, y_0) + a (x - x_0) + b (y - y_0))) / (d((x, y), (x_0, y_0))) = 0
+$
 
 Se $f$ è differenziabile in $(x_0, y_0)$, si dimostra che in quel punto
 $nabla f(x_0, y_0) = (a, b)$.
 
-## Generalizzazione della condizione di differenziabilità
+= Generalizzazione della condizione di differenziabilità
 
 Data una funzione $f: A subset.eq bb(R)^n -> bb(R)$ e
 $bold(e)_1, ..., bold(e)_n$, vettori della base canonica di $bb(R)^n$, la
 derivata parziale $i$-esima di $f$ in $bold(p)_0 in A$ esiste se:
 
-$$
-exists (partial f) / (partial x_i) (bold(p)_0) = lim_(h -> 0) (f(bold(p)_0 + h bold(e)_i) - f(bold(p)_0)) / h in bb(R)
-$$
+$
+  exists (partial f) / (partial x_i) (bold(p)_0) = lim_(h -> 0) (f(bold(p)_0 + h bold(e)_i) - f(bold(p)_0)) / h in bb(R)
+$
 
 Il gradiente $nabla f(bold(p)_0)$ esiste se e solo se tutte le derivate parziali
 di $f$ esistono.
 
 Una funzione è differenziabile in $bold(p)_0$ se e solo se:
 
-$$
-lim_(bold(p) -> bold(p)_0) (f(bold(p)) - (f(bold(p)_0) + nabla f(bold(p)_0) dot (bold(p) - bold(p)_0))) / (d(bold(p), bold(p)_0)) = 0
-$$
+$
+  lim_(bold(p) -> bold(p)_0) (f(bold(p)) - (f(bold(p)_0) + nabla f(bold(p)_0) dot (bold(p) - bold(p)_0))) / (d(bold(p), bold(p)_0)) = 0
+$
 
-### Differenziale
+== Differenziale
 
 Il differenziale è un'applicazione lineare definita come:
 
-$$
-dif f(bold(p)_0) = nabla f(bold(p)_0) dot (dif x_1, ..., dif x_n)
-$$
+$
+  dif f(bold(p)_0) = nabla f(bold(p)_0) dot (dif x_1, ..., dif x_n)
+$
 
 Esso indica il tasso di variazione di una funzione per piccoli spostamenti a
 partire da $bold(p)_0$.
 
-### Corollario
+== Corollario
 
 Se $f$ è differenziabile in $bold(p)_0 = (x_0, y_0)$:
 

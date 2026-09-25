@@ -37,7 +37,7 @@ Varie tipologie di processo produttivo hanno bisogno di layout diversi che
 garantiscano sicurezza ed ergonomia per il personale e chiarezza ed efficienza
 nell'utilizzo dello spazio.
 
-#image("images/layout-produttivi.png", alt: "Layout produttivi")
+#starlight.img("images/layout-produttivi.png", alt: "Layout produttivi")
 
 - *Postazione fissa*: il prodotto rimane in un punto fisso e tutte le risorse
   convergono verso di esso. Richiede un'elevata necessità di coordinamento.
@@ -78,7 +78,7 @@ delle attività produttive e l'analisi e il miglioramento continuo dei processi.
 L'operations strategy si occupa di decisioni a lungo termine che contribuiscono
 alla strategia complessiva dell'azienda.
 
-#image(
+#starlight.img(
   "images/operations-management-vs-strategy.png",
   alt: "Confronto tra management e strategy",
 )
@@ -92,7 +92,7 @@ I fattori *order-qualifying* sono quelli necessari per partecipare alla
 competizione. Quelli *order-winning* sono quelli che permettono di vincere la
 competizione.
 
-#image(
+#starlight.img(
   "images/order-qualifying-vs-winning.png",
   alt: "Order qualifying vs order winning",
 )

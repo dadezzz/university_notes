@@ -13,7 +13,7 @@
 L'edge detector è un componente che rileva i fronti di salita (o discesa) di un
 segnale di ingresso $S$.
 
-#image(
+#starlight.img(
   "images/diagramma-asm-edge-detector.png",
   alt: "Diagramma ASM dell'edge detector",
 )
@@ -27,17 +27,20 @@ Ogni ciclo del clock, quando il segnale d'ingresso cambia di valore, l'uscita
 andrà a 1 per il ciclo successivo del clock. Si possono impiegare 2 busy-wait
 per rilevare le transizioni sugli ingressi.
 
-#image(
+#starlight.img(
   "images/diagramma-asm-derivatore.png",
   alt: "Diagramma ASM del derivatore",
 )
 
-#image("images/diagramma-temporale-derivatore.png", alt: "Diagramma temporale")
+#starlight.img(
+  "images/diagramma-temporale-derivatore.png",
+  alt: "Diagramma temporale",
+)
 
 *Problema*: Se nello stesso ciclo di clock il segnale torna al valore iniziale,
 allora la transizione verrà persa.
 
-#image(
+#starlight.img(
   "images/diagramma-temporale-derivatore-cambiamenti-persi.png",
   alt: "Diagramma temporale con cambiamenti persi",
 )

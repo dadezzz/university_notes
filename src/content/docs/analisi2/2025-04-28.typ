@@ -1,45 +1,49 @@
----
-description:
-  Integrale doppio su insiemi misurabili e criterio di misurabilità tramite
-  frontiera con formule di riduzione su domini semplici per il calcolo degli
-  integrali.
-lang: it
-title: Integrali doppi su insiemi misurabili e riduzione
----
+#import "../_templates/starlight.typ" as starlight
 
-## Integrale doppio su insiemi generali
+#show: starlight.setup
+
+#metadata((
+  description: "Integrale doppio su insiemi misurabili e criterio di misurabilità tramite frontiera con formule di riduzione su domini semplici per il calcolo degli integrali.",
+  lang: "it",
+  title: "Integrali doppi su insiemi misurabili e riduzione",
+))
+
+= Integrale doppio su insiemi generali
 
 Sia $A subset.eq bb(R)^2$ un insieme limitato e sia $f: A -> bb(R)$ una funzione
 limitata. Sia $Q = [a,b] times [c,d]$ un rettangolo contenente $A$
 ($Q supset A$). Definiamo la funzione $tilde(f)$ come segue:
 
-$$
-tilde(f)(x,y) = cases(
-f(x,y) & (x,y) in A,
-0 & (x,y) in Q without A,
-)
-$$
+$
+  tilde(f)(x,y) = cases(
+    f(x,y) & (x,y) in A,
+    0 & (x,y) in Q without A,
+  )
+$
 
 Si dice che $f$ è integrabile su $A$ se $tilde(f)$ è integrabile su $Q$. In
 questo caso, si ha $integral.double_A f = integral.double_Q tilde(f)$.
 
-![Integrale di una funzione su un insieme non rettangolare](../../../../../images/analisi-2/integrale-su-insieme-non-rettangolare.png)
+#starlight.img(
+  "images/integrale-su-insieme-non-rettangolare.png",
+  alt: "Integrale di una funzione su un insieme non rettangolare",
+)
 
 Se per l'insieme $A$ non fosse definita una nozione di area, non potremmo
 calcolare $integral.double_A f$.
 
-### Insiemi misurabili e la loro misura
+== Insiemi misurabili e la loro misura
 
 Un insieme $A subset.eq bb(R)^2$ è definito misurabile se la funzione
 $f(bold(p)) = cases(1 & bold(p) in A, 0 & bold(p) in.not A)$ è integrabile su
-$A$. In questo caso, il valore dell'integrale è chiamato **misura** di $A$,
+$A$. In questo caso, il valore dell'integrale è chiamato *misura* di $A$,
 denotata con:
 
-$$
-abs(A)_2 = integral.double_A 1 dif x dif y
-$$
+$
+  abs(A)_2 = integral.double_A 1 dif x dif y
+$
 
-#### Teoremi
+=== Teoremi
 
 - Sia $A$ un insieme limitato. Allora $A$ è misurabile se e solo se
   $abs(partial A)_2 = 0$.
@@ -47,26 +51,29 @@ $$
   il suo grafico $G_g = {(x, g(x)) mid(|) x in [a, b]}$ è misurabile e
   $abs(G_g)_2 = 0$.
 
-**Corollario**: Se la frontiera di $A$ è data dall'unione finita di grafici di
+*Corollario*: Se la frontiera di $A$ è data dall'unione finita di grafici di
 funzioni continue, allora $A$ è misurabile.
 
-##### Misurabilità degli insiemi semplici nel piano
+==== Misurabilità degli insiemi semplici nel piano
 
 Siano $g_1, g_2: [a, b] -> bb(R)$ funzioni continue e supponiamo che
 $forall x in [a, b], g_1(x) <= g_2(x)$. L'insieme
 $A = {(x, y) in bb(R)^2 mid(|) a <= x <= b, g_1(x) <= y <= g_2(x)}$ è chiamato
-**insieme semplice** rispetto all'asse $y$.
+*insieme semplice* rispetto all'asse $y$.
 
-![Esempio di insieme semplice](../../../../../images/analisi-2/insieme-semplice.png)
+#starlight.img(
+  "images/insieme-semplice.png",
+  alt: "Esempio di insieme semplice",
+)
 
 Per il corollario citato, $A$ è misurabile.
 
-##### Esistenza dell'integrale doppio su insiemi misurabili
+==== Esistenza dell'integrale doppio su insiemi misurabili
 
 Sia $f: A -> bb(R)$. Supponiamo che $A$ sia limitato e misurabile, e che $f$ sia
 limitata e continua su $A$. Allora $f$ è integrabile su $A$.
 
-##### Integrale doppio su insiemi di misura nulla
+==== Integrale doppio su insiemi di misura nulla
 
 Sia $A subset.eq bb(R)^2$ un insieme limitato e misurabile, e sia $f in R(A)$.
 Supponiamo inoltre che $A$ sia divisibile in $B union C$, dove $B$ e $C$ sono
@@ -74,11 +81,11 @@ misurabili e $abs(C)_2 = 0$. Allora $integral.double_A f = integral.double_B f$.
 
 Da questo teorema deriva che:
 
-$$
-integral.double_A f = integral.double_dot(A) f
-$$
+$
+  integral.double_A f = integral.double_dot(A) f
+$
 
-### Integrali doppi su domini semplici e formule di riduzione
+== Integrali doppi su domini semplici e formule di riduzione
 
 - Un insieme $A subset.eq bb(R)^2$ è detto dominio semplice (o dominio normale)
   rispetto all'asse $y$ se esistono $g_1, g_2 in C^0([a, b])$ tali che
@@ -90,27 +97,27 @@ $$
   $forall y in [c, d], h_1(y) <= h_2(y)$ e
   $A = {(x, y) in bb(R)^2 mid(|) y in [c, d], h_1(y) <= x <= h_2(y)}$.
 
-![Esempi di insiemi semplici](../../../../../images/analisi-2/insiemi-semplici.png)
+#starlight.img("images/insiemi-semplici.png", alt: "Esempi di insiemi semplici")
 
 Se un insieme è semplice, allora è limitato e misurabile. Quindi, se $A$ è
 semplice e $f in C^0(A)$, allora $f in R(A)$.
 
-#### Formula di riduzione su domini semplici
+=== Formula di riduzione su domini semplici
 
 - Se $A$ è un dominio semplice rispetto ad $y$, allora:
 
-  $$
-  integral.double_A f = integral_a^b (integral_(g_1(x))^(g_2(x)) f(x,y) dif y) dif x
-  $$
+  $
+    integral.double_A f = integral_a^b (integral_(g_1(x))^(g_2(x)) f(x,y) dif y) dif x
+  $
 
   Inoltre, $A$ è misurabile e
   $abs(A)_2 = integral.double_A 1 = integral_a^b (g_2(x) - g_1(x)) dif x$.
 
 - Se $A$ è un dominio semplice rispetto ad $x$, allora:
 
-  $$
-  integral.double_A f = integral_c^d (integral_(h_1(y))^(h_2(y)) f(x,y) dif x) dif y
-  $$
+  $
+    integral.double_A f = integral_c^d (integral_(h_1(y))^(h_2(y)) f(x,y) dif x) dif y
+  $
 
   Inoltre, $A$ è misurabile e
   $abs(A)_2 = integral.double_A 1 = integral_c^d (h_2(y) - h_1(y)) dif y$.

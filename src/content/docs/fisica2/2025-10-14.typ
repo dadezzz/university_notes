@@ -135,8 +135,14 @@ resistenza in un'onda sinusoidale.
 
 Rispetto al tempo: https://www.geogebra.org/calculator/nqdfrchm
 
-#image("images/comportamento-componenti-rispetto-a-tempo.png", alt: "Grafico")
+#starlight.img(
+  "images/comportamento-componenti-rispetto-a-tempo.png",
+  alt: "Grafico",
+)
 
 Rispetto alla fase: https://www.geogebra.org/calculator/xbdrevxx
 
-#image("images/comportamento-componenti-rispetto-a-fase.png", alt: "Grafico")
+#starlight.img(
+  "images/comportamento-componenti-rispetto-a-fase.png",
+  alt: "Grafico",
+)

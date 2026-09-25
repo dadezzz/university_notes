@@ -20,7 +20,7 @@ stack, heap.
 The program sees logical addresses. The OS maintains a segment table for each
 process, where each entry contains a base address and a limit (segment size).
 
-#image("images/segmentation-hardware.png", alt: "Segmentation hardware")
+#starlight.img("images/segmentation-hardware.png", alt: "Segmentation hardware")
 
 The TLB can still be used in the same way as with paging.
 

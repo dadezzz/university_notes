@@ -45,7 +45,7 @@ $
 
 = Legame tra le grandezze elettromagnetiche
 
-#image("images/legame-grandezze-elettromagnetiche.svg", alt: "Grafico")
+#starlight.img("images/legame-grandezze-elettromagnetiche.svg", alt: "Grafico")
 
 = Elementi in serie e in parallelo
 

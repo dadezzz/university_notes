@@ -18,7 +18,7 @@ un transitore nMOS.
 
 Una porta AND può essere implementata come nell'immagine:
 
-#image("images/porta-and-pass-transistor.png", alt: "Porta AND")
+#starlight.img("images/porta-and-pass-transistor.png", alt: "Porta AND")
 
 L'nMOS della logica a pass transistor non riesce a condurre bene gli 1 (l'uscita
 arriva al più a $V_"DD" - V_"TN"$) perché il canale svanisce. La situazione è
@@ -37,7 +37,7 @@ Il principale svantaggio è dovuto alla maggiore complessità dovuta all'utilizz
 di 2 transistori e un invertitore. Inoltre tutto il rumore all'ingresso è
 passato all'uscita.
 
-#image("images/transmission-gate.png", alt: "Transmission gate")
+#starlight.img("images/transmission-gate.png", alt: "Transmission gate")
 
 #starlight.tip([
   Per risolvere la questione del rumore, si possono introdurre regolarmente nel
@@ -58,7 +58,7 @@ insieme al pull-up (pMOS), è comandato da un segnale di clock.
 - Nella fase di valutazione, in base al valore degli ingressi, si decide se il
   nodo di uscita viene portato a 0 o se rimane a 1.
 
-#image(
+#starlight.img(
   "images/porta-logica-dinamica.png",
   alt: "Circuito di una porta logica dinamica",
 )

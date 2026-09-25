@@ -31,7 +31,10 @@ Kernel data structures are analogous to those used in standard programming:
 
 = Overview of operating system services
 
-#image("images/os-services-overview.png", alt: "Overview of OS services")
+#starlight.img(
+  "images/os-services-overview.png",
+  alt: "Overview of OS services",
+)
 
 = OS programming
 

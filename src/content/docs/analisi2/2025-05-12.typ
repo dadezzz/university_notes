@@ -1,22 +1,22 @@
----
-description:
-  Curve chiuse semplici e regolari in spazi euclidei vettore velocità retta
-  tangente versore tangente e cambiamento di parametro.
-lang: it
-title: Curve parametriche, definizione vettore e tangente
----
+#import "../_templates/starlight.typ" as starlight
 
-## Curve in $bb(R)^n$
+#show: starlight.setup
 
-:::tip
+#metadata((
+  description: "Curve chiuse semplici e regolari in spazi euclidei vettore velocità retta tangente versore tangente e cambiamento di parametro.",
+  lang: "it",
+  title: "Curve parametriche, definizione vettore e tangente",
+))
 
-- integrale doppio: formalizza il concetto di area;
-- integrale triplo: formalizza il concetto di volume;
-- integrale curvilineo: formalizza il concetto di lunghezza di una curva;
+= Curve in $bb(R)^n$
 
-:::
+#starlight.tip([
+  - integrale doppio: formalizza il concetto di area;
+  - integrale triplo: formalizza il concetto di volume;
+  - integrale curvilineo: formalizza il concetto di lunghezza di una curva;
+])
 
-Una **curva** (o traiettoria) è una mappa $gamma: I subset.eq bb(R) -> bb(R)^n$,
+Una *curva* (o traiettoria) è una mappa $gamma: I subset.eq bb(R) -> bb(R)^n$,
 continua su $I$, $gamma(t) = (gamma_1(t), ..., gamma_n(t))$, con
 $gamma_i: I -> bb(R)$.
 
@@ -25,66 +25,64 @@ $gamma_i: I -> bb(R)$.
 - L'insieme $gamma(I) subset.eq bb(R)^n$ si chiama sostegno della curva.
 - L'equazione $bold(x) = (x_1, ..., x_n) = gamma(t)$ è detta equazione
   parametrica di $gamma$.
-- La curva si dice **chiusa** se $I = [a, b]$ e $gamma(a) = gamma(b)$.
-- Una curva si dice **semplice** se $gamma$ è iniettiva, oppure se $gamma$ è
+- La curva si dice *chiusa* se $I = [a, b]$ e $gamma(a) = gamma(b)$.
+- Una curva si dice *semplice* se $gamma$ è iniettiva, oppure se $gamma$ è
   chiusa e $gamma: [a,b) -> bb(R)^n$ è iniettiva.
 
-:::note
+#starlight.note([
+  Due curve possono avere lo stesso sostegno ma essere differenti.
 
-Due curve possono avere lo stesso sostegno ma essere differenti.
+  *Esempio*: Due curve che hanno come sostegno una circonferenza, ma i cui
+  domini sono $[0, 2 pi]$ e $[0, 4 pi]$. In questo caso una curva è semplice e
+  l'altra no.
+])
 
-**Esempio**: Due curve che hanno come sostegno una circonferenza, ma i cui
-domini sono $[0, 2 pi]$ e $[0, 4 pi]$. In questo caso una curva è semplice e
-l'altra no.
-
-:::
-
-### Orientazione (o verso) di una curva semplice
+== Orientazione (o verso) di una curva semplice
 
 Data $gamma: I -> bb(R)^n$ curva semplice, si dice che il punto
 $bold(x)_1 = gamma(t_1)$ precede il punto $bold(x)_2 = gamma(t_2)$ se
 $t_1 < t_2$.
 
-### Vettore velocità di una curva
+== Vettore velocità di una curva
 
 Sia $gamma: I -> bb(R)^n$ una curva, $gamma(t) = (gamma_1(t), ..., gamma_n(t))$.
 Se le componenti $gamma_i$ sono derivabili in un punto $t_0 in I$, il vettore
 velocità di $gamma$ in $t_0$ è definito:
 
-$$
-gamma'(t_0) = (gamma'_1(t_0), ..., gamma'_n(t_0))
-$$
+$
+  gamma'(t_0) = (gamma'_1(t_0), ..., gamma'_n(t_0))
+$
 
 Possiamo scrivere:
 
-$$
-gamma(t) = gamma(t_0) + gamma'(t_0) (t - t_0) + o(t - t_0) "per" t -> t_0
-$$
+$
+  gamma(t) = gamma(t_0) + gamma'(t_0) (t - t_0) + o(t - t_0) "per" t -> t_0
+$
 
-Se $gamma'(t_0) != bold(0)$, allora si chiama **retta tangente** alla curva
+Se $gamma'(t_0) != bold(0)$, allora si chiama *retta tangente* alla curva
 $gamma$ nel punto $x_0 = gamma(t_0)$ l'equazione parametrica:
 
-$$
-bold(x) = gamma(t_0) + gamma'(t_0) (t - t_0)
-$$
+$
+  bold(x) = gamma(t_0) + gamma'(t_0) (t - t_0)
+$
 
-Se $gamma'(t_0) = bold(0)$, la retta tangente **può** non esistere.
+Se $gamma'(t_0) = bold(0)$, la retta tangente *può* non esistere.
 
-### Curva regolare
+== Curva regolare
 
 Una curva si dice di classe $C^m$ se tutte le $gamma_i$ sono di classe $C^m$.
 
-$gamma: I -> bb(R)^n$ si dice **regolare** se è di classe $C^1$ e
+$gamma: I -> bb(R)^n$ si dice *regolare* se è di classe $C^1$ e
 $forall t in I, gamma'(t) != bold(0)$.
 
-Data $gamma$ curva regolare, si chiama **versore tangente** a $gamma$ il campo
+Data $gamma$ curva regolare, si chiama *versore tangente* a $gamma$ il campo
 vettoriale:
 
-$$
-T_gamma(t) = (gamma'(t)) / norm(gamma'(t)), t in I
-$$
+$
+  T_gamma(t) = (gamma'(t)) / norm(gamma'(t)), t in I
+$
 
-#### Curva regolare a tratti
+=== Curva regolare a tratti
 
 Una curva $gamma$ si dice $C^1$ a tratti (o regolare a tratti) se esiste una
 suddivisione tale che in ogni suo intervallo $gamma$ sia di classe $C^1$.
@@ -92,14 +90,14 @@ suddivisione tale che in ogni suo intervallo $gamma$ sia di classe $C^1$.
 In tal caso $gamma$ è considerata unione delle $N$ curve regolari $gamma_i$ e si
 scrive:
 
-$$
-gamma = union_(i = 1)^N gamma_i
-$$
+$
+  gamma = union_(i = 1)^N gamma_i
+$
 
-### Cambiamento di parametro di una curva
+== Cambiamento di parametro di una curva
 
 Due curve di classe $C^1$, $gamma: I -> bb(R)^n$ e
-$tilde(gamma): tilde(I) -> bb(R)^n$, sono dette **equivalenti** se esiste una
+$tilde(gamma): tilde(I) -> bb(R)^n$, sono dette *equivalenti* se esiste una
 funzione biettiva $phi: tilde(I) -> I$ tale che:
 
 - $phi in C^1(tilde(I))$

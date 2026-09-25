@@ -94,4 +94,4 @@ da cause speciali* che richiede un intervento.
 Il control chart definisce un limite di controllo superiore (UCL) e inferiore
 (LCL). Se un punto cade fuori dai limiti allora il processo è fuori controllo.
 
-#image("images/process-control-chart.png", alt: "Process control chart")
+#starlight.img("images/process-control-chart.png", alt: "Process control chart")

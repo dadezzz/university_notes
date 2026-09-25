@@ -39,7 +39,7 @@ Il vantaggio principale è la minore area occupata dal circuito. Tuttavia le
 correnti di leakage sono tali da mantenerlo solo per pochi millisecondi e il
 valore 1 non arriva a $V_"DD"$ a causa dell'effetto body.
 
-#image("images/cella-ram-dinamica.png", alt: "Cella di RAM dinamica")
+#starlight.img("images/cella-ram-dinamica.png", alt: "Cella di RAM dinamica")
 
 Una lettura scarica la capacità, quindi dopo ogni operazione è necessario
 riscrivere il dato letto per non azzerare la memoria.
@@ -48,7 +48,7 @@ riscrivere il dato letto per non azzerare la memoria.
 
 Il sense amplifier è un circuito molto simile al latch bistabile:
 
-#image("images/sense-amplifier.png", alt: "Circuito sense amplifier")
+#starlight.img("images/sense-amplifier.png", alt: "Circuito sense amplifier")
 
 Una piccola variazione da $V_"DD" / 2$ (punto di lavoro instabile) fa sì che il
 circuito si porti verso lo 0 o 1 logico.

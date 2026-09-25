@@ -24,7 +24,7 @@ sono:
 
 == Fasi del ciclo di vita di un prodotto
 
-#image(
+#starlight.img(
   "images/fasi-ciclo-vita-prodotto.png",
   alt: "Fasi del ciclo di vita",
 )
@@ -78,7 +78,7 @@ La Functional Analysis System Technique permette di valutare alternative
 tecnologiche per migliorare le funzioni senza essere vincolati a soluzioni
 specifiche.
 
-#image("images/diagramma-fast.png", alt: "Diagramma FAST")
+#starlight.img("images/diagramma-fast.png", alt: "Diagramma FAST")
 
 == Distinta base (Bill of Materials (BOM))
 

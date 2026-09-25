@@ -61,7 +61,7 @@ I costi vengono monitorati attraverso tre metriche principali:
 - Actual Cost of Work Performed (*ACWP*): costo effettivamente sostenuto;
 - Budgeted Cost of Work Performed (*BCWP*): valore delle attività realizzate;
 
-#image("images/pm-analisi-costi.png", alt: "Analisi scostamento costi")
+#starlight.img("images/pm-analisi-costi.png", alt: "Analisi scostamento costi")
 
 == Key Performance Indicators (KPI)
 
@@ -108,7 +108,7 @@ packages). Si genera così una struttura gerarchica ad 'albero genealogico'.
 Le *milestone* sono eventi che segnano il completamento dei deliverable
 principali del progetto.
 
-#image("images/pm-wbs.png", alt: "Esempio di WBS")
+#starlight.img("images/pm-wbs.png", alt: "Esempio di WBS")
 
 L'unità di livello più basso della WBS è il work package (WP), che costituisce
 l'insieme di attività elementari che interagiscono con gli altri WP.
@@ -125,7 +125,7 @@ attività.
 
 Le barre rappresentano i work packages della WBS.
 
-#image("images/pm-gantt.png", alt: "Esempio di diagramma di Gantt")
+#starlight.img("images/pm-gantt.png", alt: "Esempio di diagramma di Gantt")
 
 == Critical path method (CPM)
 
@@ -145,7 +145,7 @@ all'incrementare della riduzione dei tempi.
 
 Rappresenta le dipendenze tra attività in un grafo.
 
-#image(
+#starlight.img(
   "images/pm-network-diagram.png",
   alt: "Esempio di diagramma-network",
 )
@@ -154,14 +154,17 @@ Rappresenta le dipendenze tra attività in un grafo.
 
 Ogni attività è un nodo con i tempi early/late e dipendenze come archi.
 
-#image("images/pm-aon.png", alt: "Esempio di diagramma activity-on-node")
+#starlight.img(
+  "images/pm-aon.png",
+  alt: "Esempio di diagramma activity-on-node",
+)
 
 == Float e profilo risorse
 
 Il float (scorrimento) può essere usato per livellare il consumo di risorse nel
 tempo.
 
-#image("images/pm-float.png", alt: "Esempio di diagramma float")
+#starlight.img("images/pm-float.png", alt: "Esempio di diagramma float")
 
 = Gestione delle risorse
 

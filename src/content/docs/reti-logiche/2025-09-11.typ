@@ -16,7 +16,7 @@ della verità.
 Ad ogni combinazione dei valori delle variabili corrisponde una riga della
 tabella.
 
-#image(
+#starlight.img(
   "images/tabella-verita-and.png",
   alt: "Tabella della verità dell'operatore AND",
 )

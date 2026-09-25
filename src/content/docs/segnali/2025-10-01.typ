@@ -105,7 +105,7 @@ In fisica il concetto di frequenza è associato a fenomeni periodici. Nei segnal
 il concetto viene allargato anche al contenuto frequenziale di un segnale non
 periodico.
 
-#image(
+#starlight.img(
   "images/comparazione-frequenza-segnali.png",
   alt: "Segnali ad alta e bassa frequenza",
 )
@@ -137,7 +137,7 @@ $
 
 *Esempio*: costruzione di un'onda quadra con serie di Fourier
 
-#image(
+#starlight.img(
   "images/esempio-onda-quadra-con-fourier.png",
   alt: "Grafico onda quadra e armoniche",
 )

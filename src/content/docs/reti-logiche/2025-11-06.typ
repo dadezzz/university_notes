@@ -61,7 +61,7 @@ La sua interfaccia è composta da:
 
 = Sistema RTL
 
-#image("images/sistema-rtl.png", alt: "Diagramma sistema RTL")
+#starlight.img("images/sistema-rtl.png", alt: "Diagramma sistema RTL")
 
 Entrambi i blocchi sono sequenziali e sincronizzati dallo stesso clock.
 

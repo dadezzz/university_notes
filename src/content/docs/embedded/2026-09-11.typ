@@ -51,18 +51,21 @@ manufacturers, who physically produce the processors.
 - Cortex R: high performance for real time applications;
 - Cortex M: cost sensitive and power efficient;
 
-#image("images/arm-timeline.png", alt: "Timeline of ARM architecture")
+#starlight.img("images/arm-timeline.png", alt: "Timeline of ARM architecture")
 
 = Von Neumann vs Harvard architectures
 
 In the Von Neumann architecture memory holds both data and instructions. The CPU
 fetches the instruction from memory, decodes and then executes it.
 
-#image("images/arch-von-neumann.png", alt: "Von Neumann architecture diagram")
+#starlight.img(
+  "images/arch-von-neumann.png",
+  alt: "Von Neumann architecture diagram",
+)
 
 The Harvard architecture has separate memories for data and programs. The
 program counter points only to program memory, so self-modifying code cannot be
 used. The advantage is doubled memory bandwidth, since instruction and data
 accesses can use separate memory buses simultaneously.
 
-#image("images/arch-harvard.png", alt: "Harvard architecture diagram")
+#starlight.img("images/arch-harvard.png", alt: "Harvard architecture diagram")

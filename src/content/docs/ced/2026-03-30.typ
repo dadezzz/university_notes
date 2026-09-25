@@ -17,7 +17,7 @@ La struttura del transistore presenta diversi capacitori intrinseci:
 - nei diodi parassiti;
 - altre non linearità a seconda della zona di funzionamento;
 
-#image(
+#starlight.img(
   "images/capacita-transistore.png",
   alt: "Capacità all'interno del transistore",
 )
@@ -39,7 +39,10 @@ Nella logica CMOS (complementary MOS), sia il pull-up pMOS sia il pull-down nMOS
 sono controllati dallo stesso segnale $V_I$. In questo modo non si hanno perdite
 statiche di corrente per alcuno stato logico.
 
-#image("images/invertitore-cmos.png", alt: "Circuito dell'invertitore CMOS")
+#starlight.img(
+  "images/invertitore-cmos.png",
+  alt: "Circuito dell'invertitore CMOS",
+)
 
 Lo 0 e 1 logici corrispondono alle tensioni di alimentazione, quindi i margini
 di rumore saranno grandi. Inoltre c'è una bassa impedenza in uscita, che aumenta

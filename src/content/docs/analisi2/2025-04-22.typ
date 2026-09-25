@@ -1,22 +1,27 @@
----
-description:
-  Integrali doppi su rettangoli con criteri di integrabilità di Riemann, somme
-  superiori e inferiori, teorema del valor medio e teorema di Fubini.
-lang: it
-title: Integrali doppi su rettangoli e teorema di Fubini
----
+#import "../_templates/starlight.typ" as starlight
 
-## Integrali per funzioni di più variabili
+#show: starlight.setup
+
+#metadata((
+  description: "Integrali doppi su rettangoli con criteri di integrabilità di Riemann, somme superiori e inferiori, teorema del valor medio e teorema di Fubini.",
+  lang: "it",
+  title: "Integrali doppi su rettangoli e teorema di Fubini",
+))
+
+= Integrali per funzioni di più variabili
 
 Tratteremo gli integrali di funzioni $f: A subset.eq bb(R)^n -> bb(R)$, per
 $n = 2,3$, noti anche come integrali multipli.
 
-### Integrale doppio su un rettangolo
+== Integrale doppio su un rettangolo
 
 Consideriamo un rettangolo $Q = [a, b] times [c, d]$ e una funzione
 $f: Q -> bb(R)$ limitata, ovvero tale che $sup_Q f$ esista.
 
-![Suddivisione di un'area in $bb(R)^2$](../../../../../images/analisi-2/suddivisione-area-r2.png)
+#starlight.img(
+  "images/suddivisione-area-r2.png",
+  alt: "Suddivisione di un'area in $bb(R)^2$",
+)
 
 Si definisce suddivisione dell'intervallo $[a, b]$ un insieme finito di punti
 della retta reale ${x_0, ..., x_m}$ tale che $a = x_0 < ... < x_m = b$.
@@ -27,90 +32,89 @@ finito di punti ${y_0, ..., y_n}$ tale che $c = y_0 < ... < y_n = d$.
 Una suddivisione di $Q$ in $bb(R)^2$ è definita dalla coppia $(D_1, D_2)$, dove
 $D_1$ e $D_2$ sono le suddivisioni di $[a, b]$ e $[c, d]$ rispettivamente.
 
-#### Somma superiore e inferiore
+=== Somma superiore e inferiore
 
 La somma superiore (o inferiore) di $f$ rispetto alla suddivisione $D$ di $Q$ è
 definita come il numero reale:
 
-$$
-S(f,D) = sum_(i = 1)^m sum_(j = 1)^n M_(i, j) op("area")(Q_(i, j))
-$$
+$
+  S(f,D) = sum_(i = 1)^m sum_(j = 1)^n M_(i, j) op("area")(Q_(i, j))
+$
 
 o rispettivamente:
 
-$$
-s(f, D) = sum_(i = 1)^m sum_(j = 1)^n m_(i, j) op("area")(Q_(i, j))
-$$
+$
+  s(f, D) = sum_(i = 1)^m sum_(j = 1)^n m_(i, j) op("area")(Q_(i, j))
+$
 
 Poiché $f$ è limitata, $M_(i, j)$ e $m_(i, j)$ sono numeri reali (non infiniti)
 che corrispondono, rispettivamente, all'estremo superiore e inferiore di $f$
 nell'intervallo definito dalla suddivisione.
 
-##### Proprietà
+==== Proprietà
 
 - Se $f >= 0$, le somme superiore e inferiore rappresentano il volume di un
   parallelepipedo di base $Q_(i, j)$ e altezza $M_(i, j)$ o $m_(i, j)$.
 - Per ogni suddivisione $D$ di $Q$:
 
-  $$
-  op("area")(Q) inf_Q f <= s(f,D) <= S(f,D) <= op("area")(Q) sup_Q f
-  $$
+  $
+    op("area")(Q) inf_Q f <= s(f,D) <= S(f,D) <= op("area")(Q) sup_Q f
+  $
 
-#### Funzione integrabile
+=== Funzione integrabile
 
 Una funzione $f$ si dice integrabile secondo Riemann in $Q$ ($f in R(Q)$) se:
 
-$$
-L = sup {s(f,D)} = inf {S(f,D)}
-$$
+$
+  L = sup {s(f,D)} = inf {S(f,D)}
+$
 
 ovvero se le somme superiore e inferiore coincidono.
 
 Il numero reale $L$ è chiamato integrale doppio di $f$ e si denota:
 
-$$
-L = integral.double_Q f(x,y) dif x dif y = integral.double_Q f dif Q = integral_Q f dif Q
-$$
+$
+  L = integral.double_Q f(x,y) dif x dif y = integral.double_Q f dif Q = integral_Q f dif Q
+$
 
-#### Condizioni che assicurano $f in R(Q)$
+=== Condizioni che assicurano $f in R(Q)$
 
 - Se $f in C^0(Q)$, allora $f in R(Q)$.
 - Se $f$ è limitata su $Q$ e continua quasi ovunque (l'insieme dei punti di
   discontinuità ha misura nulla), allora $f in R(Q)$ (criterio di Lebesgue).
 
-:::note
+#starlight.note([
+  Un esempio di funzione per cui l'integrale non esiste è la funzione di
+  Dirichlet (che vale 1 sui razionali e 0 sugli irrazionali, che quindi è
+  discontinua in ogni suo punto), il cui insieme di discontinuità ha misura non
+  nulla.
+])
 
-Un esempio di funzione per cui l'integrale non esiste è la funzione di Dirichlet
-(che vale 1 sui razionali e 0 sugli irrazionali, che quindi è discontinua in
-ogni suo punto), il cui insieme di discontinuità ha misura non nulla.
+=== Proprietà dell'integrale
 
-:::
-
-#### Proprietà dell'integrale
-
-- **Linearità**:
+- *Linearità*:
   $integral.double (alpha f + beta g) = alpha integral.double f + beta integral.double g$.
-- **Monotonia**: Se $g <= f$ su $Q$, allora
+- *Monotonia*: Se $g <= f$ su $Q$, allora
   $integral.double_Q g <= integral.double_Q f$.
 - Se $abs(f) in R(Q)$, allora
   $abs(integral.double_Q f) <= integral.double_Q abs(f)$.
-- **Teorema del valor medio**:
+- *Teorema del valor medio*:
   $inf_Q f <= 1 / op("area")(Q) integral.double_Q f <= sup_Q f$. Se
   $f in C^0(Q)$, esiste $bold(p)_0 in Q$ tale che
   $f(bold(p)_0) = 1 / op("area")(Q) integral.double_Q f$.
 
-#### Formula di riduzione sui rettangoli (Teorema di Fubini)
+=== Formula di riduzione sui rettangoli (Teorema di Fubini)
 
 Siano $Q$ il rettangolo $[a, b] times [c, d]$ e $f$ una funzione integrabile su
 $Q$. Inoltre assumiamo che per ogni $x in [a, b]$, la funzione $f$ sia
 integrabile come $integral_c^d f(x,y) dif y$. Allora:
 
-$$
-integral.double_Q f = integral_a^b (integral_c^d f(x,y) dif y) dif x
-$$
+$
+  integral.double_Q f = integral_a^b (integral_c^d f(x,y) dif y) dif x
+$
 
 In particolare, per funzioni $f in C^0(Q)$, vale:
 
-$$
-integral.double f = integral_a^b (integral_c^d f(x,y) dif y) dif x = integral_c^d (integral_a^b f(x,y) dif x) dif y
-$$
+$
+  integral.double f = integral_a^b (integral_c^d f(x,y) dif y) dif x = integral_c^d (integral_a^b f(x,y) dif x) dif y
+$

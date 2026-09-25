@@ -51,7 +51,7 @@ A temperature più alte (anche 'solo' a $293 thick "K"$), alcuni legami si
 rompono e gli elettroni sono liberi di scorrere, rendendo il silicio più
 conduttivo.
 
-#image(
+#starlight.img(
   "images/struttura-cristallo-silicio.png",
   alt: "Struttura cristallina del silicio",
 )
@@ -134,7 +134,7 @@ Non si può aumentare il voltaggio indefinitamente per ottenere una maggior
 velocità della corrente. Ad un certo punto si arriva ad un limite detto
 *velocità di saturazione*.
 
-#image(
+#starlight.img(
   "images/velocita-di-saturazione-vs-voltaggio.png",
   alt: "Raggiungimento della velocità di saturazione",
 )
@@ -229,7 +229,7 @@ La mobilità diminuisce all'aumentare del drogaggio perché un maggiore numero d
 atomi aggiunti aumenta anche la probabilità di collisioni tra essi e gli
 elettroni.
 
-#image(
+#starlight.img(
   "images/mobilita-portatori-estrinsici.png",
   alt: "Mobilità al cambiare della concentrazione di impurità",
 )

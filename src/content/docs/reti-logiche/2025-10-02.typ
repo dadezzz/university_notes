@@ -41,7 +41,10 @@ Per ottenere il complemento a 2 basta poi sommare 1 al complemento a 1.
 Posso semplicemente usare un sommatore che prende in input il complemento a 2
 del sottraendo.
 
-#image("images/sommatore-con-sottrazione.png", alt: "Sommatore con sottrattore")
+#starlight.img(
+  "images/sommatore-con-sottrazione.png",
+  alt: "Sommatore con sottrattore",
+)
 
 Quindi posso aggiungere un XOR sui bit in entrata del sommatore, che si attiverà
 quando immetto un numero negativo. Inoltre per aggiungere 1 basta dare un
@@ -51,7 +54,7 @@ segnale 1 al primo input del prestito.
 
 Il moltiplicatore a 1 bit funziona esattamente come una AND.
 
-#image("images/moltiplicatore-4x3.png", alt: "Moltiplicatore 4x3")
+#starlight.img("images/moltiplicatore-4x3.png", alt: "Moltiplicatore 4x3")
 
 Per avere una moltiplicazione tra 2 moltiplicandi, uno da $n$ bit e l'altro da
 $m$ bit:

@@ -38,7 +38,10 @@ iterativo).
 Ogni cella esegue il calcolo per la cifra corrispondente; il risultato finale è
 dato dai contributi di ogni cella.
 
-#image("images/celle-iterative-generiche.png", alt: "Celle iterative generiche")
+#starlight.img(
+  "images/celle-iterative-generiche.png",
+  alt: "Celle iterative generiche",
+)
 
 == Mezzo sommatore
 
@@ -57,7 +60,7 @@ carry della cella precedente.
 
 Bastano ancora 2 uscite, poiché i risultati vanno da 0 a 3.
 
-#image(
+#starlight.img(
   "images/sommatore-ripple-carry.png",
   alt: "Circuito sommatore ripple carry",
 )
@@ -93,13 +96,16 @@ ripple-carry.
 L'idea è quella di separare il calcolo della somma da quello del riporto. In
 questo modo, il calcolo del carry diventa un'operazione a 2 livelli.
 
-#image("images/sommatore-carry-lookahead-pfa.png", alt: "PFA e lookahead")
+#starlight.img(
+  "images/sommatore-carry-lookahead-pfa.png",
+  alt: "PFA e lookahead",
+)
 
 Se affianchiamo queste celle, il calcolo del carry diventa una serie di
 operazioni AND e OR affiancate. Diventa quindi possibile ottimizzarle come
 operazioni a 2 livelli per ogni uscita $c_n$.
 
-#image(
+#starlight.img(
   "images/sommatore-carry-lookahead-ottimizzato.png",
   alt: "Lookahead ottimizzato",
 )

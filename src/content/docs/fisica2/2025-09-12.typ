@@ -103,7 +103,10 @@ $
 
 Simbolo:
 
-#image("images/simbolo-resistore.png", alt: "Simboli ANSI e IEC del resistore")
+#starlight.img(
+  "images/simbolo-resistore.png",
+  alt: "Simboli ANSI e IEC del resistore",
+)
 
 Proprietà:
 

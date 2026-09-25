@@ -1,0 +1,61 @@
+#import "../_templates/starlight.typ" as starlight
+
+#show: starlight.setup
+
+#metadata((
+  description: "Studio delle funzioni scalari e vettoriali di più variabili con rappresentazione grafica mediante superfici e curve di livello per la visualizzazione geometrica.",
+  lang: "it",
+  prev: false,
+  title: "Funzioni multivariabili e curve di livello",
+))
+
+= Funzioni di più variabili e funzioni vettoriali
+
+Nel corso si studieranno funzioni della forma:
+
+$
+  f: A subset.eq bb(R)^n -> bb(R)^k thick "con" n >= 2, k >= 1
+$
+
+Se $k = 1$, la funzione è definita *funzione scalare di più variabili*. Se
+$k >= 2$, è definita *funzione vettoriale di più variabili*.
+
+In particolare studieremo i casi in cui $n = 2,3$ e $k = 1$.
+
+= Grafico di una funzione scalare di più variabili
+
+Per una funzione scalare di una variabile $f: A subset.eq bb(R) -> bb(R)$:
+
+$
+  G_f = {(x, f(x)) mid(|) x in A} subset bb(R)^2
+$
+
+#starlight.img(
+  "images/grafico-funzione-2-variabili.png",
+  alt: "Grafico di una funzione a 2 variabili",
+)
+
+Se $f: A subset.eq bb(R)^2 -> bb(R)$:
+
+$
+  G_f = {(x, y, f(x,y)) mid(|) (x,y) in A} subset bb(R)^3
+$
+
+Questo concetto può essere esteso a un numero maggiore di variabili. Tuttavia,
+la visualizzazione di spazi di dimensione quattro o superiore diventa
+problematica.
+
+= Curve di livello di una funzione scalare di più variabili
+
+Data una funzione $f: A subset.eq bb(R)^2 -> bb(R)$, e fissando un valore
+$t in bb(R)$, la curva di livello di $f$ associata a $t$ è definita:
+
+$
+  C_t = {(x, y) in A mid(|) f(x,y) = t}
+$
+
+#starlight.tip([
+  In termini pratici, le curve di livello di una funzione a due variabili sono
+  analoghe a quelle presenti sulle mappe topografiche per rappresentare
+  l'altitudine.
+])

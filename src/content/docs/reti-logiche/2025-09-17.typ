@@ -56,7 +56,7 @@ se per qualunque assegnamento $bold(x)$:
 - se $g(bold(x)) = 0$ allora il valore di $f$ può essere indifferentemente 0 o
   1;
 
-#image(
+#starlight.img(
   "images/esempio-implicante.png",
   alt: "Esempio di implicanti di una funzione",
 )
@@ -80,7 +80,7 @@ implicanti diverso, che annullino $f(bold(x))$).
 *Esempio*: il multiplexer è un circuito che restituisce il valore della
 variabile $a$ o $b$ a seconda del valore della variabile $s$.
 
-#image("images/implicanti-multiplexer.png", alt: "Multiplexer")
+#starlight.img("images/implicanti-multiplexer.png", alt: "Multiplexer")
 
 Si osservi come la forma canonica è stata semplificata sfruttando la proprietà
 dell'adiacenza.
@@ -109,12 +109,15 @@ colonna.
 Le celle sono ordinate in codice Gray, quindi spostandosi in orizzontale e
 verticale di una cella, si cambia il valore di una sola variabile.
 
-#image("images/esempio-mappa-karnaugh.png", alt: "Esempio mappa di Karnaugh")
+#starlight.img(
+  "images/esempio-mappa-karnaugh.png",
+  alt: "Esempio mappa di Karnaugh",
+)
 
 Inoltre, la mappa andrebbe considerata come un toroide, ovvero una superficie
 dove i lati del rettangolo sono collegati tra loro:
 
-#image("images/toroide.png", alt: "Toroide")
+#starlight.img("images/toroide.png", alt: "Toroide")
 
 == Come trovare gli implicanti con la mappa di Karnaugh
 
@@ -150,23 +153,23 @@ otterrà una somma di prodotti.
 
 *Esempi*: implicanti per una funzione di 3 variabili $a$, $b$ e $c$.
 
-#image(
+#starlight.img(
   "images/mappa-karnaugh-adiacenza-0.png",
   alt: "Mappa di Karnaugh con 2 minterm adiacenti",
 )
-#image(
+#starlight.img(
   "images/mappa-karnaugh-adiacenza-1.png",
   alt: "Mappa di Karnaugh con 2 minterm adiacenti",
 )
-#image(
+#starlight.img(
   "images/mappa-karnaugh-adiacenza-2.png",
   alt: "Mappa di Karnaugh con 4 minterm adiacenti",
 )
-#image(
+#starlight.img(
   "images/mappa-karnaugh-adiacenza-3.png",
   alt: "Mappa di Karnaugh con 4 minterm adiacenti",
 )
-#image(
+#starlight.img(
   "images/mappa-karnaugh-adiacenza-4.png",
   alt: "Mappa di Karnaugh con 8 minterm adiacenti",
 )

@@ -2,6 +2,10 @@ import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
+  image: {
+    responsiveStyles: true,
+    layout: "constrained",
+  },
   integrations: [
     starlight({
       customCss: ["./src/styles/code-blocks.css", "./src/styles/math-blocks.css", "./src/styles/list-markers.css"],

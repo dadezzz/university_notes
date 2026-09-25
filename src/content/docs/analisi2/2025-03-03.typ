@@ -1,93 +1,91 @@
----
-description:
-  Definisce la distanza euclidea negli spazi reali, insiemi aperti e chiusi,
-  punti di frontiera e limiti per funzioni in più variabili con teoremi
-  fondamentali.
-lang: it
-title: Distanza euclidea, insiemi e limiti in spazi reali
----
+#import "../_templates/starlight.typ" as starlight
 
-## Distanza euclidea in $bb(R)^n$
+#show: starlight.setup
+
+#metadata((
+  description: "Definisce la distanza euclidea negli spazi reali, insiemi aperti e chiusi, punti di frontiera e limiti per funzioni in più variabili con teoremi fondamentali.",
+  lang: "it",
+  title: "Distanza euclidea, insiemi e limiti in spazi reali",
+))
+
+= Distanza euclidea in $bb(R)^n$
 
 La distanza euclidea tra due punti è una funzione
 $d: bb(R)^n times bb(R)^n -> [0, +oo)$ definita:
 
-$$
-d(bold(p), bold(q)) = sqrt(sum_{i = 1}^n (q_i - p_i)^2)
-$$
+$
+  d(bold(p), bold(q)) = sqrt(sum_{i = 1}^n (q_i - p_i)^2)
+$
 
-:::note
+#starlight.note([
+  Il prodotto cartesiano ($times$) si usa per indicare che ci sono due
+  argomenti.
+])
 
-Il prodotto cartesiano ($times$) si usa per indicare che ci sono due argomenti.
-
-:::
-
-## Intorno
+= Intorno
 
 Un intorno di raggio $r$ di un punto $bold(p)_0$ è la palla aperta di centro
 $bold(p)_0$ e raggio $r$:
 
-$$
-B(bold(p)_0, r) = {bold(p) in bb(R)^n mid(|) d(bold(p), bold(p)_0) < r}
-$$
+$
+  B(bold(p)_0, r) = {bold(p) in bb(R)^n mid(|) d(bold(p), bold(p)_0) < r}
+$
 
-![Intorno di p0 in R^2](../../../../../images/analisi-2/intorno-r2.png)
+#starlight.img("images/intorno-r2.png", alt: "Intorno di p0 in R^2")
 
-:::tip
+#starlight.tip([
+  Il fatto che la palla è aperta significa che non si deve includere la sua
+  circonferenza in caso di $bb(R)^2$. In senso più generale non si deve
+  includere la frontiera dell'insieme dell'intorno.
+])
 
-Il fatto che la palla è aperta significa che non si deve includere la sua
-circonferenza in caso di $bb(R)^2$. In senso più generale non si deve includere
-la frontiera dell'insieme dell'intorno.
-
-:::
-
-### Punto di frontiera
+== Punto di frontiera
 
 Preso un insieme $A subset.eq bb(R)^n$, un punto $bold(p) in bb(R)^n$ si dice
 punto di frontiera di $A$ se:
 
-$$
-forall r > 0, B(bold(p), r) inter A != emptyset and B(bold(p), r) inter (bb(R)^n without A) != emptyset
-$$
+$
+  forall r > 0, B(bold(p), r) inter A != emptyset and B(bold(p), r) inter (bb(R)^n without A) != emptyset
+$
 
-L'insieme dei punti di frontiera di $A$ è detto **frontiera di $A$**. Si denota
+L'insieme dei punti di frontiera di $A$ è detto *frontiera di $A$*. Si denota
 con $partial A$.
 
-### Insieme aperto e chiuso
+== Insieme aperto e chiuso
 
-Un insieme è detto **chiuso** se contiene tutti i suoi punti di frontiera (cioè,
-$partial A subset.eq A$). Viceversa, un insieme è detto **aperto** se ogni suo
+Un insieme è detto *chiuso* se contiene tutti i suoi punti di frontiera (cioè,
+$partial A subset.eq A$). Viceversa, un insieme è detto *aperto* se ogni suo
 punto è un punto interno, ovvero, se per ogni $bold(p) in A$ esiste un intorno
 $B(bold(p), r)$ tale che $B(bold(p), r) subset.eq A$.
 
-### Insieme limitato
+== Insieme limitato
 
 Un insieme è detto limitato se $exists r > 0 mid(|) A subset.eq B(bold(0), r)$,
 ovvero se esiste un raggio abbastanza grande tale che una palla con centro
 nell'origine contenga tutto l'insieme $A$.
 
-### Parte interna di un insieme
+== Parte interna di un insieme
 
 L'insieme dei punti interni di $A$ è dato da tutti i punti di $A$ esclusi i
 punti di frontiera. Si denota con $dot(A)$.
 
-### Punto isolato di un insieme
+== Punto isolato di un insieme
 
 $bold(p) in A$ si dice punto isolato di $A$ se $bold(p)$ non è un punto di
 accumulazione, cioè se:
 
-$$
-exists r > 0 mid(|) B(bold(p), r) inter A = {bold(p)}
-$$
+$
+  exists r > 0 mid(|) B(bold(p), r) inter A = {bold(p)}
+$
 
-## Limite di una funzione in $n$ variabili.
+= Limite di una funzione in $n$ variabili.
 
 Sia $f: A subset.eq bb(R)^n -> bb(R)$ e sia $bold(p)_0 in bb(R)^n$ punto di
 accumulazione di $A$. Si dice che:
 
-$$
-lim_(bold(p) -> bold(p)_0) f(bold(p)) = L <=> forall epsilon > 0, exists delta > 0 mid(|) forall bold(p) in B(bold(p)_0, delta) inter (A without {bold(p)_0}), abs(f(bold(p)) - L) < epsilon
-$$
+$
+  lim_(bold(p) -> bold(p)_0) f(bold(p)) = L <=> forall epsilon > 0, exists delta > 0 mid(|) forall bold(p) in B(bold(p)_0, delta) inter (A without {bold(p)_0}), abs(f(bold(p)) - L) < epsilon
+$
 
 In pratica, questa condizione significa che per ogni tolleranza $epsilon > 0$,
 esiste un raggio $delta > 0$ tale che se $bold(p)$ è abbastanza vicino a
@@ -107,16 +105,15 @@ considerata:
   diminuire di $epsilon$ anche $delta$ rimpicciolisce, infatti a volte si scrive
   $delta(epsilon)$.
 
-:::caution
+#starlight.caution([
+  Si esclude $bold(p)_0$ dall'intorno perché non è detto che il valore del
+  limite in un punto debba coincidere con il valore della funzione in quel
+  punto.
+])
 
-Si esclude $bold(p)_0$ dall'intorno perché non è detto che il valore del limite
-in un punto debba coincidere con il valore della funzione in quel punto.
+== Calcolo dei limiti
 
-:::
-
-### Calcolo dei limiti
-
-#### Unicità del limite
+=== Unicità del limite
 
 Sia $f: A subset.eq bb(R)^n -> bb(R)$ e sia $bold(p)_0$ punto di accumulazione
 per $A$, se $exists lim_(bold(p) -> bold(p)_0) f(bold(p)) = L$, allora $L$ è
@@ -125,7 +122,7 @@ unico.
 Se il limite di una funzione $f$ differisce quando ci si avvicina a $bold(p)_0$
 lungo due direzioni diverse, allora il limite non esiste.
 
-#### Operazioni elementari
+=== Operazioni elementari
 
 Dati $lim_(bold(p) -> bold(p)_0) f(bold(p)) = L$ e
 $lim_(bold(p) -> bold(p)_0) g(bold(p)) = M$:
@@ -135,13 +132,13 @@ $lim_(bold(p) -> bold(p)_0) g(bold(p)) = M$:
 - Se $forall bold(p) in A without {bold(p)_0}, g(bold(p)) != 0$ e $M != 0$,
   allora $lim_(bold(p) -> bold(p)_0) f(bold(p)) / g(bold(p)) = L / M$
 
-#### Composizione di funzioni
+=== Composizione di funzioni
 
 Sia $F: bb(R) -> bb(R)$ una funzione continua e sia
 $h(bold(p)) = F(f(bold(p)))$, allora
 $lim_{bold(p) -> bold(p)_0} h(bold(p)) = F(L)$
 
-#### Teorema del confronto
+=== Teorema del confronto
 
 Siano $f, g, h: A subset.eq bb(R)^n -> bb(R)$ e supponiamo che
 $forall bold(p) in A without {bold(p)_0}, f(bold(p)) <= g(bold(p)) <= h(bold(p))$
@@ -149,7 +146,7 @@ e che
 $lim_(bold(p) -> bold(p)_0) f(bold(p)) = lim_(bold(p) -> bold(p)_0) h(bold(p)) = L$,
 allora $lim_(bold(p) -> bold(p)_0) g(bold(p)) = L$.
 
-#### Limite lungo direzioni
+=== Limite lungo direzioni
 
 Sia $f: A subset.eq bb(R)^n -> bb(R)$ e $bold(p)_0 in A$ un punto di
 accumulazione di $A$. Allora sono equivalenti:
@@ -163,11 +160,9 @@ accumulazione di $A$. Allora sono equivalenti:
 In questo caso, l'insieme $B$ rappresenta i punti che tendono a $bold(p)_0$
 lungo una direzione specifica.
 
-:::tip
-
-Il teorema è efficace solo per dimostrare che il limite non esiste, dato che per
-dimostrare il contrario sarebbe necessario calcolare il limite per tutte le
-direzioni per cui $bold(p)$ può arrivare a $bold(p)_0$, incluse non solo rette
-ma anche qualsiasi altro tipo di curva.
-
-:::
+#starlight.tip([
+  Il teorema è efficace solo per dimostrare che il limite non esiste, dato che
+  per dimostrare il contrario sarebbe necessario calcolare il limite per tutte
+  le direzioni per cui $bold(p)$ può arrivare a $bold(p)_0$, incluse non solo
+  rette ma anche qualsiasi altro tipo di curva.
+])

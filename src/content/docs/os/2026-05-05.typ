@@ -28,7 +28,7 @@ files.
   - determining the space needed for a file: it could grow and require
     reallocation, or it could shrink and waste storage space;
 
-  #image(
+  #starlight.img(
     "images/disk-alloc-contiguous.png",
     alt: "Contiguous allocation on disk",
   )
@@ -53,7 +53,10 @@ files.
     capacity of the block;
   - reliability: if a pointer is corrupted, the entire chain is broken;
 
-  #image("images/disk-alloc-linked.png", alt: "Linked allocation on disk")
+  #starlight.img(
+    "images/disk-alloc-linked.png",
+    alt: "Linked allocation on disk",
+  )
 
 - *File Allocation Table (FAT) allocation*: the beginning of the volume has a
   FAT that contains one entry per block with a pointer to the next block in the
@@ -65,7 +68,7 @@ files.
   This method is similar to linked allocation, but pointers are stored in a
   table to improve access locality and caching.
 
-  #image("images/disk-alloc-fat.png", alt: "FAT allocation on disk")
+  #starlight.img("images/disk-alloc-fat.png", alt: "FAT allocation on disk")
 
 - *Indexed allocation*: this method stores pointers to data blocks in an index
   block. Each file has an index block, and the i-th entry of the block points to
@@ -81,7 +84,10 @@ files.
     extension block), or by adding more levels of indexing (similar to a
     multi-level page table).
 
-  #image("images/disk-alloc-indexed.png", alt: "Indexed allocation on disk")
+  #starlight.img(
+    "images/disk-alloc-indexed.png",
+    alt: "Indexed allocation on disk",
+  )
 
 - *Combined scheme*: An inode contains a fixed number of pointers. Some point to
   file data blocks; the rest point to indirect blocks (with an increasing level
@@ -90,7 +96,7 @@ files.
   Index blocks can be cached in memory, avoiding the need to read from disk
   multiple times.
 
-  #image(
+  #starlight.img(
     "images/disk-alloc-combined-scheme.png",
     alt: "Combined scheme on disk",
   )

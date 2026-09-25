@@ -10,12 +10,12 @@
 
 = Flip-flop SR ottimizzato
 
-#image(
+#starlight.img(
   "images/schema-flip-flop-sr-ottimizzato.png",
   alt: "Schema del flip-flop SR",
 )
 
-#image(
+#starlight.img(
   "images/circuito-flip-flop-sr-ottimizzato.png",
   alt: "Circuito del flip-flop SR",
 )
@@ -44,7 +44,7 @@ facili da realizzare in logica transmission gate.
 Quando il clock $C = 1$ viene letto l'ingresso $D$, mentre quando va a $0$ il
 dato resta memorizzato.
 
-#image(
+#starlight.img(
   "images/circuito-latch-multiplexer.png",
   alt: "Circuito del latch a multiplexer",
 )
@@ -81,9 +81,9 @@ Le memorie RAM sono organizzate a matrice:
 4. un multiplexer (column decoder) seleziona la colonna (*bitline*) e quindi la
   cella desiderata usando l'altra metà dell'indirizzo;
 
-#image("images/memoria-ram.png", alt: "Memoria RAM")
+#starlight.img("images/memoria-ram.png", alt: "Memoria RAM")
 
 Ogni cella funziona come visto in precedenza: 2 invertitori incrociati
 (flip-flop statico), controllati da pass transistors.
 
-#image("images/cella-ram.png", alt: "Cella di memoria RAM")
+#starlight.img("images/cella-ram.png", alt: "Cella di memoria RAM")

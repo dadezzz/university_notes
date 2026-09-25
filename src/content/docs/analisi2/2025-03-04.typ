@@ -1,12 +1,14 @@
----
-description:
-  Definizioni e proprietà di continuità, derivate parziali, vettore gradiente e
-  condizioni di differenziabilità per le funzioni reali di più variabili.
-lang: it
-title: Continuità e differenziabilità delle funzioni
----
+#import "../_templates/starlight.typ" as starlight
 
-## Funzioni continue
+#show: starlight.setup
+
+#metadata((
+  description: "Definizioni e proprietà di continuità, derivate parziali, vettore gradiente e condizioni di differenziabilità per le funzioni reali di più variabili.",
+  lang: "it",
+  title: "Continuità e differenziabilità delle funzioni",
+))
+
+= Funzioni continue
 
 Sia $f: A subset.eq bb(R)^n -> bb(R)$, $f$ si dice continua in $bold(p)_0$ se si
 avvera una delle seguenti condizioni:
@@ -18,11 +20,13 @@ avvera una delle seguenti condizioni:
 $f$ è una funzione continua su $A$ ($f in C^0(A)$) se essa è continua in ogni
 punto di $A$.
 
-## Derivate di funzioni a più variabili
+= Derivate di funzioni a più variabili
 
-[Difference between $(dif f) / (dif x)$, $(Delta f) / (Delta x)$, and $(partial f) / (partial x)$ on math.stackexchange.com](https://math.stackexchange.com/a/1607663)
+#link("https://math.stackexchange.com/a/1607663")[Difference between
+  $(dif f) / (dif x)$, $(Delta f) / (Delta x)$, and $(partial f) / (partial x)$
+  on math.stackexchange.com]
 
-### Derivate parziali
+== Derivate parziali
 
 Una derivata parziale di una funzione è la derivata che si ottiene mantenendo
 costanti tutte le variabili diverse da quella rispetto alla quale si sta
@@ -32,51 +36,49 @@ di variabili della funzione.
 Si dice che $f$ è derivabile parzialmente rispetto alla variabile $x$ nel punto
 $bold(p)_0 = (x_0, y_0)$ se:
 
-$$
-lim_(x -> x_0) (f(x, y_0) - f(x_0, y_0)) / (x - x_0) = (partial f) / (partial x) (x_0, y_0)
-$$
+$
+  lim_(x -> x_0) (f(x, y_0) - f(x_0, y_0)) / (x - x_0) = (partial f) / (partial x) (x_0, y_0)
+$
 
-### Vettore gradiente ($nabla$)
+== Vettore gradiente ($nabla$)
 
 Se $f$ è derivabile parzialmente in $bold(p)_0$ rispetto a tutte le variabili,
 allora il vettore gradiente di $f$ in $bold(p)_0$ è il vettore le cui componenti
 sono date dal valore delle derivate parziali in quel punto:
 
-$$
-nabla f(bold(p)_0) = ((partial f) / (partial x) (x_0, y_0), (partial f) / (partial y) (x_0, y_0))
-$$
+$
+  nabla f(bold(p)_0) = ((partial f) / (partial x) (x_0, y_0), (partial f) / (partial y) (x_0, y_0))
+$
 
-:::note
-
-Il vettore gradiente punta sempre verso la direzione in cui il valore di $f$
-cambia più velocemente.
-
-:::
+#starlight.note([
+  Il vettore gradiente punta sempre verso la direzione in cui il valore di $f$
+  cambia più velocemente.
+])
 
 Se esiste il gradiente di $f$ su tutto il dominio $A$, allora
 $nabla f: A subset bb(R)^n -> bb(R)^n$ è detto campo di vettori gradiente di
 $f$.
 
-## Differenziabilità
+= Differenziabilità
 
 La sola esistenza del gradiente ($nabla f$) non è la nozione corretta di
 derivabilità per funzioni a più variabili. Dovremo definire delle ulteriori
 condizioni.
 
-**Esempio**:
+*Esempio*:
 
-$$
-cases(
-(x y) / (x^2 + y^2) & (x, y) != bold(0),
-0 & (x, y) = bold(0),
-)
-$$
+$
+  cases(
+    (x y) / (x^2 + y^2) & (x, y) != bold(0),
+    0 & (x, y) = bold(0),
+  )
+$
 
 È una funzione non continua in $bold(0)$, tuttavia esiste comunque il gradiente
 ($nabla f(bold(0)) = (0, 0)$).
 
----
+#starlight.hr()
 
-Una funzione a due variabili si dice **differenziabile** in
+Una funzione a due variabili si dice *differenziabile* in
 $bold(p)_0 = (x_0, y_0)$ se esiste un piano tangente al grafico di $f$ nel punto
 $(x_0, y_0, f(x_0, y_0))$.

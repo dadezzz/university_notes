@@ -1,8 +1,20 @@
 {
-  "tinymist.formatterPrintWidth": 80,
-  "tinymist.formatterProseWrap": true,
-  "tinymist.lint.enabled": true,
+  "[astro]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
   "[typst]": {
     "editor.wordWrap": "wordWrapColumn"
-  }
+  },
+  "tinymist.formatterPrintWidth": 80,
+  "tinymist.formatterProseWrap": true,
+  "tinymist.lint.enabled": true
 }

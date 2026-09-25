@@ -1,12 +1,14 @@
----
-description:
-  Costruzione di potenziali per forme differenziali chiuse su aperti convessi e
-  definizione di superfici regolari con piano tangente e punti interni regolari.
-lang: it
-title: Forme differenziali chiuse e superfici
----
+#import "../_templates/starlight.typ" as starlight
 
-## Costruzione di un potenziale per una forma differenziale chiusa su un aperto convesso
+#show: starlight.setup
+
+#metadata((
+  description: "Costruzione di potenziali per forme differenziali chiuse su aperti convessi e definizione di superfici regolari con piano tangente e punti interni regolari.",
+  lang: "it",
+  title: "Forme differenziali chiuse e superfici",
+))
+
+= Costruzione di un potenziale per una forma differenziale chiusa su un aperto convesso
 
 Sia $E subset.eq bb(R)^n$ un insieme aperto convesso, e sia
 $omega = F dot dif x$ una forma differenziale chiusa su $E$.
@@ -19,80 +21,80 @@ Procedura per la costruzione della funzione $U$:
 
 1. Consideriamo il caso $i = 1$, cioè imponiamo:
 
-   $$
-   (partial U) / (partial x_1) (x_1, ..., x_n) = F_1(x_1, ..., x_n)
-   $$
+  $
+    (partial U) / (partial x_1) (x_1, ..., x_n) = F_1(x_1, ..., x_n)
+  $
 
 2. Fissiamo $x_2, ..., x_n$ ed integriamo rispetto ad $x_1$:
 
-   $$
-   U(x_1, ..., x_n) = integral F_1(x_1, ..., x_n) dif x_1 = U_1(x_1, ..., x_n) + c_1(x_2, ..., x_n)
-   $$
+  $
+    U(x_1, ..., x_n) = integral F_1(x_1, ..., x_n) dif x_1 = U_1(x_1, ..., x_n) + c_1(x_2, ..., x_n)
+  $
 
-   dove $c_1$ rappresenta la costante di integrazione rispetto a $x_1$.
+  dove $c_1$ rappresenta la costante di integrazione rispetto a $x_1$.
 
 3. Ora passiamo ad $i = 2$:
 
-   $$
-   (partial U) / (partial x_2) = (partial U_1) / (partial x_2) (x_1, ..., x_n) + (partial c_1) / (partial x_2) (x_2, ..., x_n) = F_2(x_1, ..., x_n)
-   $$
+  $
+    (partial U) / (partial x_2) = (partial U_1) / (partial x_2) (x_1, ..., x_n) + (partial c_1) / (partial x_2) (x_2, ..., x_n) = F_2(x_1, ..., x_n)
+  $
 
-   Quindi:
+  Quindi:
 
-   $$
-   (partial c_1) / (partial x_2) (x_2, ..., x_n) = F_2(x_1, ..., x_n) - (partial U_1) / (partial x_2) (x_1, ..., x_n)
-   $$
+  $
+    (partial c_1) / (partial x_2) (x_2, ..., x_n) = F_2(x_1, ..., x_n) - (partial U_1) / (partial x_2) (x_1, ..., x_n)
+  $
 
 4. Si osserva che questa uguaglianza è indipendente da $x_1$. Questa proprietà
-   può essere verificata applicando la regola delle derivate parziali
-   incrociate, che sono uguali dato che $omega$ è chiusa.
+  può essere verificata applicando la regola delle derivate parziali incrociate,
+  che sono uguali dato che $omega$ è chiusa.
 
-   $$
-   (partial^2 c_1) / (partial x_1 partial x_2) (x_2, ..., x_n)
-     &= (partial F_2) / (partial x_1) (x_1, ..., x_n) - (partial^2 U_1) / (partial x_1 partial x_2) (x_1, ..., x_n) \
-     &= (partial F_2) / (partial x_1) (x_1, ..., x_n) - (partial F_1) / (partial x_2) (x_1, ..., x_n) = 0
-   $$
+  $
+    (partial^2 c_1) / (partial x_1 partial x_2) (x_2, ..., x_n)
+    &= (partial F_2) / (partial x_1) (x_1, ..., x_n) - (partial^2 U_1) / (partial x_1 partial x_2) (x_1, ..., x_n) \
+    &= (partial F_2) / (partial x_1) (x_1, ..., x_n) - (partial F_1) / (partial x_2) (x_1, ..., x_n) = 0
+  $
 
-   Per trovare $c_1$ integriamo rispetto a $x_2$:
+  Per trovare $c_1$ integriamo rispetto a $x_2$:
 
-   $$
-   integral (partial c_1) / (partial x_2) (x_2, ..., x_n) dif x_2 = U_2(x_2, ..., x_n) + c_2(x_3, ..., x_n)
-   $$
+  $
+    integral (partial c_1) / (partial x_2) (x_2, ..., x_n) dif x_2 = U_2(x_2, ..., x_n) + c_2(x_3, ..., x_n)
+  $
 
-   sostituendo, si ottiene:
+  sostituendo, si ottiene:
 
-   $$
-   U(x_1, ..., x_n) = U_1(x_1, ..., x_n) + U_2(x_2, ..., x_n) + c_2(x_3, ..., x_n)
-   $$
+  $
+    U(x_1, ..., x_n) = U_1(x_1, ..., x_n) + U_2(x_2, ..., x_n) + c_2(x_3, ..., x_n)
+  $
 
 5. Dopo aver svolto questa procedura per tutte le variabili, otteniamo che la
-   funzione $U$ sarà della forma:
+  funzione $U$ sarà della forma:
 
-   $$
-   U(x_1, ..., x_n) = U_1(x_1, ..., x_n) + U_2(x_2, ..., x_n) + ... + U_(n - 1)(x_(n - 1), ..., x_n) + U_(n)(x_n) + c_n
-   $$
+  $
+    U(x_1, ..., x_n) = U_1(x_1, ..., x_n) + U_2(x_2, ..., x_n) + ... + U_(n - 1)(x_(n - 1), ..., x_n) + U_(n)(x_n) + c_n
+  $
 
-   dove $c_n in bb(R)$. Questa funzione $U$ è dunque la funzione potenziale
-   richiesta.
+  dove $c_n in bb(R)$. Questa funzione $U$ è dunque la funzione potenziale
+  richiesta.
 
-## Superfici ed integrali di superficie
+= Superfici ed integrali di superficie
 
 In senso intuitivo, una superficie è un oggetto bidimensionale, privo di
 spessore.
 
-### Curva di Jordan nel piano
+== Curva di Jordan nel piano
 
 Una curva di Jordan è una curva piana $gamma: [a, b] -> bb(R)^2$ semplice e
 chiusa.
 
-**Proprietà**:
+*Proprietà*:
 
 - Il sostegno $Gamma = gamma([a, b])$ divide il piano in due insiemi aperti: uno
   limitato, che designiamo come interno della curva ($D_"int"$), e l'altro
   illimitato, che chiamiamo esterno della curva ($D_"est"$).
 - $D_"int"$ e $D_"est"$ hanno la stessa frontiera che coincide con $Gamma$.
 
-### Superficie
+== Superficie
 
 Un sottoinsieme $S subset bb(R)^3$ è definito superficie (elementare) se esiste
 una mappa $sigma: overline(D) subset.eq bb(R)^2 -> bb(R)^3$,
@@ -103,11 +105,9 @@ condizioni:
 - $sigma$ è continua e $sigma: D -> bb(R)^3$ è iniettiva.
 - $sigma(D) = S$
 
-:::note
-
-$overline(D)$ indica l'unione tra l'insieme $D$ e la sua frontiera.
-
-:::
+#starlight.note([
+  $overline(D)$ indica l'unione tra l'insieme $D$ e la sua frontiera.
+])
 
 Una funzione verificante le precedenti condizioni è detta una parametrizzazione
 di $S$.
@@ -115,24 +115,24 @@ di $S$.
 $S$ si dice una superficie cartesiana se esiste una parametrizzazione
 $sigma: overline(D) subset.eq bb(R)^2 -> bb(R)^3$ del tipo:
 
-$$
-sigma(u, v) = cases(
-(f(u, v), u, v),
-(u, f(u, v), v),
-(u, v, f(u, v)),
-)
-$$
+$
+  sigma(u, v) = cases(
+    (f(u, v), u, v),
+    (u, f(u, v), v),
+    (u, v, f(u, v)),
+  )
+$
 
 dove $f: overline(D) -> bb(R)$ continua.
 
-**Osservazioni**:
+*Osservazioni*:
 
 - A differenza delle curve, il nome superficie è dato all'immagine della
   parametrizzazione e non alla parametrizzazione stessa.
 - La definizione attuale si riferisce esclusivamente a superfici limitate.
 - Data una superficie $S subset bb(R)^3$, la sua parametrizzazione non è unica.
 
-#### Punti interni e bordo di una superficie
+=== Punti interni e bordo di una superficie
 
 La definizione di punto interno e di bordo da un punto di vista intrinseco
 differisce da quelle frontiera e parte interna di $S$ vista come sottoinsieme di
@@ -148,7 +148,7 @@ $bb(R)^3$ (in quanto $partial S = S$ e $dot(S) = emptyset$).
 - Si chiama bordo di $S$ ($op("bor")(S)$) l'insieme dei punti che non sono
   interni ad $S$, ovvero $op("bor")(S) = S without S'$.
 
-## Regolarità di una superficie e piano tangente
+= Regolarità di una superficie e piano tangente
 
 La regolarità ($C^1$) della parametrizzazione di una superficie non basta per
 garantire l'esistenza del piano tangente ad essa.
@@ -175,17 +175,17 @@ stabilite:
 
 Per la RDC:
 
-$$
-tilde(gamma)'(t_0) = u'(t_0) sigma_(u)(u_0, v_0) + v'(t_0) sigma_(v)(u_0, v_0)
-$$
+$
+  tilde(gamma)'(t_0) = u'(t_0) sigma_(u)(u_0, v_0) + v'(t_0) sigma_(v)(u_0, v_0)
+$
 
 dove:
 
-$$
-sigma_(u)(u, v) = (partial sigma) / (partial u) (u, v) = ((partial x) / (partial u), (partial y) / (partial u), (partial z) / (partial u)) \
-sigma_(v)(u, v) = (partial sigma) / (partial v) (u, v) = ((partial x) / (partial v), (partial y) / (partial v), (partial z) / (partial v)) \
-gamma'(t_0) = (u'(t_0), v'(t_0))
-$$
+$
+  sigma_(u)(u, v) = (partial sigma) / (partial u) (u, v) = ((partial x) / (partial u), (partial y) / (partial u), (partial z) / (partial u)) \
+  sigma_(v)(u, v) = (partial sigma) / (partial v) (u, v) = ((partial x) / (partial v), (partial y) / (partial v), (partial z) / (partial v)) \
+  gamma'(t_0) = (u'(t_0), v'(t_0))
+$
 
 Vogliamo imporre che $tilde(gamma)'(t_0) != bold(0)$ al fine di verificare la
 regolarità della superficie nel punto $sigma(gamma(t_0))$.
@@ -197,15 +197,15 @@ prodotto vettoriale sarà diverso da $bold(0)$.
 
 Consideriamo il piano $pi$ definito dall'equazione parametrica:
 
-$$
-pi = sigma(u_0, v_0) + lambda sigma_(u)(u_0, v_0) + mu sigma_(v)(u_0, v_0)
-$$
+$
+  pi = sigma(u_0, v_0) + lambda sigma_(u)(u_0, v_0) + mu sigma_(v)(u_0, v_0)
+$
 
 e osserviamo che la sua equazione cartesiana corrisponde a:
 
-$$
-a (x - x_0) + b (y - y_0) + c (z - z_0) = 0
-$$
+$
+  a (x - x_0) + b (y - y_0) + c (z - z_0) = 0
+$
 
 dove:
 
@@ -214,22 +214,22 @@ dove:
 
 Pertanto, se $(x, y, z) in pi$, esistono $lambda$ e $mu$ tali che
 
-$$
-(x, y, z) = sigma(u_0, v_0) + lambda sigma_(u)(u_0, v_0) + mu sigma_(v)(u_0, v_0)
-$$
+$
+  (x, y, z) = sigma(u_0, v_0) + lambda sigma_(u)(u_0, v_0) + mu sigma_(v)(u_0, v_0)
+$
 
 Si osserva anche che la retta tangente a $tilde(gamma)(t_0)$, di equazione
 parametrica:
 
-$$
-(x, y, z) &= sigma(u_0, v_0) + tilde(gamma)'(t_0) (t - t_0) \
-          &= sigma(u_0, v_0) + (u'(t_0) sigma_(u)(u_0, v_0) + v'(t_0) sigma_(v)(u_0, v_0)) (t - t_0) \
-          &= sigma(u_0, v_0) + u'(t_0) (t - t_0) sigma_(u)(u_0, v_0) + v'(t_0) (t - t_0) sigma_(v)(u_0, v_0)
-$$
+$
+  (x, y, z) &= sigma(u_0, v_0) + tilde(gamma)'(t_0) (t - t_0) \
+  &= sigma(u_0, v_0) + (u'(t_0) sigma_(u)(u_0, v_0) + v'(t_0) sigma_(v)(u_0, v_0)) (t - t_0) \
+  &= sigma(u_0, v_0) + u'(t_0) (t - t_0) sigma_(u)(u_0, v_0) + v'(t_0) (t - t_0) sigma_(v)(u_0, v_0)
+$
 
 appartiene a $pi$.
 
-### Punto regolare di una superficie
+== Punto regolare di una superficie
 
 Sia $S subset.eq bb(R)^3$ una superficie e sia $bold(x)_0 in S$.
 
@@ -243,12 +243,10 @@ $overline(B(bold(x)_0, r) inter S)$ tali che:
 
 In questo caso, $pi$ è il piano tangente ad $S$ nel punto $bold(x)_0$.
 
-:::note
+#starlight.note([
+  - I due versori
+    $plus.minus (sigma_(u)(u_0, v_0) times sigma_(v)(u_0, v_0)) / (norm(sigma_(u)(u_0, v_0) times sigma_(v)(u_0, v_0)))$
+    sono chiamati *direzioni normali a $S$ in $bold(x)_0$*.
 
-- I due versori
-  $plus.minus (sigma_(u)(u_0, v_0) times sigma_(v)(u_0, v_0)) / (norm(sigma_(u)(u_0, v_0) times sigma_(v)(u_0, v_0)))$
-  sono chiamati **direzioni normali a $S$ in $bold(x)_0$**.
-
-- $S$ si dice regolare se tutti i punti interni ad essa sono regolari.
-
-:::
+  - $S$ si dice regolare se tutti i punti interni ad essa sono regolari.
+])

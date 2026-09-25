@@ -94,7 +94,7 @@ In questo corso ci concentreremo solo sui segnali deterministici.
 - $r = norm(z) = sqrt(x^2 + y^2) in bb(R)$
 - $theta = arg(z) = arctan(y / x) in bb(R)$
 
-#image(
+#starlight.img(
   "images/conversione-coordinate-numeri-complessi.png",
   alt: "Relazione tra coordinate cartesiane e polari",
 )
@@ -150,7 +150,7 @@ $
 
 Definisce un segnale rettangolare con base $T$ e altezza $A$, centrato in $0$.
 
-#image(
+#starlight.img(
   "images/grafico-funzione-rettangolo.png",
   alt: "Grafico funzione rettangolo",
 )
@@ -166,7 +166,7 @@ $
 
 Usata per rappresentare segnali causali.
 
-#image(
+#starlight.img(
   "images/grafico-funzione-gradino.png",
   alt: "Grafico funzione gradino-unitario",
 )
@@ -177,7 +177,10 @@ $
   op("sgn")(t) = 2 u(t) - 1
 $
 
-#image("images/grafico-funzione-segno.png", alt: "Grafico funzione segno")
+#starlight.img(
+  "images/grafico-funzione-segno.png",
+  alt: "Grafico funzione segno",
+)
 
 == Triangolo simmetrico
 
@@ -190,7 +193,7 @@ $
 
 Triangolo di altezza $A$ e base $T$.
 
-#image(
+#starlight.img(
   "images/grafico-funzione-triangolo.png",
   alt: "Grafico funzione triangolo",
 )
@@ -203,7 +206,7 @@ $
 
 Per $t = 0$ la funzione si definisce per continuità: $op("sinc")(0) = 1$.
 
-#image("images/grafico-funzione-sinc.png", alt: "Grafico funzione sinc")
+#starlight.img("images/grafico-funzione-sinc.png", alt: "Grafico funzione sinc")
 
 == Funzione impulso unitario (o delta di Dirac)
 
@@ -226,4 +229,4 @@ $
   delta(t) = lim_(T -> 0) 1 / T op("rect")(t / T) = cases(+oo & t = 0, 0 & "altrove")
 $
 
-#image("images/limite-delta-di-dirac.png", alt: "Limite delta di Dirac")
+#starlight.img("images/limite-delta-di-dirac.png", alt: "Limite delta di Dirac")

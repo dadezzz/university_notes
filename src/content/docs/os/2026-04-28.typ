@@ -77,7 +77,7 @@ DMA is used to avoid having the CPU manage the interaction with devices and
 memory, especially for large data movement. This feature requires a dedicated
 controller that is usually placed on the motherboard of the computer.
 
-#image("images/io-dma.png", alt: "DMA hardware")
+#starlight.img("images/io-dma.png", alt: "DMA hardware")
 
 With DMA, the CPU controls the creation of a buffer in RAM. Then it tells the
 controller the address of the buffer, the amount of data to transfer and the

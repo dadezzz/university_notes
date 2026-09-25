@@ -54,7 +54,7 @@ $
 
 Simbolo:
 
-#image("images/simbolo-condensatore.jpg", alt: "Simbolo condensatore")
+#starlight.img("images/simbolo-condensatore.jpg", alt: "Simbolo condensatore")
 
 Restrizioni:
 
@@ -92,7 +92,7 @@ $
 
 Simbolo:
 
-#image("images/simbolo-induttore.png", alt: "Simbolo induttore")
+#starlight.img("images/simbolo-induttore.png", alt: "Simbolo induttore")
 
 Restrizioni:
 

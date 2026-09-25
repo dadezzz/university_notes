@@ -117,7 +117,10 @@ $
   x(t) = -x(t + T / 2)
 $
 
-#image("images/segnale-alternato.png", alt: "Esempio di segnale alternato")
+#starlight.img(
+  "images/segnale-alternato.png",
+  alt: "Esempio di segnale alternato",
+)
 
 - I segnali alternati non sono necessariamente dispari, ma hanno valor medio
   nullo.
@@ -132,14 +135,14 @@ Ce ne sono due tipi:
 
 - *spettro di ampiezza*: mostra quanto è ampia l'armonica a una certa frequenza;
 
-  #image(
+  #starlight.img(
     "images/spettro-ampiezza-onda-quadra.png",
     alt: "Esempio di rappresentazione dello spettro di ampiezza di un'onda quadra",
   )
 
 - *spettro di fase*: mostra quanto è sfasata l'armonica a una certa frequenza;
 
-  #image(
+  #starlight.img(
     "images/spettro-fase-onda-quadra.png",
     alt: "Esempio di rappresentazione dello spettro di fase di un'onda quadra",
   )
@@ -174,7 +177,7 @@ armoniche le oscillazioni si restringono e si concentrano in prossimità del
 punto di transizione, ma l'ampiezza dell'overshoot non si riduce: tende a un
 valore costante (circa il 9% del salto).
 
-#image(
+#starlight.img(
   "images/fenomeno-di-gibbs.png",
   alt: "Rappresentazione del fenomeno di Gibbs",
 )

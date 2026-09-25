@@ -58,7 +58,7 @@ section, and OS resources with other threads belonging to the same process.
 There are some differences between creating a new process and a new thread, the
 last one is usually lighter and more scalable:
 
-#image(
+#starlight.img(
   "images/process-vs-thread.png",
   alt: "Differences between process and thread",
 )

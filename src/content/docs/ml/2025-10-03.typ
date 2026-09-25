@@ -21,7 +21,7 @@ risultato.
 *Esempio*: si può generalizzare la relazione tra la potenza e il costo di
 un'automobile:
 
-#image(
+#starlight.img(
   "images/grafico-retta-media-tra-punti.png",
   alt: "Grafico retta della media",
 )

@@ -19,7 +19,7 @@ sequenziale:
 - sulla freccia si indicano anche i valori degli ingressi e delle uscite dello
   stato di partenza;
 
-#image(
+#starlight.img(
   "images/diagramma-degli-stati-caldaia.png",
   alt: "Diagramma degli stati della caldaia",
 )
@@ -93,7 +93,7 @@ Se ci sono violazioni del tempo di setup, il circuito è troppo lento:
 *Processo di binning*: selezione dei circuiti più veloci. La differenza di
 velocità è dovuta ad imperfezioni durante il processo di fabbricazione.
 
----
+#starlight.hr()
 
 Se ci sono violazioni del tempo di hold, il circuito è troppo veloce. Si
 verifica spesso solo per alcuni flip flop che dipendono da altri nel circuito:
@@ -107,13 +107,19 @@ verifica spesso solo per alcuni flip flop che dipendono da altri nel circuito:
 - *Macchina di Mealy*: caso generale di un circuito sequenziale, le uscite
   dipendono sia dallo stato corrente che dagli ingressi.
 
-  #image("images/macchina-di-mealy.png", alt: "Diagramma macchina di Mealy")
+  #starlight.img(
+    "images/macchina-di-mealy.png",
+    alt: "Diagramma macchina di Mealy",
+  )
 
 - *Macchina di Moore*: circuito sequenziale in cui le uscite dipendono solo
   dallo stato corrente e non dagli ingressi. Potenzialmente l'uscita può essere
   ritardata di un ciclo di clock rispetto alla variazione degli ingressi.
 
-  #image("images/macchina-di-moore.png", alt: "Diagramma macchina di Moore")
+  #starlight.img(
+    "images/macchina-di-moore.png",
+    alt: "Diagramma macchina di Moore",
+  )
 
 == Potenziali problemi delle macchine di Mealy
 
@@ -141,7 +147,7 @@ I passaggi per realizzare un circuito sequenziale sono:
 
 Anche per i circuiti sequenziali è possibile disegnare un diagramma temporale:
 
-#image(
+#starlight.img(
   "images/diagramma-temporale-riconoscitore-sequenza.png",
   alt: "Diagramma temporale riconoscitore sequenze",
 )

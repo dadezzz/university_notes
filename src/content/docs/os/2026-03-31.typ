@@ -40,7 +40,7 @@ instance of $R_j$ has been allocated to $T_i$.
 Once the request is fulfilled, the request edge is immediately transformed into
 an assignment edge.
 
-#image(
+#starlight.img(
   "images/resource-allocation-graph.png",
   alt: "Example of resource-allocation graph",
 )
@@ -114,7 +114,7 @@ resource.
 The request can be granted safely only if converting the request edge to an
 assignment edge does not result in a cycle.
 
-#image(
+#starlight.img(
   "images/resource-allocation-graph-safety.png",
   alt: "Safe vs unsafe assignment",
 )

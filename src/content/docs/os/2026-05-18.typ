@@ -49,7 +49,7 @@ An access matrix is used to represent permissions at a granular level. It
 formalizes the relationship between subjects (who wants to access) and objects
 (what is being accessed), defining specific access rights.
 
-#image("images/access-matrix.png", alt: "Access matrix example")
+#starlight.img("images/access-matrix.png", alt: "Access matrix example")
 
 Domains can also be objects to support setting permissions for domain switching.
 

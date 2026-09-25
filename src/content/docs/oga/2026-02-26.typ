@@ -41,7 +41,7 @@ La classificazione può avvenire secondo diversi criteri:
 
 Applicando entrambi i criteri si ottiene una suddivisione *a matrice*.
 
-#image(
+#starlight.img(
   "images/divisione-orizzontale.png",
   alt: "Esempio di applicazione dei criteri di divisione",
 )
@@ -64,7 +64,7 @@ A livello esecutivo presenta bassa specializzazione dei compiti e notevole
 intercambiabilità dei ruoli, facilitando decisioni rapide e flessibilità
 operativa.
 
-#image("images/struttura-semplice.png", alt: "Struttura semplice")
+#starlight.img("images/struttura-semplice.png", alt: "Struttura semplice")
 
 === Struttura plurifunzionale
 
@@ -75,7 +75,7 @@ Essa presenta una gerarchia ben definita e un decentramento del potere limitato.
 Il top management attua le decisioni strategiche, mentre gli organi intermedi si
 occupano di quelle direzionali ed operative.
 
-#image(
+#starlight.img(
   "images/struttura-plurifunzionale.png",
   alt: "Struttura plurifunzionale",
 )
@@ -105,7 +105,7 @@ geografiche, categorie di clienti, canali distributivi.
 Ciascuna divisione è organizzata per aree funzionali e gode di una buona
 autonomia decisionale.
 
-#image(
+#starlight.img(
   "images/struttura-multidivisionale.png",
   alt: "Struttura multidivisionale",
 )
@@ -137,7 +137,7 @@ La direzione si articola sia in reparti funzionali, sia per i settori definiti
 in una struttura multidivisionale. Entrambe le strutture supervisionano i
 reparti esecutivi, garantendo così un'alta flessibilità.
 
-#image("images/struttura-a-matrice.png", alt: "Struttura a matrice")
+#starlight.img("images/struttura-a-matrice.png", alt: "Struttura a matrice")
 
 Vantaggi:
 

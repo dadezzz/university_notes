@@ -40,7 +40,7 @@ development and manufacturing costs, they offer enough performance to execute
 most control tasks, and they have low power consumption and effective sleep
 modes.
 
-#image(
+#starlight.img(
   "images/hardware-comparison.png",
   alt: "Comparison between hardware types",
 )

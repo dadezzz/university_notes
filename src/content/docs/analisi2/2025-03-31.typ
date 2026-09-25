@@ -1,47 +1,46 @@
----
-description:
-  Classificazione di massimi e minimi relativi e punti di sella per funzioni
-  reali di più variabili tramite matrice hessiana e criteri dei minori
-  principali.
-lang: it
-title: Estremi liberi, punti di sella e matrice hessiana
----
+#import "../_templates/starlight.typ" as starlight
 
-## Massimi e minimi per funzioni di più variabili
+#show: starlight.setup
 
-**Problema**: Dato un insieme $A subset.eq bb(R)^n$ e una funzione
+#metadata((
+  description: "Classificazione di massimi e minimi relativi e punti di sella per funzioni reali di più variabili tramite matrice hessiana e criteri dei minori principali.",
+  lang: "it",
+  title: "Estremi liberi, punti di sella e matrice hessiana",
+))
+
+= Massimi e minimi per funzioni di più variabili
+
+*Problema*: Dato un insieme $A subset.eq bb(R)^n$ e una funzione
 $f: A -> bb(R)$, determinare, se esistono, i punti di massimo e minimo di $f$.
 
 - $bold(x)_0 in A$ è chiamato punto di massimo (o, rispettivamente, di minimo)
   relativo di $f$ se esiste $r > 0$ tale che:
 
-  $$
-  forall bold(x) in A inter B(bold(x)_0, r), f(bold(x)) <= f(bold(x)_0) quad ("o, rispettivamente," f(bold(x)) >= f(bold(x)_0))
-  $$
+  $
+    forall bold(x) in A inter B(bold(x)_0, r), f(bold(x)) <= f(bold(x)_0) quad ("o, rispettivamente," f(bold(x)) >= f(bold(x)_0))
+  $
 
 - $bold(x)_0 in A$ è chiamato punto di massimo (o, rispettivamente, di minimo)
   assoluto di $f$ se:
 
-  $$
-  forall bold(x) in A, f(bold(x)) <= f(bold(x)_0) quad ("o, rispettivamente," f(bold(x)) >= f(bold(x)_0))
-  $$
+  $
+    forall bold(x) in A, f(bold(x)) <= f(bold(x)_0) quad ("o, rispettivamente," f(bold(x)) >= f(bold(x)_0))
+  $
 
 Se $bold(x)_0$ è un punto di massimo o minimo assoluto, allora è anche un punto
 di massimo o minimo relativo. Non vale la condizione inversa.
 
-:::caution
+#starlight.caution([
+  Non confondere i punti di massimo e minimo di $f$ (ovvero l'input della
+  funzione) con il suo valore massimo o minimo (ovvero l'output).
+])
 
-Non confondere i punti di massimo e minimo di $f$ (ovvero l'input della
-funzione) con il suo valore massimo o minimo (ovvero l'output).
+== Estremi liberi di una funzione di più variabili
 
-:::
-
-### Estremi liberi di una funzione di più variabili
-
-Gli **estremi liberi** di una funzione $f$ sono i punti di massimo e minimo
+Gli *estremi liberi* di una funzione $f$ sono i punti di massimo e minimo
 relativi di $f$ che non giacciono sulla frontiera del dominio.
 
-#### Teorema di Fermat
+=== Teorema di Fermat
 
 Sia $A subset.eq bb(R)^n$ un insieme aperto e sia $f: A -> bb(R)$. Supponiamo
 che esista $bold(x)_0 in A$ tale che:
@@ -52,30 +51,31 @@ che esista $bold(x)_0 in A$ tale che:
 
 Allora il gradiente in $bold(x)_0$ è il vettore nullo:
 
-$$
-nabla f(bold(x)_0) = bold(0)
-$$
+$
+  nabla f(bold(x)_0) = bold(0)
+$
 
-:::note
+#starlight.note([
+  Un *punto stazionario* (o punto critico) di $f$ è un punto in cui $f$ è
+  differenziabile e $nabla f(bold(x)_0) = bold(0)$.
 
-Un **punto stazionario** (o punto critico) di $f$ è un punto in cui $f$ è
-differenziabile e $nabla f(bold(x)_0) = bold(0)$.
+  Non ogni punto stazionario di $f$ è un punto di estremo libero.
+])
 
-Non ogni punto stazionario di $f$ è un punto di estremo libero.
-
-:::
-
-### Punti di sella
+== Punti di sella
 
 Un punto $bold(x)_0 in A$ è definito punto di sella se è un punto stazionario di
 $f$ e se la differenza $f(bold(x)) - f(bold(x)_0)$ ammette valori sia positivi
 che negativi in ogni intorno di $bold(x)_0$.
 
-![Esempio di funzione con punto di sella](../../../../../images/analisi-2/punto-di-sella.png)
+#starlight.img(
+  "images/punto-di-sella.png",
+  alt: "Esempio di funzione con punto di sella",
+)
 
-## Segno di una matrice
+= Segno di una matrice
 
-**Problema**: Dato un insieme aperto $A subset.eq bb(R)^n$ e una funzione
+*Problema*: Dato un insieme aperto $A subset.eq bb(R)^n$ e una funzione
 $f in C^2(A)$, come determinare se un punto stazionario $bold(x)$ è un estremo
 libero o un punto di sella?
 
@@ -90,7 +90,7 @@ Sia $D_f^2(bold(x)) in bb(M)_(n, n)$ l'hessiana di $f$:
 - $D_f^2(bold(x))$ è semi-definita negativa se:
   $forall bold(v) in bb(R)^n without {bold(0)}, (D_f^2(bold(x)) bold(v)) dot bold(v) <= 0$
 
-### Criterio per il segno di una matrice
+== Criterio per il segno di una matrice
 
 Questo è un metodo più semplice per determinare il segno di una matrice
 $bold(A) in bb(M)_(n, n)$.
@@ -98,13 +98,13 @@ $bold(A) in bb(M)_(n, n)$.
 Definiamo i minori principali di $A$ (determinanti delle sottomatrici in alto a
 sinistra $i times i$):
 
-$$
-D_i = det mat(
-  a_(1, 1), dots.h, a_(1, i);
-  dots.v, , dots.v;
-  a_(i, 1), dots.h, a_(i, i);
-)
-$$
+$
+  D_i = det mat(
+    a_(1, 1), dots.h, a_(1, i);
+    dots.v, , dots.v;
+    a_(i, 1), dots.h, a_(i, i);
+  )
+$
 
 - $bold(A)$ è definita positiva se e solo se $forall i = 1, ..., n, D_i > 0$
 - $bold(A)$ è definita negativa se e solo se
@@ -113,7 +113,7 @@ $$
 Se $det(bold(A)) = D_n != 0$ e nessuna delle condizioni precedenti è
 soddisfatta, allora $bold(A)$ non è semi-definita.
 
-### Tipologia di punto critico in base al segno della matrice hessiana
+== Tipologia di punto critico in base al segno della matrice hessiana
 
 Sia $f in C^2(A)$ e sia $bold(x) in A$ un punto stazionario di $f$. Allora si
 ha:

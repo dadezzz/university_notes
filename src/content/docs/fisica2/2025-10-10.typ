@@ -84,7 +84,10 @@ Poi il termine $omega t$ fa ruotare il vettore del fasore in senso antiorario.
 Il grafico della componente reale di questo vettore che sta ruotando è quello
 della sinusoide.
 
-#image("images/fasore-e-sinusoide.gif", alt: "Animazione fasore e sinusoide")
+#starlight.img(
+  "images/fasore-e-sinusoide.gif",
+  alt: "Animazione fasore e sinusoide",
+)
 
 == Proprietà del fasore
 

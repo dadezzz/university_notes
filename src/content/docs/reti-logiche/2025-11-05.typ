@@ -15,7 +15,7 @@ sequenziale e quella combinatoria. In particolare, la prima sarà un registro a
 molti bit e la seconda verrà divisa in 2 parti, una per il calcolo dello stato
 futuro e l'altra per le uscite.
 
-#image(
+#starlight.img(
   "images/macchina-di-mealy.png",
   alt: "Schema a blocchi di una generica macchina a stati",
 )
@@ -262,7 +262,7 @@ aggiornano subito dopo il fronte del clock e non presentano glitch.
 Per evitare ulteriori ritardi, è possibile calcolare il valore delle uscite a
 partire dallo stato futuro.
 
-#image(
+#starlight.img(
   "images/macchina-di-moore-uscite-registrate.png",
   alt: "Macchina di Moore con uscite registrate",
 )

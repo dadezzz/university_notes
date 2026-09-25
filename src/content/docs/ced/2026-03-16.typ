@@ -22,7 +22,10 @@ basso. Il *pull down* porta l'uscita a $V_"L"$ e il *pull up* la porta a
 $V_"H"$. Idealmente, i 2 circuiti dovrebbero attivarsi in maniera mutualmente
 esclusiva.
 
-#image("images/invertitore-base.png", alt: "Circuito di base dell'invertitore")
+#starlight.img(
+  "images/invertitore-base.png",
+  alt: "Circuito di base dell'invertitore",
+)
 
 == Funzione caratteristica reale
 
@@ -42,7 +45,7 @@ viene amplificata e invertita in uscita.
 I valori in cui vengono definiti $V_"IL"$ e $V_"IH"$ sono quelli in cui la
 tangente della funzione di trasferimento è uguale a $-1$.
 
-#image(
+#starlight.img(
   "images/caratteristica-invertitore-reale.png",
   alt: "Caratteristica di un invertitore reale",
 )
@@ -85,7 +88,7 @@ Un transistore MOS viene usato come interruttore.
 Il problema di questo design è che il circuito di pull-up è sempre attivo e il
 transistore deve 'combattere' con il resistore.
 
-#image(
+#starlight.img(
   "images/invertitore-a-carico-resistivo.png",
   alt: "Circuito dell'invertitore a carico resistivo",
 )
@@ -95,7 +98,7 @@ transistore deve 'combattere' con il resistore.
 L'invertitore nMOS usa un altro transistore nMOS come pull-up al posto del
 resistore. Chiameremo $M_"L"$ il pull-up e $M_"S"$ il pull-down.
 
-#image(
+#starlight.img(
   "images/invertitore-a-carico-saturo.png",
   alt: "Circuito dell'invertitore a carico saturo",
 )
@@ -106,7 +109,7 @@ $V_"SB"$ che è uguale a $V_O$, quindi:
 - $V_"L"$ non andrà mai a $0$.
 - $V_"H"$ non raggiungerà mai il valore di $V_"DD"$.
 
-#image(
+#starlight.img(
   "images/caratteristica-invertitore-carico-saturo.png",
   alt: "Caratteristica dell'invertitore a carico saturo",
 )
@@ -116,12 +119,12 @@ $V_"SB"$ che è uguale a $V_O$, quindi:
 Il problema con $V_"H"$ si può risolvere usando un transistore $M_"L"$ in
 depletion mode, che ha tensione di soglia negativa.
 
-#image(
+#starlight.img(
   "images/invertitore-depletion-mode.png",
   alt: "Circuito dell'invertitore depletion mode",
 )
 
-#image(
+#starlight.img(
   "images/caratteristica-invertitore-depletion-mode.png",
   alt: "Caratteristica dell'invertitore depletion mode",
 )

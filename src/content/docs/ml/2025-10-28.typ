@@ -96,7 +96,7 @@ Anche se una feature ha correlazione $0$, non è detto che non contenga
 informazioni sull'output: la loro relazione potrebbe infatti essere di tipo non
 lineare.
 
-#image(
+#starlight.img(
   "images/scatter-plot-coefficiente-correlazione.png",
   alt: "Scatter plot di diversi tipi di dati correlati e non correlati",
 )

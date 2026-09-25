@@ -29,3 +29,11 @@
 #let tip(title: "", body) = note(type: "tip", title: title, body)
 #let caution(title: "", body) = note(type: "caution", title: title, body)
 #let danger(title: "", body) = note(type: "danger", title: title, body)
+
+#let hr() = {
+  html.hr()
+}
+
+#let img(path, alt: "") = {
+  html.div(html.img(src: path, alt: alt))
+}

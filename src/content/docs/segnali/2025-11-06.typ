@@ -41,14 +41,14 @@ gruppo deve essere costante).
 
 - Spettro di un sistema non distorcente:
 
-  #image(
+  #starlight.img(
     "images/spettro-sistema-non-distorcente.png",
     alt: "Spettri di ampiezza e fase di $H(f)$ di un sistema non distorcente",
   )
 
 - Spettro di un sistema distorcente:
 
-  #image(
+  #starlight.img(
     "images/spettro-sistema-distorcente.png",
     alt: "Spettri di ampiezza e fase di $H(f)$ di un sistema distorcente",
   )
@@ -112,4 +112,7 @@ una tecnica chiamata *companding*:
 3. Si riespande il segnale con un sistema non lineare inverso a quello
   compressore.
 
-#image("images/nlti-nlti-equalizzatore-nlti.png", alt: "Diagramma a blocchi")
+#starlight.img(
+  "images/nlti-nlti-equalizzatore-nlti.png",
+  alt: "Diagramma a blocchi",
+)

@@ -26,14 +26,14 @@ componente più complesso. Per esempio:
 - 1° livello: si sceglie tra $a$ e $b$ e tra $c$ e $d$ usando $s_0$;
 - 2° livello: si sceglie tra i 2 rimasti usando $s_1$;
 
-#image(
+#starlight.img(
   "images/circuito-multiplexer-4-a-1.png",
   alt: "Circuito del multiplexer 4 a 1",
 )
 
 Il simbolo che si usa per rappresentare il multiplexer è:
 
-#image(
+#starlight.img(
   "images/simbolo-multiplexer-4-a-1.png",
   alt: "Simbolo del multiplexer 4 a 1",
 )
@@ -56,11 +56,17 @@ Con $m$ cifre si possono rappresentare $2^m$ codici, ma se ne usano solo $2^n$.
 Decodifica 2 a 1: la prima uscita vale 1 se l'ingresso vale 0, la seconda vale 1
 se l'ingresso vale 1.
 
-#image("images/circuito-decoder-2-a-1.png", alt: "Circuito del decoder 2 a 1")
+#starlight.img(
+  "images/circuito-decoder-2-a-1.png",
+  alt: "Circuito del decoder 2 a 1",
+)
 
 Il simbolo che si usa per rappresentare il decoder è:
 
-#image("images/simbolo-decoder-2-a-1.png", alt: "Simbolo del decoder 2 a 1")
+#starlight.img(
+  "images/simbolo-decoder-2-a-1.png",
+  alt: "Simbolo del decoder 2 a 1",
+)
 
 Da notare che le combinazioni di uscita con tutti 0 o tutti 1 non vengono
 utilizzate.
@@ -82,7 +88,7 @@ Esempio di utilizzo: scelta di celle di memoria:
 Prende in ingresso un dato e lo indirizza su una delle uscite selezionate da
 $ceil(log_2(n))$ bit di controllo. Le uscite non selezionate hanno valore 0.
 
-#image(
+#starlight.img(
   "images/simbolo-demultiplexer-1-a-4.png",
   alt: "Simbolo del demultiplexer 1 a 4",
 )
@@ -93,7 +99,7 @@ Fa il lavoro contrario del decoder: riduce $n$ ingressi a $m$ uscite.
 
 Esempio di encoder 8 a 3:
 
-#image("images/tabella-encoder-8-a-3.png", alt: "Tabella encoder 8 a 3")
+#starlight.img("images/tabella-encoder-8-a-3.png", alt: "Tabella encoder 8 a 3")
 
 *Priority encoder*: ritorna il codice binario dell'ingresso con valore 1 avente
 priorità più alta. Se più ingressi hanno valore 1, restituisce quello con

@@ -22,7 +22,7 @@ valle sarà spento di norma, impedendo di scaricare la sua uscita.
 In questo modo, tuttavia, si possono realizzare solo funzioni logiche non
 invertenti (per fare una NAND bisogna accoppiare una AND con un invertitore).
 
-#image("images/porte-logiche-domino.png", alt: "Porte logiche domino")
+#starlight.img("images/porte-logiche-domino.png", alt: "Porte logiche domino")
 
 = Logica sequenziale
 
@@ -61,7 +61,10 @@ memorizzato. Per fare ciò si può usare un inverter controllato.
 Le porte NOR o NAND invertono o impongono un valore, quindi soddisfano entrambi
 i nostri requisiti.
 
-#image("images/circuito-bistabile-nor.png", alt: "Esempio con porte NOR")
+#starlight.img(
+  "images/circuito-bistabile-nor.png",
+  alt: "Esempio con porte NOR",
+)
 
 - per $R = 1$ l'uscita va a $0$;
 - per $S = 1$ e $R = 0$ l'uscita va a $1$;
@@ -69,7 +72,7 @@ i nostri requisiti.
 
 Incrociando i NOR, si ottiene il circuito del flip-flop SR:
 
-#image("images/circuito-flip-flop-sr.png", alt: "Circuito flip-flop SR")
+#starlight.img("images/circuito-flip-flop-sr.png", alt: "Circuito flip-flop SR")
 
 #starlight.caution([
   Con $S = R = 1$ entrambi gli outputs vanno a $0$, violando la relazione
@@ -87,7 +90,7 @@ Incrociando i NOR, si ottiene il circuito del flip-flop SR:
 Un ingresso di clock ($C$) controlla quando il flip-flop può cambiare stato. Il
 flip-flop è operativo solo quando $C = 1$.
 
-#image(
+#starlight.img(
   "images/circuito-flip-flop-sr-clock.png",
   alt: "Circuito flip-flop SR con clock",
 )

@@ -16,7 +16,7 @@ La struttura di base dei circuiti MOSFET è composta da strati:
 - strato isolante di biossido di silicio ($"SiO"_2$);
 - substrato di silicio drogato (di tipo P o N a seconda del fornitore);
 
-#image("images/condensatore-mos.png", alt: "Struttura condensatore MOS")
+#starlight.img("images/condensatore-mos.png", alt: "Struttura condensatore MOS")
 
 Al confine tra il substrato e l'isolante si forma una zona in grado di
 immagazzinare carica, come in un condensatore.
@@ -28,7 +28,7 @@ sul conduttore e le lacune nel substrato formano una carica positiva.
 
 La superficie del semiconduttore è in condizione di accumulo.
 
-#image(
+#starlight.img(
   "images/mos-regione-accumulazione.png",
   alt: "Cariche nella regione di accumulazione",
 )
@@ -43,7 +43,7 @@ Il substrato si svuota di portatori maggioritari, come in un diodo.
 La carica positiva sul gate è bilanciata dalle cariche negative degli ioni
 accettori presenti nella zona di svuotamento.
 
-#image(
+#starlight.img(
   "images/mos-regione-svuotamento.png",
   alt: "Cariche nella regione di svuotamento",
 )
@@ -61,7 +61,7 @@ elettroni.
 La tensione alla quale si forma lo strato di inversione è chiamata tensione di
 soglia ($V_"TN"$).
 
-#image(
+#starlight.img(
   "images/mos-regione-inversione.png",
   alt: "Cariche nella regione di inversione",
 )
@@ -74,7 +74,7 @@ lati del gate, dette *source* e *drain*. La corrente scorre dal drain al source.
 Il canale del condensatore è caratterizzato da una lunghezza $L$ e una larghezza
 $W$.
 
-#image("images/transistore-nmos.png", alt: "Struttura transistore nMOS")
+#starlight.img("images/transistore-nmos.png", alt: "Struttura transistore nMOS")
 
 Le regioni $n+$ forniscono elettroni per lo strato di inversione e formano anche
 due diodi con il substrato.
@@ -84,7 +84,7 @@ corrente che vada dal drain al source e non dal substrato ai terminali. Per
 ottenere questo effetto, conviene sempre mantenere il body a potenziale 0, in
 modo da garantire che tutti gli altri terminali abbiano un potenziale maggiore.
 
-#image(
+#starlight.img(
   "images/transistore-nmos-2.png",
   alt: "Struttura e simbolo transistore nMOS",
 )
@@ -170,7 +170,7 @@ $
   I_D = K_n / 2(V_"GS" - V_"TN")^2
 $
 
-#image(
+#starlight.img(
   "images/grafici-triodo-e-saturazione.png",
   alt: "Grafici delle zone di triodo e saturazione",
 )

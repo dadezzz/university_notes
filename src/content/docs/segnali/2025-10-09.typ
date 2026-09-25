@@ -57,7 +57,7 @@ $
   x(t) tilde.eq op("rect")(t / tau)
 $
 
-#image(
+#starlight.img(
   "images/deperiodizzazione-onda-quadra-con-ritorno-a-zero.png",
   alt: "Rappresentazione grafica della deperiodizzazione",
 )

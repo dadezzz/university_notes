@@ -67,7 +67,7 @@ regolarità nei dati di esempio.
 Questo tipo di modelli sta alla base di quasi tutti i modelli in grado di
 generare immagini.
 
-#image(
+#starlight.img(
   "images/auto-encoder.png",
   alt: "Rappresentazione degli strati di un autoencoder",
 )
@@ -78,7 +78,7 @@ Se rimuoviamo la parte superiore del modello visto sopra, possiamo ricombinare
 le attivazioni interne, calcolate con i pesi appresi e utili per il
 riconoscimento (*senza modificarli*), per ottenere un singolo numero in output.
 
-#image(
+#starlight.img(
   "images/auto-encoder-con-regressione.png",
   alt: "Regressione su un modello non supervisionato",
 )

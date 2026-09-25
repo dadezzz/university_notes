@@ -12,7 +12,7 @@
 
 For a simple example, let's examine the architecture of MS-DOS.
 
-#image("images/os-arch-msdos.png", alt: "MS-DOS architecture")
+#starlight.img("images/os-arch-msdos.png", alt: "MS-DOS architecture")
 
 The OS was single-task oriented. After boot, a shell was loaded, and running a
 program was a very simple process. It lacked processes in the modern sense;
@@ -25,7 +25,7 @@ The original UNIX employed a monolithic kernel structure. This structure
 integrated system programs with the kernel, which provided services such as file
 system (FS), scheduling, and memory management.
 
-#image("images/os-arch-unix.png", alt: "UNIX architecture")
+#starlight.img("images/os-arch-unix.png", alt: "UNIX architecture")
 
 A monolithic kernel offered the advantage of being fast and energy efficient,
 but its lack of modularity necessitated a complete recompile every time an
@@ -34,14 +34,17 @@ update was available.
 More recent versions of Linux manage to split the kernel into subsystems,
 separating them by function and by proximity to the hardware.
 
-#image("images/os-arch-linux.png", alt: "Linux architecture")
+#starlight.img("images/os-arch-linux.png", alt: "Linux architecture")
 
 == Microkernel
 
 The microkernel aims to minimize the code running in the kernel space by
 implementing as much functionality as possible in userspace.
 
-#image("images/os-arch-microkernel.png", alt: "Microkernel architecture")
+#starlight.img(
+  "images/os-arch-microkernel.png",
+  alt: "Microkernel architecture",
+)
 
 Its advantages include easier extensibility, simpler portability to new
 architectures, and enhanced security due to the reduced amount of code running
@@ -94,4 +97,7 @@ The memory utilized by a process is subdivided into specific regions:
 - *Heap*: Holds data that is explicitly requested in RAM using functions like
   `malloc`, which is dynamically allocated.
 
-#image("images/process-memory-layout.png", alt: "Memory layout of a process")
+#starlight.img(
+  "images/process-memory-layout.png",
+  alt: "Memory layout of a process",
+)

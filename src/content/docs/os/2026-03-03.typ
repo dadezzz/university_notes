@@ -47,7 +47,7 @@ There are other structures kept in memory by the kernel:
 - file descriptors, IPC structures, scheduling data and networking information
   referenced by the PCB;
 
-#image("images/process-memory-usage.png", alt: "Process memory usage")
+#starlight.img("images/process-memory-usage.png", alt: "Process memory usage")
 
 = Context switch
 

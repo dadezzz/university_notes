@@ -42,7 +42,7 @@ The datapath is the collection of hardware components that store, move and
 operate on data, including registers, ALUs, FPUs, load/store units and
 interconnections.
 
-#image("images/datapath-schema.png", alt: "Example datapath schema")
+#starlight.img("images/datapath-schema.png", alt: "Example datapath schema")
 
 = Flynn's Taxonomy of Computers
 
@@ -111,11 +111,11 @@ instructions and dispatch them in parallel.
 Pipelining is a mechanism used to increase the throughput of instructions and
 thus maximise the computational power of the CPU.
 
-#image("images/pipeline-table.png", alt: "Pipeline utilization graph")
+#starlight.img("images/pipeline-table.png", alt: "Pipeline utilization graph")
 
 A very common approach is to pipeline the fetch, decode and execution phases, so
 that the processor doesn't have to wait for a full memory load on each
 instruction. Prefetched instructions are stored in a set of registers called the
 *prefetch buffer*.
 
-#image("images/pipeline-instructions.png", alt: "Pipelined FDE")
+#starlight.img("images/pipeline-instructions.png", alt: "Pipelined FDE")

@@ -238,7 +238,7 @@ end;
 
 *Esempio*: tabella di verità di `and`:
 
-#image(
+#starlight.img(
   "images/tabella-verita-and-std-logic.png",
   alt: "Tabella verità di and con std_logic",
 )

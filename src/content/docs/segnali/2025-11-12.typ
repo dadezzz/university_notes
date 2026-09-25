@@ -45,7 +45,7 @@ $
   x_c(t) = x(t) sum_(n = -oo)^(+oo) delta(t - n T_c)
 $
 
-#image(
+#starlight.img(
   "images/campionamento-ad-impulsi.png",
   alt: "Campionamento ad impulsi nel tempo",
 )
@@ -70,7 +70,7 @@ Se isoliamo solo lo spettro della banda di base e lo moltiplichiamo per $T_c$,
 otteniamo esattamente lo spettro di $x(t)$. Quindi nessuna informazione sul
 segnale è stata persa.
 
-#image(
+#starlight.img(
   "images/ricostruzione-frequenze-da-campionamento.png",
   alt: "Isolamento della banda base",
 )
@@ -83,7 +83,7 @@ frequenza di campionamento.
 Questo fenomeno viene chiamato *aliasing* e coinvolge tutto l'intervallo delle
 frequenze.
 
-#image(
+#starlight.img(
   "images/aliasing.png",
   alt: "Esempio di aliasing sullo spettro delle frequenze",
 )

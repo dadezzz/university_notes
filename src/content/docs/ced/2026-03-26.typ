@@ -13,7 +13,7 @@
 Nell'invertitore pseudo-nMOS il transistore $M_"L"$ è sostituito con un pMOS con
 gate a massa.
 
-#image(
+#starlight.img(
   "images/invertitore-pseudo-nmos.png",
   alt: "Circuito dell'invertitore pseudo-nMOS",
 )
@@ -46,7 +46,7 @@ Quando anche solo uno dei due è acceso, l'uscita diventa bassa. Quindi entrambi
 devono essere dimensionati in modo che ciascuno possa portare da solo l'uscita
 al livello basso. La corrente passante si dimezza quando entrambi sono accesi.
 
-#image("images/porta-logica-nor.png", alt: "Circuito NOR")
+#starlight.img("images/porta-logica-nor.png", alt: "Circuito NOR")
 
 == NAND
 
@@ -57,7 +57,7 @@ siano accesi.
 Per compensare la maggiore resistenza equivalente dei transistori in serie, si
 progettano entrambi con il doppio della larghezza.
 
-#image("images/porta-logica-nand.png", alt: "Circuito NAND")
+#starlight.img("images/porta-logica-nand.png", alt: "Circuito NAND")
 
 = Tempistiche
 

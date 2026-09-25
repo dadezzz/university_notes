@@ -86,11 +86,17 @@ Cauchy.
 
 Per $x_1, x_2 in bb(R)$ l'andamento della corrente sarà:
 
-#image("images/rlc-stato-0-coefficienti-reali.png", alt: "Grafico corrente")
+#starlight.img(
+  "images/rlc-stato-0-coefficienti-reali.png",
+  alt: "Grafico corrente",
+)
 
 Per $x_1, x_2 in bb(C)$ l'andamento della corrente sarà:
 
-#image("images/rlc-stato-0-coefficienti-complessi.png", alt: "Grafico corrente")
+#starlight.img(
+  "images/rlc-stato-0-coefficienti-complessi.png",
+  alt: "Grafico corrente",
+)
 
 = Soluzione generale di una rete LTI
 

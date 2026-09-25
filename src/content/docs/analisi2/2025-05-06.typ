@@ -1,15 +1,16 @@
----
-description:
-  Definizione dell'integrale triplo su parallelepipedi e insiemi misurabili con
-  il teorema del cambio di variabili per funzioni continue limitate e
-  misurabili.
-lang: it
-title: Teoria degli integrali tripli e cambio variabili
----
+#import "../_templates/starlight.typ" as starlight
 
-## Integrali tripli
+#show: starlight.setup
 
-### Integrale triplo su un parallelepipedo
+#metadata((
+  description: "Definizione dell'integrale triplo su parallelepipedi e insiemi misurabili con il teorema del cambio di variabili per funzioni continue limitate e misurabili.",
+  lang: "it",
+  title: "Teoria degli integrali tripli e cambio variabili",
+))
+
+= Integrali tripli
+
+== Integrale triplo su un parallelepipedo
 
 Sia $Q = [a_1, b_1] times [a_2, b_2] times [a_3, b_3] subset bb(R)^3$ un
 parallelepipedo.
@@ -26,7 +27,10 @@ parallelepipedi.
 
 $abs(Q_(i, j, k))_3$ indica il volume del sotto-parallelepipedo $Q_(i, j, k)$.
 
-![Suddivisione di un volume in $bb(R)^3$](../../../../../images/analisi-2/suddivisione-volume-r3.png)
+#starlight.img(
+  "images/suddivisione-volume-r3.png",
+  alt: "Suddivisione di un volume in $bb(R)^3$",
+)
 
 Definiamo:
 
@@ -37,41 +41,39 @@ Definiamo:
 
 Si dice che $f$ è integrabile secondo Riemann su $Q$ e si scrive $f in R(Q)$ se:
 
-$$
-L = sup_D s(f,D) = inf_D S(f,D)
-$$
+$
+  L = sup_D s(f,D) = inf_D S(f,D)
+$
 
 Il valore $L$ prende il nome di integrale triplo di $f$ su $Q$ e si denota con:
 
-$$
-integral.triple_Q f(x, y, z) dif x dif y dif z
-$$
+$
+  integral.triple_Q f(x, y, z) dif x dif y dif z
+$
 
-:::note
+#starlight.note([
+  Valgono gli stessi teoremi degli integrali doppi su rettangoli.
+])
 
-Valgono gli stessi teoremi degli integrali doppi su rettangoli.
-
-:::
-
-### Integrale triplo su insiemi generali
+== Integrale triplo su insiemi generali
 
 Si applica la stessa definizione usata per gli integrali doppi. Si consideri un
 parallelepipedo $Q$ che racchiude l'insieme e una funzione $tilde(f)$ che vale
 come $f$ all'interno dell'insieme e $0$ fuori.
 
-#### Insiemi misurabili
+=== Insiemi misurabili
 
 Come per $bb(R)^2$, $A subset.eq bb(R)^3$ è misurabile se:
 
 - $partial A$ è misurabile;
 - $abs(partial A)_3 = 0$
 
-## Cambio di variabile per integrali tripli
+= Cambio di variabile per integrali tripli
 
 Siano $A, A' subset.eq bb(R)^3$ insiemi aperti, limitati e misurabili. Sia
 $psi: A' -> A$ un cambiamento di variabili e sia $f in C^0(A)$ e limitata.
 Allora:
 
-$$
-integral.triple_A f(x, y, z) dif x dif y dif z = integral.triple_A' f(psi(u, v, w)) thin abs(det(D_psi(u, v, w))) dif u dif v dif w
-$$
+$
+  integral.triple_A f(x, y, z) dif x dif y dif z = integral.triple_A' f(psi(u, v, w)) thin abs(det(D_psi(u, v, w))) dif u dif v dif w
+$

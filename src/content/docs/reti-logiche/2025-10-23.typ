@@ -31,7 +31,10 @@ transizione (che può tornare anche al punto di partenza).
 
 Riprendendo l'esempio della caldaia:
 
-#image("images/diagramma-asm-caldaia.png", alt: "Esempio di diagramma ASM")
+#starlight.img(
+  "images/diagramma-asm-caldaia.png",
+  alt: "Esempio di diagramma ASM",
+)
 
 == Uscite condizionate
 
@@ -42,7 +45,7 @@ valore delle uscite durante le transizioni di stato.
 L'uscita assume il valore corrispondente mentre il circuito è nello *stato di
 partenza* della transizione.
 
-#image(
+#starlight.img(
   "images/diagramma-asm-mealy.png",
   alt: "Esempio di diagramma ASM con uscite dipendenti dagli ingressi",
 )
@@ -52,11 +55,17 @@ partenza* della transizione.
 Non si deve mai assegnare un valore agli ingressi. Per definizione non si può
 decidere il valore di un ingresso.
 
-#image("images/asm-regola-1.png", alt: "Esempio di circuito non corretto")
+#starlight.img(
+  "images/asm-regola-1.png",
+  alt: "Esempio di circuito non corretto",
+)
 
 Non si deve mai usare un'uscita in una condizione di transizione.
 
-#image("images/asm-regola-2.png", alt: "Esempio di circuito non corretto")
+#starlight.img(
+  "images/asm-regola-2.png",
+  alt: "Esempio di circuito non corretto",
+)
 
 È possibile mettere 2 condizioni in sequenza sulla stessa transizione. È
 importante però che la transizione finisca sempre su uno stato e non si crei un
@@ -72,7 +81,10 @@ un valore, si assume sempre che essa ritorni a 0.
 L'unità di memoria di base (che contiene un solo bit) è il flip-flop che abbiamo
 già visto. Un gruppo di flip-flop correlati è detto *registro*.
 
-#image("images/simbolo-registro.png", alt: "Simbolo circuitale del registro")
+#starlight.img(
+  "images/simbolo-registro.png",
+  alt: "Simbolo circuitale del registro",
+)
 
 L'ingresso clear pone immediatamente il valore dell'uscita a 0 (è asincrono); il
 valore rimane a 0 fino al primo fronte attivo del clock successivo al ritiro del
@@ -96,7 +108,7 @@ multiplexer prima del flip-flop. In questo modo, se il segnale di load è attivo
 viene restituito il valore già memorizzato, altrimenti si riprende il normale
 funzionamento.
 
-#image(
+#starlight.img(
   "images/circuito-registro-load-enable-con-multiplexer.png",
   alt: "Circuito del registro con multiplexer per load-enable",
 )
@@ -109,12 +121,12 @@ dei dati avviene un bit alla volta (per ciclo di clock).
 I registri a scorrimento sono utilizzati spesso per la comunicazione seriale tra
 periferiche (ad esempio protocolli SPI e I2C).
 
-#image(
+#starlight.img(
   "images/circuito-registro-scorrimento.png",
   alt: "Circuito del registro a scorrimento",
 )
 
-#image(
+#starlight.img(
   "images/simbolo-registro-scorrimento.png",
   alt: "Simbolo del registro a scorrimento",
 )
@@ -127,7 +139,7 @@ Anche qui è pericoloso mascherare il clock, perché il cavo tra clock e flip-fl
 Quindi si può di nuovo aggiungere un multiplexer all'entrata di ogni cella di
 memoria.
 
-#image(
+#starlight.img(
   "images/circuito-registro-scorrimento-load-enable.png",
   alt: "Circuito del registro a scorrimento con load-enable",
 )
@@ -163,12 +175,15 @@ controllo) diventa:
   [1], [1], [scorrimento in avanti],
 )
 
-#image(
+#starlight.img(
   "images/circuito-shr-bidirezionale.png",
   alt: "Circuito shr bidirezionale",
 )
 
-#image("images/simbolo-shr-bidirezionale.png", alt: "Simbolo shr bidirezionale")
+#starlight.img(
+  "images/simbolo-shr-bidirezionale.png",
+  alt: "Simbolo shr bidirezionale",
+)
 
 == Contatore
 
@@ -191,7 +206,7 @@ combinatorio.
 L'implementazione può essere quella di un registro parallelo affiancato ad un
 sommatore tra il valore del registro e 1.
 
-#image("images/circuito-contatore.png", alt: "Circuito del contatore")
+#starlight.img("images/circuito-contatore.png", alt: "Circuito del contatore")
 
 Si può eventualmente aggiungere un segnale di count-enable per fermare
 l'avanzamento della sequenza.
@@ -204,7 +219,7 @@ Situazioni che si verificano spesso nelle macchine a stati.
 
 Si aspetta che un certo segnale S cambi valore, ad esempio da 0 a 1.
 
-#image(
+#starlight.img(
   "images/diagramma-asm-busy-waiting.png",
   alt: "Diagramma ASM del busy waiting",
 )
@@ -221,7 +236,7 @@ Si fa partire un contatore e si aspetta che raggiunga la condizione di termine
 conteggio (TC). Non ci interessa il suo valore, ma solamente la condizione di
 TC.
 
-#image(
+#starlight.img(
   "images/diagramma-asm-fire-and-check.png",
   alt: "Diagramma ASM del fire and check",
 )

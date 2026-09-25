@@ -1,13 +1,14 @@
----
-description:
-  Relazioni tra derivate direzionali e gradiente per determinare la
-  differenziabilità di funzioni multivariabili con condizioni di classe C1
-  sufficienti.
-lang: it
-title: Teorema del differenziale totale e classe C1
----
+#import "../_templates/starlight.typ" as starlight
 
-## Teorema del differenziale totale
+#show: starlight.setup
+
+#metadata((
+  description: "Relazioni tra derivate direzionali e gradiente per determinare la differenziabilità di funzioni multivariabili con condizioni di classe C1 sufficienti.",
+  lang: "it",
+  title: "Teorema del differenziale totale e classe C1",
+))
+
+= Teorema del differenziale totale
 
 Data una funzione $f$ di più variabili per cui esiste $nabla f(bold(p)_0)$,
 quale proprietà aggiuntiva è necessaria per garantire la differenziabilità di
@@ -17,16 +18,14 @@ Nel caso in cui $nabla f$ esista, ma le derivate parziali non siano continue,
 non si possono trarre conclusioni sulla differenziabilità della funzione,
 rendendo necessario ricorrere alla definizione basata sul piano tangente.
 
-:::note
-
-Una funzione si dice di classe $C^n(A)$ se è derivabile $n$ volte su $A$ e la
-sua $n$-esima derivata è continua su $A$.
-
-:::
+#starlight.note([
+  Una funzione si dice di classe $C^n(A)$ se è derivabile $n$ volte su $A$ e la
+  sua $n$-esima derivata è continua su $A$.
+])
 
 Se $f in C^1(A)$, allora $f$ è differenziabile in ogni punto di $A$.
 
-## Derivate direzionali
+= Derivate direzionali
 
 Le derivate parziali costituiscono un caso particolare delle derivate
 direzionali, dato che il calcolo è semplice poiché varia solo la coordinata
@@ -38,15 +37,15 @@ arbitraria data da un vettore $bold(v)$.
 $f$ è direzionalmente derivabile nella direzione $bold(v)$ nel punto $bold(p)_0$
 se:
 
-$$
-(partial f) / (partial bold(v)) (bold(p)_0) = lim_(h -> 0) (f(bold(p)_0 + h bold(v)) - f(bold(p)_0)) / h in bb(R)
-$$
+$
+  (partial f) / (partial bold(v)) (bold(p)_0) = lim_(h -> 0) (f(bold(p)_0 + h bold(v)) - f(bold(p)_0)) / h in bb(R)
+$
 
-### Rapporto tra differenziabilità e derivabilità direzionale
+== Rapporto tra differenziabilità e derivabilità direzionale
 
 Supponendo che $f$ sia differenziabile in $bold(p)_0$, allora, per ogni
 direzione $bold(v) in bb(R)^n$:
 
-$$
-(partial f) / (partial bold(v)) (bold(p)_0) = nabla f(bold(p)_0) dot bold(v) = dif f(bold(p)_0) dot bold(v)
-$$
+$
+  (partial f) / (partial bold(v)) (bold(p)_0) = nabla f(bold(p)_0) dot bold(v) = dif f(bold(p)_0) dot bold(v)
+$

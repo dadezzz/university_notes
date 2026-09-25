@@ -53,14 +53,14 @@ Un substrato di silicio drogato funge da supporto e aree drogate diversamente
 vengono create sulla superficie. Queste aree vengono collegate tramite piste in
 alluminio, disposte su diversi strati separati da un isolante.
 
-#image("images/sezione-circuito.png", alt: "Sezione di un circuito")
+#starlight.img("images/sezione-circuito.png", alt: "Sezione di un circuito")
 
 = Diodo
 
 Un diodo è costituito dalla giunzione tra un blocco di silicio di tipo $p$
 (*anodo*) e uno di tipo $n$ (*catodo*). Il suo simbolo circuitale è:
 
-#image("images/simbolo-diodo.png", alt: "Simbolo circuitale diodo")
+#starlight.img("images/simbolo-diodo.png", alt: "Simbolo circuitale diodo")
 
 La presenza di un forte gradiente di concentrazione dei portatori genera una
 corrente di diffusione dalla zona $p$ alla zona $n$. Al confine tra le due zone
@@ -70,7 +70,7 @@ formando così una regione di carica spaziale.
 Poiché la corrente totale in equilibrio deve essere nulla, si genera un campo
 elettrico e una corrente di drift che bilancia quella di diffusione.
 
-#image(
+#starlight.img(
   "images/correnti-diodo.png",
   alt: "Correnti e campi all'interno del diodo",
 )
@@ -111,7 +111,10 @@ Un *potenziale negativo* (polarizzazione inversa) allarga la regione di carica
 spaziale, facendo sì che la corrente sia *formata prevalentemente dai portatori
 minoritari*, poiché la corrente di diffusione viene ostacolata.
 
-#image("images/caratteristica-diodo.png", alt: "Caratteristica del diodo")
+#starlight.img(
+  "images/caratteristica-diodo.png",
+  alt: "Caratteristica del diodo",
+)
 
 == Modello del diodo
 

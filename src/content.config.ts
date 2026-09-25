@@ -1,10 +1,10 @@
 import { defineCollection } from "astro:content";
-import { docsSchema } from "@astrojs/starlight/schema";
-import { glob, type Loader, type LoaderContext } from "astro/loaders";
-import { z } from "astro/zod";
 import * as child_process from "node:child_process";
 import path from "node:path";
 import { promisify } from "node:util";
+import { docsSchema } from "@astrojs/starlight/schema";
+import { glob, type Loader, type LoaderContext } from "astro/loaders";
+import { z } from "astro/zod";
 
 const SRC_PATH = "./src";
 const DOCS_PATH = `${SRC_PATH}/content/docs`;
@@ -77,27 +77,6 @@ async function getMetadata(context: LoaderContext, filePath: string): Promise<Re
   return metadataMerged;
 }
 
-async function getImagePaths(context: LoaderContext, filePath: string): Promise<string[]> {
-  const { logger } = context;
-
-  const { stderr, stdout } = await execFile(
-    "typst",
-    ["eval", ...COMMON_TYPST_ARGS, "--in", filePath, "query(image).map(i => i.source)"],
-    EXEC_OPTIONS,
-  );
-
-  if (stderr) {
-    logger.warn(stderr);
-  }
-
-  try {
-    const paths: string[] = JSON.parse(stdout);
-    return paths.filter((p) => typeof p === "string" && !p.startsWith("http")).map((p) => path.relative(".", p));
-  } catch {
-    return [];
-  }
-}
-
 export async function syncTypstDocEntry(context: LoaderContext, absPath: string): Promise<void> {
   const { store, parseData, logger } = context;
   const id = idFromAbsolutePath(absPath);
@@ -112,13 +91,12 @@ export async function syncTypstDocEntry(context: LoaderContext, absPath: string)
   try {
     const html = await compileTypst(context, absPath);
     const metadata = await getMetadata(context, absPath);
-    const imagePaths = await getImagePaths(context, absPath);
 
     store.set({
       id,
       data: await parseData({ id, data: metadata }),
       filePath: path.relative(".", absPath),
-      rendered: { html, metadata: { imagePaths } },
+      rendered: { html },
     });
   } catch (error) {
     logger.error(`failed to compile ${id}: ${error}`);
@@ -138,11 +116,11 @@ export async function loadTypstDocs(context: LoaderContext): Promise<void> {
     base: "/src/content/docs",
   });
 
-  await Promise.all(
-    Object.keys(modules).map((filePath) => {
-      return syncTypstDocEntry(context, path.resolve(DOCS_ABS_PATH, filePath));
-    }),
-  );
+  // Using Promise.all resulted in errors due to too many processes/threads
+  // created.
+  for (const filePath of Object.keys(modules)) {
+    await syncTypstDocEntry(context, path.resolve(DOCS_ABS_PATH, filePath));
+  }
 
   // Vite's dev-server watcher already covers the whole project tree by
   // default, so no explicit watcher.add() is needed here. Registering these

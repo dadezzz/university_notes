@@ -14,7 +14,7 @@ Il teorema di Thévenin stabilisce che qualsiasi circuito composto da resistenze
 e generatori di tensione e di corrente può essere sostituito da un generatore di
 tensione seguito da un resistore equivalente.
 
-#image("images/thevenin.png", alt: "Thévenin")
+#starlight.img("images/thevenin.png", alt: "Thévenin")
 
 - $V_T$ sarà la tensione a circuito aperto tra i due terminali $a$ e $b$ della
   rete di partenza.
@@ -34,7 +34,7 @@ a circuiti lineari.
 Per fissare due punti per tracciare la retta, si può considerare il caso $v = 0$
 dove $i = V_T / R_T$ e il caso $i = 0$ dove $v = V_T$.
 
-#image(
+#starlight.img(
   "images/retta-di-carico.png",
   alt: "Retta di carico al variare dei parametri",
 )

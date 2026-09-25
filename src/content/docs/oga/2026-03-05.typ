@@ -85,7 +85,7 @@ motivazioni, percezioni, aspirazioni, aspettative, ecc.
 
 Piramide di Maslow:
 
-#image("images/piramide-di-maslow.png", alt: "Piramide di Maslow")
+#starlight.img("images/piramide-di-maslow.png", alt: "Piramide di Maslow")
 
 === Teoria di Likert
 
@@ -179,7 +179,7 @@ in atto la strategia.
 
 == Evoluzione del pensiero strategico
 
-#image(
+#starlight.img(
   "images/evoluzione-pensiero-strategico.png",
   alt: "Evoluzione pensiero strategico",
 )

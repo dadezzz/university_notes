@@ -14,7 +14,7 @@
 
 Introduzione di un anticipo o un ritardo del segnale agendo sull'asse temporale.
 
-#image(
+#starlight.img(
   "images/trasformazione-traslazione-temporale.png",
   alt: "Blocco traslazione temporale",
 )
@@ -27,7 +27,7 @@ Introduzione di un anticipo o un ritardo del segnale agendo sull'asse temporale.
 Introduzione di una compressione o espansione del segnale agendo sull'asse
 temporale.
 
-#image(
+#starlight.img(
   "images/trasformazione-riscalamento-temporale.png",
   alt: "Blocco riscalamento temporale",
 )
@@ -41,7 +41,7 @@ Se $k$ diventa negativo, allora il segnale viene anche invertito.
 
 Amplificazione o attenuazione agendo sull'ampiezza del segnale.
 
-#image(
+#starlight.img(
   "images/trasformazione-fattore-di-guadagno.png",
   alt: "Blocco fattore di guadagno",
 )
@@ -56,7 +56,7 @@ Se $g$ diventa negativo, il segnale viene ribaltato.
 Dato che i segnali sono descrivibili come funzioni, possiamo integrarli e
 derivarli:
 
-#image(
+#starlight.img(
   "images/trasformazione-integrale-derivata.png",
   alt: "Blocchi derivata e integrale",
 )
