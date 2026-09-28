@@ -33,11 +33,19 @@ function isTypstFile(absPath: string): boolean {
   return insideDocs && absPath.endsWith(".typ");
 }
 
+// Removes some verbose logs that have been verified to be harmless.
 function filterTypstLogs(logs: string): string {
   return logs
     .split("\n\n")
     .filter((g) => !g.startsWith("warning: html export is under active development and incomplete"))
     .filter((g) => !g.startsWith("warning: elem was ignored during paged export"))
+    .filter(
+      (g) =>
+        !(
+          g.startsWith("warning: elem may not occur inside of a paragraph and was ignored") &&
+          g.includes('html.elem("span", attrs: (class: "not-content"), it)')
+        ),
+    )
     .join("\n\n");
 }
 
