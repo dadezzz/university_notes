@@ -1,4 +1,4 @@
-FROM git.zarantonello.dev/university/notes-ci:v2026.09.30.1@sha256:8ce55f919250d8ae5f5e36c946e5032151715601f220cdc21c3291ad95551e3f AS builder
+FROM git.zarantonello.dev/university/notes-ci:v2026.10.03.1@sha256:7cd707095bc117c60ee6898e2ac3cac2f528c1c3c561473f93f411287c7b1ecb AS builder
 
 WORKDIR /srv
 

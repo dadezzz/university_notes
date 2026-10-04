@@ -1,5 +1,5 @@
 FROM ghcr.io/typst/typst:0.15.1@sha256:032e292249bcd378480cc7c142cfa324b63ef8aadeb88d7e7230320c4c9c422f AS typst
-FROM git.zarantonello.dev/infra/ci-pnpm:v1.1.13@sha256:a10e188c33c78648a4337fc626bd73b9e720cf0364352756fa6167cdb6d3814a
+FROM git.zarantonello.dev/infra/ci-pnpm:v1.1.14@sha256:eab15584dc5a8c81bae62012fa6ce7926033796563f72c953f8ca86580e199fe
 
 # renovate: datasource=github-tags depName=typstyle-rs/typstyle versioning=semver
 ENV TYPSTYLE_VERSION="v0.15.1"
