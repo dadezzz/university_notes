@@ -27,9 +27,7 @@ if (!course) throw new Error(`course '${id}' not found`);
   <h2>Professors</h2>
 
   <ul>
-    {course.data.professors.map((p) => (
-      <li>{p}</li>
-    ))}
+    {course.data.professors.map((p) => <li>{p}</li>)}
   </ul>
 
   <h2>Lessons</h2>
