@@ -39,7 +39,20 @@ if (!lesson) {
   throw new Error(`lesson '${id}' not found`);
 }
 
-function rehypeNormalizeCodeLang() {
+// Adds the not-content class inside math blocks to disable starlight's spacing
+// overrides.
+function addMathNotContent() {
+  return (tree: Root) => {
+    visit(tree, "element", (node) => {
+      if (node.tagName === "math") {
+        node.properties.className = [...((node.properties.className as string[]) ?? []), "not-content"];
+      }
+    });
+  };
+}
+
+// Transforms typst's data-lang attribute in the language class needed by shiki.
+function normalizeCodeLang() {
   return (tree: Root) => {
     visit(tree, "element", (node) => {
       if (node.tagName === "code" && node.properties?.dataLang) {
@@ -130,14 +143,14 @@ function renderStarlightImages() {
     const matches: { node: Element; index?: number; parent?: Element | Root }[] = [];
 
     visit(tree, "element", (node, index, parent) => {
-      if (node.properties.src?.startsWith("images/")) {
+      if (node.properties.dataStarlightImgSrc) {
         matches.push({ node, index, parent });
       }
     });
 
     await Promise.all(
       matches.map(async ({ node, index, parent }) => {
-        const imagePath = `./${course}/${node.properties.src}`;
+        const imagePath = `./${course}/${node.properties.dataStarlightImgSrc}`;
         const imageMetadata = (await images[imagePath]()).default;
         const imageFormats = imagePath.endsWith(".svg") ? ["svg"] : ["avif", "webp", "png"];
 
@@ -163,7 +176,7 @@ function renderStarlightImages() {
           });
 
         const fallbackResult = imageResults[imageResults.length - 1];
-        newNodeHtml += `<img src="${fallbackResult.src}" alt="${node.properties.alt ?? ""}" `;
+        newNodeHtml += `<img src="${fallbackResult.src}" alt="${node.properties.dataStarlightImgAlt ?? ""}" `;
 
         // Add the remaining attributes from getImage result (width, height, etc.)
         Object.entries(fallbackResult.attributes).forEach(([key, value]) => {
@@ -189,9 +202,10 @@ function renderStarlightImages() {
 }
 
 const processor = unified()
-  .use(rehypeNormalizeCodeLang)
-  .use(rehypeShiki, { theme: "one-dark-pro" })
   .use(rehypeHeadingIds)
+  .use(addMathNotContent)
+  .use(normalizeCodeLang)
+  .use(rehypeShiki, { theme: "one-dark-pro" })
   .use(renderStarlightHeadings)
   .use(renderStarlightAsides)
   .use(renderStarlightImages);

@@ -7,7 +7,9 @@ services:
     volumes:
       - ..:/workspace:z,cached
       - pnpm-cache:/usr/local/pnpm/store
+      - typst-cache:/root/.cache/typst
     working_dir: /workspace
 
 volumes:
   pnpm-cache: {}
+  typst-cache: {}

@@ -9,12 +9,6 @@
     math.accent(it.body, "\u{0332}")
   }
 
-  show math.equation: it => {
-    // Disable starlight css customizations inside math, to avoid weird vertical
-    // spacing.
-    html.elem("span", attrs: (class: "not-content"), it)
-  }
-
   doc
 }
 
@@ -35,6 +29,13 @@
   html.hr()
 }
 
-#let img(path, alt: str) = {
-  html.div(html.img(src: path, alt: alt))
+#let img(source, alt: str) = {
+  html.elem("div", attrs: (
+    data-starlight-img-src: source,
+    data-starlight-img-alt: alt,
+  ))
+}
+
+#let frame(body) = {
+  html.frame(body)
 }
