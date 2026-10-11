@@ -5,7 +5,7 @@ concurrency:
 jobs:
   check:
     container:
-      image: git.zarantonello.dev/university/notes-ci:v2026.10.09.1@sha256:98a908c74dda47ec94cf43d05b916c43d819cfcf84e75f821203f52246c9ea36
+      image: git.zarantonello.dev/university/notes-ci:v2026.10.10.1@sha256:8a0b76345237e5b3aeed1dff62e9613781149f2f4e4a280b32ed76c997250aa7
       volumes:
         - forgejo-runner-cache-pnpm:/usr/local/pnpm/store
         - forgejo-runner-cache-university-notes-astro:/astro
