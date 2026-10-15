@@ -30,10 +30,7 @@ $
   G_f = {(x, f(x)) mid(|) x in A} subset bb(R)^2
 $
 
-#starlight.img(
-  "images/grafico-funzione-2-variabili.png",
-  alt: "Grafico di una funzione a 2 variabili",
-)
+#include "frames/grafico-funzione-r3.typ"
 
 Se $f: A subset.eq bb(R)^2 -> bb(R)$:
 
@@ -53,6 +50,8 @@ $t in bb(R)$, la curva di livello di $f$ associata a $t$ è definita:
 $
   C_t = {(x, y) in A mid(|) f(x,y) = t}
 $
+
+#include "frames/curve-di-livello.typ"
 
 #starlight.tip([
   In termini pratici, le curve di livello di una funzione a due variabili sono

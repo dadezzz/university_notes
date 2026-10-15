@@ -10,7 +10,12 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      customCss: ["./src/styles/code-blocks.css", "./src/styles/math-blocks.css", "./src/styles/list-markers.css"],
+      customCss: [
+        "./src/styles/code-blocks.css",
+        "./src/styles/math-blocks.css",
+        "./src/styles/list-markers.css",
+        "./src/styles/typst-frames.css",
+      ],
       description:
         "Collection of course notes from the ICE (Information, Communications and Electronics) engineering program at the University of Trento.",
       head: [

@@ -127,7 +127,7 @@ export async function loadTypstDocs(context: LoaderContext): Promise<void> {
   // Used purely to enumerate matching files: the module values are never
   // imported (eager: false), only the keys are used. Every entry point (initial
   // scan, change, add) then goes through the same `syncTypstDocEntry` path.
-  const modules = import.meta.glob<string>("./**/*.typ", {
+  const modules = import.meta.glob<string>("./*/*.typ", {
     query: "?raw",
     import: "default",
     eager: false,

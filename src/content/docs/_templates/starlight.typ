@@ -37,5 +37,11 @@
 }
 
 #let frame(body) = {
-  html.frame(body)
+  html.elem(
+    "div",
+    attrs: (
+      class: "typst-frame",
+    ),
+    html.frame(body),
+  )
 }
