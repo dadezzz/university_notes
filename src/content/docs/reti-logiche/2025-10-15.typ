@@ -31,7 +31,7 @@ Si può creare la tabella della verità:
 
 #table(
   columns: 3,
-  [*H*], [*L*], [*C*],
+  table.header([*H*], [*L*], [*C*]),
   [0], [0], [?],
   [0], [1], [1],
   [1], [0], [0],

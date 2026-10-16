@@ -12,7 +12,7 @@
 
 #table(
   columns: 2,
-  [*$t$*], [*$s$*],
+  table.header([*$t$*], [*$s$*]),
   [$V_R(t) = R I_R(t)$], [$tilde(V)_R(s) = R tilde(I)_R(s)$],
   [$I_R(t) = V_R(t) / R$], [$tilde(I)_R(s) = tilde(V)_R(s) / R$],
   [$V_C(t) = 1 / C integral_0^t I_C(t) dif t + V_C(0)$],

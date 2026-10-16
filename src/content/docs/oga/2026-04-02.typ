@@ -93,7 +93,7 @@ della filiera ed evitare bias o tunneling mentali del management.
 
 #table(
   columns: 2,
-  [*Gap*], [*Soluzione*],
+  table.header([*Gap*], [*Soluzione*]),
   [Aspettativa del cliente vs. percezione del management],
   [Ricerche di mercato, raccolta feedback],
 

@@ -12,7 +12,7 @@
 
 #table(
   columns: 4,
-  [*Processo*], [*Volume*], [*Varietà*], [*Esempio*],
+  table.header([*Processo*], [*Volume*], [*Varietà*], [*Esempio*]),
   [*Progetto*],
   [Molto basso],
   [Molto alta],
@@ -62,7 +62,7 @@ La matrice volume-varietà si applica anche ai servizi, con tre aree principali:
 
 #table(
   columns: 4,
-  [*Area*], [*Volume*], [*Varietà*], [*Esempio*],
+  table.header([*Area*], [*Volume*], [*Varietà*], [*Esempio*]),
   [*Professional Services*], [Basso], [Alta], [Consulenza, ristorante gourmet],
   [*Service Shop*], [Medio], [Media], [Banche, hotel],
   [*Mass Services*],

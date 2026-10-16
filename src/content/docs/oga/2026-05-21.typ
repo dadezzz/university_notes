@@ -46,7 +46,9 @@ deve essere adattata al tipo di prodotto o servizio offerto.
 
 #table(
   columns: 3,
-  [*Caratteristica*], [*Prodotti funzionali*], [*Prodotti innovativi*],
+  table.header(
+    [*Caratteristica*], [*Prodotti funzionali*], [*Prodotti innovativi*]
+  ),
   [*Prevedibilità della domanda*], [Alta], [Bassa],
   [*Ciclo di vita*], [Lungo], [Breve],
   [*Margine*], [Limitato], [Elevato],

@@ -153,7 +153,7 @@ sono 3 tipologie di acquisti (in ordine di incertezza crescente):
 
 #table(
   columns: 4,
-  [*Tipo*], [*Novità*], [*Incertezza*], [*Descrizione*],
+  table.header([*Tipo*], [*Novità*], [*Incertezza*], [*Descrizione*]),
   [*Riacquisto diretto*],
   [Bassa],
   [Bassa],

@@ -106,7 +106,7 @@ creerà valore per questi.
 
 #table(
   columns: 2,
-  [*Orientamento*], [*Obiettivo*],
+  table.header([*Orientamento*], [*Obiettivo*]),
   [*Produzione*],
   [Produrre grandi quantità a basso costo con una distribuzione efficiente (es.:
     fast fashion, H&M)],

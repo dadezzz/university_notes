@@ -179,12 +179,14 @@ Performance of various levels of storage:
 
 #table(
   columns: 6,
-  [*Name*],
-  [*Typical size*],
-  [*Implementation*],
-  [*Access time*],
-  [*Bandwidth*],
-  [*Managed by*],
+  table.header(
+    [*Name*],
+    [*Typical size*],
+    [*Implementation*],
+    [*Access time*],
+    [*Bandwidth*],
+    [*Managed by*],
+  ),
 
   [registers],
   [< 1 KB],

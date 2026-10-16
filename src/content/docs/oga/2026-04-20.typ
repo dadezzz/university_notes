@@ -59,10 +59,12 @@ la variante di prodotto più venduta, minimizzando gli sprechi.
 
 #table(
   columns: 4,
-  [*Strategia*], [*Descrizione*], [*Punto di disaccoppiamento*], [*Esempio*],
+  table.header([*Strategia*], [*Descrizione*], [*Punto di disaccoppiamento*]),
+  [*Esempio*],
   [*Make to Stock (MTS)*],
   [Produzione su previsione (push)],
   [Magazzino prodotti finiti],
+
   [Coca-Cola],
 
   [*Assemble to Order (ATO)*],

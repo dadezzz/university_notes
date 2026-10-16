@@ -58,7 +58,7 @@ La digitalizzazione cambia il paradigma decisionale:
 
 #table(
   columns: 3,
-  [*Aspetto*], [*Experience-based*], [*Data-driven*],
+  table.header([*Aspetto*], [*Experience-based*], [*Data-driven*]),
   [Fonte dell'informazione],
   [Esperienza personale, intuito],
   [Dati aziendali, di mercato, strumenti analitici],

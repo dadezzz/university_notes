@@ -168,7 +168,7 @@ controllo) diventa:
 
 #table(
   columns: 3,
-  [$s_0$], [$s_1$], [*modalità*],
+  table.header([$s_0$], [$s_1$], [*modalità*]),
   [0], [0], [nessun cambiamento (load-enable disabilitato)],
   [0], [1], [scorrimento all'indietro],
   [1], [0], [caricamento parallelo],

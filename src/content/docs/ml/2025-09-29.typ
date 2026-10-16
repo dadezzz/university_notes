@@ -17,7 +17,7 @@ input rispetto all'etichetta che aveva quell'input:
 
 #table(
   columns: 3,
-  [], [*valore output*], [*etichetta*],
+  table.header([], [*valore output*], [*etichetta*]),
   [_true positive_], [1], [1],
   [_true negative_], [-1], [-1],
   [_false positive_], [1], [-1],

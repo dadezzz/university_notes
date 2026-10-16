@@ -58,9 +58,18 @@ section, and OS resources with other threads belonging to the same process.
 There are some differences between creating a new process and a new thread, the
 last one is usually lighter and more scalable:
 
-#starlight.img(
-  "images/process-vs-thread.png",
-  alt: "Differences between process and thread",
+#table(
+  columns: 3,
+  table.header([*What*], [*New process*], [*New thread*]),
+  [*Process ID (PID)*], [new unique PID], [same PID (different thread ID)],
+  [*Address space*], [copied (independent)], [shared],
+  [*Heap*], [copied (independent)], [shared],
+  [*Code segment*], [copied (independent)], [shared],
+  [*File descriptors*], [copied (same underlying files)], [shared],
+  [*Open files (file table)*], [shared], [shared],
+  [*Signal handlers*], [copied (independent)], [shared],
+  [*Environment variables*], [copied (independent)], [shared],
+  [*Shared memory*], [shared], [shared],
 )
 
 == Multicore programming

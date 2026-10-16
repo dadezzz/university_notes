@@ -212,7 +212,7 @@ che sostituisce `bit` con una versione più realistica:
 
 #table(
   columns: 2,
-  [*valore*], [*significato*],
+  table.header([*valore*], [*significato*]),
   [`U`], [Segnale non definito (non è mai stato assegnato un valore)],
   [`X`], [Segnale sconosciuto (valore non determinabile)],
   [`0`], [0 logico],

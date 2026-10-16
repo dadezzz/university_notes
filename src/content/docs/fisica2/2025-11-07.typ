@@ -107,7 +107,7 @@ $
 
 #table(
   columns: 4,
-  [*$f(t)$*], [*$tilde(F)(s)$*], [*ROC*], [*Condizioni*],
+  table.header([*$f(t)$*], [*$tilde(F)(s)$*], [*ROC*], [*Condizioni*]),
   [$theta(t)$], [$1 / s$], [$Re(s) > 0$], [],
   [$theta(t - d)$], [$e^(- d s) / s$], [$Re(s) > 0$], [$d > 0$],
   [$delta(t)$], [$1$], [], [],
