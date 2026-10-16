@@ -9,14 +9,13 @@ import { Aside } from "@astrojs/starlight/components";
 import AnchorHeading from "@astrojs/starlight/components/AnchorHeading.astro";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import type { StarlightPageProps } from "@astrojs/starlight/props";
-import type { GetStaticPaths } from "astro";
+import type { GetStaticPaths, MarkdownHeading } from "astro";
 import { experimental_AstroContainer } from "astro/container";
 import type { Element, Root } from "hast";
 import { fromHtml } from "hast-util-from-html";
 import { toHtml } from "hast-util-to-html";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
-import { VFile } from "vfile";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const lessons = await getCollection("docs");
@@ -65,6 +64,9 @@ function normalizeCodeLang() {
 
 const container = await experimental_AstroContainer.create();
 
+// Register headings to be rendered in the table of contents.
+const headings: MarkdownHeading[] = [];
+
 function renderStarlightHeadings() {
   return async (tree: Root) => {
     const matches: { node: Element; index?: number; parent?: Element | Root }[] = [];
@@ -77,14 +79,16 @@ function renderStarlightHeadings() {
 
     await Promise.all(
       matches.map(async ({ node, index, parent }) => {
+        const level = Number(node.tagName[1]);
+        const childrenHtml = toHtml(node.children);
+
         const newNodeHtml = await container.renderToString(AnchorHeading, {
           locals: Astro.locals,
-          props: {
-            id: node.properties.id,
-            level: Number(node.tagName[1]),
-          },
-          slots: { default: toHtml(node.children) },
+          props: { id: node.properties.id, level },
+          slots: { default: childrenHtml },
         });
+
+        headings.push({ depth: level, slug: node.properties.id ?? "", text: childrenHtml });
 
         const parsedRoot = fromHtml(newNodeHtml, { fragment: true });
 
@@ -214,17 +218,11 @@ const processor = unified()
 // content of the compiled `<body>`; without it the parser would wrap everything
 // in an extra `<html><head><body>` document.
 const typstTree = fromHtml(lesson.rendered?.html ?? "", { fragment: true });
-const file = new VFile();
-const processedTree = await processor.run(typstTree, file);
-const headings = file.data.astro?.headings ?? [];
+const processedTree = await processor.run(typstTree);
+const frontmatter = lesson.data as StarlightPageProps["frontmatter"];
 
 // Restore the editUrl since the one in starlight config doesn't work.
-lesson.data.editUrl = `https://git.zarantonello.dev/university/notes/_edit/main/src/content/docs/${course}/${date}.typ`;
+frontmatter.editUrl = `https://git.zarantonello.dev/university/notes/_edit/main/${lesson.filePath}`;
 ---
 
-<StarlightPage
-  frontmatter={lesson.data as StarlightPageProps["frontmatter"]}
-  headings={headings}
-  lang={lesson.data.lang}
-  set:html={toHtml(processedTree)}
-> </StarlightPage>
+<StarlightPage {frontmatter} {headings} lang={frontmatter.lang} set:html={toHtml(processedTree)} />
