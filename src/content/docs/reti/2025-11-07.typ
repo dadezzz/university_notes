@@ -1,13 +1,17 @@
----
-lang: it
-title: Lezione (2025-11-07)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Principi del controllo di congestione
+#show: starlight.setup
 
-In generale si definisce una congestione la situazione in cui troppi
-trasmettitori stanno inviando troppi dati e la rete non riesce a gestire il
-traffico.
+#metadata((
+  description: "Cause e conseguenze della congestione, algoritmo AIMD, finestra di congestione, slow start, congestion avoidance, fast retransmit e fast recovery in TCP.",
+  lang: "it",
+  title: "Controllo di congestione TCP: AIMD e slow start",
+))
+
+= Principi del controllo di congestione
+
+In generale si definisce congestione la situazione in cui troppi trasmettitori
+stanno inviando troppi dati e la rete non riesce a gestire il traffico.
 
 Le conseguenze di una rete congestionata sono pacchetti persi e lunghi ritardi
 di accodamento.
@@ -22,19 +26,20 @@ Le cause si possono riassumere in 3 gruppi:
   accodamento molto elevati, che tendono ad infinito (assumendo buffer
   infiniti).
 - ritrasmissione di pacchetti non necessaria: i ritardi di accodamento fanno
-  scadere un timeout sul mittente, che credendo che il pacchetto sia stato
+  scadere un timeout sul mittente che, credendo che il pacchetto sia stato
   perso, lo ritrasmette.
 - ritrasmissione di pacchetti scartati: quando i pacchetti vengono
-  effettivamente scartati, è necessario re-inviarli, la rete viene congestionata
-  da pacchetti che stanno rifacendo lo stesso percorso di quelli scartati.
+  effettivamente scartati, è necessario re-inviarli e la rete viene
+  congestionata da pacchetti che stanno rifacendo lo stesso percorso di quelli
+  scartati.
 
-### Controllo di congestione in TCP
+== Controllo di congestione in TCP
 
 Il TCP è un protocollo che si adatta alle situazioni di congestione sulla rete
 per:
 
 - adattare il tasso di trasmissione alle condizioni correnti;
-- evitare di saturare la rete con inutili ritrasmissioni;
+- evitare di saturare la rete con inutili ritrasmissioni.
 
 Non c'è un solo algoritmo per gestire queste situazioni e l'implementazione
 spesso dipende dal sistema operativo.
@@ -42,10 +47,10 @@ spesso dipende dal sistema operativo.
 - controllo di congestione end-to-end: il client capisce le condizioni di rete
   valutando il numero di pacchetti persi e i ritardi.
 - controllo di congestione assistito dalla rete: i router forniscono feedback
-  agli host sul loro stato (implementato più raramente che il metodo
+  agli host sullo stato di congestione (implementato più raramente che il metodo
   end-to-end).
 
-### Additive Increase Multiplicative Decrease (AIMD)
+== Additive Increase Multiplicative Decrease (AIMD)
 
 Con il metodo AIMD, il mittente aumenta il tasso di trasmissione (dimensione
 della finestra) cercando di occupare tutta la banda disponibile, fino a quando
@@ -54,32 +59,34 @@ non si rilevano perdite.
 - additive increase: aumenta linearmente la finestra di un MSS ad ogni RTT;
 - multiplicative decrease: dimezza (di solito) le dimensioni della finestra;
 
-![Andamento della finestra di congestione](../../../../../images/reti/tcp-aimd.png)
+#starlight.img(
+  "images/tcp-aimd.png",
+  alt: "Andamento della finestra di congestione",
+)
 
 L'algoritmo AIMD permette anche a 2 host di condividere equamente la stessa
 quantità di banda: l'host che ne stava usando di più viene penalizzato
 maggiormente dal multiplicative decrease.
 
-### Finestra di congestione
+== Finestra di congestione
 
 Il controllo di congestione gestisce l'adattamento della finestra di congestione
 ($"CWND"$).
 
 A prescindere dall'algoritmo usato:
 
-$$
-W_T = min("CWND", W_R)
-$$
+$
+  W_T = min("CWND", W_R)
+$
 
-:::tip
+#starlight.tip([
+  Ricordiamo che $W_T$ è la finestra di trasmissione e $W_R$ quella di
+  ricezione.
+])
 
-Ricordiamo che $W_T$ è la finestra di trasmissione e $W_R$ quella di ricezione.
+= TCP slow start e congestion avoidance
 
-:::
-
-## TCP slow start e congestion avoidance
-
-La fase iniziale dell'algoritmo è detta **slow start** ed è caratterizzata da un
+La fase iniziale dell'algoritmo è detta *slow start* ed è caratterizzata da un
 aumento esponenziale della $"CWND"$.
 
 - si inizia con $"CWND" = "MSS"$;
@@ -87,11 +94,11 @@ aumento esponenziale della $"CWND"$.
 - quando viene raggiunta una certa soglia ($"SSTHRESH"$) si passa alla fase di
   congestion avoidance.
 
-Il **congestion avoidance** è la parte di in cui la $"CWND"$ aumenta linearmente
-di $("MSS"^2) / "CWND"$. Quindi per ogni RTT in cui ricevo tutti gli ACK attesi,
-aumento $"CWND"$ di un $1 "MSS"$.
+Il *congestion avoidance* è la parte in cui la $"CWND"$ aumenta linearmente di
+$("MSS"^2) / "CWND"$. Quindi, per ogni RTT in cui ricevo tutti gli ACK attesi,
+aumento $"CWND"$ di $1 "MSS"$.
 
-### Slow start
+== Slow start
 
 ```lua
 cwnd = mss
@@ -117,7 +124,7 @@ end
 -- Funzione chiamata quando non viene ricevuto l'ACK di un pacchetto inviato nel
 -- tempo RTO.
 function slow_start_timeout()
-  ssthresh = math.max(cwnd / 2, 2) -- Si dimezza la soglia per entrare in congestion avoidance.
+  ssthresh = math.max(cwnd / 2, 2 * mss) -- Si dimezza la soglia per entrare in congestion avoidance.
   rto *= 2 -- Raddoppio il RTO.
   cwnd = mss -- Resetto la dimensione della CWND.
 
@@ -126,7 +133,7 @@ function slow_start_timeout()
 end
 ```
 
-### Congestion avoidance
+== Congestion avoidance
 
 ```lua
 function congestion_avoidance_valid_receive(acks)
@@ -138,7 +145,7 @@ function congestion_avoidance_valid_receive(acks)
 end
 
 function congestion_avoidance_timeout()
-  sshtresh = math.max(cwnd / 2, 2)
+  ssthresh = math.max(cwnd / 2, 2 * mss)
   rto *= 2
   cwnd = mss
 
@@ -147,9 +154,12 @@ function congestion_avoidance_timeout()
 end
 ```
 
-![Andamento della finestra di congestione](../../../../../images/reti/tcp-slow-start-congestion-avoidance.png)
+#starlight.img(
+  "images/tcp-slow-start-congestion-avoidance.png",
+  alt: "Andamento della finestra di congestione",
+)
 
-### Fast retransmit e fast recovery
+== Fast retransmit e fast recovery
 
 https://superuser.com/a/267765
 
@@ -164,22 +174,28 @@ indicato da esso (fast retransmit) ed entro nella fase di fast recovery.
 
 Nella fase di fast recovery:
 
-- imposto il valore iniziale di $"RECOVER"$ al valore di $W_"up"$ (quindi al
-  primo segmento per cui stiamo ricevendo ACKs duplicati);
+- imposto il valore iniziale di $"RECOVER"$ all'ultimo segmento trasmesso
+  ($W_"UP"$);
 - $"SSTHRESH" = "CWND" / 2$;
 - $"CWND" = "SSTHRESH" + 3 "MSS"$;
-- invio il segmento perso:
+- invio il segmento perso;
 - se arrivano altri ACK duplicati:
   - $"CWND" = "CWND" + 1 "MSS"$;
-- se arriva un ACK che include $"RECOVER"$:
-  - $"CWND" = "SSHTRESH"$;
+- se arriva un ACK che copre $"RECOVER"$:
+  - $"CWND" = "SSTHRESH"$;
   - passo a congestion avoidance;
-  - sposto $W_"low"$ al primo segmento non ACKato
+  - sposto $W_"LOW"$ al primo segmento non ACKato.
 - se arriva un ACK precedente a $"RECOVER"$:
   - ritrasmetto il primo segmento per cui non ho un ACK;
   - $"CWND" = "CWND" - "segmenti ACKati" + 1$;
-  - sposto $W_"low"$ al primo segmento non ACKato;
+  - sposto $W_"LOW"$ al primo segmento non ACKato.
 
-![Esempio di fast retransmit e recovery](../../../../../images/reti/tcp-fast-retransmit.png)
+#starlight.img(
+  "images/tcp-fast-retransmit.png",
+  alt: "Esempio di fast retransmit e recovery",
+)
 
-![Finestra di congestione con fast retransmit e recovery](../../../../../images/reti/tcp-fast-retransmit-cwnd.png)
+#starlight.img(
+  "images/tcp-fast-retransmit-cwnd.png",
+  alt: "Finestra di congestione con fast retransmit e recovery",
+)

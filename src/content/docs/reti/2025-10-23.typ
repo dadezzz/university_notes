@@ -1,15 +1,24 @@
----
-lang: it
-title: Lezione (2025-10-23)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Socket
+#show: starlight.setup
+
+#metadata((
+  lang: "it",
+  title: "Socket, livello di trasporto e protocollo UDP",
+  description: "Socket come interfaccia verso il livello di trasporto, multiplexing e demultiplexing, porte TCP/UDP, formato e funzionamento del checksum del segmento UDP.",
+))
+
+= Socket
 
 La socket è l'interfaccia di programmazione usata dalle applicazioni per inviare
 dati al livello di trasporto. Di solito separa anche l'userspace dal sistema
 operativo.
 
-![Vista ad alto livello del funzionamento di una socket](../../../../../images/reti/socket-alto-livello.png)
+#starlight.img(
+  "images/socket-alto-livello.png",
+  alt: "Vista ad alto livello del funzionamento di una socket",
+)
+
 
 Per effettuare un trasferimento di dati:
 
@@ -17,50 +26,53 @@ Per effettuare un trasferimento di dati:
 2. il client (host trasmittente) inizia la connessione;
 3. il server accetta la richiesta e può rispondere;
 
-![Esempio di richiesta con socket](../../../../../images/reti/socket-esempio-richiesta.png)
+#starlight.img(
+  "images/socket-esempio-richiesta.png",
+  alt: "Esempio di richiesta con socket",
+)
 
-## Livello di trasporto
+
+= Livello di trasporto
 
 I protocolli del livello di trasporto si occupano della comunicazione logica tra
 i processi su 2 host differenti.
 
 L'host inviante divide i messaggi in segmenti e li passa al livello di rete,
-quello ricevente ricompone i messaggi e li passa al livello applicazione.
+mentre quello ricevente ricompone i messaggi e li passa al livello applicazione.
 
 I principali protocolli usati sono 2:
 
-- TCP: affidabile, garantisce la consegna ordinata dei pacchetti;
+- TCP: affidabile, garantisce la consegna ordinata dei byte;
 - UDP: best effort;
 
-Questo layer non offre nessuna garanzia sul ritardo e sull'ampiezza di banda
+Questo layer non offre alcuna garanzia sul ritardo e sulla larghezza di banda
 della rete.
 
-### Multiplexing/demultiplexing
+== Multiplexing/demultiplexing
 
-Il trasmettitore effettua il multiplexing, ovvero divide i dati di diverse
-socket e aggiunge le header della PCI.
+Il trasmettitore effettua il multiplexing, ovvero raccoglie i dati di diverse
+socket e aggiunge la PCI.
 
-Il ricevitore invece effettua il demultiplexing, ovvero leggendo la PCI,
-indirizza i dati ricevuti alle diverse socket in ascolto.
+Il ricevitore invece effettua il demultiplexing, ovvero legge la PCI e indirizza
+i dati ricevuti alle diverse socket in ascolto.
 
-### Porte TCP e UDP
+== Porte TCP e UDP
 
 La destinazione finale di un segmento non è un host, ma un processo su
 quell'host.
 
-L'interfaccia tra l'applicazione e il livello di trasporto è la **porta**,
+L'interfaccia tra l'applicazione e il livello di trasporto è la *porta*,
 identificata da un numero a 16 bit.
 
 Generalmente, le porte di sorgente e destinazione sono diverse:
 
-- Solo la porta in ascolto sull'host ricevente deve avere un numero conosciuto
-  (e quindi di solito a poche cifre), poi per rispondere aprirà un altra socket
-  con numero di porta casuale.
-- Il trasmettitore invece può aprire più connessioni in parallelo e che devono
-  partire da porte diverse (per questo si assegna un numero casuale più cifre in
-  modo da evitare conflitti).
+- Solo la porta in ascolto sull'host ricevente deve essere conosciuta (e quindi
+  di solito ha poche cifre); le risposte vengono inviate da quella stessa porta.
+- Il trasmettitore invece può aprire più connessioni in parallelo, che devono
+  partire da porte diverse: assegna quindi a ciascuna un numero casuale di più
+  cifre, in modo da evitare conflitti.
 
-## UDP
+= UDP
 
 UDP è il servizio di trasporto più semplice. Ogni segmento può andare perso o
 essere consegnato fuori sequenza.
@@ -73,15 +85,18 @@ I vantaggi sono:
 
 Un segmento UDP è composto da 4 sezioni di testata + i dati dell'applicazione.
 
-| Sezione                             | Lunghezza in bit |
-| ----------------------------------- | ---------------- |
-| porta sorgente                      | 16               |
-| porta destinazione                  | 16               |
-| lunghezza segmento (inclusa header) | 16               |
-| checksum                            | 16               |
-| dati applicazione                   | ?                |
+#table(
+  columns: 2,
+  table.header([*Sezione*], [*Lunghezza in bit*]),
+  [porta sorgente], [16],
+  [porta destinazione], [16],
+  [lunghezza segmento (incluso l'header)], [16],
+  [checksum], [16],
+  [dati applicazione], [?],
+)
 
-### Checksum UDP
+
+== Checksum UDP
 
 Il protocollo UDP non offre alcuna garanzia sull'arrivo del segmento alla
 destinazione, tantomeno che esso arrivi in maniera ordinata rispetto agli altri.

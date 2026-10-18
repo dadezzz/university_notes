@@ -1,79 +1,78 @@
----
-lang: it
-title: Lezione (2025-10-10)
----
+#import "../_templates/starlight.typ" as starlight
 
-## Versioni del protocollo HTTP
+#show: starlight.setup
+
+#metadata((
+  lang: "it",
+  title: "Versioni di HTTP, HTTPS, FTP e posta elettronica",
+  description: "Panoramica su HTTP/1.0, HTTP/1.1 e HTTP/2 con frame, stream e server push, oltre a HTTPS/TLS, FTP, SMTP e formato dei messaggi di posta secondo RFC 822.",
+))
+
+= Versioni del protocollo HTTP
 
 - `HTTP/1.0`: versione originale, ormai obsoleta in quasi tutti i sistemi.
 - `HTTP/1.1`:
   - rilasciata pochi mesi dopo la 1.0;
   - aggiunge la possibilità di riutilizzare connessioni per richieste
     successive;
-  - specifica alcune nuove headers;
-- `HTTP/2`
-  - si basa sul protocollo SPDY, effettua il multiplexing di multiple richieste
-    su un'unica connessione TCP;
+  - specifica alcuni nuovi header;
+- `HTTP/2`:
+  - si basa sul protocollo SPDY ed effettua il multiplexing di molteplici
+    richieste su un'unica connessione TCP;
   - permette di assegnare una priorità alle richieste;
-  - permette di comprimere le headers, per ridurre la bandwidth usata;
+  - permette di comprimere gli header, per ridurre la larghezza di banda usata;
   - permette al server di anticipare l'invio di dati, senza che il client debba
     richiederli;
 
-### Frames HTTP/2
+== Frame HTTP/2
 
-:::note[Spiegazione dettagliata]
-
-https://galbarnahum.com/posts/http2-part1
-
-:::
+#starlight.note(title: "Spiegazione dettagliata", [
+  https://galbarnahum.com/posts/http2-part1
+])
 
 Con HTTP/1.1, se si volevano eseguire più richieste in parallelo era necessario
-aprire multiple connessioni TCP.
+aprire molteplici connessioni TCP.
 
-In HTTP/2, Tutte le comunicazioni vengono eseguite su una singola connessione
-TCP, che può trasmettere un qualsiasi numero di streams bidirezionali. Uno
-stream può essere pensato come una connessione virtuale.
+In HTTP/2, tutte le comunicazioni vengono eseguite su una singola connessione
+TCP, che può trasmettere un qualsiasi numero di stream bidirezionali. Uno stream
+può essere pensato come una connessione virtuale.
 
 Per ogni stream viene creato un identificativo univoco e si possono impostare
 diverse opzioni di priorità.
 
-- stream id 0: riservato per controllo della connessione;
-- stream id dispari: richieste da client a server;
-- stream id pari: risposte da server a client;
+- stream id 0: riservato al controllo della connessione;
+- stream id dispari: stream iniziati dal client;
+- stream id pari: stream iniziati dal server;
 
-:::note[Durata di uno stream]
+#starlight.note(title: "Durata di uno stream", [
+  Uno stream rimane aperto dall'inizio alla fine dell'invio di un messaggio.
+])
 
-Uno stream rimane aperto dall'inizio alla fine dell'invio di un messaggio.
+Ogni messaggio è diviso in uno o più frame, racchiusi da una testata in codifica
+binaria che contiene informazioni sullo stream di appartenenza, sulla lunghezza
+del frame ecc.
 
-:::
-
-Ogni messaggio è diviso in uno o più frames, racchiusi da una testata in
-codifica binaria che contiene informazioni sullo stream di appartenenza, sulla
-lunghezza del frame etc...
-
-Il multiplexing sulla connessione TCP si fa tra i vari frames inviati in uno
+Il multiplexing sulla connessione TCP si fa tra i vari frame inviati in uno
 specifico momento.
 
-### Server push
+== Server push
 
 L'estensione _server push_ permette al server di inviare più risposte per una
 singola richiesta.
 
 Questo permette di velocizzare il caricamento di pagine web, dato che il client
-non deve aspettare il file HTML per poter poi richiedere i file javascript e css
+non deve aspettare il file HTML per poter poi richiedere i file JavaScript e CSS
 referenziati.
 
-:::note
+#starlight.note([
+  A causa di difficoltà riscontrate durante l'implementazione, al giorno d'oggi
+  non viene più usata.
 
-A causa di difficoltà riscontrate durante l'implementazione, al giorno d'oggi
-non viene più usata.
+  Si usano altri metodi come l'attributo HTML `rel="preload"` e lo status code
+  `103 Early Hints`.
+])
 
-Si usano altri metodi come l'attributo HTML `rel="preload"` e lo status code
-`103 Early hints`.
-
-:::
-
-## HTTPS
+= HTTPS
 
 HTTPS estende il protocollo HTTP inviando tutti i messaggi attraverso una
 connessione cifrata, tipicamente sulla porta 443.
@@ -84,10 +83,10 @@ Il protocollo usato per la cifratura è il TLS, che definisce:
 - scambio delle chiavi e autenticazione;
 - cifratura simmetrica dei messaggi;
 
-Solo i messaggi di livello 7 sono criptati, la PCI del protocollo TCP è in
+Solo i messaggi di livello 7 sono criptati; la PCI del protocollo TCP è in
 chiaro.
 
-## FTP
+= FTP
 
 Il protocollo FTP si basa sul modello client-server. Vengono usate connessioni
 su 2 porte:
@@ -97,21 +96,22 @@ su 2 porte:
   - usata per autorizzazione e invio di comandi;
 - connessione dati:
   - porta 20/TCP;
-  - usata per trasferire files;
+  - usata per trasferire file;
 
-1. Il client contatta il server sulla porta 21, specificando il protocollo di
-   trasporto TCP.
-2. Il server autorizza la connessione.
-3. Il client invia comandi al server sulla connessione di controllo.
-4. Il server risponde aprendo una connessione dati con il client.
-5. Dopo il trasferimento di un file, la connessione viene chiusa.
++ Il client contatta il server sulla porta 21, specificando il protocollo di
+  trasporto TCP.
++ Il server autorizza la connessione.
++ Il client invia comandi al server sulla connessione di controllo.
++ Il server risponde aprendo una connessione dati con il client.
++ Dopo il trasferimento di un file, la connessione viene chiusa.
 
-### Comandi e codici di ritorno comuni
+== Comandi e codici di ritorno comuni
 
 - comandi: https://www.nsftools.com/tips/RawFTP.htm
-- status codes: https://en.wikipedia.org/wiki/List_of_FTP_server_return_codes
+- codici di ritorno:
+  https://en.wikipedia.org/wiki/List_of_FTP_server_return_codes
 
-## SMTP
+= SMTP
 
 Per l'invio della posta elettronica servono 2 componenti:
 
@@ -126,46 +126,42 @@ server che sta inviando, il ruolo di server a quello che sta ricevendo.
 
 I messaggi sono trasmessi in formato ASCII a 7-bit.
 
-**Esempio**: invio di un'e-mail
+*Esempio*: invio di un'e-mail
 
-1. A usa il suo agente utente per comporre il messaggio da inviare a
-   `b@example2.com`.
-2. L'agente utente invia il messaggio al server di posta di A (`example1.com`).
-3. `example1.com` apre una connessione SMTP con `example2.com` e invia il
-   messaggio.
-4. `example2.com` pone il messaggio nella casella di posta di B, che potrà
-   leggerlo attraverso il suo agente utente.
++ A usa il suo agente utente per comporre il messaggio da inviare a
+  `b@example2.com`.
++ L'agente utente invia il messaggio al server di posta di A (`example1.com`).
++ `example1.com` apre una connessione SMTP con `example2.com` e invia il
+  messaggio.
++ `example2.com` pone il messaggio nella casella di posta di B, che potrà
+  leggerlo attraverso il suo agente utente.
 
-:::note
+#starlight.note([
+  Per la lettura dei messaggi dal server di posta non si usa SMTP, ma IMAP, che
+  vedremo più avanti.
+])
 
-Per la lettura di messaggi sul server locale non si usa SMTP, ma IMAP, che
-vedremo più avanti.
-
-:::
-
-### Formato dei messaggi di posta elettronica
+== Formato dei messaggi di posta elettronica
 
 I messaggi di posta elettronica vengono conservati sul server con un formato
 standard, definito dalla RFC 822.
 
 Sono composti da:
 
-- un'intestazione che contiene diverse headers;
+- un'intestazione che contiene diversi header;
 - una riga vuota di separazione;
-- il corpo del messaggio (soltanto caratteri ascii);
+- il corpo del messaggio (soltanto caratteri ASCII);
 
 La fine di una riga è denotata da `\r\n`.
 
-:::note[Estensioni MIME]
+#starlight.note(title: "Estensioni MIME", [
+  Definiscono come aggiungere contenuti multimediali al messaggio.
 
-Definiscono come aggiungere contenuti multimediali al messaggio.
+  Alcuni header definiscono il tipo di contenuto e la codifica (di solito
+  base64). Poi il contenuto MIME codificato viene messo all'interno del corpo.
+])
 
-Alcune header definiscono il tipo di contenuto e la codifica (di solito base64).
-Poi il contenuto MIME codificato viene messo all'interno del corpo.
-
-:::
-
-**Esempio**:
+*Esempio*:
 
 ```
 Date: Fri, 19 May 2000 10:23:16 -0400 (EDT)

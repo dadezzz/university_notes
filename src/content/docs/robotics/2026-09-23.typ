@@ -3,8 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "Defines end-effector pose via the homogeneous transformation matrix, then applies the Denavit-Hartenberg convention to assign frames and build link transforms.",
   lang: "en",
-  title: "Lesson (2026-09-23)",
+  title: "End-effector pose and Denavit-Hartenberg frames",
 ))
 
 = Pose of the end-effector
