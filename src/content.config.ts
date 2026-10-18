@@ -54,7 +54,7 @@ async function typstCompile(context: LoaderContext, relPath: string): Promise<st
 
   const { stderr, stdout } = await execFile(
     "typst",
-    ["compile", ...COMMON_TYPST_ARGS, "--format", "html", relPath, "-"],
+    ["compile", ...COMMON_TYPST_ARGS, "--format=html", relPath, "-"],
     COMMON_EXEC_OPTIONS,
   );
 

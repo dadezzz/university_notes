@@ -3,9 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "TCP affidabile: struttura dei segmenti, three-way handshake, MSS, chiusura soft e hard, calcolo dell'RTO secondo RFC 6298 e controllo di flusso del ricevitore.",
   lang: "it",
   title: "TCP: handshake, RTO e controllo di flusso",
-  description: "TCP affidabile: struttura dei segmenti, three-way handshake, MSS, chiusura soft e hard, calcolo dell'RTO secondo RFC 6298 e controllo di flusso del ricevitore.",
 ))
 
 = TCP

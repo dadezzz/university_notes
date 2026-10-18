@@ -3,9 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "L'architettura peer to peer e il protocollo BitTorrent: le tecniche di ricerca dei file, directory centralizzata, query flooding e copertura gerarchica.",
   lang: "it",
   title: "Peer to peer, BitTorrent e ricerca di file",
-  description: "L'architettura peer to peer e il protocollo BitTorrent: le tecniche di ricerca dei file, directory centralizzata, query flooding e copertura gerarchica.",
 ))
 
 = Architettura Peer to Peer (P2P)

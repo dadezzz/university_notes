@@ -3,9 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "Formula del throughput TCP, problemi di equità con applicazioni UDP e algoritmi di congestion control come CUBIC e BBR, fino al protocollo QUIC basato su UDP.",
   lang: "it",
   title: "Throughput, fairness e algoritmi TCP moderni",
-  description: "Formula del throughput TCP, problemi di equità con applicazioni UDP e algoritmi di congestion control come CUBIC e BBR, fino al protocollo QUIC basato su UDP.",
 ))
 
 = Throughput teorico di TCP

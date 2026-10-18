@@ -3,9 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "Socket come interfaccia verso il livello di trasporto, multiplexing e demultiplexing, porte TCP/UDP, formato e funzionamento del checksum del segmento UDP.",
   lang: "it",
   title: "Socket, livello di trasporto e protocollo UDP",
-  description: "Socket come interfaccia verso il livello di trasporto, multiplexing e demultiplexing, porte TCP/UDP, formato e funzionamento del checksum del segmento UDP.",
 ))
 
 = Socket

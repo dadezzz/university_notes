@@ -3,9 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "Indirizzi IP speciali come broadcast, localhost, multicast e link local, ARP con caching e proxying, messaggi ICMP e assegnazione automatica via DHCP.",
   lang: "it",
   title: "Indirizzi IP speciali, ARP, ICMP e DHCP",
-  description: "Indirizzi IP speciali come broadcast, localhost, multicast e link local, ARP con caching e proxying, messaggi ICMP e assegnazione automatica via DHCP.",
 ))
 
 = Indirizzi IP speciali
@@ -221,6 +221,7 @@ DHCP usa UDP; in caso di perdita del messaggio, lo rinvia semplicemente.
   [hlen (lunghezza indirizzo di livello 2)], [8],
   [hops (quanti server hanno inoltrato la richiesta)], [8],
   [transaction id (uguale tra richiesta e risposta)], [32],
+
   [seconds elapsed (secondi passati dall'inizio della richiesta di indirizzo)],
   [16],
 

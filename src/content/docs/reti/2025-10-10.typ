@@ -3,9 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "Panoramica su HTTP/1.0, HTTP/1.1 e HTTP/2 con frame, stream e server push, oltre a HTTPS/TLS, FTP, SMTP e formato dei messaggi di posta secondo RFC 822.",
   lang: "it",
   title: "Versioni di HTTP, HTTPS, FTP e posta elettronica",
-  description: "Panoramica su HTTP/1.0, HTTP/1.1 e HTTP/2 con frame, stream e server push, oltre a HTTPS/TLS, FTP, SMTP e formato dei messaggi di posta secondo RFC 822.",
 ))
 
 = Versioni del protocollo HTTP

@@ -3,9 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "Protocolli POP3 e IMAP per la lettura della posta, TLS e StartTLS per sicurezza, DNS con resource records, gerarchia dei server e query iterative e ricorsive",
   lang: "it",
   title: "POP3, IMAP, TLS e DNS nei sistemi di posta",
-  description: "Protocolli POP3 e IMAP per la lettura della posta, TLS e StartTLS per sicurezza, DNS con resource records, gerarchia dei server e query iterative e ricorsive",
 ))
 
 = Protocolli di accesso al server di posta locale

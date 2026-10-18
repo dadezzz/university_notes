@@ -3,9 +3,9 @@
 #show: starlight.setup
 
 #metadata((
+  description: "I protocolli ARQ per recuperare gli errori: Stop-and-Wait, pipelining con finestre di trasmissione e ricezione, Go-back-N con ACK cumulativi e Selective Repeat.",
   lang: "it",
   title: "Protocolli ARQ: Stop-and-Wait e Selective Repeat",
-  description: "I protocolli ARQ per recuperare gli errori: Stop-and-Wait, pipelining con finestre di trasmissione e ricezione, Go-back-N con ACK cumulativi e Selective Repeat.",
 ))
 
 = Protocolli ARQ
