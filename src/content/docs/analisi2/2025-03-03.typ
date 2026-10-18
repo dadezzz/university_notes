@@ -14,7 +14,7 @@ La distanza euclidea tra due punti è una funzione
 $d: bb(R)^n times bb(R)^n -> [0, +oo)$ definita:
 
 $
-  d(bold(p), bold(q)) = sqrt(sum_{i = 1}^n (q_i - p_i)^2)
+  d(bold(p), bold(q)) = sqrt(sum_(i = 1)^n (q_i - p_i)^2)
 $
 
 #starlight.note([
@@ -31,7 +31,7 @@ $
   B(bold(p)_0, r) = {bold(p) in bb(R)^n mid(|) d(bold(p), bold(p)_0) < r}
 $
 
-#starlight.img("images/intorno-r2.png", alt: "Intorno di p0 in R^2")
+#include "frames/intorno-r2.typ"
 
 #starlight.tip([
   Il fatto che la palla è aperta significa che non si deve includere la sua

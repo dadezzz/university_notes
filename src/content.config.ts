@@ -6,31 +6,31 @@ import { docsSchema } from "@astrojs/starlight/schema";
 import { glob, type Loader, type LoaderContext } from "astro/loaders";
 import { z } from "astro/zod";
 
+const execFile = promisify(child_process.execFile);
+
 const SRC_PATH = "./src";
 const DOCS_PATH = `${SRC_PATH}/content/docs`;
-const DOCS_ABS_PATH = path.resolve(DOCS_PATH);
 
-const COMMON_TYPST_ARGS = ["--root", SRC_PATH, "--features", "html"];
+const COMMON_TYPST_ARGS = ["--root", DOCS_PATH, "--features", "html"];
 
 // Captured HTML can get large because Typst inlines images as data URIs, so the
 // default 1 MiB buffer of `execFile` is not enough.
-const EXEC_OPTIONS = { maxBuffer: 64 * 1024 * 1024 };
+const COMMON_EXEC_OPTIONS = { maxBuffer: 64 * 1024 * 1024 };
 
-const execFile = promisify(child_process.execFile);
-
-function idFromAbsolutePath(absPath: string): string {
-  const rel = path.relative(DOCS_ABS_PATH, absPath);
-  return rel
-    .replace(/\.typ$/, "")
+function idFromRelPath(relPath: string): string {
+  return path
+    .relative(DOCS_PATH, relPath)
+    .replace(/\.typ$/, "") // Remove '.typ' extension.
     .split(path.sep)
-    .join("/");
+    .join("/"); // Ensure that paths are joined with '/' and not '\'.
 }
 
-function isTypstFile(absPath: string): boolean {
-  // Compare against the directory itself and its separator so that a sibling
-  // such as `docs-extra/` is not mistaken for the docs directory.
-  const insideDocs = absPath === DOCS_ABS_PATH || absPath.startsWith(DOCS_ABS_PATH + path.sep);
-  return insideDocs && absPath.endsWith(".typ");
+function isTypstFile(absOrRelPath: string): boolean {
+  const relPath = path.relative(DOCS_PATH, absOrRelPath);
+  const insideDocs = !relPath.startsWith(`..${path.sep}`);
+  // Exclude templates and frames.
+  const excludePatterns = /^(_templates\/.+)|(.+\/frames\/.+)/;
+  return insideDocs && relPath.endsWith(".typ") && !relPath.match(excludePatterns);
 }
 
 // Removes some verbose logs that have been verified to be harmless.
@@ -49,13 +49,13 @@ function filterTypstLogs(logs: string): string {
     .join("\n\n");
 }
 
-async function compileTypst(context: LoaderContext, filePath: string): Promise<string> {
+async function typstCompile(context: LoaderContext, relPath: string): Promise<string> {
   const { logger } = context;
 
   const { stderr, stdout } = await execFile(
     "typst",
-    ["compile", ...COMMON_TYPST_ARGS, "--format", "html", filePath, "-"],
-    EXEC_OPTIONS,
+    ["compile", ...COMMON_TYPST_ARGS, "--format", "html", relPath, "-"],
+    COMMON_EXEC_OPTIONS,
   );
 
   const logs = filterTypstLogs(stderr);
@@ -72,13 +72,34 @@ async function compileTypst(context: LoaderContext, filePath: string): Promise<s
   return match[1];
 }
 
-async function getMetadata(context: LoaderContext, filePath: string): Promise<Record<string, unknown>> {
+async function typstGetDeps(context: LoaderContext, relPath: string): Promise<string[]> {
   const { logger } = context;
 
   const { stderr, stdout } = await execFile(
     "typst",
-    ["eval", ...COMMON_TYPST_ARGS, "--in", filePath, "query(metadata).map(it => it.value)"],
-    EXEC_OPTIONS,
+    ["compile", ...COMMON_TYPST_ARGS, "--format=html", relPath, "/dev/null", "--deps=-", "--deps-format=json"],
+    COMMON_EXEC_OPTIONS,
+  );
+
+  const logs = filterTypstLogs(stderr);
+  if (logs) {
+    logger.warn(logs);
+  }
+
+  // Capture group avoids matching a <body> tag with attributes as "no match",
+  // and extracts only the inner content so we don't nest <body> inside Starlight's.
+  const json = JSON.parse(stdout);
+  // Exclude packages downloaded automatically by typst.
+  return Array.from<string>(json.inputs).filter((d) => typeof d === "string" && !d.includes("typst/packages/"));
+}
+
+async function typstGetMetadata(context: LoaderContext, relPath: string): Promise<Record<string, unknown>> {
+  const { logger } = context;
+
+  const { stderr, stdout } = await execFile(
+    "typst",
+    ["eval", ...COMMON_TYPST_ARGS, "--in", relPath, "query(metadata).map(it => it.value)"],
+    COMMON_EXEC_OPTIONS,
   );
 
   const logs = filterTypstLogs(stderr);
@@ -95,25 +116,38 @@ async function getMetadata(context: LoaderContext, filePath: string): Promise<Re
   return metadataMerged;
 }
 
-export async function syncTypstDocEntry(context: LoaderContext, absPath: string): Promise<void> {
-  const { store, parseData, logger } = context;
-  const id = idFromAbsolutePath(absPath);
+// Map from dependency file to a list of files that depend on it.
+// Stale set entries are not cleaned if removed, but it's a small price to pay
+// for simplicity.
+// Each file is also a dependency of itself to simplify reload logic.
+const depsMap = new Map<string, Set<string>>();
 
-  // The `_templates` folder contains Typst modules that hold polyfills and HTML
-  // overrides needed by the conversion, not documents, so they must not become
-  // entries themselves.
-  if (id.startsWith("_templates/")) {
-    return;
-  }
+function getDependentFiles(absOrRelPath: string): string[] {
+  const relPath = path.relative(".", absOrRelPath);
+  const set = depsMap.get(relPath);
+  return set?.values().toArray() ?? [];
+}
+
+async function syncTypstDocEntry(context: LoaderContext, absOrRelPath: string): Promise<void> {
+  const { logger, parseData, store, watcher } = context;
+  const relPath = path.relative(".", absOrRelPath);
+  const id = idFromRelPath(relPath);
 
   try {
-    const html = await compileTypst(context, absPath);
-    const metadata = await getMetadata(context, absPath);
+    const html = await typstCompile(context, absOrRelPath);
+    const deps = await typstGetDeps(context, absOrRelPath);
+    const metadata = await typstGetMetadata(context, absOrRelPath);
+
+    for (const dep of deps) {
+      watcher?.add(path.resolve(dep));
+      const set = depsMap.getOrInsert(dep, new Set());
+      set.add(relPath);
+    }
 
     store.set({
       id,
       data: await parseData({ id, data: metadata }),
-      filePath: path.relative(".", absPath),
+      filePath: relPath,
       rendered: { html },
     });
   } catch (error) {
@@ -121,49 +155,53 @@ export async function syncTypstDocEntry(context: LoaderContext, absPath: string)
   }
 }
 
-export async function loadTypstDocs(context: LoaderContext): Promise<void> {
-  const { store, watcher } = context;
+async function loadTypstDocs(context: LoaderContext): Promise<void> {
+  const { logger, store, watcher } = context;
 
   // Used purely to enumerate matching files: the module values are never
   // imported (eager: false), only the keys are used. Every entry point (initial
   // scan, change, add) then goes through the same `syncTypstDocEntry` path.
-  const modules = import.meta.glob<string>("./*/*.typ", {
-    query: "?raw",
-    import: "default",
-    eager: false,
-    base: "/src/content/docs",
-  });
+  const modules = import.meta.glob<string>("./src/content/docs/**/*.typ", { query: "?raw", eager: false, base: "/" });
+  const typstPaths = Object.keys(modules).filter(isTypstFile);
+  logger.info(`Compiling ${typstPaths.length} typst files`);
 
   // Using Promise.all resulted in errors due to too many processes/threads
   // created.
-  for (const filePath of Object.keys(modules)) {
-    await syncTypstDocEntry(context, path.resolve(DOCS_ABS_PATH, filePath));
+  for (const relPath of typstPaths) {
+    await syncTypstDocEntry(context, relPath);
+  }
+
+  async function syncOnDepChange(absPath: string): Promise<void> {
+    const deps = getDependentFiles(absPath);
+
+    if (deps.length > 0) {
+      logger.info(`Recompiling ${deps.length} files`);
+    }
+
+    for (const dep of deps) {
+      await syncTypstDocEntry(context, dep);
+    }
   }
 
   // Vite's dev-server watcher already covers the whole project tree by
   // default, so no explicit watcher.add() is needed here. Registering these
   // listeners naively on every load() is safe because context.watcher is the
   // Proxy-wrapped instance that detaches a previous run's listeners for us.
-  watcher?.on("change", async (changedPath) => {
-    if (isTypstFile(changedPath)) {
-      await syncTypstDocEntry(context, changedPath);
-    }
-  });
+  watcher?.on("change", syncOnDepChange);
+  watcher?.on("add", syncOnDepChange);
 
-  watcher?.on("add", async (addedPath) => {
-    if (isTypstFile(addedPath)) {
-      await syncTypstDocEntry(context, addedPath);
-    }
-  });
+  watcher?.on("unlink", (absPath) => {
+    if (isTypstFile(absPath)) {
+      for (const set of depsMap.values()) {
+        set.delete(path.relative(".", absPath));
+      }
 
-  watcher?.on("unlink", (removedPath) => {
-    if (isTypstFile(removedPath)) {
-      store.delete(idFromAbsolutePath(removedPath));
+      store.delete(idFromRelPath(absPath));
     }
   });
 }
 
-export function typstLoader(): Loader {
+function typstLoader(): Loader {
   return {
     name: "typst-starlight-loader",
     load: loadTypstDocs,

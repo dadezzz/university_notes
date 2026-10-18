@@ -30,13 +30,13 @@ $
   G_f = {(x, f(x)) mid(|) x in A} subset bb(R)^2
 $
 
-#include "frames/grafico-funzione-r3.typ"
-
 Se $f: A subset.eq bb(R)^2 -> bb(R)$:
 
 $
   G_f = {(x, y, f(x,y)) mid(|) (x,y) in A} subset bb(R)^3
 $
+
+#include "frames/grafico-funzione-r3.typ"
 
 Questo concetto può essere esteso a un numero maggiore di variabili. Tuttavia,
 la visualizzazione di spazi di dimensione quattro o superiore diventa

@@ -13,19 +13,19 @@
 #table(
   columns: 2,
   table.header([*$t$*], [*$s$*]),
-  [$V_R(t) = R I_R(t)$], [$tilde(V)_R(s) = R tilde(I)_R(s)$],
-  [$I_R(t) = V_R(t) / R$], [$tilde(I)_R(s) = tilde(V)_R(s) / R$],
-  [$V_C(t) = 1 / C integral_0^t I_C(t) dif t + V_C(0)$],
-  [$tilde(V)_C(s) = 1 / C tilde(I)_C(s) / s + V_C(0) / s$],
+  $V_R(t) = R I_R(t)$, $tilde(V)_R(s) = R tilde(I)_R(s)$,
+  $I_R(t) = V_R(t) / R$, $tilde(I)_R(s) = tilde(V)_R(s) / R$,
+  $V_C(t) = 1 / C integral_0^t I_C(t) dif t + V_C(0)$,
+  $tilde(V)_C(s) = 1 / C tilde(I)_C(s) / s + V_C(0) / s$,
 
-  [$I_C(t) = C (dif V_C(t)) / (dif t)$],
-  [$tilde(I)_C(s) = C s tilde(V)_C(s) - C V_C(0)$],
+  $I_C(t) = C (dif V_C(t)) / (dif t)$,
+  $tilde(I)_C(s) = C s tilde(V)_C(s) - C V_C(0)$,
 
-  [$V_L(t) = L (dif I_L(t)) / (dif t)$],
-  [$tilde(V)_L(s) = L s tilde(I)_L(s) - L I_L(0)$],
+  $V_L(t) = L (dif I_L(t)) / (dif t)$,
+  $tilde(V)_L(s) = L s tilde(I)_L(s) - L I_L(0)$,
 
-  [$I_L(t) = 1 / L integral_0^t V_L(t) dif t + I_L(0)$],
-  [$tilde(I)_L(s) = 1 / L tilde(V)_L(s) / s + I_L(0) / s$],
+  $I_L(t) = 1 / L integral_0^t V_L(t) dif t + I_L(0)$,
+  $tilde(I)_L(s) = 1 / L tilde(V)_L(s) / s + I_L(0) / s$,
 )
 
 = Impedenza nel dominio $s$

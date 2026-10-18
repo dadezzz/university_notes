@@ -55,10 +55,7 @@ coordinates of the three unit vectors.
 Let's take 2 reference frames, with the same origin and one rotated by an angle
 $alpha$ with respect to the other.
 
-#starlight.img(
-  "images/2-frames-rotated-alpha.png",
-  alt: "2 frames separated by angle alpha",
-)
+#include "frames/rotation-by-alpha.typ"
 
 We will eventually find that:
 
@@ -78,10 +75,7 @@ orthogonal), is easily invertible, since the transpose is equal to the inverse.
 
 == Generalization of rotation matrices
 
-#starlight.img(
-  "images/2-frames-rotated-moved.png",
-  alt: "Rigid body in another reference frame, with different origins",
-)
+#include "frames/rotation-and-move.typ"
 
 Let's consider a point belonging to the body. Let $bold(p)$ be the vector
 joining the origin $bold(0)$ with the point in a reference frame with basis

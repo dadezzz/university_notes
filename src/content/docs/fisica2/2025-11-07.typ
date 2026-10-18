@@ -108,11 +108,11 @@ $
 #table(
   columns: 4,
   table.header([*$f(t)$*], [*$tilde(F)(s)$*], [*ROC*], [*Condizioni*]),
-  [$theta(t)$], [$1 / s$], [$Re(s) > 0$], [],
-  [$theta(t - d)$], [$e^(- d s) / s$], [$Re(s) > 0$], [$d > 0$],
-  [$delta(t)$], [$1$], [], [],
-  [$delta(t - d)$], [$e^(- d s)$], [], [$d > 0$],
-  [$t^n$], [$n! / s^(n + 1)$], [$Re(s) > 0$], [$n in bb(N)$],
-  [$e^(d t)$], [$1 / (s - d)$], [$Re(s) > Re(d)$], [$d in bb(C)$],
-  [$sin(d t)$], [$d / (s^2 + d^2)$], [$Re(s) > 0$], [$d in bb(R)$],
+  $theta(t)$, $1 / s$, $Re(s) > 0$, [],
+  $theta(t - d)$, $e^(- d s) / s$, $Re(s) > 0$, $d > 0$,
+  $delta(t)$, $1$, [], [],
+  $delta(t - d)$, $e^(- d s)$, [], [$d > 0$],
+  $t^n$, $n! / s^(n + 1)$, $Re(s) > 0$, $n in bb(N)$,
+  $e^(d t)$, $1 / (s - d)$, $Re(s) > Re(d)$, $d in bb(C)$,
+  $sin(d t)$, $d / (s^2 + d^2)$, $Re(s) > 0$, $d in bb(R)$,
 )

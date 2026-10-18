@@ -160,7 +160,6 @@ the end-effector.
   This is the robot with the most dexterity, but the accuracy varies depending
   on the position in the workspace.
 
-
 == Wrist
 
 All the different manipulators have an end-effector attached to a wrist. The
@@ -191,7 +190,6 @@ Wheeled robots use three types of wheels:
 - Tricycle robots have two fixed wheels actuated by a motor; a third wheel is
   steerable and is governed by another motor.
 
-
 Unlike manipulators, mobile robots don't have a limited workspace; however, they
 do have motion constraints (e.g. a differential robot cannot move sideways).
 
@@ -199,7 +197,7 @@ do have motion constraints (e.g. a differential robot cannot move sideways).
 
 Consider a robot arm fixed to a point.
 
-#starlight.img("images/geometry-arm-angles.png", alt: "Robot arm with angles")
+#include "frames/robot-arm-angles.typ"
 
 The position of the point $bold(p)$ (forward kinematics) is given by the
 following:
@@ -224,5 +222,3 @@ Wikipedia: #link("https://en.wikipedia.org/wiki/Atan2")[Atan2]
   two solutions, since the arm can reach point $bold(p)$ through two different
   configurations (the one in the figure and its mirror image).
 ])
-
-u

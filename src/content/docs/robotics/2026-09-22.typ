@@ -14,6 +14,8 @@ To solve the gimbal lock problem, we can adopt a redundant parameterisation
 using an axis $bold(k) = [k_x, k_y, k_z]$ with $norm(bold(k)) = 1$ and an angle
 $theta$, resulting in four parameters overall.
 
+#include "frames/rotation-with-axis-angle.typ"
+
 The rotation $bold(R)_bold(k)(theta)$ can be found by transforming the
 coordinates of $bold(k)$:
 
@@ -29,7 +31,7 @@ coordinates of $bold(k)$:
   $q_1 = bold(A) p_1$, then:
 
   $
-    q_0 = (bold(R)_0^1)^(-1) bold(A) bold(R)_0^1 p^0 = bold(R)_(z)(alpha) bold(R)_(y)(beta) bold(A) (bold(R)_(z)(alpha) bold(R)_(y)(beta))^(-1)
+    q_0 = (bold(R)_0^1)^(-1) bold(A) bold(R)_0^1 p^0 = bold(R)_(z)(alpha) bold(R)_(y)(beta) bold(A) (bold(R)_(z)(alpha) bold(R)_(y)(beta))^(-1) p^0
   $
 
   which leads to:
@@ -217,11 +219,6 @@ $
 The composition of rotations is the product of their corresponding quaternions.
 
 = Translations
-
-#starlight.img(
-  "images/2-frames-traslated.png",
-  alt: "One frame translated and rotated with respect to the other",
-)
 
 A point $bold(p)^1$ in frame $1$ can be expressed in frame $0$ as
 $bold(p)^0 = bold(o)_1^0 + bold(R)_1^0 bold(p)^1$.
