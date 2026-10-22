@@ -1,5 +1,5 @@
 #import "../../_templates/starlight.typ" as starlight
-#import "@preview/cetz:0.5.2"
+#import "@preview/cetz:0.5.3"
 
 // Applies a translation and a sequence of rotations to a drawing group, so the
 // body can be written in the frame's own coordinates.

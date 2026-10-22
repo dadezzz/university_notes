@@ -1,5 +1,5 @@
 #import "../../_templates/starlight.typ" as starlight
-#import "@preview/cetz:0.5.2"
+#import "@preview/cetz:0.5.3"
 
 #let in-frame(rz: 0deg, ry: 0deg, body) = cetz.draw.group({
   cetz.draw.rotate(z: rz)
