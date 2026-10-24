@@ -1,7 +1,7 @@
 jobs:
   respond:
     container:
-      image: git.zarantonello.dev/university/notes-ci:v2026.10.19.1@sha256:9e564469f0c593c9516bfbdd0a68cb8099b20a8e1c5b8f3aa8f0ec011f1a6ef1
+      image: git.zarantonello.dev/university/notes-ci:v2026.10.23.1@sha256:35ac8c1bc5f6c8b15617d37b35e09292618861337b5430ada672f6844cb50ae3
       # The composite action in action.yaml can save the binary to speed up
       # subsequent runs.
       volumes:
