@@ -183,11 +183,11 @@ function renderStarlightImages() {
         newNodeHtml += `<img src="${fallbackResult.src}" alt="${node.properties.dataStarlightImgAlt ?? ""}" `;
 
         // Add the remaining attributes from getImage result (width, height, etc.)
-        Object.entries(fallbackResult.attributes).forEach(([key, value]) => {
+        for (const [key, value] of Object.entries(fallbackResult.attributes)) {
           if (key !== "src" && key !== "alt" && value) {
             newNodeHtml += `${key}="${value}" `;
           }
-        });
+        }
 
         newNodeHtml += ">";
         newNodeHtml += "</picture>";

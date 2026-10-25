@@ -1,7 +1,7 @@
 {
   "customizations": {
     "vscode": {
-      "extensions": ["myriad-dreamin.tinymist", "astro-build.astro-vscode", "esbenp.prettier-vscode", "biomejs.biome"]
+      "extensions": ["myriad-dreamin.tinymist", "astro-build.astro-vscode", "biomejs.biome"]
     }
   },
   "dockerComposeFile": "docker-compose.yaml",

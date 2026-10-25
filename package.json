@@ -5,8 +5,8 @@
     "check": "astro check",
     "clean": "rm -rf .pnpm-store .astro/ dist/ node_modules/",
     "dev": "astro dev",
-    "format:check": "biome format && prettier --check . && typstyle --wrap-text --check .",
-    "format:fix": "biome format --fix && prettier --write . && typstyle --wrap-text --inplace .",
+    "format:check": "biome format && typstyle --wrap-text --check .",
+    "format:fix": "biome format --fix && typstyle --wrap-text --inplace .",
     "lint:check": "biome lint",
     "lint:fix": "biome lint --fix"
   },
@@ -24,10 +24,9 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
-    "@biomejs/biome": "2.5.15",
+    "@biomejs/biome": "2.6.2",
     "@types/hast": "3.0.5",
-    "@types/node": "26.6.5",
-    "prettier": "3.9.8"
+    "@types/node": "26.6.5"
   },
   "packageManager": "pnpm@12.15.0"
 }
