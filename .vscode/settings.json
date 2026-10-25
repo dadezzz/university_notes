@@ -16,5 +16,7 @@
   },
   "tinymist.formatterPrintWidth": 80,
   "tinymist.formatterProseWrap": true,
-  "tinymist.lint.enabled": true
+  "tinymist.lint.enabled": true,
+  "tinymist.rootPath": "/workspace/src/content/docs",
+  "tinymist.typstExtraArgs": ["--features=html"]
 }
