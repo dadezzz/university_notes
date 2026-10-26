@@ -1,6 +1,6 @@
 #import "../../_templates/frames.typ" as f
 #import "../../_templates/starlight.typ" as starlight
-#import "@preview/cetz:0.5.2"
+#import "@preview/cetz:0.5.3"
 
 #let draw() = {
   import cetz.draw: *
