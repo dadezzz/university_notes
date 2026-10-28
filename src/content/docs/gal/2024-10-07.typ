@@ -52,8 +52,6 @@ $
   bold(A) bold(v) = bold(A) bold(x) - bold(A) bold(x)_0 = bold(b) - bold(b) = bold(0),
 $
 
-#include "frames/soluzioni-sistema.typ"
-
 = Nucleo di una matrice
 
 Data una matrice $bold(A)$, il suo nucleo è l'insieme delle soluzioni del

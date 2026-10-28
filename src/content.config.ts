@@ -133,26 +133,24 @@ async function syncTypstDocEntry(context: LoaderContext, absOrRelPath: string): 
   const relPath = path.relative(".", absOrRelPath);
   const id = idFromRelPath(relPath);
 
-  try {
-    const html = await typstCompile(context, absOrRelPath);
-    const deps = await typstGetDeps(context, absOrRelPath);
-    const metadata = await typstGetMetadata(context, absOrRelPath);
+  const html = await typstCompile(context, absOrRelPath);
+  const deps = await typstGetDeps(context, absOrRelPath);
+  const metadata = await typstGetMetadata(context, absOrRelPath);
 
-    for (const dep of deps) {
-      watcher?.add(path.resolve(dep));
-      const set = depsMap.getOrInsert(dep, new Set());
-      set.add(relPath);
-    }
-
-    store.set({
-      id,
-      data: await parseData({ id, data: metadata }),
-      filePath: relPath,
-      rendered: { html },
-    });
-  } catch (error) {
-    logger.error(`failed to compile ${id}: ${error}`);
+  for (const dep of deps) {
+    watcher?.add(path.resolve(dep));
+    const set = depsMap.getOrInsert(dep, new Set());
+    set.add(relPath);
   }
+
+  logger.info(`Compiled ${id}`);
+
+  store.set({
+    id,
+    data: await parseData({ id, data: metadata }),
+    filePath: relPath,
+    rendered: { html },
+  });
 }
 
 async function loadTypstDocs(context: LoaderContext): Promise<void> {
@@ -173,10 +171,6 @@ async function loadTypstDocs(context: LoaderContext): Promise<void> {
 
   async function syncOnDepChange(absPath: string): Promise<void> {
     const deps = getDependentFiles(absPath);
-
-    if (deps.length > 0) {
-      logger.info(`Recompiling ${deps.length} files`);
-    }
 
     for (const dep of deps) {
       await syncTypstDocEntry(context, dep);
