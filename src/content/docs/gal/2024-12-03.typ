@@ -23,7 +23,7 @@ $
   exists bold(v) in V, bold(v) != bold(0) mid(|) f(bold(v)) = lambda bold(v)
 $
 
-L'insieme degli autovalori di $f$ si chiama spettro di $f$.
+L'insieme degli autovalori di $f$ si chiama *spettro di $f$*.
 
 Dato un autovalore $lambda$, l'autospazio relativo a $lambda$ è il sottospazio
 di $V$:
@@ -32,6 +32,11 @@ $
   E(lambda) = {bold(v) in V mid(|) f(bold(v)) = lambda bold(v)}
 $
 
+Dati $lambda_1, ..., lambda_k$ autovalori distinti di $f$ e
+$bold(v)_1, ..., bold(v)_k in V$ autovettori non nulli tali che
+$f(bold(v)_i) = lambda_i bold(v)_i$, allora l'insieme
+${bold(v)_1, ..., bold(v)_k}$ è linearmente indipendente.
+
 *Esempio*: $f: bb(R)^2 -> bb(R)^2$, $f: (v_1, v_2) -> (v_2, v_1)$
 
 - $lambda = 1$ è un autovalore di $f$, con autovettore $bold(v) = (1, 1)$.
@@ -39,33 +44,30 @@ $
 - $lambda = -1$ è un autovalore di $f$, con autovettore $bold(v) = (1, -1)$.
   Allora $bold(v) in E(-1)$ perché $f(bold(v)) = -1 bold(v)$.
 
-Dati $lambda_1, ..., lambda_k$ autovalori distinti di $f$ e
-$bold(v)_1, ..., bold(v)_k in V$ autovettori non nulli tali che
-$f(bold(v)_i) = lambda_i bold(v)_i$, allora l'insieme
-${bold(v)_1, ..., bold(v)_k}$ è linearmente indipendente.
+#include "frames/autovettori.typ"
 
 == Come trovare gli autovalori di $f$
 
 Dati un qualunque endomorfismo $f: V -> V$, una base $cal(A)$ di $V$ e la
-matrice rappresentativa $bold(M) = bold(M)_(cal(A))^(cal(A))(f)$, $lambda$ è un
-autovalore di $f$ se e solo se esiste $bold(v) != bold(0)$ tale che
+matrice rappresentativa $bold(M) = bold(M)_cal(A)(f)$, $lambda$ è un autovalore
+di $f$ se e solo se esiste $bold(v) != bold(0)$ tale che
 $f(bold(v)) = lambda bold(v)$, ovvero:
 
 $
-  bold(M) bold(v) = lambda bold(I) bold(v) \
-  arrow.t.b.double \
-  (bold(M) - lambda bold(I)) bold(v) = bold(0) \
-  arrow.t.b.double \
+  bold(M) bold(v) = lambda bold(I) bold(v)
+  <=>
+  (bold(M) - lambda bold(I)) bold(v) = bold(0)
+  <=>
   det(bold(M) - lambda bold(I)) = 0
 $
 
-Il polinomio caratteristico di $f$ è il polinomio con variabile $lambda$:
+Il *polinomio caratteristico* di $f$ è il polinomio con variabile $lambda$:
 
 $
   chi_(f)(lambda) = det(bold(M) - lambda bold(I))
 $
 
-Se prendiamo una base diversa da $cal(A)$, il polinomio non cambia. Infatti gli
+Se prendiamo una base diversa da $cal(A)$, il polinomio non cambia. Gli
 autovalori e i rispettivi autovettori sono utili per descrivere un'applicazione
 lineare a prescindere dalla base usata, cosa che non è vera per le matrici
 rappresentative rispetto ad una base.
@@ -103,7 +105,8 @@ $
 Sia $lambda_0$ un autovalore di $f$:
 
 - La molteplicità algebrica di $lambda_0$, $a(lambda_0)$, è la molteplicità di
-  $lambda_0$ come radice di $chi_(f)(lambda)$.
+  $lambda_0$ come radice di $chi_(f)(lambda)$, ovvero quante volte compare il
+  fattore $(lambda - lambda_0)$ nel polinomio.
 - La molteplicità geometrica di $lambda_0$, $g(lambda_0)$, è la dimensione
   dell'autospazio $E(lambda_0)$.
 

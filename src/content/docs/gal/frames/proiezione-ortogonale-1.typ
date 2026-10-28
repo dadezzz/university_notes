@@ -24,7 +24,7 @@
   // Orthogonal projection of v onto w.
   let dot = f.vdot(v, w)
   let scale = dot / calc.pow(f.vnorm(w), 2)
-  let p = f.vscale(w, scale)
+  let p = f.vscale(scale, w)
 
   line(v, p, stroke: (paint: c-proj, thickness: 0.6pt, dash: "dashed"))
   f.arrow(O, p, stroke: (paint: c-proj, thickness: 0.8pt))

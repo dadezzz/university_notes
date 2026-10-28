@@ -132,6 +132,8 @@ $
   op("pr")_(bold(u))(bold(v)) = (bold(u) dot bold(v)) / (bold(u) dot bold(u)) bold(u)
 $
 
+#include "frames/proiezione-ortogonale-2.typ"
+
 = Base ortonormale
 
 Sia $V$ uno spazio vettoriale euclideo. Un insieme ${bold(v)_1, ..., bold(v)_n}$

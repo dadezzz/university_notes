@@ -11,8 +11,8 @@ pnpm build            # Production build → dist/
 pnpm check            # TypeScript type-check (astro check)
 pnpm lint:check       # Biome lint
 pnpm lint:fix         # Biome lint --fix
-pnpm format:check     # Biome format + Prettier check
-pnpm format:fix       # Biome format --fix + Prettier write
+pnpm format:check     # Biome format + Typstyle check
+pnpm format:fix       # Biome format --fix + Typstyle write
 pnpm clean            # Remove .astro/, .pnpm-store/, dist/, node_modules/
 ```
 
@@ -68,19 +68,6 @@ src/content/docs/
 - Typst inlines images as base64 data URIs in the exported HTML, so pages can
   become large. `getImagePaths` collects the sources for future asset handling
   but they are not rewritten yet.
-
-## Tooling quirks
-
-- **Two formatters**: Biome (JS/TS/`.astro`) + Prettier (`.md`). Prettier
-  ignores `.astro` (see `.prettierignore`); Biome's HTML formatter handles those
-  files. Run both with `pnpm format:fix`.
-- Prettier uses `proseWrap: "always"` for `.md`.
-- Biome HTML formatting is enabled via `experimentalFullSupportEnabled` in
-  `biome.jsonc`.
-- Biome has `noFloatingPromises` and `noMisusedPromises` as errors.
-- `.astro` files: `noUnusedImports` is turned off in Biome.
-- `pnpm-workspace.yaml` sets `allowBuilds` and `patchedDependencies` (the
-  Starlight patch in `patches/`) – no workspace packages.
 
 ## Deployment
 

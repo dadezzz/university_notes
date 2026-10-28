@@ -9,77 +9,40 @@
   title: "Criterio di diagonalizzabilità e teorema spettrale",
 ))
 
-= Dimostrazione del criterio di diagonalizzabilità
+= Corollari del criterio di diagonalizzabilità
 
-Riprendiamo il criterio enunciato nella lezione precedente.
+- Dati un endomorfismo $f: V -> V$, $dim(V) = n$ e i suoi autovalori
+  $lambda_1, ..., lambda_k$, $k <= n$, allora:
 
-*Dimostrazione*:
+  $
+    f " è diagonalizzabile" <=> sum_(i = 1)^k a(lambda_i) = sum_(i = 1)^k g(lambda_i) = n
+  $
 
-$
-  sum_(i = 1)^k a(lambda_i) = dim(V) = sum_(i = 1)^k g(lambda_i)
-$
+- Dato un endomorfismo $f: V -> V$ tale che $chi_(f)(lambda)$ sia totalmente
+  riducibile e tale che $a(lambda_i) = 1$ per ogni autovalore $lambda_i$, allora
+  $f$ è diagonalizzabile.
 
-Siano $lambda_1, ..., lambda_k$ gli autovalori distinti di $f$. Sia
-$A_i = {bold(a)_(i, 1), ..., bold(a)_(i, g_i)}$, ove $g_i = g(lambda_i)$, una
-base dell'autospazio $E(lambda_i)$.
+- Dato un endomorfismo $f: V -> V$ diagonalizzabile, il determinante della
+  matrice rappresentativa $bold(A)$ è il prodotto dei suoi autovalori, contati
+  con la loro molteplicità algebrica:
 
-Vogliamo mostrare che $A_1 union ... union A_k$ è una base di $V$. Sia
-
-$
-  bold(w)_i = sum_(h = 1)^(g_i) mu_(i, h) bold(a)_(i, h) in E(lambda_i),
-$
-
-e supponiamo che:
-
-$
-  bold(w)_1 + ... + bold(w)_k = bold(0).
-$
-
-Poiché autovettori relativi ad autovalori distinti sono linearmente
-indipendenti, si ha $bold(w)_1 = ... = bold(w)_k = bold(0)$. Siccome $A_i$ è
-linearmente indipendente, allora $mu_(i, 1) = ... = mu_(i, g_i) = 0$.
-
-Il numero di vettori dell'unione è $sum_(i = 1)^k g(lambda_i) = n$, quindi
-l'unione è una base di $V$.
-
-== Corollario 1
-
-Dati un endomorfismo $f: V -> V$, $dim(V) = n$ e i suoi autovalori
-$lambda_1, ..., lambda_k$, $k <= n$, allora:
-
-$
-  f " è diagonalizzabile" <=> sum_(i = 1)^k a(lambda_i) = sum_(i = 1)^k g(lambda_i) = n
-$
-
-== Corollario 2
-
-Dato un endomorfismo $f: V -> V$ tale che $chi_(f)(lambda)$ sia totalmente
-riducibile e tale che $a(lambda_i) = 1$ per ogni autovalore $lambda_i$, allora
-$f$ è diagonalizzabile.
-
-== Corollario 3
-
-Dato un endomorfismo $f: V -> V$ diagonalizzabile, il determinante della matrice
-rappresentativa $bold(A)$ è il prodotto dei suoi autovalori, contati con la loro
-molteplicità algebrica:
-
-$
-  det(bold(A)) = product_(i = 1)^k lambda_i^(a(lambda_i))
-$
+  $
+    det(bold(A)) = product_(i = 1)^k lambda_i^(a(lambda_i))
+  $
 
 = Matrici diagonalizzabili e cambiamento di base
 
 Consideriamo un endomorfismo diagonalizzabile $f: V -> V$, una base $cal(A)$ di
-$V$ e la matrice rappresentativa $bold(M)_(cal(A))(f)$. Poiché $f$ è
+$V$ e la matrice rappresentativa $bold(M)_cal(A)(f)$. Poiché $f$ è
 diagonalizzabile, esiste una base di $V$ formata da autovettori di $f$.
 
-Gli autovettori ($bold(v)_1, ..., bold(v)_n$) di $f$ rappresentano le soluzioni
+Gli autovettori $bold(v)_1, ..., bold(v)_n$ di $f$ rappresentano le soluzioni
 (non nulle) del sistema $(bold(M) - lambda bold(I)) bold(x) = bold(0)$.
 
-Sia $cal(B) = {bold(v)_1, ..., bold(v)_n}$ una base di $V$ formata dagli
-autovettori $bold(v)_1, ..., bold(v)_n$, con $bold(v)_i in E(lambda_i)$. Poiché
-$f(bold(v)_i) = lambda_i bold(v)_i$, la matrice rappresentativa di $f$ rispetto
-a $cal(B)$ è la matrice diagonale con gli autovalori sulla diagonale principale:
+Sia $cal(B) = {bold(v)_1, ..., bold(v)_n}$ una base di $V$, con
+$bold(v)_i in E(lambda_i)$. Poiché $f(bold(v)_i) = lambda_i bold(v)_i$, la
+matrice rappresentativa di $f$ rispetto a $cal(B)$ è la matrice diagonale con
+gli autovalori sulla diagonale principale:
 
 $
   bold(M)_(cal(B))(f) = op("diag")(lambda_1, ..., lambda_n) = mat(
@@ -119,5 +82,5 @@ appartenenti ad autospazi distinti sono ortogonali tra loro.
 = Teorema spettrale
 
 Dati uno spazio vettoriale euclideo $V$ di dimensione finita e un endomorfismo
-simmetrico $f: V -> V$, esiste una base ortonormale di $V$ fatta di autovettori
-di $f$. In particolare $f$ è diagonalizzabile.
+simmetrico $f: V -> V$, allora esiste una base ortonormale di $V$ fatta di
+autovettori di $f$. In particolare $f$ è diagonalizzabile.

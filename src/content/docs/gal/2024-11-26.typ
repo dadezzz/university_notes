@@ -19,6 +19,8 @@ $
 
 $S^(perp)$ è un sottospazio di $V$.
 
+#include "frames/complemento-ortogonale.typ"
+
 Se $S subset.eq V$ allora $dim(op("span")(S)) + dim(S^(perp)) = dim(V)$
 
 *Dimostrazione*:
@@ -87,10 +89,7 @@ Se $f$ è un'isometria:
 $f: bb(R)^2 -> bb(R)^2$ definita mandando $(x, y) in bb(R)^2$ in un punto a pari
 distanza dall'origine, ruotato di un angolo $alpha$ in senso antiorario.
 
-// #starlight.img(
-//   "images/a.svg",
-//   alt: "Rotazione di un punto nel piano",
-// )
+#include "frames/rotazione-piano.typ"
 
 Sia $cal(B) = {(1, 0), (0, 1)}$ la base canonica ortonormale di $bb(R)^2$ e
 $bold(M)_(cal(B))^(cal(B))(f) = mat(delim: "[", cos(alpha), -sin(alpha); sin(alpha), cos(alpha))$

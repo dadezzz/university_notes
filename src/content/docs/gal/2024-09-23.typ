@@ -166,7 +166,7 @@ $a_(i, j)$ è l'elemento sulla riga $i$ e colonna $j$.
     bold(b) = vec(
       delim: "[",
       b_1,
-      dots.v;
+      dots.v,
       b_m,
     )
   $
@@ -177,7 +177,7 @@ $a_(i, j)$ è l'elemento sulla riga $i$ e colonna $j$.
     bold(x) = vec(
       delim: "[",
       x_1,
-      dots.v;
+      dots.v,
       x_n,
     )
   $
