@@ -33,7 +33,6 @@ if (!course) throw new Error(`course '${id}' not found`);
 
   <ul>
     {lessons
-      // The trailing slash avoids matching a sibling like `course-extra`.
       .filter((l) => l.id.startsWith(`${id}/`))
       .map((l) => (
         <li>
