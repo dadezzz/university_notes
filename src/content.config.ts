@@ -1,9 +1,10 @@
 import { defineCollection } from "astro:content";
 import * as child_process from "node:child_process";
+import { cpus } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
 import { docsSchema } from "@astrojs/starlight/schema";
-import { glob, type Loader, type LoaderContext } from "astro/loaders";
+import { glob, type LoaderContext } from "astro/loaders";
 import { z } from "astro/zod";
 
 const execFile = promisify(child_process.execFile);
@@ -16,6 +17,21 @@ const COMMON_TYPST_ARGS = ["--root", DOCS_PATH, "--features", "html"];
 // Captured HTML can get large because Typst inlines images as data URIs, so the
 // default 1 MiB buffer of `execFile` is not enough.
 const COMMON_EXEC_OPTIONS = { maxBuffer: 64 * 1024 * 1024 };
+const CPUS = cpus().length;
+
+async function parallelLimit<T>(workers: number, arr: T[], work: (v: T) => Promise<void>): Promise<void> {
+  // Create an iterator from the array of items.
+  const iter = arr.values();
+  // Run concurrent workers. Work for each item is done only once since the
+  // iterator returns an item only once.
+  const jobs = new Array(workers).fill(iter).map(async (iter: ArrayIterator<T>) => {
+    for (const v of iter) {
+      await work(v);
+    }
+  });
+  // Wait for workers to complete their job.
+  await Promise.all(jobs);
+}
 
 function idFromRelPath(relPath: string): string {
   return path
@@ -86,11 +102,8 @@ async function typstGetDeps(context: LoaderContext, relPath: string): Promise<st
     logger.warn(logs);
   }
 
-  // Capture group avoids matching a <body> tag with attributes as "no match",
-  // and extracts only the inner content so we don't nest <body> inside Starlight's.
-  const json = JSON.parse(stdout);
   // Exclude packages downloaded automatically by typst.
-  return Array.from<string>(json.inputs).filter((d) => typeof d === "string" && !d.includes("typst/packages/"));
+  return Array.from<string>(JSON.parse(stdout).inputs).filter((d) => !d.includes("typst/packages/"));
 }
 
 async function typstGetMetadata(context: LoaderContext, relPath: string): Promise<Record<string, unknown>> {
@@ -122,10 +135,22 @@ async function typstGetMetadata(context: LoaderContext, relPath: string): Promis
 // Each file is also a dependency of itself to simplify reload logic.
 const depsMap = new Map<string, Set<string>>();
 
+function addDependentFiles(absOrRelPath: string, dependencyPath: string): void {
+  const relPath = path.relative(".", absOrRelPath);
+  const set = depsMap.getOrInsert(dependencyPath, new Set());
+  set.add(relPath);
+}
+
 function getDependentFiles(absOrRelPath: string): string[] {
   const relPath = path.relative(".", absOrRelPath);
   const set = depsMap.get(relPath);
   return set?.values().toArray() ?? [];
+}
+
+function removeDependentFiles(absOrRelPath: string): void {
+  for (const set of depsMap.values()) {
+    set.delete(path.relative(".", absOrRelPath));
+  }
 }
 
 async function syncTypstDocEntry(context: LoaderContext, absOrRelPath: string): Promise<void> {
@@ -134,13 +159,12 @@ async function syncTypstDocEntry(context: LoaderContext, absOrRelPath: string): 
   const id = idFromRelPath(relPath);
 
   const html = await typstCompile(context, absOrRelPath);
-  const deps = await typstGetDeps(context, absOrRelPath);
+  const dependenciesPaths = await typstGetDeps(context, absOrRelPath);
   const metadata = await typstGetMetadata(context, absOrRelPath);
 
-  for (const dep of deps) {
-    watcher?.add(path.resolve(dep));
-    const set = depsMap.getOrInsert(dep, new Set());
-    set.add(relPath);
+  for (const p of dependenciesPaths) {
+    watcher?.add(path.resolve(p));
+    addDependentFiles(absOrRelPath, p);
   }
 
   logger.info(`Compiled ${id}`);
@@ -161,45 +185,26 @@ async function loadTypstDocs(context: LoaderContext): Promise<void> {
   // scan, change, add) then goes through the same `syncTypstDocEntry` path.
   const modules = import.meta.glob<string>("./src/content/docs/**/*.typ", { query: "?raw", eager: false, base: "/" });
   const typstPaths = Object.keys(modules).filter(isTypstFile);
+
+  // Compile the files, running them with Promise.all resulted in errors due to
+  // too many programs spawned, so we limit concurrency now.
   logger.info(`Compiling ${typstPaths.length} typst files`);
+  await parallelLimit(CPUS, typstPaths, (path) => syncTypstDocEntry(context, path));
 
-  // Using Promise.all resulted in errors due to too many processes/threads
-  // created.
-  for (const relPath of typstPaths) {
-    await syncTypstDocEntry(context, relPath);
-  }
+  watcher?.on("change", async (absPath: string) => {
+    await parallelLimit(CPUS, getDependentFiles(absPath), (path) => syncTypstDocEntry(context, path));
+  });
 
-  async function syncOnDepChange(absPath: string): Promise<void> {
-    const deps = getDependentFiles(absPath);
-
-    for (const dep of deps) {
-      await syncTypstDocEntry(context, dep);
-    }
-  }
-
-  // Vite's dev-server watcher already covers the whole project tree by
-  // default, so no explicit watcher.add() is needed here. Registering these
-  // listeners naively on every load() is safe because context.watcher is the
-  // Proxy-wrapped instance that detaches a previous run's listeners for us.
-  watcher?.on("change", syncOnDepChange);
-  watcher?.on("add", syncOnDepChange);
-
-  watcher?.on("unlink", (absPath) => {
+  watcher?.on("add", async (absPath) => {
     if (isTypstFile(absPath)) {
-      for (const set of depsMap.values()) {
-        set.delete(path.relative(".", absPath));
-      }
-
-      store.delete(idFromRelPath(absPath));
+      await syncTypstDocEntry(context, absPath);
     }
   });
-}
 
-function typstLoader(): Loader {
-  return {
-    name: "typst-starlight-loader",
-    load: loadTypstDocs,
-  };
+  watcher?.on("unlink", (absPath) => {
+    removeDependentFiles(absPath);
+    store.delete(idFromRelPath(absPath));
+  });
 }
 
 export const collections = {
@@ -216,7 +221,7 @@ export const collections = {
     }),
   }),
   docs: defineCollection({
-    loader: typstLoader(),
+    loader: { name: "typst-starlight-loader", load: loadTypstDocs },
     schema: docsSchema({ extend: z.object({ lang: z.enum(["en", "it"]) }) }),
   }),
 };
