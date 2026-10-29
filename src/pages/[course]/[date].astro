@@ -44,7 +44,8 @@ function addMathNotContent() {
   return (tree: Root) => {
     visit(tree, "element", (node) => {
       if (node.tagName === "math") {
-        node.properties.className = [...((node.properties.className as string[]) ?? []), "not-content"];
+        node.properties.className ??= [];
+        node.properties.className.push("not-content");
       }
     });
   };
@@ -56,7 +57,8 @@ function normalizeCodeLang() {
     visit(tree, "element", (node) => {
       if (node.tagName === "code" && node.properties?.dataLang) {
         const lang = node.properties.dataLang as string;
-        node.properties.className = [...((node.properties.className as string[]) ?? []), `language-${lang}`];
+        node.properties.className ??= [];
+        node.properties.className.push(`language-${lang}`);
       }
     });
   };
@@ -72,7 +74,7 @@ function renderStarlightHeadings() {
     const matches: { node: Element; index?: number; parent?: Element | Root }[] = [];
 
     visit(tree, "element", (node, index, parent) => {
-      if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(node.tagName)) {
+      if (node.tagName.length === 2 && node.tagName[0] === "h" && node.tagName[1] >= "1" && node.tagName[1] <= "6") {
         matches.push({ node, index, parent });
       }
     });
@@ -82,7 +84,7 @@ function renderStarlightHeadings() {
         const level = Number(node.tagName[1]);
         const childrenHtml = toHtml(node.children);
 
-        const newNodeHtml = await container.renderToString(AnchorHeading, {
+        const headingHtml = await container.renderToString(AnchorHeading, {
           locals: Astro.locals,
           props: { id: node.properties.id, level },
           slots: { default: childrenHtml },
@@ -90,7 +92,7 @@ function renderStarlightHeadings() {
 
         headings.push({ depth: level, slug: node.properties.id ?? "", text: childrenHtml });
 
-        const parsedRoot = fromHtml(newNodeHtml, { fragment: true });
+        const parsedRoot = fromHtml(headingHtml, { fragment: true });
 
         // Find the top-level HTML element inside the parsed fragment
         const newElement = parsedRoot.children.find((child): child is Element => child.type === "element");
@@ -115,7 +117,7 @@ function renderStarlightAsides() {
 
     await Promise.all(
       matches.map(async ({ node, index, parent }) => {
-        const newNodeHtml = await container.renderToString(Aside, {
+        const asideHtml = await container.renderToString(Aside, {
           locals: Astro.locals,
           props: {
             type: node.properties.dataStarlightAside,
@@ -124,7 +126,7 @@ function renderStarlightAsides() {
           slots: { default: toHtml(node.children) },
         });
 
-        const parsedRoot = fromHtml(newNodeHtml, { fragment: true });
+        const parsedRoot = fromHtml(asideHtml, { fragment: true });
 
         // Find the top-level HTML element inside the parsed fragment
         const newElement = parsedRoot.children.find((child): child is Element => child.type === "element");
@@ -158,47 +160,41 @@ function renderStarlightImages() {
         const imageMetadata = (await images[imagePath]()).default;
         const imageFormats = imagePath.endsWith(".svg") ? ["svg"] : ["avif", "webp", "png"];
 
-        const imageResults = await Promise.all(
-          imageFormats.map((f) =>
-            getImage({
-              src: imageMetadata,
-              format: f,
-            }),
-          ),
-        );
+        const imageResults = await Promise.all(imageFormats.map((f) => getImage({ src: imageMetadata, format: f })));
 
-        let newNodeHtml = "<picture>";
-
-        // Add <source> elements.
-        imageFormats
-          .filter((f) => f !== "svg")
-          .forEach((f, i) => {
-            const result = imageResults[i];
-            if (result.srcSet.attribute) {
-              newNodeHtml += `<source srcset="${result.srcSet.attribute}" type="image/${f}">`;
+        let pictureElement: Element = {
+          type: "element",
+          tagName: "picture",
+          children: imageResults.flatMap((result) => {
+            if (result.options.format === "svg" || !result.srcSet.attribute) {
+              return [];
             }
-          });
+
+            const sourceElement: Element = {
+              type: "element",
+              tagName: "source",
+              children: [],
+              properties: { srcset: result.srcSet.attribute, type: `image/${result.options.format}` },
+            };
+            return [sourceElement];
+          }),
+          properties: {},
+        };
 
         const fallbackResult = imageResults[imageResults.length - 1];
-        newNodeHtml += `<img src="${fallbackResult.src}" alt="${node.properties.dataStarlightImgAlt ?? ""}" `;
+        pictureElement.children.push({
+          type: "element",
+          tagName: "img",
+          children: [],
+          properties: {
+            ...fallbackResult.attributes,
+            src: fallbackResult.src,
+            alt: (node.properties.dataStarlightImgAlt ?? "").toString(),
+          },
+        });
 
-        // Add the remaining attributes from getImage result (width, height, etc.)
-        for (const [key, value] of Object.entries(fallbackResult.attributes)) {
-          if (key !== "src" && key !== "alt" && value) {
-            newNodeHtml += `${key}="${value}" `;
-          }
-        }
-
-        newNodeHtml += ">";
-        newNodeHtml += "</picture>";
-
-        const parsedRoot = fromHtml(newNodeHtml, { fragment: true });
-
-        // Find the top-level HTML element inside the parsed fragment
-        const newElement = parsedRoot.children.find((child): child is Element => child.type === "element");
-
-        if (newElement && parent && typeof index === "number") {
-          parent.children[index] = newElement;
+        if (parent && typeof index === "number") {
+          parent.children[index] = pictureElement;
         }
       }),
     );
@@ -206,10 +202,10 @@ function renderStarlightImages() {
 }
 
 const processor = unified()
-  .use(rehypeHeadingIds)
   .use(addMathNotContent)
   .use(normalizeCodeLang)
   .use(rehypeShiki, { theme: "one-dark-pro" })
+  .use(rehypeHeadingIds)
   .use(renderStarlightHeadings)
   .use(renderStarlightAsides)
   .use(renderStarlightImages);

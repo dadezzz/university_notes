@@ -2,10 +2,9 @@
 // This page shows informations about the course that are contained in
 // course.json. It also shows a list of all lessons to improve internal linkage.
 
+import { getCollection, getEntry } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import type { GetStaticPaths } from "astro";
-import { getEntry } from "astro:content";
-import { getCollection } from "astro:content";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const courses = await getCollection("courses");
