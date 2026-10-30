@@ -1,24 +1,20 @@
 import { defineCollection } from "astro:content";
-import * as child_process from "node:child_process";
+import { spawn } from "node:child_process";
 import { cpus } from "node:os";
 import path from "node:path";
-import { promisify } from "node:util";
+import { text } from "node:stream/consumers";
 import { docsSchema } from "@astrojs/starlight/schema";
 import { glob, type LoaderContext } from "astro/loaders";
 import { z } from "astro/zod";
 
-const execFile = promisify(child_process.execFile);
-
 const SRC_PATH = "./src";
 const DOCS_PATH = `${SRC_PATH}/content/docs`;
 
-const COMMON_TYPST_ARGS = ["--root", DOCS_PATH, "--features", "html"];
-
-// Captured HTML can get large because Typst inlines images as data URIs, so the
-// default 1 MiB buffer of `execFile` is not enough.
-const COMMON_EXEC_OPTIONS = { maxBuffer: 64 * 1024 * 1024 };
+const TYPST_ARGS = ["--root", DOCS_PATH, "--features=html"];
+const TYPST_COMPILE_ARGS = [...TYPST_ARGS, "--format=html"];
 const CPUS = cpus().length;
 
+// Runs work on items of arr with limited concurrency.
 async function parallelLimit<T>(workers: number, arr: T[], work: (v: T) => Promise<void>): Promise<void> {
   // Create an iterator from the array of items.
   const iter = arr.values();
@@ -33,6 +29,7 @@ async function parallelLimit<T>(workers: number, arr: T[], work: (v: T) => Promi
   await Promise.all(jobs);
 }
 
+// Generates the lesson id (the path on the website) from the file path.
 function idFromRelPath(relPath: string): string {
   return path
     .relative(DOCS_PATH, relPath)
@@ -41,7 +38,9 @@ function idFromRelPath(relPath: string): string {
     .join("/"); // Ensure that paths are joined with '/' and not '\'.
 }
 
-function isTypstFile(absOrRelPath: string): boolean {
+// Checks if the path points to a typst file that needs to end up being a page,
+// so it excludes imported files like frames and templates.
+function isTypstPageFile(absOrRelPath: string): boolean {
   const relPath = path.relative(DOCS_PATH, absOrRelPath);
   const insideDocs = !relPath.startsWith(`..${path.sep}`);
   // Exclude templates and frames.
@@ -63,70 +62,6 @@ function filterTypstLogs(logs: string): string {
         ),
     )
     .join("\n\n");
-}
-
-async function typstCompile(context: LoaderContext, relPath: string): Promise<string> {
-  const { logger } = context;
-
-  const { stderr, stdout } = await execFile(
-    "typst",
-    ["compile", ...COMMON_TYPST_ARGS, "--format=html", relPath, "-"],
-    COMMON_EXEC_OPTIONS,
-  );
-
-  const logs = filterTypstLogs(stderr);
-  if (logs) {
-    logger.warn(logs);
-  }
-
-  // Capture group avoids matching a <body> tag with attributes as "no match",
-  // and extracts only the inner content so we don't nest <body> inside Starlight's.
-  const match = stdout.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-  if (!match) {
-    throw new Error("typst cli didn't output expected html");
-  }
-  return match[1];
-}
-
-async function typstGetDeps(context: LoaderContext, relPath: string): Promise<string[]> {
-  const { logger } = context;
-
-  const { stderr, stdout } = await execFile(
-    "typst",
-    ["compile", ...COMMON_TYPST_ARGS, "--format=html", relPath, "/dev/null", "--deps=-", "--deps-format=json"],
-    COMMON_EXEC_OPTIONS,
-  );
-
-  const logs = filterTypstLogs(stderr);
-  if (logs) {
-    logger.warn(logs);
-  }
-
-  // Exclude packages downloaded automatically by typst.
-  return Array.from<string>(JSON.parse(stdout).inputs).filter((d) => !d.includes("typst/packages/"));
-}
-
-async function typstGetMetadata(context: LoaderContext, relPath: string): Promise<Record<string, unknown>> {
-  const { logger } = context;
-
-  const { stderr, stdout } = await execFile(
-    "typst",
-    ["eval", ...COMMON_TYPST_ARGS, "--in", relPath, "query(metadata).map(it => it.value)"],
-    COMMON_EXEC_OPTIONS,
-  );
-
-  const logs = filterTypstLogs(stderr);
-  if (logs) {
-    logger.warn(logs);
-  }
-
-  const metadataMerged = {};
-  const metadataFragments = Array.from(JSON.parse(stdout));
-  for (const fragment of metadataFragments) {
-    Object.assign(metadataMerged, fragment);
-  }
-
-  return metadataMerged;
 }
 
 // Map from dependency file to a list of files that depend on it.
@@ -153,13 +88,142 @@ function removeDependentFiles(absOrRelPath: string): void {
   }
 }
 
+// Letting typst download packages inside the parallelLimit loop resulted in:
+//
+// - duplicate work: if the cache wasn't populated and two or more files
+//   required the same package then both would download it;
+// - concurrency issues: after downloading the package, both processes would
+//   write to the cache and the second one would fail;
+//
+// Solution: scan all files for dependencies and download them before.
+async function typstWarmCache(context: LoaderContext, modules: (() => Promise<{ default: string }>)[]): Promise<void> {
+  const { logger } = context;
+
+  const deps = new Set<string>();
+  const child = spawn("typst", ["compile", ...TYPST_COMPILE_ARGS, "-", "-"]);
+  const REMOTE_DEPENDENCY_REGEX = /^#import "(@preview\/.+)"$/gm;
+
+  await Promise.all(
+    modules.map(async (m) => {
+      const content = await m();
+      const matches = content.default.matchAll(REMOTE_DEPENDENCY_REGEX);
+
+      for (const m of matches) {
+        deps.add(m[1]);
+      }
+    }),
+  );
+
+  logger.info("Warming typst package cache");
+
+  const file = deps.values().reduce((a, b) => `${a}#import "${b}"\n`, "");
+  child.stdin.write(file);
+  child.stdin.end();
+
+  const [stderr] = await Promise.all([text(child.stderr), new Promise((resolve) => child.once("close", resolve))]);
+
+  const logs = filterTypstLogs(stderr);
+  if (logs) {
+    logger.warn(logs);
+  }
+}
+
+// Compiles the typst document, returning the HTML output.
+async function typstCompile(context: LoaderContext, relPath: string): Promise<string> {
+  const { logger } = context;
+
+  const child = spawn("typst", ["compile", ...TYPST_COMPILE_ARGS, relPath, "-"]);
+
+  const [stdout, stderr] = await Promise.all([
+    text(child.stdout),
+    text(child.stderr),
+    new Promise((resolve) => child.once("close", resolve)),
+  ]);
+
+  const logs = filterTypstLogs(stderr);
+  if (logs) {
+    logger.warn(logs);
+  }
+
+  // Capture group avoids matching a <body> tag with attributes as "no match",
+  // and extracts only the inner content so we don't nest <body> inside Starlight's.
+  const match = stdout.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  if (!match) {
+    throw new Error("typst cli didn't output expected html");
+  }
+  return match[1];
+}
+
+// Gets local dependency paths of the given typst file.
+async function typstGetLocalDeps(context: LoaderContext, relPath: string): Promise<string[]> {
+  const { logger } = context;
+
+  const child = spawn("typst", [
+    "compile",
+    ...TYPST_COMPILE_ARGS,
+    relPath,
+    "/dev/null",
+    "--deps=-",
+    "--deps-format=json",
+  ]);
+
+  const [stdout, stderr] = await Promise.all([
+    text(child.stdout),
+    text(child.stderr),
+    new Promise((resolve) => child.once("close", resolve)),
+  ]);
+
+  const logs = filterTypstLogs(stderr);
+  if (logs) {
+    logger.warn(logs);
+  }
+
+  const stdoutParsed = JSON.parse(stdout);
+  // Exclude packages downloaded automatically by typst.
+  if (typeof stdoutParsed === "object" && Array.isArray(stdoutParsed?.inputs)) {
+    return stdoutParsed.inputs.filter((d: unknown) => typeof d === "string" && !d.includes("typst/packages/"));
+  } else {
+    throw new Error("typst compile deps stdout malformed");
+  }
+}
+
+// Extracts metadata from the typst file.
+async function typstGetMetadata(context: LoaderContext, relPath: string): Promise<Record<string, unknown>> {
+  const { logger } = context;
+
+  const child = spawn("typst", ["eval", ...TYPST_ARGS, "--in", relPath, "query(metadata).map(it => it.value)"]);
+
+  const [stdout, stderr] = await Promise.all([
+    text(child.stdout),
+    text(child.stderr),
+    new Promise((resolve) => child.once("close", resolve)),
+  ]);
+
+  const logs = filterTypstLogs(stderr);
+  if (logs) {
+    logger.warn(logs);
+  }
+
+  const metadata = {};
+  const stdoutParsed = JSON.parse(stdout);
+  if (Array.isArray(stdoutParsed)) {
+    for (const fragment of stdoutParsed) {
+      Object.assign(metadata, fragment);
+    }
+  } else {
+    throw new Error("typst metadata eval stdout malformed");
+  }
+
+  return metadata;
+}
+
 async function syncTypstDocEntry(context: LoaderContext, absOrRelPath: string): Promise<void> {
   const { logger, parseData, store, watcher } = context;
   const relPath = path.relative(".", absOrRelPath);
   const id = idFromRelPath(relPath);
 
   const html = await typstCompile(context, absOrRelPath);
-  const dependenciesPaths = await typstGetDeps(context, absOrRelPath);
+  const dependenciesPaths = await typstGetLocalDeps(context, absOrRelPath);
   const metadata = await typstGetMetadata(context, absOrRelPath);
 
   for (const p of dependenciesPaths) {
@@ -180,23 +244,29 @@ async function syncTypstDocEntry(context: LoaderContext, absOrRelPath: string): 
 async function loadTypstDocs(context: LoaderContext): Promise<void> {
   const { logger, store, watcher } = context;
 
-  // Used purely to enumerate matching files: the module values are never
-  // imported (eager: false), only the keys are used. Every entry point (initial
-  // scan, change, add) then goes through the same `syncTypstDocEntry` path.
-  const modules = import.meta.glob<string>("./src/content/docs/**/*.typ", { query: "?raw", eager: false, base: "/" });
-  const typstPaths = Object.keys(modules).filter(isTypstFile);
+  const modules = import.meta.glob<{ default: string }>("./src/content/docs/**/*.typ", {
+    query: "?raw",
+    eager: false,
+    base: "/",
+  });
+
+  // Download remote packages. Need to do it only at the start, since
+  // recompiling on changes usually involves only one file and otherwise can be
+  // retried.
+  await typstWarmCache(context, Object.values(modules));
 
   // Compile the files, running them with Promise.all resulted in errors due to
   // too many programs spawned, so we limit concurrency now.
-  logger.info(`Compiling ${typstPaths.length} typst files`);
-  await parallelLimit(CPUS, typstPaths, (path) => syncTypstDocEntry(context, path));
+  const typstPagePaths = Object.keys(modules).filter(isTypstPageFile);
+  logger.info(`Compiling ${typstPagePaths.length} typst files`);
+  await parallelLimit(CPUS, typstPagePaths, (path) => syncTypstDocEntry(context, path));
 
   watcher?.on("change", async (absPath: string) => {
     await parallelLimit(CPUS, getDependentFiles(absPath), (path) => syncTypstDocEntry(context, path));
   });
 
   watcher?.on("add", async (absPath) => {
-    if (isTypstFile(absPath)) {
+    if (isTypstPageFile(absPath)) {
       await syncTypstDocEntry(context, absPath);
     }
   });
