@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Clone the repository
         run: |
-          git clone --filter=blob:none --no-checkout https://${{ secrets.CI_BOT_TOKEN }}@git.zarantonello.dev/${{ forge.repository }} ${{ forge.workspace }};
+          git clone --filter=blob:none --no-checkout https://${{ secrets.CI_BOT_TOKEN }}:x-oauth-basic@git.zarantonello.dev/${{ forge.repository }} ${{ forge.workspace }};
           git checkout --quiet ${{ forge.sha }};
       - name: Generate and push the tag
         run: |
