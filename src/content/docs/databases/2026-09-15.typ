@@ -50,19 +50,19 @@ The special value `NULL` is used to indicate an unknown or missing value.
 
 ```sql
 -- Create a database named 'contacts_db'.
-create database contacts_db;
+create database `contacts_db`;
 -- Create a user named 'contacts' with password 'somepassword'.
 create user 'contacts'@'localhost' identified by 'somepassword';
 -- Give access to the 'contacts' database to the 'contacts' user.
-grant all privileges on contacts_db.* to 'contacts'@'localhost';
+grant all privileges on `contacts_db`.* to 'contacts'@'localhost';
 ```
 
 *Creating a table*:
 
 ```sql
-USE contacts_db;
-DROP TABLE IF EXISTS contacts;
-CREATE TABLE contacts (
+USE `contacts_db`;
+DROP TABLE IF EXISTS `contacts`;
+CREATE TABLE `contacts` (
   `name` VARCHAR(50), -- String of length 50.
   `surname` VARCHAR(50),
   `phone` VARCHAR(20),
@@ -76,7 +76,7 @@ CREATE TABLE contacts (
 *Inserting two rows*:
 
 ```sql
-INSERT INTO contacts
+INSERT INTO `contacts`
   (`name`, `surname`, `phone`, `country`, `age`, `signup_date`, `status`)
 VALUES
   ('John', 'Doe', '+1-555-0101', 'USA', 28, '2025-01-15', 'Active'),
@@ -87,12 +87,12 @@ VALUES
 
 ```sql
 SELECT `country`
-FROM contacts
-WHERE `name` like 'Jo%';
+FROM `contacts`
+WHERE `name` LIKE 'Jo%';
 ```
 
 ```sql
 SELECT *
-FROM contacts
-WHERE `age` between 30 and 40;
+FROM `contacts`
+WHERE `age` BETWEEN 30 AND 40;
 ```

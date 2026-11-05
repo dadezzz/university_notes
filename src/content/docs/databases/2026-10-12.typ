@@ -35,7 +35,7 @@ CREATE TABLE `roles` (
   `actor_id` INT REFERENCES `actors`(`id`),
   `movie_id` INT REFERENCES `movies`(`id`),
   `role` VARCHAR(30),
-  CONSTRAINT unique_record UNIQUE (`actor_id`, `movie_id`, `role`)
+  CONSTRAINT `unique_record` UNIQUE (`actor_id`, `movie_id`, `role`)
 );
 ```
 
