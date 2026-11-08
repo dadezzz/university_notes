@@ -3,12 +3,12 @@
 #show: starlight.setup
 
 #metadata((
-  description: "SQL UPDATE and DELETE syntax, table-level UNIQUE constraints, ALTER TABLE column changes, and foreign key actions like CASCADE, SET NULL, and SET DEFAULT.",
+  description: "SQL UPDATE and DELETE syntax, table-level UNIQUE and foreign key constraints with CASCADE and SET NULL actions, plus GROUP BY aggregation and HAVING filters.",
   lang: "en",
-  title: "Row updates, table constraints, and foreign keys",
+  title: "SQL row updates, table constraints and GROUP BY",
 ))
 
-= SQL UPDATE and DELETE
+= SQL `UPDATE` and `DELETE`
 
 An `UPDATE` query follows this syntax:
 
@@ -62,7 +62,7 @@ ALTER TABLE `roles` ADD CONSTRAINT `unique_actor_movie_character`
 = Referential integrity
 
 When declaring a foreign key, we can specify what to do when the parent record
-is deleted or updated:
+is deleted or updated (with `ON UPDATE`):
 
 - `ON DELETE RESTRICT / NO ACTION` (default): rejects the deletion if child
   records exist;
@@ -70,4 +70,27 @@ is deleted or updated:
   parent row is deleted;
 - `ON DELETE SET NULL`: sets the child table's foreign key column to NULL;
 - `ON DELETE SET DEFAULT`: sets the child table's foreign key column to its
-  declared DEFAULT value;
+  declared DEFAULT value.
+
+= `GROUP BY`
+
+`GROUP BY` aggregates rows that share common values into summary rows. Every
+column of the select clause that is not wrapped in an aggregate function must
+also appear in `GROUP BY`.
+
+```sql
+SELECT `column_name`, AGGREGATE_FUNCTION(`column_name`)
+FROM `table_name`            -- Source data.
+WHERE conditions             -- Filter rows before grouping.
+GROUP BY `column_name`       -- Combine rows into groups.
+HAVING conditions            -- Filter groups.
+ORDER BY condition ordering  -- Sort the groups.
+```
+
+Common aggregate functions are `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`. Except for
+`COUNT(*)`, they ignore `NULL` values; if every value in a group is `NULL`, the
+result is `NULL` as well. `COUNT(*)` counts rows regardless of `NULL` values,
+while `COUNT(column)` skips them and returns 0 when all are `NULL`.
+
+`HAVING` filters groups after aggregation; unlike `WHERE`, its condition can use
+aggregate functions.
