@@ -13,15 +13,13 @@
   "packageRules": [
     // Rebuild the container if something like caddy is updated in the Dockerfile.
     {
-      "automerge": true,
       "matchFileNames": ["Dockerfile"],
-      "matchUpdateTypes": ["!major"],
       "semanticCommitType": "fix"
     },
     {
+      "automerge": true,
       "matchFileNames": ["Dockerfile"],
-      "matchUpdateTypes": ["major"],
-      "semanticCommitType": "feat"
+      "matchUpdateTypes": ["!major"]
     },
     // Automerge and group devcontainer, actions and ci deps.
     {
@@ -33,18 +31,19 @@
       "semanticCommitType": "ci"
     },
     // Automerge the ci image and don't trigger a release even in Dockerfile.
-    // Also group the pnpm in the packageManager in package.json.
+    // Automerge linters and formatters.
     {
       "automerge": true,
       "groupName": "CI dependencies",
       "groupSlug": "ci",
-      "matchPackageNames": ["git.zarantonello.dev/university/notes-ci", "pnpm"],
-      "semanticCommitType": "ci"
-    },
-    // Automerge less important packages.
-    {
-      "automerge": true,
-      "matchPackageNames": ["@astro/check", "@biomejs/biome", "typescript", "@types/*"],
+      "matchPackageNames": [
+        "git.zarantonello.dev/infra/ci-pnpm",
+        "@astro/check",
+        "@biomejs/biome",
+        "pnpm",
+        "typescript",
+        "@types/*"
+      ],
       "matchUpdateTypes": ["!major"],
       "semanticCommitType": "chore"
     },

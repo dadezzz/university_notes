@@ -1,13 +1,13 @@
 diff --git a/dist/components-internals/TableOfContents/TableOfContentsList.astro b/dist/components-internals/TableOfContents/TableOfContentsList.astro
-index 8cac910ce1b99361093a443acb0a1da90782d256..a92e49443da258d69ff4fe0a986884eaa02446f6 100644
+index ed20b2a7cc422549fc0e6408a4ecc8b396b07333..11a1f8e42a8fcc3e553df51fe28d52a72e43b528 100644
 --- a/dist/components-internals/TableOfContents/TableOfContentsList.astro
 +++ b/dist/components-internals/TableOfContents/TableOfContentsList.astro
-@@ -15,7 +15,7 @@ const { toc, isMobile = false, depth = 0 } = Astro.props;
- 		toc.map((heading) => (
- 			<li>
- 				<a href={'#' + heading.slug}>
--					<span>{heading.text}</span>
-+					<span set:html={heading.text}></span>
- 				</a>
- 				{heading.children.length > 0 && (
- 					<Astro.self toc={heading.children} depth={depth + 1} isMobile={isMobile} />
+@@ -12,7 +12,7 @@ const { toc, isMobile = false, depth = 0 } = Astro.props;
+ 
+ <ul class:list={{ isMobile }}>
+ 	{toc.map((heading) => <li>
+-		<a href={'#' + heading.slug}><span>{heading.text}</span></a>
++		<a href={'#' + heading.slug}><span set:html={heading.text}></span></a>
+ 		{heading.children.length > 0 && (
+ 			<Astro.self toc={heading.children} depth={depth + 1} isMobile={isMobile} />
+ 		)}
