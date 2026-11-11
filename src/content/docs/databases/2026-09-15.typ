@@ -50,11 +50,11 @@ The special value `NULL` is used to indicate an unknown or missing value.
 
 ```sql
 -- Create a database named 'contacts_db'.
-create database `contacts_db`;
+CREATE DATABASE `contacts_db`;
 -- Create a user named 'contacts' with password 'somepassword'.
-create user 'contacts'@'localhost' identified by 'somepassword';
+CREATE USER 'contacts'@'localhost' IDENTIFIED BY 'somepassword';
 -- Give access to the 'contacts' database to the 'contacts' user.
-grant all privileges on `contacts_db`.* to 'contacts'@'localhost';
+GRANT ALL PRIVILEGES ON `contacts_db`.* TO 'contacts'@'localhost';
 ```
 
 *Creating a table*:

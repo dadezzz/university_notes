@@ -12,7 +12,7 @@
 
 An `UPDATE` query follows this syntax:
 
-```sql
+```
 UPDATE <TABLE_NAME>
 SET <COLUMN_NAME> = <VALUE>,
     <COLUMN_NAME> = <VALUE>
@@ -21,7 +21,7 @@ WHERE <CONDITION>;
 
 A `DELETE` query:
 
-```sql
+```
 DELETE FROM <TABLE_NAME> WHERE <CONDITION>;
 ```
 

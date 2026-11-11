@@ -14,7 +14,7 @@ A window function performs a calculation across a set of table rows that are
 related to the current row. Unlike aggregate functions with `GROUP BY`, window
 functions do not collapse the selected rows into a single result row.
 
-```sql
+```
 -- FUNCTION_NAME is a window function.
 -- OVER defines the window the function operates on.
 FUNCTION_NAME(expression) OVER (
