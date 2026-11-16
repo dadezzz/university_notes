@@ -1,8 +1,8 @@
 FROM ghcr.io/typst/typst:0.15.1@sha256:032e292249bcd378480cc7c142cfa324b63ef8aadeb88d7e7230320c4c9c422f AS typst
-FROM git.zarantonello.dev/infra/ci-pnpm:v2026.11.08.1@sha256:33059a9f1371d47f502bab672de35bbc15da76872aa17e03efe6fd916067f8ca
+FROM git.zarantonello.dev/infra/ci-pnpm:v2026.11.15.1@sha256:a79c0d2a945bbec90576a17370f98e41a0c2c34280bca1dd09cefb0e8f59e571
 
 # renovate: datasource=github-tags depName=typstyle-rs/typstyle versioning=semver
-ENV TYPSTYLE_VERSION="v0.15.2"
+ENV TYPSTYLE_VERSION="v0.15.3"
 
 RUN curl -L https://github.com/typstyle-rs/typstyle/releases/download/$TYPSTYLE_VERSION/typstyle-x86_64-unknown-linux-musl -o /usr/local/bin/typstyle && \
     chmod +x /usr/local/bin/typstyle
