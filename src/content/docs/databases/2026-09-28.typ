@@ -98,7 +98,7 @@ Two other convenient operations are:
 - *Assignment ($x arrow.l "op"$)*: assigns the result of $"op"$ to $x$. Used to
   create temporary relation variables. Works like assignment in programming
   languages.
-- *Rename ($rho_x(E)$)*: renames the relation $E$ to $x$. The difference from
+- *Rename ($rho_(x)(E)$)*: renames the relation $E$ to $x$. The difference from
   assignment is that rename doesn't create another separate relation. Useful to
   avoid naming conflicts in joins.
 

@@ -1,4 +1,3 @@
-#import "@preview/zap:0.6.0"
 #import "../_templates/starlight.typ" as starlight
 
 #show: starlight.setup
