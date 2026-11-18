@@ -1,50 +1,41 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "assignees": ["davide"],
-  "extends": [
-    "config:best-practices",
-    "customManagers:dockerfileVersions",
-    "customManagers:biomeVersions",
-    ":semanticCommits"
-  ],
   "kubernetes": {
     "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"]
   },
   "packageRules": [
-    // Rebuild the container if something like caddy is updated in the Dockerfile.
-    {
-      "matchFileNames": ["Dockerfile"],
-      "semanticCommitType": "fix"
-    },
+    // Rebuild the container if something is updated in the Dockerfile.
     {
       "automerge": true,
       "matchFileNames": ["Dockerfile"],
-      "matchUpdateTypes": ["!major"]
+      "matchUpdateTypes": ["!major"],
+      "semanticCommitType": "fix"
     },
     // Automerge and group devcontainer, actions and ci deps.
     {
       "automerge": true,
       "groupName": "CI dependencies",
       "groupSlug": "ci",
-      "matchFileNames": [".devcontainer/**", ".forgejo/**", "ci.Dockerfile"],
-      "matchUpdateTypes": ["!major"],
-      "semanticCommitType": "ci"
+      "matchFileNames": [".devcontainer/**", ".forgejo/**", "ci.Dockerfile"]
     },
-    // Automerge the ci image and don't trigger a release even in Dockerfile.
-    // Automerge linters and formatters.
+    // Formatters and linters get automerged.
     {
       "automerge": true,
       "groupName": "CI dependencies",
       "groupSlug": "ci",
       "matchPackageNames": [
-        "git.zarantonello.dev/infra/ci-pnpm",
-        "@astro/check",
-        "@biomejs/biome",
+        // Automerge the ci image and don't trigger a release even in Dockerfile.
+        "git.zarantonello.dev/university/notes-ci",
+        // Also group the pnpm in the packageManager in package.json.
         "pnpm",
-        "typescript",
-        "@types/*"
+        "@biomejs/biome",
+        "@types/*",
+        "svelte-check",
+        "turbo",
+        "vitest"
       ],
-      "matchUpdateTypes": ["!major"],
+      // Override the 'fix' commit type set by the Dockerfile rule.
       "semanticCommitType": "chore"
     },
     // Automerge the container image in the kubernetes deployment.
@@ -53,6 +44,5 @@
       "matchManagers": ["kubernetes"],
       "matchUpdateTypes": ["!major"]
     }
-  ],
-  "prHourlyLimit": 6
+  ]
 }
