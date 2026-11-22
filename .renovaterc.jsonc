@@ -7,10 +7,13 @@
   "packageRules": [
     // Rebuild the container if something is updated in the Dockerfile.
     {
+      "matchFileNames": ["Dockerfile"],
+      "semanticCommitType": "fix"
+    },
+    {
       "automerge": true,
       "matchFileNames": ["Dockerfile"],
-      "matchUpdateTypes": ["!major"],
-      "semanticCommitType": "fix"
+      "matchUpdateTypes": ["!major"]
     },
     // Automerge and group devcontainer, actions and ci deps.
     {
