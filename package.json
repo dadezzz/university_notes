@@ -15,7 +15,7 @@
     "@astrojs/starlight": "0.43.1",
     "astro": "7.4.12",
     "hast-util-from-html": "2.1.0",
-    "hast-util-to-html": "9.0.6",
+    "hast-util-to-html": "9.0.7",
     "sharp": "0.35.5",
     "typescript": "6.0.3",
     "unified": "11.0.5",
