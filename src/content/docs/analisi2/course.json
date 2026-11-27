@@ -2,5 +2,12 @@
   "code": "140017",
   "lang": "it",
   "name": "Analisi 2",
-  "professors": ["Serra Cassano Francesco", "Tonioli Alessia"]
+  "professors": ["Serra Cassano Francesco", "Tonioli Alessia"],
+  "books": [
+    {
+      "authors": ["Michiel Bertsch", "Roberta Dal Passo", "Lorenzo Giacomelli"],
+      "isbn": "978-8-83-866281-2",
+      "title": "Analisi matematica"
+    }
+  ]
 }

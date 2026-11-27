@@ -1,0 +1,31 @@
+---
+import type { getEntry } from "astro:content";
+import { Icon } from "@astrojs/starlight/components";
+import type { StarlightIcon } from "@astrojs/starlight/types";
+
+interface Props {
+  material: NonNullable<NonNullable<Awaited<ReturnType<typeof getEntry<"courses", "">>>>["data"]["materials"]>[0];
+}
+
+const { material } = Astro.props;
+
+let icon: StarlightIcon;
+switch (material.type) {
+  case "forgejo-repository": {
+    icon = "seti:git";
+  }
+}
+---
+
+<a href={material.url}>
+  <Icon name={icon} />
+  <span>{material.title}</span>
+</a>
+
+<style>
+  a {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+</style>

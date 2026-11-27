@@ -288,6 +288,24 @@ export const collections = {
       name: z.string().nonempty(),
       lang: z.enum(["en", "it"]),
       professors: z.array(z.string().nonempty()),
+      books: z.optional(
+        z.array(
+          z.object({
+            authors: z.array(z.string().nonempty()),
+            isbn: z.string().nonempty(),
+            title: z.string().nonempty(),
+          }),
+        ),
+      ),
+      materials: z.optional(
+        z.array(
+          z.object({
+            type: z.enum(["forgejo-repository"]),
+            title: z.string().nonempty(),
+            url: z.url(),
+          }),
+        ),
+      ),
     }),
   }),
   docs: defineCollection({

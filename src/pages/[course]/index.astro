@@ -5,6 +5,8 @@
 import { getCollection, getEntry } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import type { GetStaticPaths } from "astro";
+import CourseBookLink from "../../components/CourseBookLink.astro";
+import CourseMaterialLink from "../../components/CourseMaterialLink.astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const courses = await getCollection("courses");
@@ -28,6 +30,34 @@ if (!course) throw new Error(`course '${id}' not found`);
   <ul>
     {course.data.professors.map((p) => <li>{p}</li>)}
   </ul>
+
+  {course.data.books?.length ? (
+    <>
+      <h2>Books</h2>
+
+      <ul>
+        {course.data.books?.map((book) => (
+          <li>
+            <CourseBookLink {book} />
+          </li>
+        ))}
+      </ul>
+    </>
+  ) : undefined}
+
+  {course.data.materials?.length ? (
+    <>
+      <h2>Extra materials</h2>
+
+      <ul>
+        {course.data.materials?.map((material) => (
+          <li>
+            <CourseMaterialLink {material} />
+          </li>
+        ))}
+      </ul>
+    </>
+  ) : undefined}
 
   <h2>Lessons</h2>
 

@@ -2,5 +2,19 @@
   "code": "146147",
   "lang": "en",
   "name": "Operating systems",
-  "professors": ["Siracusa Domenico", "Franzil Matteo"]
+  "professors": ["Siracusa Domenico", "Franzil Matteo"],
+  "books": [
+    {
+      "authors": ["Avi Silberschatz", "Peter Baer Galvin", "Greg Gagne"],
+      "isbn": "978-1-11-806333-0",
+      "title": "Operating System Concepts"
+    }
+  ],
+  "materials": [
+    {
+      "type": "forgejo-repository",
+      "title": "Group project repository",
+      "url": "https://git.zarantonello.dev/university/os-group-5"
+    }
+  ]
 }

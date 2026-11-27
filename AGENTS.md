@@ -16,6 +16,14 @@ pnpm format:fix       # Biome format --fix + Typstyle write
 pnpm clean            # Remove .astro/, .pnpm-store/, dist/, node_modules/
 ```
 
+`typstyle` is installed globally on the `PATH`. Call it directly, never
+through `npx` (which would try to resolve a package instead of the binary):
+
+```
+typstyle --wrap-text --check <file.typ>    # Check formatting
+typstyle --wrap-text --inplace <file.typ>  # Apply formatting
+```
+
 ## Content structure
 
 ```

@@ -1,0 +1,23 @@
+---
+import type { getEntry } from "astro:content";
+
+interface Props {
+  book: NonNullable<NonNullable<Awaited<ReturnType<typeof getEntry<"courses", "">>>>["data"]["books"]>[0];
+}
+
+const { book } = Astro.props;
+---
+
+<div>
+  <b>{book.title}</b>
+
+  <span class="isbn">[{book.isbn}]</span>
+</div>
+
+<span>{book.authors.join(", ")}</span>
+
+<style>
+  .isbn {
+    margin-left: 0.5rem;
+  }
+</style>
