@@ -14,12 +14,13 @@
   "[typst]": {
     "editor.wordWrap": "wordWrapColumn"
   },
+  "chat.tools.terminal.autoApprove": {
+    "typst": true,
+    "typstyle": true
+  },
   "tinymist.formatterPrintWidth": 80,
   "tinymist.formatterProseWrap": true,
   "tinymist.lint.enabled": true,
   "tinymist.rootPath": "/workspace/src/content/docs",
-  "tinymist.typstExtraArgs": ["--features=html"],
-  "chat.tools.terminal.autoApprove": {
-    "typst": true
-  }
+  "tinymist.typstExtraArgs": ["--features=html"]
 }

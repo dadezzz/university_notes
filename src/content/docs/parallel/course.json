@@ -2,5 +2,12 @@
   "code": "146310",
   "lang": "en",
   "name": "Fundamentals of parallel programming",
-  "professors": ["Vella Flavio", "Gandham Brahmaiah"]
+  "professors": ["Vella Flavio", "Gandham Brahmaiah"],
+  "books": [
+    {
+      "authors": ["Peter S. Pacheco", "Matthew Malensek"],
+      "isbn": "978-0-12-804605-0",
+      "title": "An introduction to parallel programming"
+    }
+  ]
 }
